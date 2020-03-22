@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polar Snow Documentation">
+<meta property="og:url" content="https://docs.lvrui.io/page/9/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="etcd">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/page/9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在列表中根据条件筛选数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 01:16:28" itemprop="dateCreated datePublished" datetime="2017-07-25T01:16:28+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在列表中根据条件筛选数据/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先我们创建一个列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-1, 0, 8, 3, 5, 0, 4, 0, -2, 5]</span><br></pre></td></tr></table></figure>
+
+<p>现有一个需求, 需要在这个列表中筛选出大于0的数字, 以下给出四种实现方式</p>
+<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">l2 = []</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> l:</span><br><span class="line">    <span class="keyword">if</span> item &gt; <span class="number">0</span>:</span><br><span class="line">        l2.append(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.146998</span><br><span class="line">1500915233.147016</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000018</code></p>
+<h2 id="第二种方法-filter函数"><a href="#第二种方法-filter函数" class="headerlink" title="第二种方法: filter函数"></a>第二种方法: filter函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l3 = list(filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, l))</span><br><span class="line">print(time.time())</span><br><span class="line">print(l3)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.147029</span><br><span class="line">1500915233.147039</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000010</code></p>
+<h2 id="第三种方法-列表解析式"><a href="#第三种方法-列表解析式" class="headerlink" title="第三种方法: 列表解析式"></a>第三种方法: 列表解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l4 = [item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>]</span><br><span class="line">print(time.time())</span><br><span class="line">print(l4)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.14705</span><br><span class="line">1500915233.147056</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000006</code></p>
+<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><p>如果列表数据量巨大, 应该考虑的不是使用列表解析器, 而是生成器表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l5 = (item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">print(type(l5))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500916299.74144</span><br><span class="line">1500916299.741445</span><br><span class="line">&lt;class &#39;generator&#39;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000005</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>通过以上的四种实践方式得出, 使用循环迭代的方式性能最低, 小数据量时, 使用列表解析式是最好的选择; 如果数据量巨大, 应该使用生成器表达式生成一个可迭代对象提供使用</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注:"></a>备注:</h2><ul>
+<li><p>列表解析 <code>[expr for iter_var in iterable if cond_expr]</code></p>
+</li>
+<li><p>生成器表达式 <code>(expr for iter_var in iterable if cond_expr)</code></p>
+</li>
+</ul>
+<p>两者的语法非常相似, 但生成器表达式返回的不是一个列表类型对象, 而是一个生成器对象, 生成器是一个内存使用友好的结构</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">Python类中资源的访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-20 14:13:16" itemprop="dateCreated datePublished" datetime="2017-07-20T14:13:16+08:00">2017-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/20/Python类中资源的访问/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python 的类中有三种资源类型, 分别为字段, 方法和属性. </p>
+<p>字段又分为静态字段和普通字段</p>
+<p>方法分为静态方法,  普通方法和类方法</p>
+<p>而字段和方法又能有私有字段和私有方法的形态</p>
+<p>本篇文章就来介绍 Python 类中各个资源的访问规则</p>
+</blockquote>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><h2 id="公有静态字段"><a href="#公有静态字段" class="headerlink" title="公有静态字段"></a>公有静态字段</h2><ul>
+<li>在类的外部使用对象名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是使用实例化后的对象去访问的静态字段, 一般情况下, 最好用对象去访问对象自己的普通字段, 不要用对象来访问静态字段</p>
+<ul>
+<li>在类的外部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">print(A.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是一般情况下, 正确访问类中静态字段的方式, 即使用类名访问</p>
+<ul>
+<li>在类的内部使用对象访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>此种情况是在类的内部, 通过一个方法来获取类中静态字段的值, 在方法中, 使用了对象的名字去调用获取了类中静态字段的值, 一般情况下, 上面也说了, 对于类中对静态字段的访问, 需要使用类名去实现, 不推荐使用对象名去调用</p>
+<ul>
+<li>在类的内部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此种情况下, 我通过两种方式, 用类名获取了静态字段的值. 如果使用普通方法的话, 默认方法内的形参只传递了对象的名字, 如果想显示地调用类中的静态字段的话, 需要明确地指定类名; 但是如果是用对象方法的话, 对象方法默认帮我们传递了对象的名字, 所以我们可以使用<code>cls</code>变量直接调用静态字段</p>
+<h2 id="私有静态字段"><a href="#私有静态字段" class="headerlink" title="私有静态字段"></a>私有静态字段</h2><ul>
+<li>在类的内部使用类方法访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    __name = <span class="string">'polarsnow'</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>私有的静态字段, 不能在外部使用对象或类名调用, 只能通过在类的内部访问. 上面的例子提供了两种方式来访问私有的静态字段. 一种是在普通方法内通过显示指定来访问, 一种是在类方法中, 通过形参, 隐式地通过<code>cls</code>类名来访问</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="公有方法"><a href="#公有方法" class="headerlink" title="公有方法"></a>公有方法</h2><ul>
+<li>静态方法</li>
+<li>普通方法</li>
+<li>类方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br><span class="line">print(a.f3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>在普通方法中, python 隐式传递了对象名; 在类方法总, python 隐式传递了类名; 而静态方法的本质既没有用到对象也没有用到类, 如果静态方法拿到外面来, 就是 python 中普通的函数而已, 之所以把这种函数也放到类中,  是为了方便类中相关操作的聚合, 同一类的操作放到同一个类下</p>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__f3()</span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.ff())</span><br><span class="line">print(a.ff2())</span><br><span class="line">print(a.ff3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>每种类型的方法访问均可以访问自己的私有方法. 在共有静态方法调用私有静态方法时需要注意, 只能使用类名去访问私有静态方法</p>
+<p>在实际使用中, 对于私有方法的访问, 也可以跨类型访问, 比如我可以用一个普通方法去调用一个私有的类方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">n</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.n)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">修改gitlab管理员账户密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-11 14:44:30" itemprop="dateCreated datePublished" datetime="2017-07-11T14:44:30+08:00">2017-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/11/修改gitlab管理员账户密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@cord-gitlab-128-92 ~]<span class="comment"># gitlab-rails console production</span></span><br><span class="line">Loading production environment (Rails 4.2.7.1)</span><br><span class="line">irb(main):001:0&gt; u = User.where(id: 1).first</span><br><span class="line">=&gt; <span class="comment">#&lt;User id: 1, email: "admin@example.com", created_at: "2016-11-03 10:17:48", updated_at: "2017-07-11 03:21:27", name: "Administrator", admin: true, projects_limit: 10, skype: "", linkedin: "", twitter: "", authentication_token: "eTsFFy-5tb7qXAKLS1jf", theme_id: 2, bio: nil, username: "root", can_create_group: true, can_create_team: false, state: "active", color_scheme_id: 1, password_expires_at: nil, created_by_id: nil, last_credential_check_at: nil, avatar: nil, hide_no_ssh_key: false, website_url: "", notification_email: "admin@example.com", hide_no_password: false, password_automatically_set: false, location: nil, encrypted_otp_secret: nil, encrypted_otp_secret_iv: nil, encrypted_otp_secret_salt: nil, otp_required_for_login: false, otp_backup_codes: nil, public_email: "", dashboard: 0, project_view: 0, consumed_timestep: nil, layout: 0, hide_project_limit: false, otp_grace_period_started_at: nil, ldap_email: false, external: false, organization: nil&gt;</span></span><br><span class="line">irb(main):002:0&gt; u.password = <span class="string">'NewPassword2017'</span></span><br><span class="line">=&gt; <span class="string">"NewPassword2017"</span></span><br><span class="line">irb(main):003:0&gt; u.save!</span><br><span class="line">Enqueued ActionMailer::DeliveryJob (Job ID: 6b4cf332-80c1-4b3e-a158-efb04e66940c) to Sidekiq(mailers) with arguments: <span class="string">"DeviseMailer"</span>, <span class="string">"password_change"</span>, <span class="string">"deliver_now"</span>, gid://gitlab/User/1</span><br><span class="line">=&gt; <span class="literal">true</span></span><br><span class="line">irb(main):004:0&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">编写 docker-entrypoint.sh 入口文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-09 18:13:49" itemprop="dateCreated datePublished" datetime="2017-06-09T18:13:49+08:00">2017-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/09/编写docker-entrypoint-sh入口文件/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的官方 Registry 中(store.docker.com) 流行的第三方应用在自己的页面中都提供了 dockerfile 的链接. 而很多 dockerfile 的 ENTRYPOINT 命令都是这么写的 <code>[&quot;docker-entrypoint.sh&quot;]</code> 本篇文章就扫盲下 docker-entrypoint.sh 的特殊用法和设计逻辑</p>
+</blockquote>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><p>你写的每个脚本都应该在文件开头加上<code>set -e</code>, 这句语句告诉bash如果任何语句的执行结果不是<code>true</code>则应该退出. 这样的好处是防止错误像滚雪球般变大导致一个致命的错误, 而这些错误本应该在之前就被处理掉. 如果要增加可读性, 可以使用<code>set -o errexit</code>, 它的作用与<code>set -e</code>相同</p>
+<h2 id="set-o-pipefail"><a href="#set-o-pipefail" class="headerlink" title="set -o pipefail"></a>set -o pipefail</h2><p>设计用途同上, 就是希望在执行错误之后立即退出, 不要再向下执行了. 而 <code>-o pipefail</code> 的作用域是管道, 也就是说在 Linux 脚本中的管道, 如果前面的命令执行出了问题, 应该立即退出</p>
+<h2 id="shopt-s-nullglob"><a href="#shopt-s-nullglob" class="headerlink" title="shopt -s nullglob"></a>shopt -s nullglob</h2><p>在使用 Linux 中的通配符时 <code>* ?等</code> 如果没有匹配到任何文件, 不会报 <code>No such file or directory</code> 而是将命令后面的参数去掉执行</p>
+<h2 id="if-“-1-0-1-”-‘-‘-then…"><a href="#if-“-1-0-1-”-‘-‘-then…" class="headerlink" title="if [ “${1:0:1}” = ‘-‘ ]; then…"></a>if [ “${1:0:1}” = ‘-‘ ]; then…</h2><p>这是一个判断语句, 在官方文件中, 上一行已经给出了注释: <code>if command starts with an option, prepend mysqld</code></p>
+<p>这个判断语句是 <code>${1:0:1}</code> 意思是判断 $1(调用该脚本的第一个参数), 偏移量0(不偏移), 取一个字符(取字符串的长度)</p>
+<p>如果判断出来调用这个脚本后面所跟的参数第一个字符是<code>-</code>中横线的话, 就认为后面的所有字符串都是 mysqld 的启动参数</p>
+<p>上面的这个操作类似于 Python 的字符串切片</p>
+<h2 id="set-–-mysqld-“-”"><a href="#set-–-mysqld-“-”" class="headerlink" title="set – mysqld “$@”"></a>set – mysqld “$@”</h2><p>在上面判断完第一个参数是<code>-</code>开头之后,  紧接着就执行了 <code>set -- mysqld &quot;$@&quot;</code> 这个命令. 使用了 <code>set --</code> 的用法. <code>set —</code>会将他后面所有以空格区分的字符串, 按顺序分别存储到$1, $2, $3 变量中, 其中新的<code>$@</code> 为 <code>set —</code> 后面的全部内容</p>
+<p>举例来说: <code>bash docker-entrypoint.sh -f xxx.conf</code></p>
+<p>在这种情况下, <code>set -- mysqld &quot;$@&quot;</code> 中的 <code>$@</code> 的值为 <code>-f xxx.conf</code></p>
+<p>当执行完 <code>set -- mysqld &quot;$@&quot;</code> 这条命令后:</p>
+<ul>
+<li><code>$1=mysqld</code></li>
+<li><code>$2=-f</code></li>
+<li><code>$3=xxx.conf</code></li>
+<li><code>$@=mysqld -f xxx.conf</code></li>
+</ul>
+<p>可以看到, 当执行 <code>docker-entrypoint.sh</code>脚本的时候后面加了 <code>-x</code>形式的参数之后, $@的值发生的改变, 在原有$@值的基础之上, 在前面又预添加了 mysqld 命令</p>
+<h2 id="exec-“-”"><a href="#exec-“-”" class="headerlink" title="exec “$@”"></a>exec “$@”</h2><p>几乎在每个 <code>docker-entrypoint.sh</code> 脚本的最后一行, 执行的都是 <code>exec &quot;$@&quot;</code>命令</p>
+<p>这个命令的意义在于你已经为你的镜像预想到了应该有的调用情况, 当实际使用镜像的人执行了你没有预料到的可执行命令时, 将会走到脚本的这最后一行, 去执行用户新的可执行命令</p>
+<h2 id="情况判断"><a href="#情况判断" class="headerlink" title="情况判断"></a>情况判断</h2><p>上面直接说了脚本的最后一行, 在之前的脚本中, 需要充分的去考虑你自己的脚本可能会被调用的情况. 还是拿 MySQL 官方的 dockerfile 来说, 他判断以下情况:</p>
+<ul>
+<li>开头是 <code>-</code> , 认为是参数的情况</li>
+<li>开头是 <code>mysqld</code>, 且用户 id 为0 (root 用户) 的情况</li>
+<li>开头是 <code>mysqld</code> 的情况</li>
+</ul>
+<p>判断完自己应用的所有调用形态之后, 最后应该加上<code>exec &quot;$@&quot;</code> 命令兜底</p>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="${mysql[@]}"></a>${mysql[@]}</h2><p>Shell 中的数组, 直接执行 <code>${mysql[@]}</code> 会把这个数组当做可执行程序来执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  /tmp mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=<span class="string">"<span class="variable">$&#123;SOCKET&#125;</span>"</span> )</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[1]&#125;</span></span><br><span class="line">mysql</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[2]&#125;</span></span><br><span class="line">--protocol=socket</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[3]&#125;</span></span><br><span class="line">-uroot</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[4]&#125;</span></span><br><span class="line">-hlocalhost</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[@]&#125;</span></span><br><span class="line">mysql --protocol=socket -uroot -hlocalhost --socket=</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="exec-gosu-mysql-“-BASH-SOURCE”-“-”"><a href="#exec-gosu-mysql-“-BASH-SOURCE”-“-”" class="headerlink" title="exec gosu mysql “$BASH_SOURCE” “$@”"></a>exec gosu mysql “$BASH_SOURCE” “$@”</h2><p>这里的 gosu 命令, 是 Linux 中 sudo 命令的轻量级”替代品”</p>
+<p>gosu 是一个 golang 语言开发的工具, 用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题. 如果仅仅为了使用特定的用户运行程序, 使用 su 或 sudo 显得太重了, 为此 gosu 应运而生.</p>
+<p>gosu 直接借用了 libcontainer 在容器中启动应用程序的原理, 使用 <code>/etc/passwd</code> 处理应用程序. gosu 首先找出指定的用户或用户组, 然后切换到该用户或用户组. 接下来, 使用 exec 启动应用程序. 到此为止, gosu 完成了它的工作, 不会参与到应用程序后面的声明周期中. 使用这种方式避免了 gosu 处理 TTY 和转发信号量的问题, 把这两个工作直接交给了应用程序去完成</p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li>set -e: <a href="http://blog.csdn.net/todd911/article/details/9954961" target="_blank" rel="noopener">http://blog.csdn.net/todd911/article/details/9954961</a></li>
+<li>set -o pipefail: <a href="http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html</a></li>
+<li>shopt -s nullglob: <a href="http://mywiki.wooledge.org/glob#nullglob" target="_blank" rel="noopener">http://mywiki.wooledge.org/glob#nullglob</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
+<ul>
+<li>character-set-client-handshake = FALSE</li>
+<li>character-set-server = utf8mb4</li>
+<li>collation-server = utf8mb4_unicode_ci</li>
+<li>init_connect=’SET NAMES utf8mb4’</li>
+</ul>
+</blockquote>
+<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
+<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
+<ul>
+<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
+<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文章:</p>
+<ul>
+<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
+<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
+<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
+<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84%E6%8C%81%E7%BB%AD%E8%B0%83%E4%BC%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/07/MySQL57%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84%E6%8C%81%E7%BB%AD%E8%B0%83%E4%BC%98/" class="post-title-link" itemprop="url">MySQL5.7 高可用高性能配置调优</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-07 10:03:10" itemprop="dateCreated datePublished" datetime="2017-06-07T10:03:10+08:00">2017-06-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/07/MySQL57%E9%AB%98%E5%8F%AF%E7%94%A8%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84%E6%8C%81%E7%BB%AD%E8%B0%83%E4%BC%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57高可用高性能架构持续调优/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>MySQL5.7 在 5.6 版本的基础之上做了大量的优化, 本篇文章开篇将重点围绕经过优化的基于 GTID 的多线程复制和半同步复制的特性介绍, 后续会持续增加 MySQL5.7 的调优参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">default-character-set &#x3D; utf8mb4</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">### 基本属性配置</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">datadir&#x3D;&#x2F;data&#x2F;mysql</span><br><span class="line"># 禁用主机名解析</span><br><span class="line">skip-name-resolve</span><br><span class="line"># 默认的数据库引擎</span><br><span class="line">default-storage-engine &#x3D; InnoDB</span><br><span class="line"></span><br><span class="line">### 字符集配置</span><br><span class="line">character-set-client-handshake &#x3D; FALSE</span><br><span class="line">character-set-server &#x3D; utf8mb4</span><br><span class="line">collation-server &#x3D; utf8mb4_unicode_ci</span><br><span class="line">init_connect&#x3D;&#39;SET NAMES utf8mb4&#39;</span><br><span class="line"></span><br><span class="line">### GTID</span><br><span class="line">server_id &#x3D; 59</span><br><span class="line"># 为保证 GTID 复制的稳定, 行级日志</span><br><span class="line">binlog_format &#x3D; row</span><br><span class="line"># 开启 gtid 功能</span><br><span class="line">gtid_mode &#x3D; on</span><br><span class="line"># 保障 GTID 事务安全</span><br><span class="line"># 当启用enforce_gtid_consistency功能的时候,</span><br><span class="line"># MySQL只允许能够保障事务安全, 并且能够被日志记录的SQL语句被执行,</span><br><span class="line"># 像create table ... select 和 create temporarytable语句, </span><br><span class="line"># 以及同时更新事务表和非事务表的SQL语句或事务都不允许执行</span><br><span class="line">enforce-gtid-consistency &#x3D; true</span><br><span class="line"># 以下两条配置为主从切换, 数据库高可用的必须配置</span><br><span class="line"># 开启 binlog 日志功能</span><br><span class="line">log_bin &#x3D; on</span><br><span class="line"># 开启从库更新 binlog 日志</span><br><span class="line">log-slave-updates &#x3D; on</span><br><span class="line"></span><br><span class="line">### 慢查询日志</span><br><span class="line"># 打开慢查询日志功能</span><br><span class="line">slow_query_log &#x3D; 1</span><br><span class="line"># 超过2秒的查询记录下来</span><br><span class="line">long_query_time &#x3D; 2</span><br><span class="line"># 记录下没有使用索引的查询</span><br><span class="line">log_queries_not_using_indexes &#x3D; 1</span><br><span class="line"></span><br><span class="line">### 自动修复</span><br><span class="line"># 记录 relay.info 到数据表中</span><br><span class="line">relay_log_info_repository &#x3D; TABLE</span><br><span class="line"># 记录 master.info 到数据表中 </span><br><span class="line">master_info_repository &#x3D; TABLE</span><br><span class="line"># 启用 relaylog 的自动修复功能</span><br><span class="line">relay_log_recovery &#x3D; on</span><br><span class="line"># 在 SQL 线程执行完一个 relaylog 后自动删除</span><br><span class="line">relay_log_purge &#x3D; 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 数据安全性配置</span><br><span class="line"># 关闭 master 创建 function 的功能</span><br><span class="line">log_bin_trust_function_creators &#x3D; off</span><br><span class="line"># 每执行一个事务都强制写入磁盘</span><br><span class="line">sync_binlog &#x3D; 1</span><br><span class="line"># timestamp 列如果没有显式定义为 not null, 则支持null属性</span><br><span class="line"># 设置 timestamp 的列值为 null, 不会被设置为 current timestamp</span><br><span class="line">explicit_defaults_for_timestamp&#x3D;true</span><br><span class="line"></span><br><span class="line">### 优化配置</span><br><span class="line"># 优化中文全文模糊索引</span><br><span class="line">ft_min_word_len &#x3D; 1</span><br><span class="line"># 默认库名表名保存为小写, 不区分大小写</span><br><span class="line">lower_case_table_names &#x3D; 1</span><br><span class="line"># 单条记录写入最大的大小限制</span><br><span class="line"># 过小可能会导致写入(导入)数据失败</span><br><span class="line">max_allowed_packet &#x3D; 256M</span><br><span class="line"># 半同步复制开启</span><br><span class="line">rpl_semi_sync_master_enabled &#x3D; 1</span><br><span class="line">rpl_semi_sync_slave_enabled &#x3D; 1</span><br><span class="line"># 半同步复制超时时间设置</span><br><span class="line">rpl_semi_sync_master_timeout &#x3D; 1000</span><br><span class="line"># 复制模式(保持系统默认)</span><br><span class="line">rpl_semi_sync_master_wait_point &#x3D; AFTER_SYNC</span><br><span class="line"># 后端只要有一台收到日志并写入 relaylog 就算成功</span><br><span class="line">rpl_semi_sync_master_wait_slave_count &#x3D; 1</span><br><span class="line"># 多线程复制</span><br><span class="line">slave_parallel_type &#x3D; logical_clock</span><br><span class="line">slave_parallel_workers &#x3D; 4</span><br><span class="line"></span><br><span class="line">### 连接数限制</span><br><span class="line">max_connections &#x3D; 1500</span><br><span class="line"># 验证密码超过20次拒绝连接</span><br><span class="line">max_connect_errors &#x3D; 20</span><br><span class="line"># back_log值指出在mysql暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中</span><br><span class="line"># 也就是说，如果MySql的连接数达到max_connections时，新来的请求将会被存在堆栈中</span><br><span class="line"># 以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量超过back_log</span><br><span class="line"># 将不被授予连接资源</span><br><span class="line">back_log &#x3D; 500</span><br><span class="line">open_files_limit &#x3D; 65535</span><br><span class="line"># 服务器关闭交互式连接前等待活动的秒数</span><br><span class="line">interactive_timeout &#x3D; 3600</span><br><span class="line"># 服务器关闭非交互连接之前等待活动的秒数</span><br><span class="line">wait_timeout &#x3D; 3600</span><br><span class="line"></span><br><span class="line">### 内存分配</span><br><span class="line"># 指定表高速缓存的大小。每当MySQL访问一个表时，如果在表缓冲区中还有空间</span><br><span class="line"># 该表就被打开并放入其中，这样可以更快地访问表内容</span><br><span class="line">table_open_cache &#x3D; 1024</span><br><span class="line"># 为每个session 分配的内存, 在事务过程中用来存储二进制日志的缓存</span><br><span class="line">binlog_cache_size &#x3D; 2M</span><br><span class="line"># 在内存的临时表最大大小</span><br><span class="line">tmp_table_size &#x3D; 128M</span><br><span class="line"># 创建内存表的最大大小(保持系统默认, 不允许创建过大的内存表)</span><br><span class="line"># 如果有需求当做缓存来用, 可以适当调大此值</span><br><span class="line">max_heap_table_size &#x3D; 16M</span><br><span class="line"># 顺序读, 读入缓冲区大小设置</span><br><span class="line"># 全表扫描次数多的话, 可以调大此值</span><br><span class="line">read_buffer_size &#x3D; 1M</span><br><span class="line"># 随机读, 读入缓冲区大小设置</span><br><span class="line">read_rnd_buffer_size &#x3D; 8M</span><br><span class="line"># 高并发的情况下, 需要减小此值到64K-128K</span><br><span class="line">sort_buffer_size &#x3D; 1M</span><br><span class="line"># 每个查询最大的缓存大小是1M, 最大缓存64M 数据</span><br><span class="line">query_cache_size &#x3D; 64M</span><br><span class="line">query_cache_limit &#x3D; 1M</span><br><span class="line"># 提到 join 的效率</span><br><span class="line">join_buffer_size &#x3D; 16M</span><br><span class="line"># 线程连接重复利用</span><br><span class="line">thread_cache_size &#x3D; 64</span><br><span class="line"></span><br><span class="line">### InnoDB 优化</span><br><span class="line">## 内存利用方面的设置</span><br><span class="line"># 数据缓冲区</span><br><span class="line">innodb_buffer_pool_size&#x3D;2G</span><br><span class="line">## 日志方面设置</span><br><span class="line"># 事务日志大小</span><br><span class="line">innodb_log_file_size &#x3D; 256M</span><br><span class="line"># 日志缓冲区大小</span><br><span class="line">innodb_log_buffer_size &#x3D; 4M</span><br><span class="line"># 事务在内存中的缓冲</span><br><span class="line">innodb_log_buffer_size &#x3D; 3M</span><br><span class="line"># 主库保持系统默认, 事务立即写入磁盘, 不会丢失任何一个事务</span><br><span class="line">innodb_flush_log_at_trx_commit &#x3D; 1</span><br><span class="line"># mysql 的数据文件设置, 初始100, 以10M 自动扩展</span><br><span class="line">innodb_data_file_path &#x3D; ibdata1:100M:autoextend</span><br><span class="line"># 为提高性能, MySQL可以以循环方式将日志文件写到多个文件</span><br><span class="line">innodb_log_files_in_group &#x3D; 3</span><br><span class="line">##其他设置</span><br><span class="line"># 如果库里的表特别多的情况，请增加此值</span><br><span class="line">innodb_open_files &#x3D; 800</span><br><span class="line"># 为每个 InnoDB 表分配单独的表空间</span><br><span class="line">innodb_file_per_table &#x3D; 1</span><br><span class="line"># InnoDB 使用后台线程处理数据页上写 I&#x2F;O（输入）请求的数量</span><br><span class="line">innodb_write_io_threads &#x3D; 8</span><br><span class="line"># InnoDB 使用后台线程处理数据页上读 I&#x2F;O（输出）请求的数量</span><br><span class="line">innodb_read_io_threads &#x3D; 8</span><br><span class="line"># 启用单独的线程来回收无用的数据</span><br><span class="line">innodb_purge_threads &#x3D; 1</span><br><span class="line"># 脏数据刷入磁盘(先保持系统默认, swap 过多使用时, 调小此值, 调小后, 与磁盘交互增多, 性能降低)</span><br><span class="line"># innodb_max_dirty_pages_pct &#x3D; 90</span><br><span class="line"># 事务等待获取资源等待的最长时间</span><br><span class="line">innodb_lock_wait_timeout &#x3D; 120</span><br><span class="line"># 开启 InnoDB 严格检查模式, 不警告, 直接报错</span><br><span class="line">innodb_strict_mode&#x3D;1</span><br><span class="line"># 允许列索引最大达到3072</span><br><span class="line"> innodb_large_prefix &#x3D; on</span><br><span class="line"></span><br><span class="line">[mysqldump]</span><br><span class="line"># 开启快速导出</span><br><span class="line">quick</span><br><span class="line">default-character-set &#x3D; utf8mb4</span><br><span class="line">max_allowed_packet &#x3D; 256M</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"># 开启 tab 补全</span><br><span class="line">auto-rehash</span><br><span class="line">default-character-set &#x3D; utf8mb4</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">Docker容器的时区设置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-05 14:20:33" itemprop="dateCreated datePublished" datetime="2017-06-05T14:20:33+08:00">2017-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/Docker容器的时区设置/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的使用时, 经常会 pull 下来一些官方镜像或第三方的镜像,  毕竟绝大部分自己做的镜像也是基于官方镜像而来的, 其中一些对时间比较敏感的应用可能会因为时区的问题而导致异常, 本篇文章介绍两类系统下时区的修改</p>
+</blockquote>
+<h1 id="CentOS-RedHat-Fedora"><a href="#CentOS-RedHat-Fedora" class="headerlink" title="CentOS/RedHat/Fedora"></a>CentOS/RedHat/Fedora</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<p><strong>执行命令后立即生效</strong></p>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">echo</span> <span class="string">"Asia/shanghai"</span> &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行命令后立即生效</strong></p>
+<p>#特别说明</p>
+<p>在测试中发现, Debian 系统虽然应该和 Ubuntu 划分为一类, 但是却需要使用 CentOS 的做法来修改时区</p>
+<p>到底需要使用哪种方式来修改时区可以使用以下的小技巧</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先进入到容器中</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 6170cc378e95 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不管是哪个系统版本, 先查看当前的时区配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是出现一堆"乱码" 最后还带有时区标识的就使用上面 CentOS 的方式修改时区</span></span><br><span class="line">cat /etc/localtime                                    </span><br><span class="line">xxxxxxxxxxxxxx</span><br><span class="line">UTC0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是直接出现 xxx/yyy 这种地区字符的结果, 那么就使用上面 Ubuntu 的方式修改时区</span></span><br><span class="line">cat /etc/timezone </span><br><span class="line">Asia/Shanghai</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">docker image 镜像管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-05 14:11:09" itemprop="dateCreated datePublished" datetime="2017-06-05T14:11:09+08:00">2017-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/docker-image-镜像管理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li>Docker 管理命令<ul>
+<li>容器管理</li>
+<li><strong>镜像管理</strong></li>
+<li>网络管理</li>
+<li>系统管理</li>
+<li>数据卷管理</li>
+<li>快照管理</li>
+<li>插件管理</li>
+<li>其他</li>
+<li>swarmkit 管理<ul>
+<li>模式管理</li>
+<li>节点管理</li>
+<li>秘钥管理</li>
+<li>服务管理</li>
+<li>服务栈管理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="镜像管理-image"><a href="#镜像管理-image" class="headerlink" title="镜像管理 image"></a>镜像管理 image</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>根据 dockerfile 构建镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image build -t centos2 .</span></span><br><span class="line">Sending build context to Docker daemon  19.46kB</span><br><span class="line">Step 1/2 : FROM centos</span><br><span class="line"> ---&gt; a8493f5f50ff</span><br><span class="line">Step 2/2 : LABEL author <span class="string">"lvrui"</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 9a996772de96</span><br><span class="line"> ---&gt; 61b7efba9133</span><br><span class="line">Removing intermediate container 9a996772de96</span><br><span class="line">Successfully built 61b7efba9133</span><br><span class="line">root@ubuntu:~<span class="comment"># cat dockerfile </span></span><br><span class="line">FROM centos</span><br><span class="line">LABEL author=<span class="string">"lvrui"</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">centos2             latest              61b7efba9133        About a minute ago   192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago          204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago         192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago         183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago         1.84kB</span><br></pre></td></tr></table></figure>
+
+<p>-t 的作用是打标签, 可以直接打成 Registry 的形式, 方便直接 push 到 Registry</p>
+<p>如果没有打赏 Registry 地址也没有关系,后期可以通过 tag 命令修改</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>显示镜像的历史构建信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        2 minutes ago       192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br><span class="line">root@ubuntu:~<span class="comment"># docker image history centos2</span></span><br><span class="line">IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT</span><br><span class="line">61b7efba9133        2 minutes ago       /bin/sh -c <span class="comment">#(nop)  LABEL author=lvrui           0B                  </span></span><br><span class="line">a8493f5f50ff        37 hours ago        /bin/sh -c <span class="comment">#(nop)  CMD ["/bin/bash"]            0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop)  LABEL name=CentOS Base ...   0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop) ADD file:807143da05d7013...   192MB</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="import-save-load"><a href="#import-save-load" class="headerlink" title="import/save/load"></a>import/save/load</h2><ul>
+<li>import 导入镜像, 导入 export 出来的镜像</li>
+<li>save 导出镜像</li>
+<li>load 导入镜像, 导入 save 出来的镜像</li>
+</ul>
+<h2 id="inspect"><a href="#inspect" class="headerlink" title="inspect"></a>inspect</h2><p>查看镜像详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image inspect centos2</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"sha256:61b7efba9133e4ceaf4046e76a2f455a1204a8a794f16920c7543010e2759323"</span>,</span><br><span class="line">        <span class="string">"RepoTags"</span>: [</span><br><span class="line">            <span class="string">"centos2:latest"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"RepoDigests"</span>: [],</span><br><span class="line">        <span class="string">"Parent"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">        <span class="string">"Comment"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Created"</span>: <span class="string">"2017-04-08T09:12:50.750877048Z"</span>,</span><br><span class="line">        <span class="string">"Container"</span>: <span class="string">"9a996772de96183b48460aa1f02b907d1e8d97f8d322cc41aff909d2a8a74b61"</span>,</span><br><span class="line">        <span class="string">"ContainerConfig"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/sh"</span>,</span><br><span class="line">                <span class="string">"-c"</span>,</span><br><span class="line">                <span class="string">"#(nop) "</span>,</span><br><span class="line">                <span class="string">"LABEL author=lvrui"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"DockerVersion"</span>: <span class="string">"17.04.0-ce"</span>,</span><br><span class="line">        <span class="string">"Author"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Config"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/bash"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"Architecture"</span>: <span class="string">"amd64"</span>,</span><br><span class="line">        <span class="string">"Os"</span>: <span class="string">"linux"</span>,</span><br><span class="line">        <span class="string">"Size"</span>: 192481139,</span><br><span class="line">        <span class="string">"VirtualSize"</span>: 192481139,</span><br><span class="line">        <span class="string">"GraphDriver"</span>: &#123;</span><br><span class="line">            <span class="string">"Data"</span>: null,</span><br><span class="line">            <span class="string">"Name"</span>: <span class="string">"aufs"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"RootFS"</span>: &#123;</span><br><span class="line">            <span class="string">"Type"</span>: <span class="string">"layers"</span>,</span><br><span class="line">            <span class="string">"Layers"</span>: [</span><br><span class="line">                <span class="string">"sha256:36018b5e978717a047892794aebab513ba6856dbe1bdfeb478ca1219df2c7e9c"</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>作用等同于 <code>docker images</code> 查看镜像列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        3 hours ago         192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        5 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        40 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        44 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br></pre></td></tr></table></figure>
+
+<h2 id="prune"><a href="#prune" class="headerlink" title="prune"></a>prune</h2><p>删除没有被引用的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image prune</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="tag-pull-push"><a href="#tag-pull-push" class="headerlink" title="tag/pull/push"></a>tag/pull/push</h2><ul>
+<li>tag: 打标签</li>
+<li>pull: 从远程仓库 Registry 拉取镜像</li>
+<li>push: 从本地上传镜像</li>
+</ul>
+<h4 id="从registry中拉取镜像："><a href="#从registry中拉取镜像：" class="headerlink" title="从registry中拉取镜像："></a>从registry中拉取镜像：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
+
+<h4 id="将镜像推送到registry："><a href="#将镜像推送到registry：" class="headerlink" title="将镜像推送到registry："></a>将镜像推送到registry：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker login --username=lvrui03@126.com registry.cn-beijing.aliyuncs.com</span><br><span class="line">$ sudo docker tag [ImageId] registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br><span class="line">$ sudo docker push registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
+
+<p>注意: 如果 Registry 有密码, 还需要先 login 到镜像仓库才可以上传镜像</p>
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>删除指定的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image rm centos2:latest</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/Rabbitmq3-3-1%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E9%BB%98%E8%AE%A4%E4%B8%8D%E5%85%81%E8%AE%B8guest%E7%99%BB%E5%BD%95-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/02/Rabbitmq3-3-1%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E9%BB%98%E8%AE%A4%E4%B8%8D%E5%85%81%E8%AE%B8guest%E7%99%BB%E5%BD%95-0/" class="post-title-link" itemprop="url">RabbitMQ3.3.1版本之后默认不允许guest登录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-02 14:21:27" itemprop="dateCreated datePublished" datetime="2017-06-02T14:21:27+08:00">2017-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/02/Rabbitmq3-3-1%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E%E9%BB%98%E8%AE%A4%E4%B8%8D%E5%85%81%E8%AE%B8guest%E7%99%BB%E5%BD%95-0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/Rabbitmq3-3-1版本之后默认不允许guest登录-0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 rabbitmq 3.3.1 版本之后, 取消了 guest 登录的权限, 如果需要强制开启需要以下操作</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">echo</span> <span class="string">"[&#123;rabbit, [&#123;loopback_users, []&#125;]&#125;]."</span> &gt; /etc/rabbitmq/rabbitmq.config </span><br><span class="line">➜  ~ systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
+
+<p>尝试登陆访问: <code>http://rabbitmq-server-IP:15672</code></p>
+<ul>
+<li>username: <code>guest</code></li>
+<li>password: <code>guest</code></li>
+</ul>
+<p><strong>注意</strong>:</p>
+<ul>
+<li>在执行上面的重定向之前, 最好先检查你系统中有没有这个文件, 如果是新装的 rabbitmq, 默认是没有的, 可以直接执行上面的命令创建并写入内容</li>
+<li>上面写入的内容中一定不要忘记最后的 <code>.</code> 没有这个 <code>.</code> 重启 rabbitmq 会报错的</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">强制卸载无响应的nfs挂载目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-02 14:18:59" itemprop="dateCreated datePublished" datetime="2017-06-02T14:18:59+08:00">2017-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/强制卸载无响应的nfs挂载目录/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在日常的运维中, 经常有需要使用 nfs 挂载远程服务器目录的需求, 但是照我个人实际使用的经验来看, nfs 并不是”一劳永逸”, 故障率还是蛮高的, 其中最长遇到的就是由于网络原因/远程 nfs 服务器原因或其他原因导致的 nfs 客户端与 nfs 服务器失联. 失联并不可怕, 可怕的是它并不会自动重连. 这个时候需要我们手动介入到重连的操作中</p>
+</blockquote>
+<p>nfs 客户端与服务端失去连接, 最直观的现象就是在 Linux 命令行中,执行 <code>df -h</code> 命令, 整个 terminal 终端就会卡在那里一动不动(挂起), 你可以参考以下方案解决该问题</p>
+<h1 id="新开一个-session"><a href="#新开一个-session" class="headerlink" title="新开一个 session"></a>新开一个 session</h1><p>也许你当前的 session 已经被卡住了, 这时需要打开一个新的 session, 如果你是直接登录到 linux 系统界面的, 可以同时按下 “Ctrl+Alt+F2” 切换到第二个 terminal</p>
+<h1 id="查询之前挂载的路径"><a href="#查询之前挂载的路径" class="headerlink" title="查询之前挂载的路径"></a>查询之前挂载的路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nfsstat -m</span><br><span class="line">nfsstat -m</span><br><span class="line">/webserver/page from 192.168.1.112:/webserver/page</span><br><span class="line"> Flags: rw,relatime,vers=4.0,rsize=524288,wsize=524288,namlen=255,hard,proto=tcp,port=0,timeo=600,retrans=2,sec=sys,clientaddr=192.168.1.4,local_lock=none,addr=192.168.1.112</span><br></pre></td></tr></table></figure>
+
+<p>以上命令不仅仅会显示出当前的挂载点信息, 还会显示出详细的 nfs 属性信息</p>
+<p>当然, 你也可以通过 <code>mount</code> 命令来查询 nfs 的挂载点, 前面写着 IP 的就是 nfs 的挂载信息</p>
+<h1 id="使用-umount-f-PATH-卸载"><a href="#使用-umount-f-PATH-卸载" class="headerlink" title="使用 umount -f PATH 卸载"></a>使用 umount -f PATH 卸载</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span></span><br><span class="line">➜  ~ umount -f /webserver/page</span><br></pre></td></tr></table></figure>
+
+<p>先 cd 到家目录, 再强制卸载, 如果执行此命令后, 还是提示磁盘”busily” 就使用以下命令卸载</p>
+<h1 id="使用-umount-l-PATH-卸载"><a href="#使用-umount-l-PATH-卸载" class="headerlink" title="使用 umount -l PATH 卸载"></a>使用 umount -l PATH 卸载</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span></span><br><span class="line">➜  ~ umount -l /webserver/page</span><br></pre></td></tr></table></figure>
+
+<p>注意: 这里是使用的小写的<code>L</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>

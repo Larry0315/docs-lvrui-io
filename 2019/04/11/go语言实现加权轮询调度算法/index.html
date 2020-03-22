@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="上篇文章中介绍了轮询调度算法, 忽略后端元素的差异性, 将请求均匀的”涂抹”到后端节点. 本篇介绍更为复杂的加权轮询调度算法, 可以根据后端节点实际承载能力, 单独调整每个节点的权重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言实现加权轮询调度算法">
+<meta property="og:url" content="https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="上篇文章中介绍了轮询调度算法, 忽略后端元素的差异性, 将请求均匀的”涂抹”到后端节点. 本篇介绍更为复杂的加权轮询调度算法, 可以根据后端节点实际承载能力, 单独调整每个节点的权重">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-11T07:53:36.000Z">
+<meta property="article:modified_time" content="2020-03-22T07:07:31.928Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="gcd">
+<meta property="article:tag" content="wrr">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>go语言实现加权轮询调度算法 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go语言实现加权轮询调度算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 15:53:36" itemprop="dateCreated datePublished" datetime="2019-04-11T15:53:36+08:00">2019-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/11/go语言实现加权轮询调度算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>上篇文章中介绍了轮询调度算法, 忽略后端元素的差异性, 将请求均匀的”涂抹”到后端节点. 本篇介绍更为复杂的加权轮询调度算法, 可以根据后端节点实际承载能力, 单独调整每个节点的权重</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="演示思路"><a href="#演示思路" class="headerlink" title="演示思路"></a>演示思路</h2><p>在编写代码前, 先来说下实现加权轮询调度算法的思路. 加权轮询, 是在轮询的基础之上, 加上了对权重值的判断, 先看下下面的权重配置实例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          -</span><br><span class="line">          -</span><br></pre></td></tr></table></figure>
+
+<p>上面<code>a, b, c, d</code>四个后端节点, 配置的权重分别为<code>4, 4, 6, 2</code>. 也就是说, 当正好有16个请求打过来之后, 后端实际被调度的次数应该就是<code>4, 4, 6, 2</code></p>
+<p>实现加权轮询算法的核心, 依然离不开轮询调度算法, 依然需要前篇文章介绍的轮询调度算法来控制索引下标. 第一步, 我们先找出后端所有元素配置的最大权重, 结果是: 最大权重为6, 那么我们期望第一次的调度结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          -</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>通过轮询调度算法, 依次判断哪个元素<code>&gt;=</code>最大权重值<code>6</code>, 当内存循环到<code>c</code>元素时, 条件满足, 则第一次调度的结果, 在算法内部循环了3次后, 返回了<code>c</code>.  </p>
+<p>当有第二次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>操作流程同上, 依次判断哪个元素的权重<code>&gt;=最大权重值</code> <code>最大权重值</code>此时<code>=8</code>, 内部开始轮询, 根据上次的索引下标继续向下轮询, 上次轮询到<code>c</code>, 本次将从<code>d</code>开始轮询, <code>d</code>的值不满足<code>&gt;=最大权重值</code>的条件, 应该回到<code>a</code>继续轮询判断, 直到符合条件为止. </p>
+<p>这里需要注意的是, 再回到<code>a</code>之前, 应该将最大权重值<code>-1</code>, 因为在上一轮的轮询中, 已经将<code>=最大权重值</code>的元素消灭, 所以需要将<code>最大权重值-1</code>, 继续轮询判断, 是否有满足条件的元素, 我们在这里临时命名为<code>当前最大权重值(后面用cw表示)</code>, <code>-1</code>操作后, <code>cw=5</code>.</p>
+<p><code>c</code>元素的权重值<code>6</code>符合<code>&gt;=5</code>的条件. 立即返回, 所以第二次的调度结果, 依然是<code>c</code>. </p>
+<p>当有第三次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️   -    -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>同上, 依次判断哪个元素的权重<code>&gt;=cw</code> <code>cw</code>此时<code>=5</code>, 开始轮询, 上次轮询到<code>c</code>, 本次从下一个元素<code>d</code>开始轮询, <code>d</code>不满足条件, 此时一整轮轮询结束🔚, 再次将<code>cw-1</code>, 此时<code>cw=4</code>. 并从<code>a</code>开始重新轮询, 发现<code>a</code>符合<code>&gt;=4</code>的条件, 立即返回, 所以第三次的调度结果为<code>a</code>.</p>
+<p>当有第四次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️   ✔️   -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>同上, 此时<code>cw=4</code>, 从<code>b</code>元素开始轮询, <code>b</code>即符合条件, 立即返回, 所以第四次调度结果为<code>b</code></p>
+<p>第五次请求, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️  ✔️   ✔️</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>此时<code>cw=4</code>, 从上次结束的下一个元素开始轮询, <code>c</code>即符合条件, 立即返回, 所以第五次调度结果为<code>c</code></p>
+<p>第六次请求, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">✔️   -    -</span><br><span class="line">✔️  ✔️   ✔️</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>此时<code>cw=4</code>, 从上次结束的下一个元素开始轮询, <code>d</code>不符合<code>&gt;=cw</code>条件, 本轮轮询结束, <code>cw-1</code>, 此时<code>cw=3</code>, 从<code>a</code>元素开始轮询, <code>a</code>即符合<code>&gt;=cw</code>条件, 所以第六次调度结果为<code>a</code></p>
+<p>以此类推~ 当所有的元素都被调度过一次之后, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b   c    d</span><br><span class="line">✔️  ✔️  ✔️   ✔️</span><br><span class="line">✔️  ✔️  ✔️   ✔️</span><br><span class="line">✔️  ✔️  ✔️</span><br><span class="line">✔️  ✔️  ✔️</span><br><span class="line">         ✔️</span><br><span class="line">         ✔️</span><br></pre></td></tr></table></figure>
+
+<p>需要将<code>cw</code>的重置为<code>最大权重值</code>, 以供后续请求重新调度</p>
+<p>总结: 我们总结一下上面流程的关键点</p>
+<ul>
+<li>通过<code>i = (i + 1) mod n</code>轮询每个元素(这是上一篇轮询调度算法的核心)</li>
+<li>需要取得所有元素中最大的权重值</li>
+<li>需要定义一个cw(current weight)变量, 用来记录最新的”最大权重值”</li>
+<li>每次所有的元素被轮询一次后, 都需要将<code>cw-1</code></li>
+<li>当<code>cw-1</code>之后的值<code>&lt;=0</code>时, 意味着所有的元素按照权重之比, 都已经被调度过一次了, 此时需要将<code>cw</code>的值重置为<code>最大权重值</code>, 以供后续请求重新调度</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="step-0-前期准备"><a href="#step-0-前期准备" class="headerlink" title="step 0: 前期准备"></a>step 0: 前期准备</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义带权重属性的元素结构体</span></span><br><span class="line"><span class="keyword">type</span> Volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Weight <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义元素集合类型</span></span><br><span class="line"><span class="keyword">type</span> Volumes []Volume</span><br><span class="line"><span class="comment">// GetMaxWeight 获取Slice中最大权重值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetMaxWeight</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	maxWeight := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, volume := <span class="keyword">range</span> v &#123;</span><br><span class="line">		<span class="keyword">if</span> maxWeight &lt; volume.Weight &#123;</span><br><span class="line">			maxWeight = volume.Weight</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxWeight</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调度索引</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// current weight 记录当前调度的权重值</span></span><br><span class="line"><span class="keyword">var</span> cw = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="step-1-首先实现轮询调度算法"><a href="#step-1-首先实现轮询调度算法" class="headerlink" title="step 1: 首先实现轮询调度算法"></a>step 1: 首先实现轮询调度算法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-2-每次所有的元素被轮询一次后将cw-1"><a href="#step-2-每次所有的元素被轮询一次后将cw-1" class="headerlink" title="step 2: 每次所有的元素被轮询一次后将cw-1"></a>step 2: 每次所有的元素被轮询一次后将cw-1</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-3-cw-lt-0时将cw重置为最大权重值"><a href="#step-3-cw-lt-0时将cw重置为最大权重值" class="headerlink" title="step 3: cw&lt;=0时将cw重置为最大权重值"></a>step 3: cw&lt;=0时将cw重置为最大权重值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提前算好最大权重值, 传进去</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	   <span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">	   <span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">	   <span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">	   <span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">	   <span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">	       cw = maxWeight</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-4-当索引对应的元素权重值-gt-cw时返回"><a href="#step-4-当索引对应的元素权重值-gt-cw时返回" class="headerlink" title="step 4: 当索引对应的元素权重值&gt;=cw时返回"></a>step 4: 当索引对应的元素权重值&gt;=cw时返回</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提前算好最大权重值, 传进去</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	   <span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">	   <span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">	   <span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">	   <span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">	   <span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">	       cw = maxWeight</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// return这里需要稍加修改, 只有元素的权重值&gt;=cw时才可以返回</span></span><br><span class="line">	<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">	   <span class="keyword">return</span> v[i].name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="内部轮询"><a href="#内部轮询" class="headerlink" title="内部轮询"></a>内部轮询</h3><p>上面的return中, 定义了只有当元素的权重值&gt;=cw时才可以返回, 那么该条件如果不符合时, 需要在函数内继续轮询元素, 直至有元素的权重值符合条件为止</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">		<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">		<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">		<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">		<span class="keyword">if</span> i == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">			cw = cw - <span class="number">1</span></span><br><span class="line">			<span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">			<span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">			<span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">			<span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">			<span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// 将cw重置为最大权重值</span></span><br><span class="line">				cw = maxWeight</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// return这里需要稍加修改, 只有元素的权重值&gt;=cw时才可以返回</span></span><br><span class="line">		<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">			<span class="keyword">return</span> v[i].name</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优化项"><a href="#优化项" class="headerlink" title="优化项"></a>优化项</h3><ul>
+<li>性能优化: 上面的代码实现中, 所有的元素每当轮询一轮后, cw都是写死了要<code>-1</code>, 其实这里可以可以稍加优化, 预先计算出所有元素权重值得最大公约数, 每次轮询完一轮后cw可以直接<code>-最大公约数(gcd)</code>, 这样可以减少内部循环的次数, 而且调度效果更为分散. (当然配置的权重最大公约数计算之后如果也是1, 则该优化与直接每次-1的循环次数相同)</li>
+</ul>
+<p><strong>求最大公约数算法可参考前面的文章</strong></p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义带权重属性的元素结构体</span></span><br><span class="line"><span class="keyword">type</span> Volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Weight <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义元素集合类型</span></span><br><span class="line"><span class="keyword">type</span> Volumes []Volume</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调度索引</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// current weight 记录当前调度的权重值</span></span><br><span class="line"><span class="keyword">var</span> cw = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">Select</span><span class="params">(maxWeight, gcd <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">		<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">		<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">		<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">		<span class="keyword">if</span> i == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">// 最新权重值 = 当前权重值 - 最大公约数</span></span><br><span class="line">			cw = cw - gcd</span><br><span class="line">			<span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// cw &lt;= 0 时, 有两种情况</span></span><br><span class="line">				<span class="comment">// 1. 首次被调用执行时, cw值初始化为0, 只要maxWeight最大权重数值在0以上, cw的最新值一定&lt;0</span></span><br><span class="line">				<span class="comment">// 2. 当所有的元素按照权重都被调度/选择一遍之后, cw的值一定为0</span></span><br><span class="line">				<span class="comment">// 此时需要将最大权重值(重新)赋值到cw</span></span><br><span class="line">				cw = maxWeight</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 当索引值 &gt;= 最新权重值时, 返回名称</span></span><br><span class="line">		<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">			<span class="keyword">return</span> v[i].Name</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GetMaxWeight 获取Slice中最大权重值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetMaxWeight</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	maxWeight := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, volume := <span class="keyword">range</span> v &#123;</span><br><span class="line">		<span class="keyword">if</span> maxWeight &lt; volume.Weight &#123;</span><br><span class="line">			maxWeight = volume.Weight</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxWeight</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Gcd</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Gcd(b, a%b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GetGcd 获取Slice最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetGcd</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	g := v[<span class="number">0</span>].Weight</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(v)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		g = Gcd(g, v[i+<span class="number">1</span>].Weight)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	v1 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"a"</span>,</span><br><span class="line">		Weight: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v2 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"b"</span>,</span><br><span class="line">		Weight: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v3 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"c"</span>,</span><br><span class="line">		Weight: <span class="number">6</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v4 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"d"</span>,</span><br><span class="line">		Weight: <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vo := Volumes&#123;</span><br><span class="line">		v1, v2, v3, v4,</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 获取元素集中的最大权重值</span></span><br><span class="line">	maxWeight := vo.GetMaxWeight()</span><br><span class="line">	<span class="comment">// 获取元素集中权重值的最大公约数</span></span><br><span class="line">	gcd := vo.GetGcd()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="number">18</span>; j++ &#123;</span><br><span class="line">		fmt.Println(j+<span class="number">1</span>, vo.Select(maxWeight, gcd))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1 c</span><br><span class="line">2 a</span><br><span class="line">3 b</span><br><span class="line">4 c</span><br><span class="line">5 a</span><br><span class="line">6 b</span><br><span class="line">7 c</span><br><span class="line">8 d</span><br><span class="line">9 c</span><br><span class="line">10 a</span><br><span class="line">11 b</span><br><span class="line">12 c</span><br><span class="line">13 a</span><br><span class="line">14 b</span><br><span class="line">15 c</span><br><span class="line">16 d</span><br><span class="line">17 c</span><br><span class="line">18 a</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/03/17/go语言实现最大公约数算法/" rel="bookmark">go语言实现最大公约数算法</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/gcd/" rel="tag"><i class="fa fa-tag"></i> gcd</a>
+              <a href="/tags/wrr/" rel="tag"><i class="fa fa-tag"></i> wrr</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" rel="prev" title="go语言实现轮询调度算法">
+      <i class="fa fa-chevron-left"></i> go语言实现轮询调度算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/" rel="next" title="go语言struct中的匿名字段与组合">
+      go语言struct中的匿名字段与组合 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#演示思路"><span class="nav-number">1.</span> <span class="nav-text">演示思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step-0-前期准备"><span class="nav-number">2.1.</span> <span class="nav-text">step 0: 前期准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-1-首先实现轮询调度算法"><span class="nav-number">2.2.</span> <span class="nav-text">step 1: 首先实现轮询调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-2-每次所有的元素被轮询一次后将cw-1"><span class="nav-number">2.3.</span> <span class="nav-text">step 2: 每次所有的元素被轮询一次后将cw-1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-3-cw-lt-0时将cw重置为最大权重值"><span class="nav-number">2.4.</span> <span class="nav-text">step 3: cw&lt;&#x3D;0时将cw重置为最大权重值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-4-当索引对应的元素权重值-gt-cw时返回"><span class="nav-number">2.5.</span> <span class="nav-text">step 4: 当索引对应的元素权重值&gt;&#x3D;cw时返回</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部轮询"><span class="nav-number">2.6.</span> <span class="nav-text">内部轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化项"><span class="nav-number">2.7.</span> <span class="nav-text">优化项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码"><span class="nav-number">3.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/";
+    this.page.identifier = "2019/04/11/go语言实现加权轮询调度算法/";
+    this.page.title = "go语言实现加权轮询调度算法";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

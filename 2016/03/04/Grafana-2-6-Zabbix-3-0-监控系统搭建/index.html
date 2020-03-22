@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文介绍在CentOS6系列系统中，安装zabbix 3.0与grafana 2.5 搭配的监控系统据了解在zabbix 3.0 LTS版本有50余项升级，zabbix是结合了众多监控系统的优点，是一款比较全面分布式监控系统。在与Grafana搭伙后，完美解决了Zabbix GUI审美疲劳的痛点，接下来进入正题（Zabbix 3.0安装部分完全按照官方文档的步骤实现）  前言 本文的Zabbix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grafana2.6+Zabbix3.0监控系统搭建">
+<meta property="og:url" content="https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="本文介绍在CentOS6系列系统中，安装zabbix 3.0与grafana 2.5 搭配的监控系统据了解在zabbix 3.0 LTS版本有50余项升级，zabbix是结合了众多监控系统的优点，是一款比较全面分布式监控系统。在与Grafana搭伙后，完美解决了Zabbix GUI审美疲劳的痛点，接下来进入正题（Zabbix 3.0安装部分完全按照官方文档的步骤实现）  前言 本文的Zabbix">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oss.20150509.cn/install_1.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_2.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_3.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_4.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_5.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_6.png">
+<meta property="og:image" content="http://oss.20150509.cn/install_7.png">
+<meta property="og:image" content="http://oss.20150509.cn/login.png">
+<meta property="og:image" content="http://oss.20150509.cn/Zabbix_1.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/Zabbix_2.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/Zabbix_3.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/grafana_1.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/grafana_2.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/grafana_3.jpg">
+<meta property="og:image" content="http://oss.20150509.cn/grafana_5.jpg">
+<meta property="article:published_time" content="2016-03-04T08:46:14.000Z">
+<meta property="article:modified_time" content="2020-03-22T06:36:47.929Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Grafana">
+<meta property="article:tag" content="Zabbix">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="Remi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oss.20150509.cn/install_1.png">
+
+<link rel="canonical" href="https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Grafana2.6+Zabbix3.0监控系统搭建 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Grafana2.6+Zabbix3.0监控系统搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-04 16:46:14" itemprop="dateCreated datePublished" datetime="2016-03-04T16:46:14+08:00">2016-03-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/04/Grafana-2-6-Zabbix-3-0-监控系统搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文介绍在CentOS6系列系统中，安装zabbix 3.0与grafana 2.5 搭配的监控系统<br>据了解在zabbix 3.0 LTS版本有50余项升级，zabbix是结合了众多监控系统的优点，是一款比较全面分布式监控系统。在与Grafana搭伙后，完美解决了Zabbix GUI审美疲劳的痛点，接下来进入正题（Zabbix 3.0安装部分完全按照官方文档的步骤实现）</p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ol>
+<li>本文的Zabbix部分知识只介绍它的基础安装，Zabbix的使用以及配置优化并不在本文的介绍范围之内。</li>
+<li>本文只介绍在CentOS6系列下的安装和部署，其他发行版与其他版本号暂不涉及</li>
+<li>本文默认使用MySQL作为后端数据库支持</li>
+</ol>
+<hr>
+<h1 id="CentOS-6-x-基础环境配置部分"><a href="#CentOS-6-x-基础环境配置部分" class="headerlink" title="CentOS 6.x 基础环境配置部分"></a>CentOS 6.x 基础环境配置部分</h1><h2 id="基础环境介绍"><a href="#基础环境介绍" class="headerlink" title="基础环境介绍"></a>基础环境介绍</h2><ul>
+<li>CentOS 6.7 64bit</li>
+<li>8CPU</li>
+<li>1G Mem</li>
+<li>MySQL InnoDB</li>
+</ul>
+<h2 id="基础依赖环境配置"><a href="#基础依赖环境配置" class="headerlink" title="基础依赖环境配置"></a>基础依赖环境配置</h2><h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><p><strong>1.Zabbix官方文档要求Apache的版本要在1.3.12之后</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install httpd -y</span><br><span class="line">Loaded plugins: fastestmirror, refresh-packagekit, security</span><br><span class="line">Setting up Install Process</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.neusoft.edu.cn</span><br><span class="line"> * epel: mirrors.yun-idc.com</span><br><span class="line"> * extras: mirrors.btte.net</span><br><span class="line"> * remi-safe: mirror.innosol.asia</span><br><span class="line"> * rpmforge: mirrors.neusoft.edu.cn</span><br><span class="line"> * updates: mirrors.btte.net</span><br><span class="line">Package httpd-2.2.15-47.el6.centos.3.x86_64 already installed and latest version</span><br><span class="line">Nothing to <span class="keyword">do</span></span><br></pre></td></tr></table></figure>
+
+<p> 我这里已经安装了<code>httpd 2.2</code>版本，符合官方文档中的要求</p>
+<p><strong>2.启动httpd服务，并设置为开机自动启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; service httpd start</span><br><span class="line">shell&gt; chkconfig httpd on</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p><strong>PHP的版本要求在5.4以上，但Linux 6.x系统自带repo中的PHP版本是5.3.3 不符合Zabbix官方文档的要求，需要使用Remi repo来安装更高版本的PHP</strong></p>
+<h4 id="配置Remi-Repo来安装高版本的PHP"><a href="#配置Remi-Repo来安装高版本的PHP" class="headerlink" title="配置Remi Repo来安装高版本的PHP"></a>配置Remi Repo来安装高版本的PHP</h4><p><strong>1.下载Remi</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.配置Remi</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用习惯的文本编辑器（如 vim）打开 Remi 源配置文件 &#x2F;etc&#x2F;yum.repos.d&#x2F;remi.repo</span><br><span class="line">启用 Remi Repository修改 enabled&#x3D;0 为 enabled&#x3D;1</span><br><span class="line">为 Remi Repository 设置合适的优先级在 [remi] 那一节的结尾另起一行添加下面的代码：priority&#x3D;3</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.安装PHP</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install --enablerepo=remi php php-gd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>因为php-gd和php版本可能有依赖，所以php-gd这个扩展也使用remi这个repo来安装</p>
+</li>
+<li><p>如果出现<code>Requires: libt1.so.5()(64bit)</code>这个报错，可以参考 <a href="http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/" target="_blank" rel="noopener">http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/</a> 这篇文章解决</p>
+</li>
+</ul>
+<p><strong>4.根据Zabbix官方文档需求安装PHP扩展</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install php-bcmath php-ctype php-xml php-xmlreader php-xmlwriter php-session php-net-socket php-gettext php-mbstring php-gettext php-ldap php-mysql</span><br></pre></td></tr></table></figure>
+
+<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><p><strong>根据官方文档的要求，需要在服务器中安装一下软件支持</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install OpenIPMI OpenIPMI-devel libssh2 libssh2-devel fping libcurl libxml2 libxml2-devel net-snmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p><strong>官方文档要求MySQL的版本要在5.0.3以上，CentOS 6.7默认的repo里提供的MySQL版本为5.1.73 符合官方文档要求</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install mysql mysql-server mysql-devel</span><br><span class="line">shell&gt; service mysqld start  <span class="comment">#首次启动需要初始化</span></span><br><span class="line">shell&gt; chkconfig mysqld on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Zabbix安装部分"><a href="#Zabbix安装部分" class="headerlink" title="Zabbix安装部分"></a>Zabbix安装部分</h1><p><strong>Zabbix 3.0的安装参考了官方文档中源码编译安装的方式，软件包的方式比较简单，大家可以参考官方文档自行试验，时间关系，这里暂不介绍rpm包的安装方式，后续有时间会补充提供这种安装方式的说明</strong></p>
+<h2 id="源码安装的方式"><a href="#源码安装的方式" class="headerlink" title="源码安装的方式"></a>源码安装的方式</h2><h3 id="下载Zabbix-3-0源码包并解压"><a href="#下载Zabbix-3-0源码包并解压" class="headerlink" title="下载Zabbix 3.0源码包并解压"></a>下载Zabbix 3.0源码包并解压</h3><p>Zabbix 3.0 源码官方下载地址： <a href="http://www.zabbix.com/download.php" target="_blank" rel="noopener">http://www.zabbix.com/download.php</a><br>选择<code>Zabbix Sources</code>下的<code>Zabbix 3.0 LTS</code>进行下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; tar -zxvf zabbix-3.0.0.tar.gz  <span class="comment">#解压缩</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建用户及组"><a href="#创建用户及组" class="headerlink" title="创建用户及组"></a>创建用户及组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; groupadd zabbix</span><br><span class="line">shell&gt; useradd -g zabbix zabbix</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Zabbix数据库"><a href="#创建Zabbix数据库" class="headerlink" title="创建Zabbix数据库"></a>创建Zabbix数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mysql -uroot -p&lt;password&gt;</span><br><span class="line">mysql&gt; create database zabbix character <span class="built_in">set</span> utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by <span class="string">'&lt;password&gt;'</span>;</span><br><span class="line">mysql&gt; quit;</span><br><span class="line">shell&gt; <span class="built_in">cd</span> database/mysql  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; schema.sql</span><br><span class="line"><span class="comment">#如果你是为Zabbix Proxy来创建数据库，那么到这里就必须停止了，下面的不需要执行</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; images.sql</span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; data.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装Zabbix-Server和Zabbix-Agent"><a href="#编译安装Zabbix-Server和Zabbix-Agent" class="headerlink" title="编译安装Zabbix Server和Zabbix Agent"></a>编译安装Zabbix Server和Zabbix Agent</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --<span class="built_in">help</span> <span class="comment">#可以查看编译的参数项</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-server --<span class="built_in">enable</span>-agent --with-mysql --<span class="built_in">enable</span>-ipv6 --with-net-snmp --with-libcurl --with-libxml2  <span class="comment">#Zabbix Server与Agent安装参数参考</span></span><br><span class="line">shell&gt; make install</span><br></pre></td></tr></table></figure>
+
+<p>其他组件安装参考：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --prefix=/usr --<span class="built_in">enable</span>-proxy --with-net-snmp --with-sqlite3 --with-ssh2  <span class="comment">#Zabbix Proxy安装参数参考</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-agent  <span class="comment">#Zabbix Agent安装参数参考</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>如果Server与Agent采用了AIO（All In One）的部署方式，作为测试，Agent的配置文件<code>可以不修改</code></p>
+<p>接下来修改Server的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; vim /usr/<span class="built_in">local</span>/etc/zabbix_server.conf</span><br><span class="line"><span class="comment">#以下为修改完成后的项目</span></span><br><span class="line"><span class="comment">#DBName和DBUser保持以下默认参数即可，只需设置DBPassword一项</span></span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=zabbix</span><br><span class="line">DBPassword=zabbix  <span class="comment">#上面配置数据时，我设置zabbix用户的密码为zabbix</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_server  <span class="comment">#启动Zabbix Server</span></span><br><span class="line">shell&gt; zabbix_agentd  <span class="comment">#启动Zabbix Agent</span></span><br></pre></td></tr></table></figure>
+
+<p>启动其他服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_proxy  <span class="comment">#启动Zabbix Proxy</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Zabbix网站页面接口"><a href="#安装Zabbix网站页面接口" class="headerlink" title="安装Zabbix网站页面接口"></a>安装Zabbix网站页面接口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mkdir /var/www/html/zabbix</span><br><span class="line">shell&gt; <span class="built_in">cd</span> frontends/php  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; cp -a . /var/www/html/zabbix</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置Zabbix"><a href="#配置Zabbix" class="headerlink" title="配置Zabbix"></a>配置Zabbix</h3><ul>
+<li><p><strong>在浏览器中打开如下网址： <a href="http://server_ip_or_name/zabbix" target="_blank" rel="noopener">http://server_ip_or_name/zabbix</a></strong></p>
+</li>
+<li><p>在打开的页面中看到“Welcome to Zabbix 3.0”几个大字就算成功了一半了！点击<code>Next step</code><img src="http://oss.20150509.cn/install_1.png" alt="Welcome"></p>
+</li>
+<li><p>第二个页面<code>Check of pre-requisites</code> 会检查PHP的一些配置参数（第一列是变量名；第二列是PHP配置文件实际值；第三项是Zabbix强制要求的最低值或固定值），默认情况下这个页面所有的检查项应该都是“OK”的，如果有红色的错误项，根据前面提示的变量名，去找PHP的配置文件，修改成“REQUIRED”要求的值就可以啦（默认PHP的配置文件<code>/etc/php.ini</code>）<img src="http://oss.20150509.cn/install_2.png" alt="Check of pre-requisites"></p>
+</li>
+<li><p>第三个页面<code>Configure DB connection</code> 这一步骤会去尝试连接数据库。第一项数据库类型选择<code>MySQL</code>；DB Host 保持默认的<code>localhost</code>（因为这里采用了AIO的安装方式，数据库没有单独分离）；DB Port修改成<code>3306</code>；DB Name：<code>zabbix</code>； User：<code>zabbix</code>；Password：<code>zabbix</code>。点击<code>Next step</code>如果出现报错，根据报错信息排查是否是配置错误（这些配置都是在前面设置过的，3306是MySQL默认的端口号）<img src="http://oss.20150509.cn/install_3.png" alt="Configure DB connection"></p>
+</li>
+<li><p>第四个页面<code>Zabbix server details</code> 保持默认的Host：<code>localhost</code>和Port：<code>10051</code>配置即可，Name可以自定义设置，为这套监控系统起个名字<img src="http://oss.20150509.cn/install_4.png" alt="Zabbix server details"></p>
+</li>
+<li><p>第五个页面<code>Pre-installation summary</code> 总览一下前面所有的配置<code>Next step</code><img src="http://oss.20150509.cn/install_5.png" alt="Pre-installation summary"></p>
+</li>
+<li><p>第六个页面<code>Install</code> 我在进入到这个页面后，出现了报错，提示<code>Can not create the configuration file</code> 下方官方也给出了手动解决这个问题的方法。按照提示，第一步点击给出的连接，下载zabbix官方提供的配置文件；第二步，根据提示，放在指定的位置保存为指定的文件，我这里提示保存为：<code>/usr/share/zabbix/conf/zabbix.conf.php</code> 按照提示操作完成后点击<code>Finish</code><img src="http://oss.20150509.cn/install_6.png" alt="Install"></p>
+</li>
+<li><p>如果上面配置的都没有问题，第七个页面将会出现<code>congratulations! ...</code> 点击<code>Finish</code><img src="http://oss.20150509.cn/install_7.png" alt="Install2"></p>
+</li>
+<li><p>第八个页面将会出现登陆页面，默认的登陆用户名为<code>Admin</code> 密码为<code>zabbix</code><img src="http://oss.20150509.cn/login.png" alt="login"></p>
+</li>
+</ul>
+<h3 id="Zabbix的使用简介"><a href="#Zabbix的使用简介" class="headerlink" title="Zabbix的使用简介"></a>Zabbix的使用简介</h3><p>进入到Zabbix首页后，会发现3.0版本与之前的2.x版本的界面相比焕然一新，更养眼了，对解决2.x版本的审美疲劳起到了一定的作用。当然这只是最肤浅的外貌协会成员的结论，除了颜值高了，Zabbix还有50余项技术更新，变得愈发强大了<del>~</del></p>
+<ul>
+<li>在<code>Configuation</code>–&gt;<code>Hosts</code>–&gt;<code>status</code>中，将<code>Disabled</code>变成<code>Enabled</code>状态，稍等片刻，如果Zabbix Agent启动正常的话，<code>ZBX</code>的图标就会亮起，表示Server与Agent之间通信正常<img src="http://oss.20150509.cn/Zabbix_1.jpg" alt="Enabled"></li>
+<li>监控首页会是如下状态（各个模块可以拖拽移动布局）<img src="http://oss.20150509.cn/Zabbix_2.jpg" alt="Dashboard"></li>
+<li>再瞅一眼监控图表的效果~<img src="http://oss.20150509.cn/Zabbix_3.jpg" alt="Graphs1"></li>
+</ul>
+<p><strong>那么问题来了，虽然3.0换了一层扁平简约的外观，但是图表展示还是一样的丑……为了解决这个问题，Grafana可以帮上大忙，接下来的部分就详细介绍如何使用Grafana给Zabbix监控图表披上一层华丽的外衣</strong></p>
+<h2 id="RPM包安装方式"><a href="#RPM包安装方式" class="headerlink" title="RPM包安装方式"></a>RPM包安装方式</h2><p><em>略</em></p>
+<hr>
+<h1 id="Grafana安装部分"><a href="#Grafana安装部分" class="headerlink" title="Grafana安装部分"></a>Grafana安装部分</h1><p>截止至我写这篇文档的时候，Grafana的最新版本是<code>2.6.0</code> 而Grafana原生是不支持获取Zabbix数据的，需要通过grafana-zabbix插件来实现，grafana-zabbix插件的最新版本是2.5.1，github上写的很清楚，该插件服务于Grafana的2.5版本。经过测试，成功在2.6.0的Grafana上使用了grafana-zabbix的2.5.1版本。所以这里你可以任意选择2.5或2.6版本的Grafana来安装。</p>
+<h2 id="Grafana的下载及安装"><a href="#Grafana的下载及安装" class="headerlink" title="Grafana的下载及安装"></a>Grafana的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install https://grafanarel.s3.amazonaws.com/builds/grafana-2.6.0-1.x86_64.rpm  <span class="comment">#这里只提供了yum的安装方式，其他安装方式可以参考附录中的Grafana官方安装文档</span></span><br><span class="line">shell&gt; service grafana-server start  <span class="comment">#启动Grafana服务</span></span><br><span class="line">shell&gt; chkconfig grafana-server on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Grafana-Zabbix插件的下载及安装"><a href="#Grafana-Zabbix插件的下载及安装" class="headerlink" title="Grafana Zabbix插件的下载及安装"></a>Grafana Zabbix插件的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#https://github.com/alexanderzobnin/grafana-zabbix/releases/latest  #请到该网址下载2.5.1版本的grafana-zabbix插件</span></span><br><span class="line">shell&gt; tar -xvzf grafana-zabbix-2.5.1.tar.gz</span><br><span class="line">shell&gt; cp -r grafana-zabbix-2.5.1/zabbix/  /usr/share/grafana/public/app/plugins/datasource/</span><br><span class="line">shell&gt; service grafana-server restart</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Grafana-Zabbix联通部分"><a href="#Grafana-Zabbix联通部分" class="headerlink" title="Grafana + Zabbix联通部分"></a>Grafana + Zabbix联通部分</h1><ul>
+<li>在浏览器地址栏输入 <code>http://IP:3000</code>就可以看到Grafana的登陆页面了。输入默认的用户名<code>admin</code> 密码<code>admin</code>登陆</li>
+<li>点击左侧的<code>Data Sourses</code>–&gt;<code>Add new</code><ul>
+<li>Type下拉框中选择<code>Zabbix</code></li>
+<li>Name 可以自由发挥~~</li>
+<li>Http settings–&gt;Url 填入<code>http://zabbix-server-ip/zabbix/api_jsonrpc.php</code> 这里填入的是Zabbix API接口</li>
+<li>Http settings–&gt;Access 选择 <code>direct</code> 使用直接访问的方式</li>
+<li>Zabbix API details–&gt;User 填入<code>Admin</code></li>
+<li>Zabbix API details–&gt;Password 填入 <code>zabbix</code></li>
+<li>点<code>Save</code>保存后再编辑，出现<code>Test Connection</code>按钮，点击可测试API配置是否正确。出现：Success Zabbix API version: 3.0.0 配置成功<img src="http://oss.20150509.cn/grafana_1.jpg" alt="enter image description here"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Grafana配置部分"><a href="#Grafana配置部分" class="headerlink" title="Grafana配置部分"></a>Grafana配置部分</h1><p>至此仅差最后一步，将Zabbix的数据读取到Grafana来以图表展示，就打完收工啦！</p>
+<ul>
+<li>点击左侧的<code>Dashboards</code>–&gt;<code>Home</code>–&gt;在下拉菜单的底部选择<code>+ New</code>。这时新的页面中默认出现一个空的横行图表，左上角有绿色的竖线，右下角有<code>+ ADD ROW</code>添加新行的按钮。</li>
+<li>鼠标放在左上角的绿色竖线上，点击后弹出一个菜单，选择<code>Add Panel</code>。下面有五个选项，下面选择四个常用的分别介绍</li>
+<li>记得点击上面的<code>保存</code>按钮以保存新建的页面</li>
+</ul>
+<h2 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h2><p>这个选项是创建一个图表，类似于Zabbix的监控图表，是最常用的类型之一。</p>
+<ul>
+<li>General-Title：设置该图表的名称</li>
+<li>Metrics：在该项的右下角，选择正确的数据源（之前在Data Sources配置的Name）</li>
+<li>Metrics-Group/Host/Application/Item：这些项目是必填项目，需要依次下拉选择</li>
+</ul>
+<p><em>如果一张图需要展现两条线的数据，可以在左下角点击<code>+ Query</code></em></p>
+<ul>
+<li>Display Styles-Chart Options：这里可以选择以<code>竖线</code>展示，以<code>折线</code>展示或以<code>点</code>来展示数据<br><img src="http://oss.20150509.cn/grafana_2.jpg" alt="Grafana-Graph"></li>
+</ul>
+<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><p>表格展示，类似于Excel表格的展现形式<br><img src="http://oss.20150509.cn/grafana_3.jpg" alt="enter image description here"></p>
+<ul>
+<li>点击 <code>- +</code> 号可以调整该模块的大小（横向伸缩）</li>
+<li>点击<code>Edit</code>可以重新编辑该模块的数据源</li>
+</ul>
+<h2 id="Single-stat"><a href="#Single-stat" class="headerlink" title="Single stat"></a>Single stat</h2><p>单统计模块，从字面意思就可以知道，该种模块仅可以展示一种数据，统计一种数据。这里需要重点说明就是<code>Option</code>选项下的参数</p>
+<p>以统计磁盘使用大小一项来举例</p>
+<ul>
+<li>Unit：要选择<code>data</code>下的<code>bytes</code>单位来统计</li>
+<li>Decimals：小数设置保持默认的auto即可</li>
+<li>Coloring：这里可以选择渲染背景色或字体色<ul>
+<li>Colors控制着三个颜色，可以自由发挥，一般绿色代表正常，黄色代表预警，红色代表警告</li>
+<li>Thresholds可以设置以逗号分隔的三个数字，分别表示三个状态的阈值</li>
+<li>Spark lines有两种显示模式，<code>Show</code>会在数据的下方展示折线；<code>Background mode</code>会在整个模块的背景展示折线</li>
+</ul>
+</li>
+</ul>
+<h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><p>这个模块很好理解，就是一个现实文字的模块，支持markdown语法，可以放在每个页面的头部，标记当前图表信息的归类。</p>
+<h2 id="Dashboards-list"><a href="#Dashboards-list" class="headerlink" title="Dashboards list"></a>Dashboards list</h2><p>这个模块是用来展示页面列表用的。举个例子，如果一个监控系统中，涉及到了多个页面展示监控图表，就会用到这个功能，这个模块会列出你需要展示的页面的列表，方便在当前页面中，快速的切换到其他监控页面。</p>
+<h2 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h2><p><img src="http://oss.20150509.cn/grafana_5.jpg" alt="Final"></p>
+<h2 id="页面自动刷新"><a href="#页面自动刷新" class="headerlink" title="页面自动刷新"></a>页面自动刷新</h2><p>点击右上角<code>Last 6 hours</code>, 在弹出的下拉框中，选择<code>Time range</code>下的<code>Refreshing every</code>选项，点击下拉框按钮，默认应该有<code>off</code> 和 <code>1m</code>两个选项。点击<code>1m</code> 然后<code>Apply</code>设置。即为每一分钟刷新一次数据的意思。<strong>设置成功后</strong>，在原来<code>Last 6 hours</code>的后面会出现<code>Refresh every 1m</code>的橙色文字！</p>
+<hr>
+<h1 id="附录：参考文档"><a href="#附录：参考文档" class="headerlink" title="附录：参考文档"></a>附录：参考文档</h1><p><a href="https://www.zabbix.com/documentation/3.0/manual/installation/requirements" target="_blank" rel="noopener">Zabbix 3.0官方文档</a></p>
+<p><a href="http://cnzhx.net/blog/remi-repository/#i-2" target="_blank" rel="noopener">Remi官方文档</a></p>
+<p><a href="http://grafana.org/" target="_blank" rel="noopener">Grafana官方网站</a></p>
+<p><a href="http://docs.grafana.org/installation/rpm/" target="_blank" rel="noopener">Grafana官方安装文档</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/03/02/Requires-libt1-so-5-64bit/" rel="bookmark">Requires: libt1.so.5()(64bit)</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/10/19/为容器镜像定制安装Linux工具/" rel="bookmark">为容器镜像定制安装Linux工具</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2015/11/18/部署专业的开源云存储平台-Seafile/" rel="bookmark">部署专业的开源云存储平台-Seafile</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/03/08/CentOS6系列安装MySQL5-7/" rel="bookmark">CentOS6系列安装MySQL5.7</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2015/11/19/CentOS下Python的升级-pip以及fabric的安装/" rel="bookmark">CentOS下Python的升级-pip以及fabric的安装</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Grafana/" rel="tag"><i class="fa fa-tag"></i> Grafana</a>
+              <a href="/tags/Zabbix/" rel="tag"><i class="fa fa-tag"></i> Zabbix</a>
+              <a href="/tags/PHP/" rel="tag"><i class="fa fa-tag"></i> PHP</a>
+              <a href="/tags/Remi/" rel="tag"><i class="fa fa-tag"></i> Remi</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/03/02/Requires-libt1-so-5-64bit/" rel="prev" title="Requires: libt1.so.5()(64bit)">
+      <i class="fa fa-chevron-left"></i> Requires: libt1.so.5()(64bit)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/" rel="next" title="CentOS6系列安装MySQL5.7">
+      CentOS6系列安装MySQL5.7 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS-6-x-基础环境配置部分"><span class="nav-number">2.</span> <span class="nav-text">CentOS 6.x 基础环境配置部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境介绍"><span class="nav-number">2.1.</span> <span class="nav-text">基础环境介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础依赖环境配置"><span class="nav-number">2.2.</span> <span class="nav-text">基础依赖环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache"><span class="nav-number">2.2.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">2.2.2.</span> <span class="nav-text">PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Remi-Repo来安装高版本的PHP"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">配置Remi Repo来安装高版本的PHP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server"><span class="nav-number">2.2.3.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">2.2.4.</span> <span class="nav-text">MySQL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zabbix安装部分"><span class="nav-number">3.</span> <span class="nav-text">Zabbix安装部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装的方式"><span class="nav-number">3.1.</span> <span class="nav-text">源码安装的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Zabbix-3-0源码包并解压"><span class="nav-number">3.1.1.</span> <span class="nav-text">下载Zabbix 3.0源码包并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户及组"><span class="nav-number">3.1.2.</span> <span class="nav-text">创建用户及组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Zabbix数据库"><span class="nav-number">3.1.3.</span> <span class="nav-text">创建Zabbix数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装Zabbix-Server和Zabbix-Agent"><span class="nav-number">3.1.4.</span> <span class="nav-text">编译安装Zabbix Server和Zabbix Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑配置文件"><span class="nav-number">3.1.5.</span> <span class="nav-text">编辑配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动服务"><span class="nav-number">3.1.6.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Zabbix网站页面接口"><span class="nav-number">3.1.7.</span> <span class="nav-text">安装Zabbix网站页面接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Zabbix"><span class="nav-number">3.1.8.</span> <span class="nav-text">配置Zabbix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zabbix的使用简介"><span class="nav-number">3.1.9.</span> <span class="nav-text">Zabbix的使用简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM包安装方式"><span class="nav-number">3.2.</span> <span class="nav-text">RPM包安装方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grafana安装部分"><span class="nav-number">4.</span> <span class="nav-text">Grafana安装部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Grafana的下载及安装"><span class="nav-number">4.1.</span> <span class="nav-text">Grafana的下载及安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grafana-Zabbix插件的下载及安装"><span class="nav-number">4.2.</span> <span class="nav-text">Grafana Zabbix插件的下载及安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grafana-Zabbix联通部分"><span class="nav-number">5.</span> <span class="nav-text">Grafana + Zabbix联通部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grafana配置部分"><span class="nav-number">6.</span> <span class="nav-text">Grafana配置部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Graph"><span class="nav-number">6.1.</span> <span class="nav-text">Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Table"><span class="nav-number">6.2.</span> <span class="nav-text">Table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-stat"><span class="nav-number">6.3.</span> <span class="nav-text">Single stat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text"><span class="nav-number">6.4.</span> <span class="nav-text">Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dashboards-list"><span class="nav-number">6.5.</span> <span class="nav-text">Dashboards list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终效果图"><span class="nav-number">6.6.</span> <span class="nav-text">最终效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面自动刷新"><span class="nav-number">6.7.</span> <span class="nav-text">页面自动刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录：参考文档"><span class="nav-number">7.</span> <span class="nav-text">附录：参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/";
+    this.page.identifier = "2016/03/04/Grafana-2-6-Zabbix-3-0-监控系统搭建/";
+    this.page.title = "Grafana2.6+Zabbix3.0监控系统搭建";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

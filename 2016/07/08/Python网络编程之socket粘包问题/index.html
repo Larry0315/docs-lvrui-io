@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="网络编程中，每次客户端与服务端约定俗成发送包的大小为1024字节，最大为8192字节。但是即使你设置了8192，硬件网卡每次也只能收到1500字节，这个是由硬件网卡的MTU值（最大传输单元，单位字节）决定的。一般千兆网卡的MTU值是1500字节。当一端给另一端发包超过1024字节，另一端没有循环接收消息，就会产生粘包的问题   粘包的问题看上图 客户端给服务端发送了一个命令请求，服务端的返回体大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python网络编程之socket粘包问题">
+<meta property="og:url" content="https://docs.lvrui.io/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="网络编程中，每次客户端与服务端约定俗成发送包的大小为1024字节，最大为8192字节。但是即使你设置了8192，硬件网卡每次也只能收到1500字节，这个是由硬件网卡的MTU值（最大传输单元，单位字节）决定的。一般千兆网卡的MTU值是1500字节。当一端给另一端发包超过1024字节，另一端没有循环接收消息，就会产生粘包的问题   粘包的问题看上图 客户端给服务端发送了一个命令请求，服务端的返回体大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oss.20150509.cn/20160708020159.png">
+<meta property="og:image" content="http://oss.20150509.cn/20160710104159.png">
+<meta property="og:image" content="http://oss.20150509.cn/20160710104259.png">
+<meta property="article:published_time" content="2016-07-07T17:49:34.000Z">
+<meta property="article:modified_time" content="2020-03-22T06:36:47.983Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="网络编程">
+<meta property="article:tag" content="socket">
+<meta property="article:tag" content="粘包">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oss.20150509.cn/20160708020159.png">
+
+<link rel="canonical" href="https://docs.lvrui.io/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python网络编程之socket粘包问题 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python网络编程之socket粘包问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-08 01:49:34" itemprop="dateCreated datePublished" datetime="2016-07-08T01:49:34+08:00">2016-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/Python网络编程之socket粘包问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>网络编程中，每次客户端与服务端约定俗成发送包的大小为1024字节，最大为8192字节。但是即使你设置了8192，硬件网卡每次也只能收到1500字节，这个是由硬件网卡的MTU值（最大传输单元，单位字节）决定的。一般千兆网卡的MTU值是1500字节。当一端给另一端发包超过1024字节，另一端没有循环接收消息，就会产生粘包的问题</p>
+</blockquote>
+<p><img src="http://oss.20150509.cn/20160708020159.png" alt=""></p>
+<p>粘包的问题看上图</p>
+<p>客户端给服务端发送了一个命令请求，服务端的返回体大小为11024字节，但是客户端每次只收1024字节，所以客户端的第一次请求之后，服务端还有10000字节的内容还没给客户端发</p>
+<p>当客户端发给第二个请求时，第二个请求的返回体大小为100字节，但是队列中还有10000字节的内容没有发送给客户端，所以此时服务端会将上次剩余的10000字节中再拿出1024字节来发送给客户端</p>
+<h1 id="解决粘包问题"><a href="#解决粘包问题" class="headerlink" title="解决粘包问题"></a>解决粘包问题</h1><p>解决粘包问题的关键点在于我们能否知道每次需要发送的内容总共有多大，如果我们能知道总共有多大，相应的对端就可以算出我需要循环几次可以吧内容全部读完</p>
+<p>先来看看原始会发生粘包情况的代码：</p>
+<ul>
+<li><font color="red">server.py</font> </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把接收客户端连接请求的操作循环起来就可以接受多个用户的请求啦</span></span><br><span class="line"><span class="comment"># 注意:同一时间只能处理一个客户端的请求,其他连接上的用户会排队等待</span></span><br><span class="line"><span class="comment"># 最后支持多少个用户排队等待,是由listen中的参数决定的(连接池)</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 等待客户端的连接(阻塞函数)</span></span><br><span class="line">    <span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">    conn, addr = s.accept()</span><br><span class="line">    <span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line">    <span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 5: 接收消息(在conn通道没有被关闭的情况下是阻塞的函数,一旦conn被客户端关闭,该函数将不会阻塞)</span></span><br><span class="line">        recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果conn通道被客户端主动关闭,recv函数将不再阻塞,recv_data将接收到空字符串</span></span><br><span class="line">        <span class="comment"># 通过判断recv_data为空字符串来退出服务端的连接</span></span><br><span class="line">        <span class="keyword">if</span> len(recv_data) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 6:处理消息</span></span><br><span class="line">        cmd = str(recv_data, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        p = subprocess.Popen(cmd, shell=<span class="literal">True</span>, stdout=subprocess.PIPE)</span><br><span class="line">        res = p.stdout.read()</span><br><span class="line">        send_data = str(res, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 7: 发送消息</span></span><br><span class="line">        conn.send(bytes(send_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 8: 断开连接</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color="blue">client.py</font> </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 连接服务端</span></span><br><span class="line">s.connect(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 3: 发送消息</span></span><br><span class="line">    send_data = input(<span class="string">"&gt; "</span>).strip()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果客户端输入了exit,退出循环,主动close掉与服务端的连接</span></span><br><span class="line">    <span class="keyword">if</span> send_data == <span class="string">"exit"</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果什么也没有输入,重新循环接收输入</span></span><br><span class="line">    <span class="keyword">if</span> len(send_data) == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这里注意,和服务端不同的是,服务端找到对端是通过conn对象,而客户端是s对象</span></span><br><span class="line">    <span class="comment"># 在Python3.x中,socket对象发送对象必须是字节类型(2.7中可以是字符串)</span></span><br><span class="line">    s.send(bytes(send_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 4: 收消息</span></span><br><span class="line">    recv_data = s.recv(<span class="number">1024</span>)</span><br><span class="line">    print(str(recv_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 断开连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>要解决上面粘包的问题，首先用白话来描述一下解决的过程</p>
+<ul>
+<li>客户端不知道服务端会返回多少内容，所以客户端接收信息的代码需要循环起来</li>
+<li>由于客户端接收循环不知道何时停止，前提需要先知道服务端总共会有多少字节的内容发过来</li>
+<li>服务端在发送实际数据之前，先计算要发送的数据有多大，把这个信息提前告知客户端，让客户端计算出需要几次循环才能把我服务端本次产生的数据接收完毕</li>
+<li>客户端在接收到服务端发来的总长度的信息时，计算出循环的次数，此时应告知服务器端，可以发送数据了</li>
+</ul>
+<p>下面我们就按照上面的思路来实现这段代码</p>
+<ul>
+<li><font color="red">server.py</font> </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5556</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把接收客户端连接请求的操作循环起来就可以接受多个用户的请求啦</span></span><br><span class="line"><span class="comment"># 注意:同一时间只能处理一个客户端的请求,其他连接上的用户会排队等待</span></span><br><span class="line"><span class="comment"># 最后支持多少个用户排队等待,是由listen中的参数决定的(连接池)</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 等待客户端的连接(阻塞函数)</span></span><br><span class="line">    <span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">    conn, addr = s.accept()</span><br><span class="line">    <span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line">    <span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 5: 接收消息(在conn通道没有被关闭的情况下是阻塞的函数,一旦conn被客户端关闭,该函数将不会阻塞)</span></span><br><span class="line">        recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果conn通道被客户端主动关闭,recv函数将不再阻塞,recv_data将接收到空字符串</span></span><br><span class="line">        <span class="comment"># 通过判断recv_data为空字符串来退出服务端的连接</span></span><br><span class="line">        <span class="keyword">if</span> len(recv_data) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 6:处理消息</span></span><br><span class="line">        cmd = str(recv_data, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        p = subprocess.Popen(cmd, shell=<span class="literal">True</span>, stdout=subprocess.PIPE)</span><br><span class="line">        res = p.stdout.read()</span><br><span class="line">        send_data = str(res, encoding=<span class="string">'utf-8'</span>)  <span class="comment"># utf-8 ---&gt; str ---&gt; utf-8</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># ------------与客户端沟通数据大小并发送数据的流程------------</span></span><br><span class="line">        <span class="comment"># I. Server ---&gt; Client</span></span><br><span class="line">        <span class="comment"># 由于发送数据时必须是字节类型,所以计算长度时,应该先将字符串转为字节类型再计算长度</span></span><br><span class="line">        send_data = bytes(send_data, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        <span class="comment"># 计算字节长度,因为后面发送信息的时候需要做字符串拼接,所以这里先转成字符类型</span></span><br><span class="line">        length_data = str(len(send_data))</span><br><span class="line">        <span class="comment"># 通知客户端要要发送数据的总长度</span></span><br><span class="line">        conn.send(bytes(<span class="string">'length_data:'</span>+length_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># III. Server &lt;--- Client</span></span><br><span class="line">        <span class="comment"># 接收客户端发送的确认开始传输的命令</span></span><br><span class="line">        feedback = str(conn.recv(<span class="number">1024</span>), encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        <span class="keyword">if</span> feedback == <span class="string">"confirm"</span>:</span><br><span class="line">            <span class="comment"># IV. Server ---&gt; Client</span></span><br><span class="line">            <span class="comment"># 开始向客户端传输数据</span></span><br><span class="line">            conn.send(send_data)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 7: 发送消息</span></span><br><span class="line">        conn.send(send_data)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 8: 断开连接</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color="blue">client.py</font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5556</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 连接服务端</span></span><br><span class="line">s.connect(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 3: 发送消息</span></span><br><span class="line">    send_data = input(<span class="string">"&gt; "</span>).strip()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果客户端输入了exit,退出循环,主动close掉与服务端的连接</span></span><br><span class="line">    <span class="keyword">if</span> send_data == <span class="string">"exit"</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果什么也没有输入,重新循环接收输入</span></span><br><span class="line">    <span class="keyword">if</span> len(send_data) == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这里注意,和服务端不同的是,服务端找到对端是通过conn对象,而客户端是s对象</span></span><br><span class="line">    <span class="comment"># 在Python3.x中,socket对象发送对象必须是字节类型(2.7中可以是字符串)</span></span><br><span class="line">    s.send(bytes(send_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 4: 收消息</span></span><br><span class="line">    <span class="comment"># ------------与服务端沟通数据大小并发送数据的流程------------</span></span><br><span class="line">    <span class="comment"># 服务端首先发来的信息是即将发送数据的总长度(字节长度)</span></span><br><span class="line">    length_msg = str(s.recv(<span class="number">1024</span>), encoding=<span class="string">'utf-8'</span>)  <span class="comment"># 接收的格式 length_data:11024</span></span><br><span class="line">    <span class="keyword">if</span> length_msg.startswith(<span class="string">"length_data"</span>):</span><br><span class="line">        <span class="comment"># 取得服务端统计的数据总长度</span></span><br><span class="line">        length_data = int(length_msg.split(<span class="string">":"</span>)[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># II. Server &lt;--- Client</span></span><br><span class="line">    <span class="comment"># 客户端已经接收到数据的总长度,回复服务端可以发送数据</span></span><br><span class="line">    s.send(bytes(<span class="string">"confirm"</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># V. 接收服务端发送过来的数据</span></span><br><span class="line">    <span class="comment"># 累计下载字节统计</span></span><br><span class="line">    recv_total_size = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 累计下载数据</span></span><br><span class="line">    recv_total_data = <span class="string">b''</span></span><br><span class="line">    <span class="comment"># 进入循环下载</span></span><br><span class="line">    <span class="keyword">while</span> recv_total_size &lt; length_data:</span><br><span class="line">        recv_data = s.recv(<span class="number">1024</span>)</span><br><span class="line">        recv_total_data += recv_data</span><br><span class="line">        recv_total_size += len(recv_data)</span><br><span class="line">        print(<span class="string">"传输总大小为: %s ; 当前已传输大小为: %s"</span> % (length_data, recv_total_size))</span><br><span class="line">    <span class="comment"># 打印完整的数据</span></span><br><span class="line">    print(str(recv_total_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 断开连接</span></span><br><span class="line">s.close()</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- &lt;font color="orange"&gt;执行结果&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">&gt; ifconfig</span><br><span class="line">传输总大小为: <span class="number">1857</span> ; 当前已传输大小为: <span class="number">1024</span></span><br><span class="line">传输总大小为: <span class="number">1857</span> ; 当前已传输大小为: <span class="number">2048</span></span><br><span class="line">lo0: flags=<span class="number">8049</span>&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu <span class="number">16384</span></span><br><span class="line">	options=<span class="number">3</span>&lt;RXCSUM,TXCSUM&gt;</span><br><span class="line">	inet6 ::<span class="number">1</span> prefixlen <span class="number">128</span> </span><br><span class="line">	inet <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> netmask <span class="number">0xff000000</span> </span><br><span class="line">	inet6 fe80::<span class="number">1</span>%lo0 prefixlen <span class="number">64</span> scopeid <span class="number">0x1</span> </span><br><span class="line">	nd6 options=<span class="number">1</span>&lt;PERFORMNUD&gt;</span><br><span class="line">gif0: flags=<span class="number">8010</span>&lt;POINTOPOINT,MULTICAST&gt; mtu <span class="number">1280</span></span><br><span class="line">stf0: flags=<span class="number">0</span>&lt;&gt; mtu <span class="number">1280</span></span><br><span class="line">en0: flags=<span class="number">8863</span>&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu <span class="number">1500</span></span><br><span class="line">	ether <span class="number">60</span>:<span class="number">03</span>:<span class="number">08</span>:a5:<span class="number">3</span>b:<span class="number">9</span>e </span><br><span class="line">	inet6 fe80::<span class="number">6203</span>:<span class="number">8</span>ff:fea5:<span class="number">3</span>b9e%en0 prefixlen <span class="number">64</span> scopeid <span class="number">0x4</span> </span><br><span class="line">	inet <span class="number">192.168</span><span class="number">.1</span><span class="number">.103</span> netmask <span class="number">0xffffff00</span> broadcast <span class="number">192.168</span><span class="number">.1</span><span class="number">.255</span></span><br><span class="line">	nd6 options=<span class="number">1</span>&lt;PERFORMNUD&gt;</span><br><span class="line">	media: autoselect</span><br><span class="line">	status: active</span><br><span class="line">en1: flags=<span class="number">963</span>&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX&gt; mtu <span class="number">1500</span></span><br><span class="line">	options=<span class="number">60</span>&lt;TSO4,TSO6&gt;</span><br><span class="line">	ether <span class="number">72</span>:<span class="number">00</span>:<span class="number">01</span>:f7:dd:<span class="number">70</span> </span><br><span class="line">	media: autoselect &lt;full-duplex&gt;</span><br><span class="line">	status: inactive</span><br><span class="line">en2: flags=<span class="number">963</span>&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX&gt; mtu <span class="number">1500</span></span><br><span class="line">	options=<span class="number">60</span>&lt;TSO4,TSO6&gt;</span><br><span class="line">	ether <span class="number">72</span>:<span class="number">00</span>:<span class="number">01</span>:f7:dd:<span class="number">71</span> </span><br><span class="line">	media: autoselect &lt;full-duplex&gt;</span><br><span class="line">	status: inactive</span><br><span class="line">p2p0: flags=<span class="number">8843</span>&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu <span class="number">2304</span></span><br><span class="line">	ether <span class="number">02</span>:<span class="number">03</span>:<span class="number">08</span>:a5:<span class="number">3</span>b:<span class="number">9</span>e </span><br><span class="line">	media: autoselect</span><br><span class="line">	status: inactive</span><br><span class="line">awdl0: flags=<span class="number">8943</span>&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu <span class="number">1484</span></span><br><span class="line">	ether <span class="number">0</span>e:<span class="number">80</span>:<span class="number">6</span>c:<span class="number">2</span>f:ac:<span class="number">25</span> </span><br><span class="line">	inet6 fe80::c80:<span class="number">6</span>cff:fe2f:ac25%awdl0 prefixlen <span class="number">64</span> scopeid <span class="number">0x8</span> </span><br><span class="line">	nd6 options=<span class="number">1</span>&lt;PERFORMNUD&gt;</span><br><span class="line">	media: autoselect</span><br><span class="line">	status: active</span><br><span class="line">bridge0: flags=<span class="number">8863</span>&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu <span class="number">1500</span></span><br><span class="line">	options=<span class="number">63</span>&lt;RXCSUM,TXCSUM,TSO4,TSO6&gt;</span><br><span class="line">	ether <span class="number">62</span>:<span class="number">03</span>:<span class="number">08</span>:<span class="number">5</span>a:<span class="number">2</span>d:<span class="number">00</span> </span><br><span class="line">	Configuration:</span><br><span class="line">		id <span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span> priority <span class="number">0</span> hellotime <span class="number">0</span> fwddelay <span class="number">0</span></span><br><span class="line">		maxage <span class="number">0</span> holdcnt <span class="number">0</span> proto stp maxaddr <span class="number">100</span> timeout <span class="number">1200</span></span><br><span class="line">		root id <span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span>:<span class="number">0</span> priority <span class="number">0</span> ifcost <span class="number">0</span> port <span class="number">0</span></span><br><span class="line">		ipfilter disabled flags <span class="number">0x2</span></span><br><span class="line">	member: en1 flags=<span class="number">3</span>&lt;LEARNING,DISCOVER&gt;</span><br><span class="line">	        ifmaxaddr <span class="number">0</span> port <span class="number">5</span> priority <span class="number">0</span> path cost <span class="number">0</span></span><br><span class="line">	member: en2 flags=<span class="number">3</span>&lt;LEARNING,DISCOVER&gt;</span><br><span class="line">	        ifmaxaddr <span class="number">0</span> port <span class="number">6</span> priority <span class="number">0</span> path cost <span class="number">0</span></span><br><span class="line">	nd6 options=<span class="number">1</span>&lt;PERFORMNUD&gt;</span><br><span class="line">	media: &lt;unknown type&gt;</span><br><span class="line">	status: inactive</span><br><span class="line">lo0: flags=<span class="number">8049</span>&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu <span class="number">16384</span></span><br><span class="line">	options=<span class="number">3</span>&lt;RXCSUM,TXCSUM&gt;</span><br><span class="line">	inet6 ::<span class="number">1</span> prefixlen <span class="number">128</span> </span><br><span class="line">	inet <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> netmask <span class="number">0xff000000</span> </span><br><span class="line">	inet6 fe80::<span class="number">1</span>%lo0 prefixlen <span class="number">64</span> scopeid <span class="number">0x1</span> </span><br><span class="line">	</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>解决粘包问题实例：</p>
+<p><img src="http://oss.20150509.cn/20160710104159.png" alt=""></p>
+<p><img src="http://oss.20150509.cn/20160710104259.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/06/Python网络编程之socket基础语法/" rel="bookmark">Python网络编程之socket基础语法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/06/Python网络编程之socket常用方法简介/" rel="bookmark">Python网络编程之socket常用方法简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/08/Python网络编程之简单SSH交互/" rel="bookmark">Python网络编程之简单SSH交互</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/07/Python网络编程之简单交互/" rel="bookmark">Python网络编程之简单交互</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/08/Python网络编程之socketserver的使用/" rel="bookmark">Python网络编程之socketserver的使用</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 网络编程</a>
+              <a href="/tags/socket/" rel="tag"><i class="fa fa-tag"></i> socket</a>
+              <a href="/tags/%E7%B2%98%E5%8C%85/" rel="tag"><i class="fa fa-tag"></i> 粘包</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%AE%80%E5%8D%95SSH%E4%BA%A4%E4%BA%92/" rel="prev" title="Python网络编程之简单SSH交互">
+      <i class="fa fa-chevron-left"></i> Python网络编程之简单SSH交互
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocketserver%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="Python网络编程之socketserver的使用">
+      Python网络编程之socketserver的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决粘包问题"><span class="nav-number">1.</span> <span class="nav-text">解决粘包问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2016/07/08/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/";
+    this.page.identifier = "2016/07/08/Python网络编程之socket粘包问题/";
+    this.page.title = "Python网络编程之socket粘包问题";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polar Snow Documentation">
+<meta property="og:url" content="https://docs.lvrui.io/page/3/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="etcd">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/DHCP%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84k8s%E6%8E%92%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/01/DHCP%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84k8s%E6%8E%92%E9%94%99/" class="post-title-link" itemprop="url">DHCP模式下的k8s排错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 15:57:31" itemprop="dateCreated datePublished" datetime="2018-11-01T15:57:31+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/01/DHCP%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84k8s%E6%8E%92%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/DHCP模式下的k8s排错/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>环境: </p>
+<ul>
+<li>Kubernetes</li>
+<li>Bridge+DHCP</li>
+</ul>
+<p>kubelet 日志如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Oct 10 16:52:58 k8node3 kubelet[38221]: E1010 16:52:58.848278   38221 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:52:58 k8node3 kubelet[38221]: E1010 16:52:58.848293   38221 kuberuntime_manager.go:646] createPodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:52:58 k8node3 kubelet[38221]: E1010 16:52:58.848349   38221 pod_workers.go:186] Error syncing pod 88d40907-cc60-11e8-9598-ecebb88a11d4 (&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod \&quot;log-pilot-msvj7_default\&quot; network: error calling DHCP.Allocate: no more tries&quot;</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.433003   38221 cni.go:259] Error adding network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.433036   38221 cni.go:227] Error while adding to cni network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.505258   38221 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.505313   38221 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.505327   38221 kuberuntime_manager.go:646] createPodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:53:43 k8node3 kubelet[38221]: E1010 16:53:43.505388   38221 pod_workers.go:186] Error syncing pod 88d40907-cc60-11e8-9598-ecebb88a11d4 (&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod \&quot;log-pilot-msvj7_default\&quot; network: error calling DHCP.Allocate: no more tries&quot;</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.112837   38221 cni.go:259] Error adding network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.112865   38221 cni.go:227] Error while adding to cni network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.190742   38221 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.190800   38221 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.190815   38221 kuberuntime_manager.go:646] createPodSandbox for pod &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:54:29 k8node3 kubelet[38221]: E1010 16:54:29.190899   38221 pod_workers.go:186] Error syncing pod 88d40907-cc60-11e8-9598-ecebb88a11d4 (&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;log-pilot-msvj7_default(88d40907-cc60-11e8-9598-ecebb88a11d4)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod \&quot;log-pilot-msvj7_default\&quot; network: error calling DHCP.Allocate: no more tries&quot;</span><br><span class="line">Oct 10 16:55:13 k8node3 kubelet[38221]: E1010 16:55:13.604965   38221 cni.go:259] Error adding network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:55:13 k8node3 kubelet[38221]: E1010 16:55:13.605013   38221 cni.go:227] Error while adding to cni network: error calling DHCP.Allocate: no more tries</span><br><span class="line">Oct 10 16:55:13 k8node3 kubelet[38221]: E1010 16:55:13.692412   38221 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; NetworkPlugin cni failed to set up pod &quot;log-pilot-msvj7_default&quot; network: error calling DHCP.Allocate: no more tries</span><br></pre></td></tr></table></figure>
+
+<p>cni 插件日志如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;10&#x2F;10 16:55:15 d61d6dd5cbda1c51769489334a566a1c4ca6f258efee60375aaf2e71bc116c32&#x2F;zzcloudnet: acquiring lease</span><br><span class="line">2018&#x2F;10&#x2F;10 16:55:20 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:55:29 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:55:43 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:00 bb55ff4ecac38220cbe88d0e34c7bc4296c6faf181fb24499694f9c76881e02c&#x2F;zzcloudnet: acquiring lease</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:05 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:15 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:28 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:45 07c373e24b35ec12d66f991b32a206217288ba018648071cea4f87fc9e055658&#x2F;zzcloudnet: acquiring lease</span><br><span class="line">2018&#x2F;10&#x2F;10 16:56:50 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:57:00 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:57:12 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:57:30 c3d52c2c4ea0db096b079da202ba0733b91e9c68d3b2db7ba6dc4d67c71e6546&#x2F;zzcloudnet: acquiring lease</span><br><span class="line">2018&#x2F;10&#x2F;10 16:57:35 resource temporarily unavailable</span><br><span class="line">2018&#x2F;10&#x2F;10 16:57:44 resource temporarily unavailable</span><br></pre></td></tr></table></figure>
+
+<p>DHCP 服务端抓包 <code>tcpdump -n -i cni0</code> 发现, 服务端接收到了客户端的 <code>DISCOVER</code>, 并且服务端给了 <code>OFFER</code>, 但却迟迟收不到客户端发来的 <code>REQUEST</code>, 由此可以定位到问题, 要么包在服务端发不出去, 要么是客户端收不着, 着重检查两者之间的防火墙设置以及网络连通性.</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Kubernetes中内存资源限制引发的报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 15:28:57" itemprop="dateCreated datePublished" datetime="2018-11-01T15:28:57+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/Kubernetes中内存资源限制引发的报错/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一个 Pod 被创建后, 一直卡在<code>ContainerCreating</code>的状态, 执行<code>describe</code>命令查看该 Pod 详细信息后发现如下 Event</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Events:</span><br><span class="line">  Type     Reason                  Age               From                            Message</span><br><span class="line">  ----     ------                  ----              ----                            -------</span><br><span class="line">  Normal   Scheduled               2m                default-scheduler               Successfully assigned 61f983b5-19ca-4b33-8647-6b279ae93812 to k8node3</span><br><span class="line">  Normal   SuccessfulMountVolume   2m                kubelet, k8node3  MountVolume.SetUp succeeded for volume &quot;default-token-7r9jt&quot;</span><br><span class="line">  Warning  FailedCreatePodSandBox  2m (x12 over 2m)  kubelet, k8node3  Failed create pod sandbox: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">  Normal   SandboxChanged          2m (x12 over 2m)  kubelet, k8node3  Pod sandbox changed, it will be killed and re-created.</span><br></pre></td></tr></table></figure>
+
+<p>以上 Event 信息中, 能解读到的信息极其有限</p>
+<ul>
+<li>Failed create pod sandbox: Google 提供的 pause 容器启动失败</li>
+<li>oci runtime error: 运行时接口出的问题, 我的环境中运行时环境为 docker</li>
+<li>connection reset by peer: 连接被重置</li>
+<li>Pod sandbox changed, it will be killed and re-created: pause 容器引导的 Pod 环境被改变, 重新创建 Pod 中的 pause 引导</li>
+</ul>
+<p>看完上面的报错信息并不能准确定位到问题的根源, 只能大致了解到是因为创建SandBox失败导致的, 接下来查看 kubelet 的日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551282    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551415    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551459    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551581    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718255    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718406    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718443    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718597    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114171    1865 kubelet.go:1644] Unable to mount volumes for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]; skipping pod</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114262    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]</span><br></pre></td></tr></table></figure>
+
+<p>kubelet 的日志中, 与 describe 出来的信息差不多, tail 的时候更直观的感觉到频繁的Sandbox创建的过程, 既然是 OCI 运行时报错, 只能去 docker 的日志中找找看了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671146675+08:00&quot; level&#x3D;error msg&#x3D;&quot;containerd: start container&quot; error&#x3D;&quot;oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot; id&#x3D;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671871096+08:00&quot; level&#x3D;error msg&#x3D;&quot;Create container failed with error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.717553371+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f&#x2F;start returned error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.759631102+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274&#x2F;stop returned error: Container 207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.768603351+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573&#x2F;stop returned error: Container 03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.777073508+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728&#x2F;stop returned error: Container 7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.785774443+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431&#x2F;stop returned error: Container 1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.794198279+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176&#x2F;stop returned error: Container c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.802698120+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d&#x2F;stop returned error: Container 8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.811103238+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f&#x2F;stop returned error: Container 7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f is already stopped&quot;</span><br></pre></td></tr></table></figure>
+
+<p>Docker 的日志中, 除了已经看了很多遍的<code>connection reset by peer</code>之外, 还有一些新的发现</p>
+<ul>
+<li>xxx is already stopped: 看日志, 感觉是向容器接口发送了 POST 请求以 stop 容器, 但是该容器已经被 stop 掉了</li>
+</ul>
+<p>Docker 的日志和 kubelet 的日志的共同点就是, kubelet 频繁 recreate Sandbox</p>
+<p>执行 <code>docker container ls -a</code> 命令发现存在大量 create 状态的 pause 容器</p>
+<p>查看 <code>demesg -T</code> 信息, 发现了大量 oom-killer 的字眼的日志, 初步判断是由于内存溢出, 导致系统主动 kill 进程.</p>
+<p>发生这样的情况的概率并不高, 一般情况下有两种类型的 oom kill</p>
+<ul>
+<li>由于 pod 内进程超出了 pod 指定 Limit 限制的值, 将导致 oom kill, 此时 pod 退出的 Reason 会显示 OOMKilled</li>
+<li>另一种情况是 pod 内的进程给自己设置了可用内存, 比如 jvm 内存限制设置为2G, pod Limit 设置为6G, 此时由于程序的原因导致内存使用超过2G 时, 也会引发 oom kill</li>
+</ul>
+<p>这两种内存溢出的 kill 区别是第一种原因直接显示在 pod 的 Event 里; 第二种你在 Event 里找不到, 在宿主机的 dmesg 里面可以找到 invoked oom-killer 的日志</p>
+<p>这次的情况看起来像属于第二种情况, 于是赶紧再次 describe pod, 查看 Limit 限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Containers:</span><br><span class="line">  61f983b5-19ca-4b33-8647-6b279ae93812:</span><br><span class="line">    Container ID:</span><br><span class="line">    Image:          reg.lvrui.io&#x2F;public&#x2F;testpublish:latest</span><br><span class="line">    Image ID:</span><br><span class="line">    Port:           &lt;none&gt;</span><br><span class="line">    Host Port:      &lt;none&gt;</span><br><span class="line">    State:          Waiting</span><br><span class="line">      Reason:       ContainerCreating</span><br><span class="line">    Ready:          False</span><br><span class="line">    Restart Count:  0</span><br><span class="line">    Limits:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Requests:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Environment:</span><br><span class="line">      key:  value</span><br><span class="line">    Mounts:</span><br><span class="line">      &#x2F;var&#x2F;run&#x2F;secrets&#x2F;kubernetes.io&#x2F;serviceaccount from default-token-7r9jt (ro)</span><br></pre></td></tr></table></figure>
+
+<p>终于找到了原因, 就是因为对内存的 Limit 导致的. 这里显示内存 Limit 为2k, 实际上是因为在创建资源时, 写的是 2000(不加单位时, 默认单位为 bytes), k8s 自动转成了以小写 k 的单位表示方式,  所以就变成了2k</p>
+<p>理论上来说,  按照之前的经验, 此种情况(实际使用内存超过 Limit 内存的情况)应该属于第一种, 会在 Event 里显示的由于 OOMkilled 原因导致 Terminated 状态. 但实际情况却是在 Event 里找不到 oom kill 的日志, 且 pod 状态处于 ContainerCreating 状态.</p>
+<ul>
+<li>由于 OOMkilled 处于 Terminated 的状态是因为 pod 已经正常被引导创建后, 导致的内存溢出</li>
+<li>由于系统 invoked oom-killer 导致的处于 ContainerCreating 状态的 pod 是因为 pod 还没正常被创建, pod 中的 pause 容器都没有被正常引导就已经被 cgroup 的内存限制而招来杀身之祸</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/19/%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6%E5%AE%89%E8%A3%85Linux%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/19/%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6%E5%AE%89%E8%A3%85Linux%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">为容器镜像定制安装Linux工具</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-19 16:22:55" itemprop="dateCreated datePublished" datetime="2018-10-19T16:22:55+08:00">2018-10-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/19/%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6%E5%AE%89%E8%A3%85Linux%E5%B7%A5%E5%85%B7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/19/为容器镜像定制安装Linux工具/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在调试的场景下, 容器在使用中通常需要进入容器并执行一些工具命令, 比如 wget, htop, lsof, rz, sz 等. 本篇文章就讨论如何为镜像定制安装这些工具</p>
+</blockquote>
+<h2 id="传统的工具安装方式"><a href="#传统的工具安装方式" class="headerlink" title="传统的工具安装方式"></a>传统的工具安装方式</h2><p>传统的运维中, 安装 Linux 工具直接使用各自发行版的包管理器就可以了, 方便, 快捷, 省心</p>
+<ul>
+<li>RedHat 系列: <code>yum install lsof</code></li>
+<li>Debian 系列: <code>apt update &amp;&amp; apt install lsof</code></li>
+</ul>
+<p>当使用物理机或虚拟机时, 使用上面的安装方法没有任何问题, 但是到了容器镜像领域, 按照上面的安装方式就不行了. 试过的童鞋会发现, 一个 centos 的基础镜像大约 <strong>200MB</strong> 左右, 用以上<code>yum</code>的方式安装完<code>lsof</code>工具之后, 镜像的体积增大到了 <strong>300MB</strong> 仅仅一个小工具的安装, 就会让容器镜像的体积快速膨胀, 虽然成功的完成了安装, 单这显然不是我们希望看到的结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br><span class="line">REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos                                        latest              75835a67d134        9 days ago          200MB</span><br></pre></td></tr></table></figure>
+
+<h2 id="镜像中的工具安装方式"><a href="#镜像中的工具安装方式" class="headerlink" title="镜像中的工具安装方式"></a>镜像中的工具安装方式</h2><p>在镜像中安装基础工具, 就不能像在传统虚拟机里那样粗犷操作了, 镜像的体积是个非常敏感的数字, 牵动着打包者的神经, 以下乃安装工具之正道</p>
+<ul>
+<li>RedHat 系列: <code>yum install lsof &amp;&amp; yum clean all</code></li>
+<li>Debian 系列: <code>apt update &amp;&amp; apt install lsof &amp;&amp; apt clean &amp;&amp; apt autoclean &amp;&amp; rm -fr /var/lib/apt/lists/*</code></li>
+</ul>
+<p>经过善后处理的安装方式, 仍以 centos 安装 lsof 工具为例, 安装完成后, 体积为 <strong>223MB</strong> 相比之前 <strong>300MB</strong> 的体积, 可以说已经得到了很大的优化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br><span class="line">REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mycentos                                      0.1                 80bb7d931f74        1 minutes ago       223MB</span><br></pre></td></tr></table></figure>
+
+<p>Debian 系列比较特殊, <code>apt clean</code> 操作是为了删除掉 <code>/var/cache/apt/archives/</code> 下的软件包, 后面还指定删除了 <code>/var/lib/apt/lists/*</code> 此路径下的所有文件, 是为了删除 <code>apt update</code> 操作后更新到此目录的远程服务器提供的软件列表信息</p>
+<h2 id="为容器定制安装工具包"><a href="#为容器定制安装工具包" class="headerlink" title="为容器定制安装工具包"></a>为容器定制安装工具包</h2><p>经过上面的实践, 在 centos 镜像中安装 lsof 工具的体积成本, 已经成功从 300MB 降到了 223 MB, 是否还有更极致的安装方法呢? 当然有的, 就是直接拷贝二进制文件到镜像中</p>
+<h3 id="找到命令文件位置及依赖"><a href="#找到命令文件位置及依赖" class="headerlink" title="找到命令文件位置及依赖"></a>找到命令文件位置及依赖</h3><h4 id="找命令位置"><a href="#找命令位置" class="headerlink" title="找命令位置"></a>找命令位置</h4><p>启动临时容器, 传统安装 lsof</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container run -it centos:latest /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>进入到容器后, 正常安装工具包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install lsof</span><br></pre></td></tr></table></figure>
+
+<p>查看该工具包安装的所有文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@7b532cd952dc /]<span class="comment"># rpm -qa | grep lsof</span></span><br><span class="line">lsof-4.87-5.el7.x86_64</span><br><span class="line">[root@7b532cd952dc /]<span class="comment"># rpm -ql lsof-4.87-5.el7.x86_64</span></span><br><span class="line">/usr/sbin/lsof</span><br><span class="line">/usr/share/doc/lsof-4.87</span><br><span class="line">/usr/share/doc/lsof-4.87/00.README.FIRST</span><br><span class="line">/usr/share/doc/lsof-4.87/00.README.FIRST_4.87</span><br><span class="line">/usr/share/doc/lsof-4.87/00CREDITS</span><br><span class="line">/usr/share/doc/lsof-4.87/00DCACHE</span><br><span class="line">/usr/share/doc/lsof-4.87/00DIALECTS</span><br><span class="line">/usr/share/doc/lsof-4.87/00DIST</span><br><span class="line">/usr/share/doc/lsof-4.87/00FAQ</span><br><span class="line">/usr/share/doc/lsof-4.87/00LSOF-L</span><br><span class="line">/usr/share/doc/lsof-4.87/00MANIFEST</span><br><span class="line">/usr/share/doc/lsof-4.87/00PORTING</span><br><span class="line">/usr/share/doc/lsof-4.87/00QUICKSTART</span><br><span class="line">/usr/share/doc/lsof-4.87/00README</span><br><span class="line">/usr/share/doc/lsof-4.87/00TEST</span><br><span class="line">/usr/share/doc/lsof-4.87/00XCONFIG</span><br><span class="line">/usr/share/doc/lsof-4.87/README.lsof_4.87</span><br><span class="line">/usr/share/man/man8/lsof.8.gz</span><br></pre></td></tr></table></figure>
+<p>以上文件中, 除了第一个主程序外, 其他的都是文档文件, 由于 centos 基础镜像中并不包含 man 命令, 所以, 默认这些文件都没有实际存在在磁盘中, 我们要拷贝的目标只有第一个主程序</p>
+<p>安装完成后, 找到软件包的安装位置(由于没有 which 命令, 我们可以使用 find 命令)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@7b532cd952dc /]<span class="comment"># find / -name "lsof"</span></span><br><span class="line">/usr/sbin/lsof</span><br></pre></td></tr></table></figure>
+
+<h4 id="找依赖"><a href="#找依赖" class="headerlink" title="找依赖"></a>找依赖</h4><p>使用 <code>ldd</code> 命令, 找到 lsof 命令依赖的库文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@7b532cd952dc /]<span class="comment"># ldd /usr/sbin/lsof</span></span><br><span class="line">	linux-vdso.so.1 =&gt;  (0x00007ffca8dd6000)</span><br><span class="line">	libselinux.so.1 =&gt; /lib64/libselinux.so.1 (0x00007f09b6b7e000)</span><br><span class="line">	libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f09b67b1000)</span><br><span class="line">	libpcre.so.1 =&gt; /lib64/libpcre.so.1 (0x00007f09b654f000)</span><br><span class="line">	libdl.so.2 =&gt; /lib64/libdl.so.2 (0x00007f09b634b000)</span><br><span class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007f09b6da5000)</span><br><span class="line">	libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x00007f09b612f000)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一列：程序需要依赖什么库</li>
+<li>第二列: 系统提供的与程序需要的库所对应的库</li>
+<li>第三列：库加载的开始地址</li>
+</ul>
+<p>通过上面的信息，我们可以得到以下几个信息：</p>
+<ul>
+<li>通过对比第一列和第二列，我们可以分析程序需要依赖的库和系统实际提供的，是否相匹配</li>
+<li>通过观察第三列，我们可以知道在当前的库中的符号在对应的进程的地址空间中的开始位置</li>
+</ul>
+<p>在本文的场景中, 我们需要关心的就是第一列和第二列, 我们需要记下第一列的所有库文件, 然后到初始的 centos 镜像中去挨个儿查找</p>
+<p>哪些库文件需要查找呢, 着重找那些 <code>第一列 =&gt; 第二列</code> 的库文件在新镜像中是否存在, 因为出现了<code>=&gt;</code>标志, 就意味着当前容器提供了这个文件给程序使用</p>
+<p>拿上面的例子来说, 着重查找以下文件:</p>
+<ul>
+<li>libselinux.so.1 =&gt; /lib64/libselinux.so.1</li>
+<li>libc.so.6 =&gt; /lib64/libc.so.6</li>
+<li>libpcre.so.1 =&gt; /lib64/libpcre.so.1</li>
+<li>libdl.so.2 =&gt; /lib64/libdl.so.2</li>
+<li>/lib64/ld-linux-x86-64.so.2</li>
+<li>libpthread.so.0 =&gt; /lib64/libpthread.so.0</li>
+</ul>
+<p>如果你嫌多的话, 还可以执行以下命令, 查找该程序没有使用到的直接依赖文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@7b532cd952dc /]<span class="comment"># ldd -u /usr/sbin/lsof</span></span><br><span class="line">Unused direct dependencies:</span><br><span class="line">	/lib64/libselinux.so.1</span><br></pre></td></tr></table></figure>
+
+<p>也就是说, 在上面的列表中, 可以去掉检查 <code>/lib64/libselinux.so.1</code> 该库文件</p>
+<h4 id="检查依赖"><a href="#检查依赖" class="headerlink" title="检查依赖"></a>检查依赖</h4><p><strong>启动一个新的原始镜像进行上面检查列表的查找</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker container run -it centos:latest /bin/bash                                                                          </span><br><span class="line">[root@099f82deeb3d /]<span class="comment">#</span></span><br><span class="line">[root@099f82deeb3d /]<span class="comment"># find / -name "libc.so.6"</span></span><br><span class="line">/usr/lib64/libc.so.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># ...... 按照上面的列表文件, 挨个儿查找</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>确保原始镜像中的对应列表文件都已经存在, 如果有部分库文件不存在, 需要在后面的操作中, 和 lsof 主程序文件一同拷贝新的镜像中</strong></p>
+<h4 id="拷贝程序及依赖库"><a href="#拷贝程序及依赖库" class="headerlink" title="拷贝程序及依赖库"></a>拷贝程序及依赖库</h4><p>我们将第一启动的容器, 使用 yum 安装了 lsof 命令的容器称之为 A 容器; 将第二次启动的原始容器, 检查了依赖文件的容器称之为 B 容器</p>
+<p>将 A 容器的主程序文件以及在 B 容器中缺失的库文件一同拷贝出来(操作对象: A 容器)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找到 A 容器的 containerID: 7b532cd952dc</span></span><br><span class="line"><span class="comment"># 我们假设在 B 容器中检查文件列表时, 同时缺失了 `libc.so.6` 库文件 (注意: 是假设!!!)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将主文件和缺失的库文件从容器中拷贝到本地目录</span></span><br><span class="line">docker container cp 7b532cd952dc:/usr/sbin/lsof ./                                                                        </span><br><span class="line">docker container cp 7b532cd952dc:/usr/lib64/libc.so.6 ./</span><br></pre></td></tr></table></figure>
+
+<p>然后制作新的镜像, 以支持使用 lsof 命令</p>
+<p>新的 dockerfile 内容如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos:latest</span><br><span class="line"></span><br><span class="line">COPY lsof /usr/sbin/</span><br><span class="line">COPY libc.so.6 /usr/lib64/</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: 由于上面👆我是假设的缺失了libc.so.6文件, 所以在 dockerfile 里加入了这个文件的拷贝, 实际上这个文件在 centos 基础镜像是存在的, 而且是以软连接的形式存在的, 当我们真的<code>COPY libc.so.6 /usr/lib64/</code>这么操作时, 反而会报错. 一定注意: 此处只是演示缺失库文件的处理情况, 库文件已经存在的话, 最好不要动原配!!!</strong></p>
+<p>然后我们执行编译新镜像的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t mycentos:0.2 ./</span><br></pre></td></tr></table></figure>
+
+<p>进入到新的容器验证 lsof 是否可以正常使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker container run -it mycentos:0.2 /bin/bash                                                                           </span><br><span class="line">[root@032d75e40f56 /]<span class="comment"># lsof</span></span><br><span class="line">COMMAND PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME</span><br><span class="line">bash      1 root  cwd    DIR  0,133     4096   47026 /</span><br><span class="line">bash      1 root  rtd    DIR  0,133     4096   47026 /</span><br><span class="line">bash      1 root  txt    REG    8,1   964544  917638 /usr/bin/bash</span><br><span class="line">bash      1 root  mem    REG    8,1    62184  919647 /usr/lib64/libnss_files-2.17.so</span><br><span class="line">bash      1 root  mem    REG    8,1  2173512  919510 /usr/lib64/libc-2.17.so</span><br><span class="line">bash      1 root  mem    REG    8,1    19776  919537 /usr/lib64/libdl-2.17.so</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>支持, 关于为容器镜像定制的Linux工具命令的工作就已经全部完成了, 我们再看下定制版的镜像体积大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image ls                                                                                                           </span><br><span class="line">REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mycentos                                      0.2                 805d98b565c8        7 minutes ago       201MB</span><br></pre></td></tr></table></figure>
+
+<p>精简到了只有 <strong>201MB</strong> 与原始的镜像相比, 只增加了 <strong>1MB</strong></p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li>查看程序依赖库: <a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/ldd.html" target="_blank" rel="noopener">https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/ldd.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/11/CentOS7%E4%B8%8B%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E9%A1%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/11/CentOS7%E4%B8%8B%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E9%A1%B9/" class="post-title-link" itemprop="url">CentOS7下查看开机启动项</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-11 20:20:22" itemprop="dateCreated datePublished" datetime="2018-10-11T20:20:22+08:00">2018-10-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/11/CentOS7%E4%B8%8B%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E9%A1%B9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/CentOS7下查看开机启动项/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看开机启动项"><a href="#查看开机启动项" class="headerlink" title="查看开机启动项"></a>查看开机启动项</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看某一服务是否开启启动"><a href="#查看某一服务是否开启启动" class="headerlink" title="查看某一服务是否开启启动"></a>查看某一服务是否开启启动</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled kubelet.service</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy/" class="post-title-link" itemprop="url">kubelet删除Pod报device or resource busy</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-11 19:56:45" itemprop="dateCreated datePublished" datetime="2018-10-11T19:56:45+08:00">2018-10-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/Kubelet删除Pod报device-or-resource-busy/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>删除 deployment 资源后, 某些 pod 资源的状态一直显示 Terminating, 进入到该 pod 所在的宿主机, 查看 kubelet 日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u kubelet -f</span><br></pre></td></tr></table></figure>
+
+<p>会发现有删除某些目录/文件 <code>device or resource busy</code> 的错误出现, 说明有其他的进程在挂载容器内使用的目录</p>
+<p>使用如下脚本, 检查目录挂载情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]<span class="comment"># cat leak.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">declare</span> -A map</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find /proc/*/mounts -<span class="built_in">exec</span> grep <span class="variable">$1</span> &#123;&#125; + 2&gt;/dev/null | awk <span class="string">'&#123;print $1"#"$2&#125;'</span>`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    pid=`<span class="built_in">echo</span> <span class="variable">$i</span> | awk -F <span class="string">"[/]"</span> <span class="string">'&#123;print $3&#125;'</span>`</span><br><span class="line">    point=`<span class="built_in">echo</span> <span class="variable">$i</span> | awk -F <span class="string">"[#]"</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">    mnt=`ls -l /proc/<span class="variable">$pid</span>/ns/mnt |awk <span class="string">'&#123;print $11&#125;'</span>`</span><br><span class="line">    map[<span class="string">"<span class="variable">$mnt</span>"</span>]=<span class="string">"exist"</span></span><br><span class="line">    cmd=`cat /proc/<span class="variable">$pid</span>/cmdline`</span><br><span class="line">    <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$pid</span>\t<span class="variable">$mnt</span>\t<span class="variable">$cmd</span>\t<span class="variable">$point</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `ps aux|grep docker-containerd-shim |grep -v <span class="string">"grep"</span> |awk <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    mnt=`ls -l /proc/<span class="variable">$i</span>/ns/mnt  2&gt;/dev/null | awk <span class="string">'&#123;print $11&#125;'</span>`</span><br><span class="line">    <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;map[$mnt]&#125;</span>"</span> == <span class="string">"exist"</span> ]];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="variable">$mnt</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>执行脚本, 后跟<code>device or resource busy</code>的目录绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh leak.sh &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F;81791176-a505-11e7-accf-5254fe5a9007&#x2F;volumes&#x2F;kubernetes.io~secret&#x2F;default-token-pzyxh</span><br></pre></td></tr></table></figure>
+
+<p>执行后, 可以看到该目录被哪些进程所挂载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8392    mnt:[4026532536]    &#x2F;bin&#x2F;bash&#x2F;start.sh--logtostderr -v&#x3D;2    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F;81791176-a505-11e7-accf-5254fe5a9007&#x2F;volumes&#x2F;kubernetes.io~secret&#x2F;default-token-pzyxh</span><br></pre></td></tr></table></figure>
+
+<p>一级一级往上追踪父进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]<span class="comment"># ps -ef | grep 8392</span></span><br><span class="line">root      8392  8345  0 9月30 ?       00:00:00 /bin/bash /start.sh --logtostderr -v=2</span><br><span class="line">root      8420  8392  0 9月30 ?       00:17:19 /usr/bin/python /usr/bin/supervisord -c supervisord.conf</span><br><span class="line">root     13757  7126  0 13:35 pts/2    00:00:00 grep --color=auto 8392</span><br><span class="line">[root@k8s-node ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>我遇到的情况是另一个专门用于收集日志的容器, 挂载了这个容器中的数据目录, 导致删除该容器时, 报<code>device or resource busy</code>的错误</p>
+<p>这种情况下, 你可以是用<code>kubectl exec</code>或<code>docker exec</code>进入到容器中, 将该目录 umount 掉, 过一会儿, 该 pod 即可被 Kubernetes 正确删除</p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/4fc11a0a31da" target="_blank" rel="noopener">https://www.jianshu.com/p/4fc11a0a31da</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">ca证书验证</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-09 16:25:09" itemprop="dateCreated datePublished" datetime="2018-10-09T16:25:09+08:00">2018-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/09/ca证书验证/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="验证证书是否是某-ca-机构颁发"><a href="#验证证书是否是某-ca-机构颁发" class="headerlink" title="验证证书是否是某 ca 机构颁发"></a>验证证书是否是某 ca 机构颁发</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:/var/lib/kubelet/pki<span class="comment"># openssl verify -CAfile /etc/kubernetes/pki/ca.crt kubelet-client-current.pem</span></span><br><span class="line">kubelet-client-current.pem: OK</span><br></pre></td></tr></table></figure>
+
+<p><code>kubelet-client-current.pem</code> 证书是 <code>/etc/kubernetes/pki/ca.crt</code> 该 ca 机构颁发</p>
+<h1 id="查看证书详情"><a href="#查看证书详情" class="headerlink" title="查看证书详情"></a>查看证书详情</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:~/ssl/admin<span class="comment"># openssl x509 -in /etc/kubernetes/pki/front-proxy-client.crt -text -noout</span></span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 3 (0x2)</span><br><span class="line">        Serial Number: 8005382448281716991 (0x6f18d4ec20fa88ff)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: CN=kubernetes</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Sep 11 15:15:40 2018 GMT</span><br><span class="line">            Not After : Sep 11 15:15:40 2019 GMT</span><br><span class="line">        Subject: CN=front-proxy-client</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (2048 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:c5:b4:21:b9:ad:4e:19:25:e2:12:78:5b:e3:75:</span><br><span class="line">                    3f:41:70:8d:05:f6:30:7f:72:8d:e7:cb:8b:82:de:</span><br><span class="line">                    be:be:fb:5b:57:fd:4f:7d:12:b7:e3:a8:d3:05:02:</span><br><span class="line">                    59:83:95:dd:14:19:c9:13:cf:96:80:1e:f0:70:39:</span><br><span class="line">                    30:4c:b6:a4:5b:47:83:14:04:fd:b7:b9:6d:4b:3d:</span><br><span class="line">                    a0:f1:e3:39:68:5d:b4:7d:af:3e:99:aa:43:30:d9:</span><br><span class="line">                    e9:45:87:47:c2:4f:61:81:0b:d3:f7:83:bb:98:5c:</span><br><span class="line">                    8e:e5:97:16:8e:23:a3:03:28:19:58:ee:3a:6b:de:</span><br><span class="line">                    ad:bf:54:42:90:80:4f:8f:28:76:bc:49:8d:35:d1:</span><br><span class="line">                    2e:e5:37:8a:aa:d2:be:ec:be:12:d6:b8:88:0b:85:</span><br><span class="line">                    88:1b:7d:1e:23:37:25:2d:c0:ea:d6:4e:6b:5f:81:</span><br><span class="line">                    93:26:6e:be:69:a1:67:e5:75:9a:85:db:a4:56:30:</span><br><span class="line">                    54:13:21:c5:41:46:9a:fd:c9:41:11:13:b9:b8:77:</span><br><span class="line">                    ba:74:26:85:5c:e2:78:b6:61:3b:5f:3c:bc:1a:00:</span><br><span class="line">                    3a:e7:e7:2d:a7:3a:04:17:46:86:66:c3:6c:25:3a:</span><br><span class="line">                    f5:b5:fa:d6:28:cc:7c:6e:08:47:2f:0e:08:f2:8a:</span><br><span class="line">                    46:33:e1:00:d7:9a:ce:e8:fe:80:e9:80:c4:58:53:</span><br><span class="line">                    c4:f1</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Key Usage: critical</span><br><span class="line">                Digital Signature, Key Encipherment</span><br><span class="line">            X509v3 Extended Key Usage:</span><br><span class="line">                TLS Web Client Authentication</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         41:0b:22:92:b5:33:4a:57:76:2f:69:51:12:d1:64:46:4d:f9:</span><br><span class="line">         72:1d:bb:32:2a:f4:c1:e4:58:ae:a3:53:be:8b:b3:da:6b:10:</span><br><span class="line">         ee:4a:15:4d:ad:71:27:6b:d5:dc:ff:12:56:a8:b7:8e:fd:b3:</span><br><span class="line">         ae:90:07:26:6b:e3:16:11:c7:56:79:db:04:f8:09:ca:c5:19:</span><br><span class="line">         c9:0c:54:8e:84:d0:09:e2:34:ed:9b:9c:b4:e8:6a:ae:6a:d1:</span><br><span class="line">         b2:b6:51:22:1c:c0:67:da:9d:1b:06:da:b7:cf:42:2a:98:38:</span><br><span class="line">         d0:48:93:4d:ef:71:73:60:6c:09:19:1d:d9:4e:f1:2d:d2:d4:</span><br><span class="line">         a5:e9:2c:a9:5a:b1:39:54:27:07:09:81:29:54:f8:37:20:db:</span><br><span class="line">         70:8e:7d:16:23:4f:5b:21:a3:02:df:a6:a9:87:f6:a0:10:4a:</span><br><span class="line">         43:73:97:4d:14:b7:4b:06:00:1c:c6:a8:45:d8:97:df:0e:1e:</span><br><span class="line">         70:87:98:ee:08:1f:31:e7:cf:6d:9d:06:05:47:8f:6a:e6:10:</span><br><span class="line">         c8:d7:0a:d3:7a:36:42:a5:05:ef:ba:bb:26:58:aa:ac:<span class="built_in">fc</span>:8d:</span><br><span class="line">         e4:11:45:12:ef:49:b9:fb:7a:f1:74:c7:41:d5:2f:1b:c2:15:</span><br><span class="line">         7d:87:e1:28:7d:05:e5:59:dc:1d:16:0f:e5:ac:a0:07:e4:f0:</span><br><span class="line">         cf:21:42:a4</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/" class="post-title-link" itemprop="url">Kubelet的认证和授权</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-08 11:29:09" itemprop="dateCreated datePublished" datetime="2018-10-08T11:29:09+08:00">2018-10-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/08/Kubelet-的认证和授权/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>kubelet 与 kube-apiserver 之间的通信是双向的, kubelet 既需要访问 kube-apiserver 获取分配到自己节点上的 pod 信息, kube-apiserver 也需要主动访问 kubelet 拉取日志, 状态, 监控数据等信息, 所以对两个组件来说, 认证是双向的, kube-apiserver 需要持有 kubelet 的客户端证书, 以完成 kubelet 对自己身份的校验; kubelet 也需要持有 kube-apiserver 的客户端证书, 完成 kube-apiserver 对自己身份的认证.</p>
+<h1 id="Kubelet-的认证"><a href="#Kubelet-的认证" class="headerlink" title="Kubelet 的认证"></a>Kubelet 的认证</h1><p>默认情况下, 对 kubelet 的 https 请求, 如果没有被配置的其他身份验证拒绝的话, 则被视为匿名请求, 并为这个请求赋予<code>system:anonymous</code>用户名和<code>system:unauthenticated</code>用户组</p>
+<h2 id="禁用匿名访问"><a href="#禁用匿名访问" class="headerlink" title="禁用匿名访问"></a>禁用匿名访问</h2><p>如需要禁用匿名访问, 可以在启动 kubelet Daemon 时加入<code>--anonymous-auth=false</code>配置, 当有匿名访问时, 将回复<code>401 Unauthorized</code>响应未认证的请求</p>
+<h2 id="开启-X509-认证"><a href="#开启-X509-认证" class="headerlink" title="开启 X509 认证"></a>开启 X509 认证</h2><ul>
+<li>kubelet 启动时添加<code>--client-ca-file</code>参数, 并指定签发客户端证书的 ca 根证书所在路径</li>
+<li>kube-apiserver 启动时添加<code>--kubelet-client-certificate</code>和<code>--kubelet-client-key</code>参数, 并分别为其指定由 kubelet ca 根证书签发的客户端证书和秘钥</li>
+</ul>
+<h1 id="Kubelet-的授权"><a href="#Kubelet-的授权" class="headerlink" title="Kubelet 的授权"></a>Kubelet 的授权</h1><p>任何被成功认证的请求(包括匿名请求)都将被授权. 默认的授权模式为<code>AlwaysAllow</code>, 即允许所有类型的请求</p>
+<h2 id="细分对-kubelet-API-访问权限的原因"><a href="#细分对-kubelet-API-访问权限的原因" class="headerlink" title="细分对 kubelet API 访问权限的原因"></a>细分对 kubelet API 访问权限的原因</h2><ul>
+<li>匿名访问启用时, 应限制其调用 kubelet API 的能力</li>
+<li>客户端证书身份认证启用时, 只允许配置 CA 签名的客户端证书使用 kubelet API</li>
+</ul>
+<h2 id="细分权限"><a href="#细分权限" class="headerlink" title="细分权限"></a>细分权限</h2><ul>
+<li>确保<code>authorization.k8s.io/v1beta1</code>该 API Group 在 kube-apiserver 中是被启动的状态</li>
+<li>在 kubelet Daemon 启动参数中, 确保配置了<code>--authorization-mode=Webhook</code>和<code>--kubeconfig</code>两个参数</li>
+</ul>
+<p>kubelet 在接收到每个请求后, 会向指定的 kube-apiserver 发起 <code>SubjectAccessReview</code> API 的请求, 来确定该请求是否被允许</p>
+<hr>
+<p><strong>参考文档</strong></p>
+<ul>
+<li>官方文档  <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/" class="post-title-link" itemprop="url">详解kubeadm生成的证书</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-28 20:05:48" itemprop="dateCreated datePublished" datetime="2018-09-28T20:05:48+08:00">2018-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/28/详解kubeadm生成的证书/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>如果你使用过kubeadm部署过Kubernetes的环境, master主机节点上就一定会在相应的目录创建了一大批证书文件, 本篇文章就来说说kubeadm到底为我们生成了哪些证书</p>
+</blockquote>
+<p>在Kubernetes的部署中, 创建证书, 配置证书是一道绕不过去坎儿, 好在有kubeadm这样的自动化工具, 帮我们去生成, 配置这些证书. 对于只是想体验Kubernetes或只是想测试的亲来说, 这已经够了, 但是作为Kubernetes的集群维护者来说, kubeadm更像是一个黑盒, 本篇文章就来说说黑盒中关于证书的事儿~</p>
+<p>使用kubeadm创建完Kubernetes集群后, 默认会在<code>/etc/kubernetes/pki</code>目录下存放集群中需要用到的证书文件, 整体结构如下图所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:&#x2F;etc&#x2F;kubernetes&#x2F;pki# tree</span><br><span class="line">.</span><br><span class="line">|-- apiserver.crt</span><br><span class="line">|-- apiserver-etcd-client.crt</span><br><span class="line">|-- apiserver-etcd-client.key</span><br><span class="line">|-- apiserver.key</span><br><span class="line">|-- apiserver-kubelet-client.crt</span><br><span class="line">|-- apiserver-kubelet-client.key</span><br><span class="line">|-- ca.crt</span><br><span class="line">|-- ca.key</span><br><span class="line">|-- etcd</span><br><span class="line">|   |-- ca.crt</span><br><span class="line">|   |-- ca.key</span><br><span class="line">|   |-- healthcheck-client.crt</span><br><span class="line">|   |-- healthcheck-client.key</span><br><span class="line">|   |-- peer.crt</span><br><span class="line">|   |-- peer.key</span><br><span class="line">|   |-- server.crt</span><br><span class="line">|   &#96;-- server.key</span><br><span class="line">|-- front-proxy-ca.crt</span><br><span class="line">|-- front-proxy-ca.key</span><br><span class="line">|-- front-proxy-client.crt</span><br><span class="line">|-- front-proxy-client.key</span><br><span class="line">|-- sa.key</span><br><span class="line">&#96;-- sa.pub</span><br><span class="line"></span><br><span class="line">1 directory, 22 files</span><br></pre></td></tr></table></figure>
+
+<p>以上22个文件就是kubeadm为我们创建的所有证书相关的文件, 下面我们来一一解析</p>
+<h2 id="证书分组"><a href="#证书分组" class="headerlink" title="证书分组"></a>证书分组</h2><p>Kubernetes把证书放在了两个文件夹中</p>
+<ul>
+<li>/etc/kubernetes/pki</li>
+<li>/etc/kubernetes/pki/etcd</li>
+</ul>
+<p>我们再将这22个文件按照更细的粒度去分组</p>
+<h2 id="Kubernetes-集群根证书"><a href="#Kubernetes-集群根证书" class="headerlink" title="Kubernetes 集群根证书"></a>Kubernetes 集群根证书</h2><p>Kubernetes 集群根证书CA(Kubernetes集群组件的证书签发机构)</p>
+<ul>
+<li><code>/etc/kubernetes/pki/ca.crt</code></li>
+<li><code>/etc/kubernetes/pki/ca.key</code></li>
+</ul>
+<p>以上这组证书为签发其他Kubernetes组件证书使用的根证书, 可以认为是Kubernetes集群中证书签发机构之一</p>
+<p>由此根证书签发的证书有:</p>
+<ol>
+<li><p>kube-apiserver 组件持有的服务端证书</p>
+<ul>
+<li><code>/etc/kubernetes/pki/apiserver.crt</code></li>
+<li><code>/etc/kubernetes/pki/apiserver.key</code></li>
+</ul>
+</li>
+<li><p>kubelet 组件持有的客户端证书, 用作 kube-apiserver 主动向 kubelet 发起请求时的客户端认证</p>
+<ul>
+<li><code>/etc/kubernetes/pki/apiserver-kubelet-client.crt</code></li>
+<li><code>/etc/kubernetes/pki/apiserver-kubelet-client.key</code></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意: Kubernetes集群组件之间的交互是双向的, kubelet 既需要主动访问 kube-apiserver, kube-apiserver 也需要主动向 kubelet 发起请求, 所以双方都需要有自己的根证书以及使用该根证书签发的服务端证书和客户端证书. 在 kube-apiserver 中, 一般明确指定用于 https 访问的服务端证书和带有<code>CN 用户名</code>信息的客户端证书. 而在 kubelet 的启动配置中, 一般只指定了 ca 根证书, 而没有明确指定用于 https 访问的服务端证书, 这是因为, 在生成服务端证书时, 一般会指定服务端地址或主机名, kube-apiserver 相对变化不是很频繁, 所以在创建集群之初就可以预先分配好用作 kube-apiserver 的 IP 或主机名/域名, 但是由于部署在 node 节点上的 kubelet 会因为集群规模的变化而频繁变化, 而无法预知 node 的所有 IP 信息, 所以 kubelet 上一般不会明确指定服务端证书, 而是只指定 ca 根证书, 让 kubelet 根据本地主机信息自动生成服务端证书并保存到配置的<code>cert-dir</code>文件夹中.</p>
+</blockquote>
+<p>好了, 至此, Kubernetes集群根证书所签发的证书都在上面了, 算上根证书一共涉及到6个文件, 22-6=16, 我们还剩下16个文件</p>
+<h2 id="汇聚层证书"><a href="#汇聚层证书" class="headerlink" title="汇聚层证书"></a>汇聚层证书</h2><p>kube-apiserver 的另一种访问方式就是使用 <code>kubectl proxy</code> 来代理访问, 而该证书就是用来支持SSL代理访问的. 在该种访问模式下, 我们是以http的方式发起请求到代理服务的, 此时, 代理服务会将该请求发送给 kube-apiserver, 在此之前, 代理会将发送给 kube-apiserver 的请求头里加入证书信息, 以下两个配置</p>
+<p>API Aggregation允许在不修改Kubernetes核心代码的同时扩展Kubernetes API.  开启 API Aggregation 需要在 kube-apiserver 中添加如下配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--requestheader-client-ca-file&#x3D;&lt;path to aggregator CA cert&gt;</span><br><span class="line">--requestheader-allowed-names&#x3D;front-proxy-client</span><br><span class="line">--requestheader-extra-headers-prefix&#x3D;X-Remote-Extra-</span><br><span class="line">--requestheader-group-headers&#x3D;X-Remote-Group</span><br><span class="line">--requestheader-username-headers&#x3D;X-Remote-User</span><br><span class="line">--proxy-client-cert-file&#x3D;&lt;path to aggregator proxy cert&gt;</span><br><span class="line">--proxy-client-key-file&#x3D;&lt;path to aggregator proxy key&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>官方警告: 除非你了解保护 CA 使用的风险和机制, 否则不要在不通上下文中重用已经使用过的 CA</strong></p>
+<p>如果 kube-proxy 没有和 API server 运行在同一台主机上，那么需要确保启用了如下 apiserver 标记：</p>
+<p><code>--enable-aggregator-routing=true</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">客户端 ---发起请求---&gt; 代理 ---Add Header:发起请求---&gt; kube-apiserver</span><br><span class="line">                   (客户端证书)                        (服务端证书)</span><br></pre></td></tr></table></figure>
+
+<p>kube-apiserver 代理根证书(客户端证书)</p>
+<p>用在<code>requestheader-client-ca-file</code>配置选项中, kube-apiserver 使用该证书来验证客户端证书是否为自己所签发</p>
+<ul>
+<li><code>/etc/kubernetes/pki/front-proxy-ca.crt</code></li>
+<li><code>/etc/kubernetes/pki/front-proxy-ca.key</code></li>
+</ul>
+<p>由此根证书签发的证书只有一组:</p>
+<p>代理层(如汇聚层aggregator)使用此套代理证书来向 kube-apiserver 请求认证</p>
+<ol>
+<li>代理端使用的客户端证书, 用作代用户与 kube-apiserver 认证<ul>
+<li><code>/etc/kubernetes/pki/front-proxy-client.crt</code></li>
+<li><code>/etc/kubernetes/pki/front-proxy-client.key</code></li>
+</ul>
+</li>
+</ol>
+<p>参考文档:</p>
+<ul>
+<li>kube-apiserver 配置参数: <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/</a></li>
+<li>使用汇聚层扩展 Kubernetes API: <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/</a></li>
+<li>配置汇聚层: <a href="https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/</a></li>
+</ul>
+<p>至此, 刨除代理专用的证书外, 还剩下 16-4=12 个文件</p>
+<h2 id="etcd-集群根证书"><a href="#etcd-集群根证书" class="headerlink" title="etcd 集群根证书"></a>etcd 集群根证书</h2><p>etcd集群所用到的证书都保存在<code>/etc/kubernetes/pki/etcd</code>这路径下, 很明显, 这一套证书是用来专门给etcd集群服务使用的, 设计以下证书文件</p>
+<p>etcd 集群根证书CA(etcd 所用到的所有证书的签发机构)</p>
+<ul>
+<li><code>/etc/kubernetes/pki/etcd/ca.crt</code></li>
+<li><code>/etc/kubernetes/pki/etcd/ca.key</code></li>
+</ul>
+<p>由此根证书签发机构签发的证书有:</p>
+<ol>
+<li><p>etcd server 持有的服务端证书</p>
+<ul>
+<li><code>/etc/kubernetes/pki/etcd/server.crt</code></li>
+<li><code>/etc/kubernetes/pki/etcd/server.key</code></li>
+</ul>
+</li>
+<li><p>peer 集群中节点互相通信使用的客户端证书</p>
+<ul>
+<li><p><code>/etc/kubernetes/pki/etcd/peer.crt</code></p>
+</li>
+<li><p><code>/etc/kubernetes/pki/etcd/peer.key</code></p>
+<p>注: Peer：对同一个etcd集群中另外一个Member的称呼</p>
+</li>
+</ul>
+</li>
+<li><p>pod 中定义 Liveness 探针使用的客户端证书</p>
+<p>kubeadm 部署的 Kubernetes 集群是以 pod 的方式运行 etcd 服务的, 在该 pod 的定义中, 配置了 Liveness 探活探针</p>
+<ul>
+<li><p><code>/etc/kubernetes/pki/etcd/healthcheck-client.crt</code></p>
+</li>
+<li><p><code>/etc/kubernetes/pki/etcd/healthcheck-client.key</code></p>
+<p>当你 describe etcd 的 pod 时, 会看到如下一行配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Liveness:       exec [&#x2F;bin&#x2F;sh -ec ETCDCTL_API&#x3D;3 etcdctl --endpoints&#x3D;https:&#x2F;&#x2F;[127.0.0.1]:2379 --cacert&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.crt --cert&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;healthcheck-client.crt --key&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;healthcheck-client.key get foo] delay&#x3D;15s timeout&#x3D;15s period&#x3D;10s #success&#x3D;1 #failure&#x3D;8</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>配置在 kube-apiserver 中用来与 etcd server 做双向认证的客户端证书</p>
+<ul>
+<li><code>/etc/kubernetes/pki/apiserver-etcd-client.crt</code></li>
+<li><code>/etc/kubernetes/pki/apiserver-etcd-client.key</code></li>
+</ul>
+</li>
+</ol>
+<p>至此, 介绍了涉及到 etcd 服务的10个证书文件, 12-10=2, 仅剩两个没有介绍到的文件啦, 胜利✌️在望, 坚持一下~</p>
+<h2 id="Serveice-Account秘钥"><a href="#Serveice-Account秘钥" class="headerlink" title="Serveice Account秘钥"></a>Serveice Account秘钥</h2><p>最后介绍的这组”证书”其实不是证书, 而是一组秘钥. 看着后缀名是不是有点眼熟呢, 没错, 这组秘钥对儿其实跟我们在Linux上创建, 用于免密登录的密钥对儿原理是一样的~</p>
+<blockquote>
+<p>这组的密钥对儿仅提供给 kube-controller-manager 使用. kube-controller-manager 通过 sa.key 对 token 进行签名, master 节点通过公钥 sa.pub 进行签名的验证</p>
+</blockquote>
+<ul>
+<li><code>/etc/kubernetes/pki/sa.key</code></li>
+<li><code>/etc/kubernetes/pki/sa.pub</code></li>
+</ul>
+<p>至此, kubeadm 工具帮我们创建的所有证书文件都已经介绍完了, 整个 Kubernetes&amp;etcd 集群中所涉及到的绝大部分证书都差不多在这里了. 有的行家可能会看出来, 至少还少了一组证书呀, 就是 kube-proxy 持有的证书怎么没有自动生成呀. 因为 kubeadm 创建的集群, kube-proxy 是以 pod 形式运行的, 在 pod 中, 直接使用 service account 与 kube-apiserver 进行认证, 此时就不需要再单独为 kube-proxy 创建证书了. 如果你的 kube-proxy 是以守护进程的方式直接运行在宿主机的, 那么你就需要为它创建一套证书了. 创建的方式也很简单, 直接使用上面第一条提到的 <code>Kubernetes 集群根证书</code> 进行签发就可以了(注意CN和O的设置)</p>
+<p>下一篇文章中, 将实际操作创建所有证书的流程(含kube-proxy证书), 并逐一解释参数的使用</p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li>PKI 认证: <a href="https://kubernetes.io/docs/setup/certificates/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/certificates/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/09/18/HTTP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/18/HTTP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">HTTP基本概念</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-18 10:57:42" itemprop="dateCreated datePublished" datetime="2018-09-18T10:57:42+08:00">2018-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TCP-HTTP/" itemprop="url" rel="index"><span itemprop="name">TCP/HTTP</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/09/18/HTTP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/18/HTTP基本概念/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#HTTP发展历史</p>
+<h2 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP 0.9"></a>HTTP 0.9</h2><ul>
+<li>只有一个GET方法</li>
+<li>没有header等描述数据信息</li>
+<li>服务器发送完毕, 就关闭TCP连接</li>
+</ul>
+<h2 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP 1.0"></a>HTTP 1.0</h2><ul>
+<li>增加了很多方法, 例如POST, PUT, DELETE等</li>
+<li>增加了status code和header</li>
+<li>增加了多字符集的支持, 多部分发送, 权限, 缓存等</li>
+</ul>
+<h2 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP 1.1"></a>HTTP 1.1</h2><ul>
+<li>持久连接/长连接</li>
+<li>Pipeline 客户端可以在同一个连接中发送多个请求, 服务端按顺序返回(串行)</li>
+<li>增加host头, 有了host之后可以实现一台web服务可以接收/处理多个域名的请求</li>
+<li>增加了其他更多的方法</li>
+</ul>
+<h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h2><ul>
+<li>2.0所有的数据以二进制进行传输(帧), 在1.1大部分是以字符串的形式传输</li>
+<li>得益于基于帧的传输, 可以实现在同一个连接里面发送多个请求不再需要按顺序来返回(并行)</li>
+<li>头信息压缩, 1.1的header头以字符串的形式进行传输, 占用了大量带宽</li>
+<li>推送, 1.1之前只支持客户端主动向服务端发起请求, 服务端被动向客户端响应请求; 2.0之后服务可以主动向客户端发送数据(例子🌰: 客户端在发起请求访问服务端页面时, 先请求html页面, 当客户端收到服务端发来的html数据之后, 客户端浏览器进行解析并渲染, 在其中, 发现了引用到了其他文件, 如css, js文件, 均以url链接形式引用, 此时浏览器会按顺序再次对新的资源发起请求; 2.0中, 此场景下, 客户端在请求了html页面后, 服务端可以实现主动将css, js数据推送到客户端, 从而解决了1.1串行请求资源的性能低下问题. 并且服务端主动推送资源到客户端, 也可以解决客户端因各种原因, 请求不到指定资源的情况)</li>
+</ul>
+<p>2.0 以提高效率为主要目标对1.1进行了大量改进</p>
+<h1 id="经典五层模型"><a href="#经典五层模型" class="headerlink" title="经典五层模型"></a>经典五层模型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">应用层  —&gt; HTTP&#x2F;FTP</span><br><span class="line">    🔽</span><br><span class="line">传输层  —&gt; TCP&#x2F;UDP</span><br><span class="line">    🔽</span><br><span class="line">网络层: 数据在节点之间传输创建逻辑链路</span><br><span class="line">    🔽</span><br><span class="line">数据链路层: 在通信的实体间建立数据链路连接(0101)</span><br><span class="line">    🔽</span><br><span class="line">物理层: 定义物理设备如何传输数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p>向用户提供可靠的端到端的服务, 传输层向高层屏蔽了下层数据通信的细节</p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>为应用软件提供服务, 构建在传输层协议之上, 屏蔽网络通信细节</p>
+<h1 id="HTTP-TCP-的三次握手"><a href="#HTTP-TCP-的三次握手" class="headerlink" title="HTTP(TCP)的三次握手"></a>HTTP(TCP)的三次握手</h1><p>三次握手是TCP连接中的概念,  HTTP不存在连接的概念, HTTP只有请求和响应的概念</p>
+<p>每个HTTP的请求与响应都是需要基于一个TCP的连接的</p>
+<p>User http requests ———— <code>TCP connection</code> ———— Server http response</p>
+<p>在HTTP 1.0 版本中, 客户端发起一个HTTP请求, 此时, 会创建一条TCP连接通道, 在服务端处理完毕, 响应给客户端之后, 这条TCP连接就会被断掉</p>
+<p>在HTTP 1.1版本中, 通过声明特殊的属性, 可以实现一个TCP连接上, 可以发送多个HTTP请求(长连接/Keepalive)</p>
+<p>在HTTP 2.0 版本中, 可以实现, 同一个客户端请求同一个服务端, 只需要一个TCP连接即可, 因为2.0版本支持并行发送请求, 和并行接收请求, 不需要再额外创建更多的TCP连接</p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">client                                                 server</span><br><span class="line">    ———————SYN&#x3D;1, Seq&#x3D;x—————— &gt;</span><br><span class="line">    &lt;——SYN&#x3D;1, ACK&#x3D;x+1, Seq&#x3D;Y——</span><br><span class="line">    ———————ACK&#x3D;Y+1, Seq&#x3D;Z————&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Go面向对象之结构体和方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-14 00:03:20" itemprop="dateCreated datePublished" datetime="2018-08-14T00:03:20+08:00">2018-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/14/Go面向对象之结构体和方法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>go语言只支持封装, 不支持继承和多态. Java是典型的支持面向对象的语言之一, 他本身支持面向对象的三大特征, 封装继承和多态; 到了Python中, Python显式的支持封装和继承, Python多态的特性大家争论不休, 虽然Python没有显式的多态语法, 但是由于Python这种动态语言的设计, 他本身就是多态的; 到了Go这里, 却只支持封装了, 与其说Go语言是一种面向对象的语言, 倒不如说他是一种面向接口的语言</p>
+</blockquote>
+<p>go语言没有class, 只有struct, Go语言中也没有构造函数的说法</p>
+<h1 id="定义结构体"><a href="#定义结构体" class="headerlink" title="定义结构体"></a>定义结构体</h1><p>在结构体中, 可以为不同的key定义不同的数据类型, 结构体是由一系列具有相同类型或不同类型的数据构成的数据集合</p>
+<p>结构体更类似于在传统的分层开发领域中的module层(实体层), 一般情况下, 实体层中的每个成员属性都对应了数据库中数据表的一个字段, 实力层存在的意义在于以对象的形式进行传值. 拿三层开发来说, 一般分为表示层/接口层, 业务逻辑层, 数据访问层. 每层与每层之间的数据流转正是通过引入的实体层, 实例化实体层的对象来实现的. 结构体之于Go, 类似于实体层中的类之于Java</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	ee := employee&#123;id:<span class="number">234</span>, name:<span class="string">"sam"</span>, age:<span class="number">45</span>, department:<span class="string">"daas"</span>, city:<span class="string">"BeiJing"</span>&#125;</span><br><span class="line">	fmt.Println(e)</span><br><span class="line">	fmt.Println(ee)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;123 larry 28 paas TangShan&#125;</span><br><span class="line">&#123;234 sam 45 daas BeiJing&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="访问结构体成员"><a href="#访问结构体成员" class="headerlink" title="访问结构体成员"></a>访问结构体成员</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> e1 employee  <span class="comment">// 声明e1变量为employee类型</span></span><br><span class="line">	<span class="keyword">var</span> e2 employee  <span class="comment">// 声明e2变量为employee类型</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 为e1对象赋值</span></span><br><span class="line">	e1.id = <span class="number">123</span></span><br><span class="line">	e1.name = <span class="string">"larry"</span></span><br><span class="line">	e1.age = <span class="number">28</span></span><br><span class="line">	e1.department = <span class="string">"paas"</span></span><br><span class="line">	e1.city = <span class="string">"TangShan"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 为e2对象赋值</span></span><br><span class="line">	e2.id = <span class="number">234</span></span><br><span class="line">	e2.name = <span class="string">"sam"</span></span><br><span class="line">	e2.age = <span class="number">45</span></span><br><span class="line">	e2.department = <span class="string">"daas"</span></span><br><span class="line">	e2.city = <span class="string">"BeiJing"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 访问结构体对象的成员</span></span><br><span class="line">	fmt.Println(e1.name, e1.age)</span><br><span class="line">	fmt.Println(e2.name, e2.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">larry 28</span><br><span class="line">sam 45</span><br></pre></td></tr></table></figure>
+
+<h1 id="结构体作为函数参数"><a href="#结构体作为函数参数" class="headerlink" title="结构体作为函数参数"></a>结构体作为函数参数</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printEmpInfo</span><span class="params">(emp employee)</span></span> &#123;</span><br><span class="line">	fmt.Println(emp.name, emp.city)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	ee := employee&#123;id:<span class="number">234</span>, name:<span class="string">"sam"</span>, age:<span class="number">45</span>, department:<span class="string">"daas"</span>, city:<span class="string">"BeiJing"</span>&#125;</span><br><span class="line"></span><br><span class="line">	printEmpInfo(e)</span><br><span class="line">	printEmpInfo(ee)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结构体用作函数参数的时候, 最像三层开发中的实体层用法</p>
+<h1 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> e1 *employee</span><br><span class="line"></span><br><span class="line">	e1 = &amp;e</span><br><span class="line"></span><br><span class="line">	fmt.Println(e1.age, e.age)</span><br><span class="line"></span><br><span class="line">	e1.age = <span class="number">29</span></span><br><span class="line">	</span><br><span class="line">	fmt.Println(e1.age, e.age)  <span class="comment">// 由于e1对象拿到的是e对象的指针, 所以对任意一个变量赋值都会被更改</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">28 28</span><br><span class="line">29 29</span><br></pre></td></tr></table></figure>
+
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>在Python中, 方法和函数的区别可以简单理解为在类中的函数就叫方法. 在Go语言中, 什么是方法呢, 可以简单认为, 为结构体定义的函数就叫方法</p>
+<p>与其他语言不同的是, 为结构体定义的方法, 从形式上看不是写在结构体里面的, 而是写在结构体外面的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="comment">// (emp employee) 在函数名的前面定义了接收者, 类似于其他语言的this, 或是Python的self</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp employee)</span> <span class="title">printEmpInfo</span><span class="params">(arg <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"我是形式参数 %s\n"</span>, arg)</span><br><span class="line">	fmt.Println(emp.name)</span><br><span class="line">	fmt.Println(emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	e.printEmpInfo(<span class="string">"PolarSnow"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我是形式参数 PolarSnow</span><br><span class="line">larry</span><br><span class="line">28</span><br></pre></td></tr></table></figure>
+
+<p>上面的demo中, <code>e.printEmpInfo(&quot;PolarSnow&quot;)</code> e对象调用了printEmpInfo方法, 并显式传递了PolarSnow参数, 其实在背后, 在存在一个隐式传参, 就是e把自己传递给了方法定义中的<code>(emp employee)</code>, 类似于Java中的this, 和Python中的self</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printEmpInfo</span><span class="params">(emp employee, arg <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"我是形式参数 %s\n"</span>, arg)</span><br><span class="line">	fmt.Println(emp.name)</span><br><span class="line">	fmt.Println(emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	printEmpInfo(e, <span class="string">"PolarSnow"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这么写效果是一样的, 只是调用的时候是直接调用函数, 把结构体对象当做形式参数传递, 而不是调用结构体自己的方法, 将自己隐式传递到方法中</p>
+<h1 id="结构体方法中隐式传参的问题"><a href="#结构体方法中隐式传参的问题" class="headerlink" title="结构体方法中隐式传参的问题"></a>结构体方法中隐式传参的问题</h1><p><strong>注意: 默认情况下, Go语言所有参数都是传值, <code>func (emp employee) printEmpInfo(arg string)</code> 也不例外, 同样是值传递</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	emp.age = age</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法里的值"</span>, emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法外面的值"</span>, e.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是结构体方法里的值 29</span><br><span class="line">我是结构体方法外面的值 28</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="comment">// 只要将接收结构体对象的数据类型前加*(取指针) 则方法内对结构体对象成员的修改就会同步到方法外部</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp *employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	emp.age = age</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法里的值"</span>, emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	<span class="comment">// 调用方不需要任何更改, Go会自动去识别是应该传值还是传址</span></span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法外面的值"</span>, e.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是结构体方法里的值 29</span><br><span class="line">我是结构体方法外面的值 29</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: 只有指针才可以改变结构体中的内容</strong></p>
+<p>nil指针也是可以调用方法的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp *employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> emp == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"employee 对象为 nil 指针"</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> e *employee</span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">employee 对象为 nil 指针</span><br></pre></td></tr></table></figure>
+
+<h1 id="值接收者-vs-指针接收者"><a href="#值接收者-vs-指针接收者" class="headerlink" title="值接收者 vs 指针接收者"></a>值接收者 vs 指针接收者</h1><ul>
+<li>要改变内容必须使用指针接收者</li>
+<li>结构过大也需要考虑使用指针接受者</li>
+<li>一致性: 如果有指针接收者, 最好都是指针接收者</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>
