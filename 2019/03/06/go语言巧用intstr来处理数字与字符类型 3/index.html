@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="intstr 这个包是偶然在k8s client-go中发现的, 在编写deployment结构体定义时, apiv1.Container实例下LivenessProbe中用到的Port, 就是intstr.IntOrString. 特地看下来这个函数, 发现这个函数恰巧解决了一直困扰我的一个问题: 在restful接口中, 如果要求json格式body体内传递port端口参数, 那么port这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言巧用intstr来处理数字与字符类型">
+<meta property="og:url" content="https://docs.lvrui.io/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%203/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="intstr 这个包是偶然在k8s client-go中发现的, 在编写deployment结构体定义时, apiv1.Container实例下LivenessProbe中用到的Port, 就是intstr.IntOrString. 特地看下来这个函数, 发现这个函数恰巧解决了一直困扰我的一个问题: 在restful接口中, 如果要求json格式body体内传递port端口参数, 那么port这">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-06T08:14:40.000Z">
+<meta property="article:modified_time" content="2020-03-22T05:23:28.000Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="struct">
+<meta property="article:tag" content="json">
+<meta property="article:tag" content="intstr">
+<meta property="article:tag" content="IntOrString">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%203/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>go语言巧用intstr来处理数字与字符类型 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go语言巧用intstr来处理数字与字符类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 16:14:40" itemprop="dateCreated datePublished" datetime="2019-03-06T16:14:40+08:00">2019-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/06/go语言巧用intstr来处理数字与字符类型 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><code>intstr</code> 这个包是偶然在k8s client-go中发现的, 在编写<code>deployment</code>结构体定义时, <code>apiv1.Container</code>实例下<code>LivenessProbe</code>中用到的<code>Port</code>, 就是<code>intstr.IntOrString</code>. 特地看下来这个函数, 发现这个函数恰巧解决了一直困扰我的一个问题: 在<code>restful</code>接口中, 如果要求json格式<code>body</code>体内传递<code>port</code>端口参数, 那么<code>port</code>这个字段, 我应该在服务端定义成整型好呢, 还是字符串类型好呢, 一直很纠结~ 有了<code>intstr.IntOrString</code>再也不用为这事儿发愁了</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>以往我们接收<code>json</code>或<code>yaml</code>字符串要转成结构体时, 数据类型必须一一对应. 比如数据中的端口字段, 如果<code>json</code> 中传递是的整型, 则为以下样式 <code>{&quot;port&quot;: 8080}</code>; 如果传递的是字符串类型, 则为以下形式<code>{&quot;port&quot;: &quot;8080&quot;}</code></p>
+<p>服务端接收到这些字符串后, 需要将数据与结构体中的字段一一绑定, 当然数据类型也必须一致. 如果在服务端定义了<code>port</code>字段为<code>int</code>, 但是<code>json</code>字符串传递过来的是<code>{&quot;port&quot;: &quot;8080&quot;}</code>, 则绑定数据时将会报错. 反之也一样, 数据类型必须一致.</p>
+<p>我自己开发过得项目中, 很多接口的<code>body</code>体内都出现了端口字段, 有的时候定义为整型, 有的时候定义为字符串类型, api doc里也是有的写得整型, 有的写的字符串, 每次都纠结用什么类型好</p>
+<p><code>intstr.IntOrString</code> 数据类型顾名思义, 该类型可以既可以接受整型, 也可以接受字符串类型. 再也不用纠结这种用整型和字符串类型都合适的字段到底用什么数据类型了</p>
+<p><code>intstr.IntOrString</code> 不仅可以兼容接收整型或字符串类型, 而且可以通过其内置的函数, 在两个数据类型之间自由转换</p>
+<h2 id="json-yaml串转结构体"><a href="#json-yaml串转结构体" class="headerlink" title="json/yaml串转结构体"></a>json/yaml串转结构体</h2><p>以下demo的场景为, 拿到<code>json/yaml</code>串, 转换成结构体的使用场景</p>
+<h3 id="端口字段为整型"><a href="#端口字段为整型" class="headerlink" title="端口字段为整型"></a>端口字段为整型</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"k8s.io/apimachinery/pkg/util/intstr"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">	Host <span class="keyword">string</span> <span class="string">`json:"host"`</span></span><br><span class="line">	Port intstr.IntOrString <span class="string">`json:"port"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 定义json字符串, port字段的值设置为整型</span></span><br><span class="line">	jsonStr := <span class="string">`&#123;"name": "nginx", "host": "192.168.1.2", "port": 8080&#125;`</span></span><br><span class="line"></span><br><span class="line">	nginxService := &amp;service&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将json字符串的数据, 绑定到结构体实例中</span></span><br><span class="line">	json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), nginxService)</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"提取数据类型: %T 实际数据类型(编号): %v 值: %#v \n"</span>, nginxService.Port.IntVal, nginxService.Port.Type, nginxService.Port.IntVal)</span><br><span class="line">	fmt.Printf(<span class="string">"提取数据类型: %T 实际数据类型(编号): %v 值: %#v \n"</span>, nginxService.Port.StrVal, nginxService.Port.Type, nginxService.Port.StrVal)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">提取数据类型: int32 实际数据类型(编号): 0 值: 8080 </span><br><span class="line">提取数据类型: string 实际数据类型(编号): 0 值: &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中, json字符串中的端口字段为整型, 绑定到结构体的实例后, 通过<code>nginxService.Port.Type</code> 可以取得json串中实际传递的是哪种数据类型, 在本例中, 调用<code>nginxService.Port.Type</code>的结果是<code>0</code>, 通过查看源码得知, <code>0</code>表示json串中传递的数据是整型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 源码定义</span></span><br><span class="line"><span class="comment">// Type represents the stored type of IntOrString.</span></span><br><span class="line"><span class="keyword">type</span> Type <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Int    Type = <span class="literal">iota</span> <span class="comment">// The IntOrString holds an int.</span></span><br><span class="line">	String             <span class="comment">// The IntOrString holds a string.</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>在实际使用时, 可以先判断<code>nginxService.Port.Type</code>的结果是0, 还是1</p>
+<ul>
+<li>如果是0, 则取整型<code>nginxService.Port.IntVal</code></li>
+<li>如果是1, 则取字符串类型<code>nginxService.Port.StrVal</code></li>
+</ul>
+<p>还有一种更直接的用法, 就是根据需要, 显式的类型转换</p>
+<p>比如上面的例子中, json传递的端口值为整型, 但是服务端绑定到结构体之后, 当使用该端口时, 需要该端口值得数据类型为字符串类型, 你可以直接这样做:</p>
+<p><code>fmt.Printf(&quot;%#v&quot;, nginxService.Port.String())</code></p>
+<p>运行结果:</p>
+<p><code>&quot;8080&quot;</code></p>
+<p>可以看到, 整型的数据, 已经帮你转换成为字符串类型, 后期使用非常灵活, 可以随时提取两种数据类型的值</p>
+<h3 id="端口为字符串类型"><a href="#端口为字符串类型" class="headerlink" title="端口为字符串类型"></a>端口为字符串类型</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"k8s.io/apimachinery/pkg/util/intstr"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">	Host <span class="keyword">string</span> <span class="string">`json:"host"`</span></span><br><span class="line">	Port intstr.IntOrString <span class="string">`json:"port"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 定义json字符串, port字段的值设置为字符串类型</span></span><br><span class="line">	jsonStr := <span class="string">`&#123;"name": "nginx", "host": "192.168.1.2", "port": "8080""&#125;`</span></span><br><span class="line">	</span><br><span class="line">	nginxService := &amp;service&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将json字符串的数据, 绑定到结构体实例中</span></span><br><span class="line">	json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), nginxService)</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"提取数据类型: %T 实际数据类型(编号): %v 值: %#v \n"</span>, nginxService.Port.IntVal, nginxService.Port.Type, nginxService.Port.IntVal)</span><br><span class="line">	fmt.Printf(<span class="string">"提取数据类型: %T 实际数据类型(编号): %v 值: %#v \n"</span>, nginxService.Port.StrVal, nginxService.Port.Type, nginxService.Port.StrVal)</span><br><span class="line">	fmt.Printf(<span class="string">"值: %#v 实际数据类型: %T \t \n"</span>, nginxService.Port.String(), nginxService.Port.String())</span><br><span class="line">	fmt.Printf(<span class="string">"值: %#v 实际数据类型: %T \t \n"</span>, nginxService.Port.String(), nginxService.Port.IntValue())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">提取数据类型: int32 实际数据类型(编号): 1 值: 0 </span><br><span class="line">提取数据类型: string 实际数据类型(编号): 1 值: &quot;8080&quot; </span><br><span class="line">值: &quot;8080&quot; 实际数据类型: string          </span><br><span class="line">值: &quot;8080&quot; 实际数据类型: int</span><br></pre></td></tr></table></figure>
+
+<h2 id="结构体转json-yaml"><a href="#结构体转json-yaml" class="headerlink" title="结构体转json/yaml"></a>结构体转json/yaml</h2><h3 id="数据类型-整型"><a href="#数据类型-整型" class="headerlink" title="数据类型: 整型"></a>数据类型: 整型</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"k8s.io/apimachinery/pkg/util/intstr"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">	Host <span class="keyword">string</span> <span class="string">`json:"host"`</span></span><br><span class="line">	Port intstr.IntOrString <span class="string">`json:"port"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	</span><br><span class="line">	nginxService := service&#123;</span><br><span class="line">		Name: <span class="string">"nginx"</span>,</span><br><span class="line">		Host: <span class="string">"192.168.1.2"</span>,</span><br><span class="line">		Port: intstr.IntOrString&#123;</span><br><span class="line">			Type:   <span class="number">0</span>,    <span class="comment">// 这里设置为0, 意为数据类型为整型</span></span><br><span class="line">			IntVal: <span class="number">2222</span>,</span><br><span class="line">			StrVal: <span class="string">"1111"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	jsonBytes, _ := json.Marshal(nginxService)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(jsonBytes))</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意上面<code>intstr.IntOrString.Type</code>的值设置为<code>0</code>, 运行结果: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"name"</span>:<span class="string">"nginx"</span>,<span class="attr">"host"</span>:<span class="string">"192.168.1.2"</span>,<span class="attr">"port"</span>:<span class="number">2222</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>intstr.IntOrString.Type</code>的值设置为<code>0</code>, 表示该结构体实例内的数据为整型, 故转json时, 按照<code>IntVal</code>中的值来生成字符串</p>
+<p>*<em>注意: *</em> 如果没有显式为<code>intstr.IntOrString.Type</code>赋值, 则该值默认为0, 默认会取<code>IntVal</code>中的数据, 也就是说, 可以简写为以下形式</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nginxService := service&#123;</span><br><span class="line">	Name: <span class="string">"nginx"</span>,</span><br><span class="line">	Host: <span class="string">"192.168.1.2"</span>,</span><br><span class="line">	Port: intstr.IntOrString&#123;IntVal: <span class="number">2222</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据类型-字符串"><a href="#数据类型-字符串" class="headerlink" title="数据类型: 字符串"></a>数据类型: 字符串</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"k8s.io/apimachinery/pkg/util/intstr"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line">	Host <span class="keyword">string</span> <span class="string">`json:"host"`</span></span><br><span class="line">	Port intstr.IntOrString <span class="string">`json:"port"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	</span><br><span class="line">	nginxService := service&#123;</span><br><span class="line">		Name: <span class="string">"nginx"</span>,</span><br><span class="line">		Host: <span class="string">"192.168.1.2"</span>,</span><br><span class="line">		Port: intstr.IntOrString&#123;</span><br><span class="line">			Type:   <span class="number">1</span>,    <span class="comment">// 这里设置为1, 意为数据类型为str</span></span><br><span class="line">			IntVal: <span class="number">2222</span>,</span><br><span class="line">			StrVal: <span class="string">"1111"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	jsonBytes, _ := json.Marshal(nginxService)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(jsonBytes))</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意上面<code>intstr.IntOrString.Type</code>的值设置为<code>1</code>, 运行结果: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"name"</span>:<span class="string">"nginx"</span>,<span class="attr">"host"</span>:<span class="string">"192.168.1.2"</span>,<span class="attr">"port"</span>:<span class="string">"1111"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>intstr.IntOrString.Type</code>的值设置为<code>1</code>, 表示该结构体实例内的数据为字符串类型, 故转json时, 按照<code>StrVal</code>中的值来生成字符串</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/03/06/go语言巧用intstr来处理数字与字符类型/" rel="bookmark">go语言巧用intstr来处理数字与字符类型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/08/14/Go面向对象之结构体和方法/" rel="bookmark">Go面向对象之结构体和方法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/02/22/go语言结构体排序/" rel="bookmark">go语言结构体排序</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/08/14/Go面向对象之结构体和方法 3/" rel="bookmark">Go面向对象之结构体和方法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/02/22/go语言结构体排序 3/" rel="bookmark">go语言结构体排序</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/struct/" rel="tag"><i class="fa fa-tag"></i> struct</a>
+              <a href="/tags/json/" rel="tag"><i class="fa fa-tag"></i> json</a>
+              <a href="/tags/intstr/" rel="tag"><i class="fa fa-tag"></i> intstr</a>
+              <a href="/tags/IntOrString/" rel="tag"><i class="fa fa-tag"></i> IntOrString</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/04/go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93%E5%A4%9A%E5%AD%97%E6%AE%B5%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%8E%92%E5%BA%8F/" rel="prev" title="go语言结构体多字段多因素排序">
+      <i class="fa fa-chevron-left"></i> go语言结构体多字段多因素排序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B/" rel="next" title="go语言巧用intstr来处理数字与字符类型">
+      go语言巧用intstr来处理数字与字符类型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json-yaml串转结构体"><span class="nav-number">2.</span> <span class="nav-text">json&#x2F;yaml串转结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口字段为整型"><span class="nav-number">2.1.</span> <span class="nav-text">端口字段为整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#端口为字符串类型"><span class="nav-number">2.2.</span> <span class="nav-text">端口为字符串类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体转json-yaml"><span class="nav-number">3.</span> <span class="nav-text">结构体转json&#x2F;yaml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型-整型"><span class="nav-number">3.1.</span> <span class="nav-text">数据类型: 整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型-字符串"><span class="nav-number">3.2.</span> <span class="nav-text">数据类型: 字符串</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2019/03/06/go%E8%AF%AD%E8%A8%80%E5%B7%A7%E7%94%A8intstr%E6%9D%A5%E5%A4%84%E7%90%86%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%203/";
+    this.page.identifier = "2019/03/06/go语言巧用intstr来处理数字与字符类型 3/";
+    this.page.title = "go语言巧用intstr来处理数字与字符类型";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Python的logging模块提供了标准的日志接口，你可以通过它便捷地记录和存储各种格式的日志。 Python Version: 3.5+  日志的等级 DEBUG    Detailed information, typically of interest only when diagnosing problems. INFO    Confirmation that things are">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python日志模块-logging">
+<meta property="og:url" content="https://docs.lvrui.io/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging%205/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="Python的logging模块提供了标准的日志接口，你可以通过它便捷地记录和存储各种格式的日志。 Python Version: 3.5+  日志的等级 DEBUG    Detailed information, typically of interest only when diagnosing problems. INFO    Confirmation that things are">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oss.20150509.cn/20160608030759.png">
+<meta property="article:published_time" content="2016-06-07T18:30:45.000Z">
+<meta property="article:modified_time" content="2020-03-22T05:22:11.000Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Python模块">
+<meta property="article:tag" content="logging">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oss.20150509.cn/20160608030759.png">
+
+<link rel="canonical" href="https://docs.lvrui.io/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging%205/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python日志模块-logging | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python日志模块-logging
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-08 02:30:45" itemprop="dateCreated datePublished" datetime="2016-06-08T02:30:45+08:00">2016-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/08/Python日志模块-logging 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Python的logging模块提供了标准的日志接口，你可以通过它便捷地记录和存储各种格式的日志。</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<h1 id="日志的等级"><a href="#日志的等级" class="headerlink" title="日志的等级"></a>日志的等级</h1><ol>
+<li><strong>DEBUG</strong>    <em>Detailed information, typically of interest only when diagnosing problems.</em></li>
+<li><strong>INFO</strong>    <em>Confirmation that things are working as expected.</em></li>
+<li><strong>WARNING</strong>    <em>An indication that something unexpected happened, or indicative of some problem in the near future (e.g. ‘disk space low’). The software is still working as expected.</em></li>
+<li><strong>ERROR</strong>    <em>Due to a more serious problem, the software has not been able to perform some function.</em></li>
+<li><strong>CRITICAL</strong>    <em>A serious error, indicating that the program itself may be unable to continue running.</em></li>
+</ol>
+<h1 id="logging"><a href="#logging" class="headerlink" title="logging"></a>logging</h1><h2 id="最简单的用法"><a href="#最简单的用法" class="headerlink" title="最简单的用法"></a>最简单的用法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.warning(<span class="string">"user [ps] attempted wrong password more than 3 times"</span>)</span><br><span class="line">logging.critical(<span class="string">"server is down"</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">WARNING:root:user [ps] attempted wrong password more than <span class="number">3</span> times</span><br><span class="line">CRITICAL:root:server <span class="keyword">is</span> down</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="logging-basicConfig"><a href="#logging-basicConfig" class="headerlink" title="logging.basicConfig()"></a>logging.basicConfig()</h2><h3 id="filename"><a href="#filename" class="headerlink" title="filename"></a>filename</h3><p>Specifies that a FileHandler be created, using the specified<br>filename, rather than a StreamHandler</p>
+<p>日志写入到文件，提供的文件名称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(filename=<span class="string">'example.log'</span>)</span><br><span class="line">logging.debug(<span class="string">'This message should go to the log file'</span>)</span><br><span class="line">logging.info(<span class="string">'So should this'</span>)</span><br><span class="line">logging.warning(<span class="string">'And this, too'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>example.log</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:root:This message should go to the log file</span><br><span class="line">INFO:root:So should this</span><br><span class="line">WARNING:root:And this, too</span><br></pre></td></tr></table></figure>
+
+<h3 id="level"><a href="#level" class="headerlink" title="level"></a>level</h3><p>Set the root logger level to the specified level.</p>
+<p>设置日志级别</p>
+<p><code>bash cmd</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -fr example.log</span><br></pre></td></tr></table></figure>
+
+<p><code>Python Code</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(filename=<span class="string">'example.log'</span>,level=logging.INFO)</span><br><span class="line">logging.debug(<span class="string">'This message should go to the log file'</span>)</span><br><span class="line">logging.info(<span class="string">'So should this'</span>)</span><br><span class="line">logging.warning(<span class="string">'And this, too'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>example.log</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:So should this</span><br><span class="line">WARNING:root:And this, too</span><br></pre></td></tr></table></figure>
+
+<p>明明写了三条日志，怎么会只有两条写入了呢？</p>
+<p>在basicConfig中设置了<code>level=logging.INFO</code>，Python程序中，只有严重级别大于等于INFO级别的日志才会被写入到日志中</p>
+<h3 id="filemode"><a href="#filemode" class="headerlink" title="filemode"></a>filemode</h3><p>Specifies the mode to open the file, if filename is specified(if filemode is unspecified, it defaults to ‘a’)</p>
+<p>设置文件打开的默认，如果不设置，默认为追加</p>
+<p>在上面的小例子之前，我手动删除了之前已经生成的日志文件，现在我在不删除文件的情况下，再次执行一遍上面的代码，日志文件会被追加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO:root:So should this</span><br><span class="line">WARNING:root:And this, too</span><br><span class="line">INFO:root:So should this</span><br><span class="line">WARNING:root:And this, too</span><br></pre></td></tr></table></figure>
+
+<p>如果改成<code>w</code>每次写入日志前，该文件内容都会被清空</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(filename=<span class="string">'example.log'</span>,filemode=<span class="string">'w'</span>, level=logging.INFO)</span><br><span class="line">logging.warning(<span class="string">"filemode='w'"</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING:root:filemode&#x3D;&#39;w&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="datefmt"><a href="#datefmt" class="headerlink" title="datefmt"></a>datefmt</h3><p>Use the specified date/time format.</p>
+<p>使用time模块的日期格式来格式化日期或时间的显示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(format=<span class="string">'%(asctime)s %(message)s'</span>, datefmt=<span class="string">'%m/%d/%Y %I:%M:%S %p'</span>)</span><br><span class="line">logging.warning(<span class="string">'is when this event was logged.'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">12</span>/<span class="number">12</span>/<span class="number">2010</span> <span class="number">11</span>:<span class="number">46</span>:<span class="number">36</span> AM <span class="keyword">is</span> when this event was logged.</span><br></pre></td></tr></table></figure>
+
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p>Use the specified format string for the handler.</p>
+<p>日志的格式设置</p>
+<p>上面的例子已经用到的时间的格式输出到log，logging模块中，有如下信息可以被写入到日志</p>
+<p><img src="http://oss.20150509.cn/20160608030759.png" alt=""></p>
+<h3 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h3><ul>
+<li><strong>stream</strong> <em>Use the specified stream to initialize the StreamHandler. Note that this argument is incompatible with ‘filename’ - if both are present, ‘stream’ is ignored.</em></li>
+<li><strong>handlers</strong> <em>If specified, this should be an iterable of already created handlers, which will be added to the root handler. Any handler in the list which does not have a formatter assigned will be assigned the formatter created in this function.</em></li>
+</ul>
+<p>以上这两个参数，在logging对象中使用的情况比较多，将在后面logging对象中介绍和使用</p>
+<h2 id="同时在终端和日志文件中记录日志"><a href="#同时在终端和日志文件中记录日志" class="headerlink" title="同时在终端和日志文件中记录日志"></a>同时在终端和日志文件中记录日志</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment">#create logger</span></span><br><span class="line">logger = logging.getLogger(<span class="string">'TEST-LOG'</span>)</span><br><span class="line">logger.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># create console handler and set level to debug</span></span><br><span class="line">ch = logging.StreamHandler()</span><br><span class="line">ch.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create file handler and set level to warning</span></span><br><span class="line">fh = logging.FileHandler(<span class="string">"access.log"</span>)</span><br><span class="line">fh.setLevel(logging.WARNING)</span><br><span class="line"><span class="comment"># create formatter</span></span><br><span class="line">formatter = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add formatter to ch and fh</span></span><br><span class="line">ch.setFormatter(formatter)</span><br><span class="line">fh.setFormatter(formatter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add ch and fh to logger</span></span><br><span class="line">logger.addHandler(ch)</span><br><span class="line">logger.addHandler(fh)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 'application' code</span></span><br><span class="line">logger.debug(<span class="string">'debug message'</span>)</span><br><span class="line">logger.info(<span class="string">'info message'</span>)</span><br><span class="line">logger.warn(<span class="string">'warn message'</span>)</span><br><span class="line">logger.error(<span class="string">'error message'</span>)</span><br><span class="line">logger.critical(<span class="string">'critical message'</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>首先需要创建一个日志对象<code>logger = logging.getLogger(&#39;TEST-LOG&#39;)</code></p>
+<p>查看<code>getLogger</code>源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLogger</span><span class="params">(name=None)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Return a logger with the specified name, creating it if necessary.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If no name is specified, return the root logger.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> name:</span><br><span class="line">        <span class="keyword">return</span> Logger.manager.getLogger(name)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+
+<p>正常情况下return了<code>Logger.manager.getLogger(name)</code></p>
+<p>再去找<code>manager</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.manager = Manager(Logger.root)</span><br></pre></td></tr></table></figure>
+
+<p><code>Logger.manager</code>是<code>Manager</code>的实例化对象，再去找<code>Manager</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    There is [under normal circumstances] just one Manager instance, which</span></span><br><span class="line"><span class="string">    holds the hierarchy of loggers.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, rootnode)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Initialize the manager with the root node of the logger hierarchy.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.root = rootnode</span><br><span class="line">        self.disable = <span class="number">0</span></span><br><span class="line">        self.emittedNoHandlerWarning = <span class="literal">False</span></span><br><span class="line">        self.loggerDict = &#123;&#125;</span><br><span class="line">        self.loggerClass = <span class="literal">None</span></span><br><span class="line">        self.logRecordFactory = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getLogger</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Get a logger with the specified name (channel name), creating it</span></span><br><span class="line"><span class="string">        if it doesn't yet exist. This name is a dot-separated hierarchical</span></span><br><span class="line"><span class="string">        name, such as "a", "a.b", "a.b.c" or similar.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        If a PlaceHolder existed for the specified name [i.e. the logger</span></span><br><span class="line"><span class="string">        didn't exist but a child of it did], replace it with the created</span></span><br><span class="line"><span class="string">        logger and fix up the parent/child references which pointed to the</span></span><br><span class="line"><span class="string">        placeholder to now point to the logger.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        rv = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(name, str):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">'A logger name must be a string'</span>)</span><br><span class="line">        _acquireLock()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> name <span class="keyword">in</span> self.loggerDict:</span><br><span class="line">                rv = self.loggerDict[name]</span><br><span class="line">                <span class="keyword">if</span> isinstance(rv, PlaceHolder):</span><br><span class="line">                    ph = rv</span><br><span class="line">                    rv = (self.loggerClass <span class="keyword">or</span> _loggerClass)(name)</span><br><span class="line">                    rv.manager = self</span><br><span class="line">                    self.loggerDict[name] = rv</span><br><span class="line">                    self._fixupChildren(ph, rv)</span><br><span class="line">                    self._fixupParents(rv)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                rv = (self.loggerClass <span class="keyword">or</span> _loggerClass)(name)</span><br><span class="line">                rv.manager = self</span><br><span class="line">                self.loggerDict[name] = rv</span><br><span class="line">                self._fixupParents(rv)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            _releaseLock()</span><br><span class="line">        <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setLoggerClass</span><span class="params">(self, klass)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Set the class to be used when instantiating a logger with this Manager.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> klass != Logger:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> issubclass(klass, Logger):</span><br><span class="line">                <span class="keyword">raise</span> TypeError(<span class="string">"logger not derived from logging.Logger: "</span></span><br><span class="line">                                + klass.__name__)</span><br><span class="line">        self.loggerClass = klass</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setLogRecordFactory</span><span class="params">(self, factory)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Set the factory to be used when instantiating a log record with this</span></span><br><span class="line"><span class="string">        Manager.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.logRecordFactory = factory</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fixupParents</span><span class="params">(self, alogger)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Ensure that there are either loggers or placeholders all the way</span></span><br><span class="line"><span class="string">        from the specified logger to the root of the logger hierarchy.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        name = alogger.name</span><br><span class="line">        i = name.rfind(<span class="string">"."</span>)</span><br><span class="line">        rv = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span>) <span class="keyword">and</span> <span class="keyword">not</span> rv:</span><br><span class="line">            substr = name[:i]</span><br><span class="line">            <span class="keyword">if</span> substr <span class="keyword">not</span> <span class="keyword">in</span> self.loggerDict:</span><br><span class="line">                self.loggerDict[substr] = PlaceHolder(alogger)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                obj = self.loggerDict[substr]</span><br><span class="line">                <span class="keyword">if</span> isinstance(obj, Logger):</span><br><span class="line">                    rv = obj</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">assert</span> isinstance(obj, PlaceHolder)</span><br><span class="line">                    obj.append(alogger)</span><br><span class="line">            i = name.rfind(<span class="string">"."</span>, <span class="number">0</span>, i - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> rv:</span><br><span class="line">            rv = self.root</span><br><span class="line">        alogger.parent = rv</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_fixupChildren</span><span class="params">(self, ph, alogger)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Ensure that children of the placeholder ph are connected to the</span></span><br><span class="line"><span class="string">        specified logger.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        name = alogger.name</span><br><span class="line">        namelen = len(name)</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> ph.loggerMap.keys():</span><br><span class="line">            <span class="comment">#The if means ... if not c.parent.name.startswith(nm)</span></span><br><span class="line">            <span class="keyword">if</span> c.parent.name[:namelen] != name:</span><br><span class="line">                alogger.parent = c.parent</span><br><span class="line">                c.parent = alogger</span><br><span class="line"></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">#   Logger classes and functions</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------------</span></span><br></pre></td></tr></table></figure>
+
+<p>终于找到了！是在上面那里创建了一个logger对象</p>
+<p>以后代码都是使用这个logger对象来操作的，那么我们来看看，这个logger对象里面都给我提供了哪些东西~~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span><span class="params">(Filterer)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Instances of the Logger class represent a single logging channel. A</span></span><br><span class="line"><span class="string">    "logging channel" indicates an area of an application. Exactly how an</span></span><br><span class="line"><span class="string">    "area" is defined is up to the application developer. Since an</span></span><br><span class="line"><span class="string">    application can have any number of areas, logging channels are identified</span></span><br><span class="line"><span class="string">    by a unique string. Application areas can be nested (e.g. an area</span></span><br><span class="line"><span class="string">    of "input processing" might include sub-areas "read CSV files", "read</span></span><br><span class="line"><span class="string">    XLS files" and "read Gnumeric files"). To cater for this natural nesting,</span></span><br><span class="line"><span class="string">    channel names are organized into a namespace hierarchy where levels are</span></span><br><span class="line"><span class="string">    separated by periods, much like the Java or Python package namespace. So</span></span><br><span class="line"><span class="string">    in the instance given above, channel names might be "input" for the upper</span></span><br><span class="line"><span class="string">    level, and "input.csv", "input.xls" and "input.gnu" for the sub-levels.</span></span><br><span class="line"><span class="string">    There is no arbitrary limit to the depth of nesting.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, level=NOTSET)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Initialize the logger with a name and an optional level.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        Filterer.__init__(self)</span><br><span class="line">        self.name = name</span><br><span class="line">        self.level = _checkLevel(level)</span><br><span class="line">        self.parent = <span class="literal">None</span></span><br><span class="line">        self.propagate = <span class="literal">True</span></span><br><span class="line">        self.handlers = []</span><br><span class="line">        self.disabled = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setLevel</span><span class="params">(self, level)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Set the logging level of this logger.  level must be an int or a str.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.level = _checkLevel(level)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with severity 'DEBUG'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.debug("Houston, we have a %s", "thorny problem", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(DEBUG):</span><br><span class="line">            self._log(DEBUG, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">info</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with severity 'INFO'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.info("Houston, we have a %s", "interesting problem", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(INFO):</span><br><span class="line">            self._log(INFO, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">warning</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with severity 'WARNING'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.warning("Houston, we have a %s", "bit of a problem", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(WARNING):</span><br><span class="line">            self._log(WARNING, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">warn</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        warnings.warn(<span class="string">"The 'warn' method is deprecated, "</span></span><br><span class="line">            <span class="string">"use 'warning' instead"</span>, DeprecationWarning, <span class="number">2</span>)</span><br><span class="line">        self.warning(msg, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">error</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with severity 'ERROR'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.error("Houston, we have a %s", "major problem", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(ERROR):</span><br><span class="line">            self._log(ERROR, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exception</span><span class="params">(self, msg, *args, exc_info=True, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Convenience method for logging an ERROR with exception information.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.error(msg, *args, exc_info=exc_info, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">critical</span><span class="params">(self, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with severity 'CRITICAL'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.critical("Houston, we have a %s", "major disaster", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(CRITICAL):</span><br><span class="line">            self._log(CRITICAL, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    fatal = critical</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(self, level, msg, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Log 'msg % args' with the integer severity 'level'.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To pass exception information, use the keyword argument exc_info with</span></span><br><span class="line"><span class="string">        a true value, e.g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logger.log(level, "We have a %s", "mysterious problem", exc_info=1)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(level, int):</span><br><span class="line">            <span class="keyword">if</span> raiseExceptions:</span><br><span class="line">                <span class="keyword">raise</span> TypeError(<span class="string">"level must be an integer"</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> self.isEnabledFor(level):</span><br><span class="line">            self._log(level, msg, args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCaller</span><span class="params">(self, stack_info=False)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Find the stack frame of the caller so that we can note the source</span></span><br><span class="line"><span class="string">        file name, line number and function name.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        f = currentframe()</span><br><span class="line">        <span class="comment">#On some versions of IronPython, currentframe() returns None if</span></span><br><span class="line">        <span class="comment">#IronPython isn't run with -X:Frames.</span></span><br><span class="line">        <span class="keyword">if</span> f <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            f = f.f_back</span><br><span class="line">        rv = <span class="string">"(unknown file)"</span>, <span class="number">0</span>, <span class="string">"(unknown function)"</span>, <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> hasattr(f, <span class="string">"f_code"</span>):</span><br><span class="line">            co = f.f_code</span><br><span class="line">            filename = os.path.normcase(co.co_filename)</span><br><span class="line">            <span class="keyword">if</span> filename == _srcfile:</span><br><span class="line">                f = f.f_back</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            sinfo = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">if</span> stack_info:</span><br><span class="line">                sio = io.StringIO()</span><br><span class="line">                sio.write(<span class="string">'Stack (most recent call last):\n'</span>)</span><br><span class="line">                traceback.print_stack(f, file=sio)</span><br><span class="line">                sinfo = sio.getvalue()</span><br><span class="line">                <span class="keyword">if</span> sinfo[<span class="number">-1</span>] == <span class="string">'\n'</span>:</span><br><span class="line">                    sinfo = sinfo[:<span class="number">-1</span>]</span><br><span class="line">                sio.close()</span><br><span class="line">            rv = (co.co_filename, f.f_lineno, co.co_name, sinfo)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">makeRecord</span><span class="params">(self, name, level, fn, lno, msg, args, exc_info,</span></span></span><br><span class="line"><span class="function"><span class="params">                   func=None, extra=None, sinfo=None)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        A factory method which can be overridden in subclasses to create</span></span><br><span class="line"><span class="string">        specialized LogRecords.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        rv = _logRecordFactory(name, level, fn, lno, msg, args, exc_info, func,</span><br><span class="line">                             sinfo)</span><br><span class="line">        <span class="keyword">if</span> extra <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> extra:</span><br><span class="line">                <span class="keyword">if</span> (key <span class="keyword">in</span> [<span class="string">"message"</span>, <span class="string">"asctime"</span>]) <span class="keyword">or</span> (key <span class="keyword">in</span> rv.__dict__):</span><br><span class="line">                    <span class="keyword">raise</span> KeyError(<span class="string">"Attempt to overwrite %r in LogRecord"</span> % key)</span><br><span class="line">                rv.__dict__[key] = extra[key]</span><br><span class="line">        <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_log</span><span class="params">(self, level, msg, args, exc_info=None, extra=None, stack_info=False)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Low-level logging routine which creates a LogRecord and then calls</span></span><br><span class="line"><span class="string">        all the handlers of this logger to handle the record.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        sinfo = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> _srcfile:</span><br><span class="line">            <span class="comment">#IronPython doesn't track Python frames, so findCaller raises an</span></span><br><span class="line">            <span class="comment">#exception on some versions of IronPython. We trap it here so that</span></span><br><span class="line">            <span class="comment">#IronPython can use logging.</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                fn, lno, func, sinfo = self.findCaller(stack_info)</span><br><span class="line">            <span class="keyword">except</span> ValueError: <span class="comment"># pragma: no cover</span></span><br><span class="line">                fn, lno, func = <span class="string">"(unknown file)"</span>, <span class="number">0</span>, <span class="string">"(unknown function)"</span></span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># pragma: no cover</span></span><br><span class="line">            fn, lno, func = <span class="string">"(unknown file)"</span>, <span class="number">0</span>, <span class="string">"(unknown function)"</span></span><br><span class="line">        <span class="keyword">if</span> exc_info:</span><br><span class="line">            <span class="keyword">if</span> isinstance(exc_info, BaseException):</span><br><span class="line">                exc_info = (type(exc_info), exc_info, exc_info.__traceback__)</span><br><span class="line">            <span class="keyword">elif</span> <span class="keyword">not</span> isinstance(exc_info, tuple):</span><br><span class="line">                exc_info = sys.exc_info()</span><br><span class="line">        record = self.makeRecord(self.name, level, fn, lno, msg, args,</span><br><span class="line">                                 exc_info, func, extra, sinfo)</span><br><span class="line">        self.handle(record)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self, record)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Call the handlers for the specified record.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        This method is used for unpickled records received from a socket, as</span></span><br><span class="line"><span class="string">        well as those created locally. Logger-level filtering is applied.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">not</span> self.disabled) <span class="keyword">and</span> self.filter(record):</span><br><span class="line">            self.callHandlers(record)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addHandler</span><span class="params">(self, hdlr)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Add the specified handler to this logger.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        _acquireLock()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> (hdlr <span class="keyword">in</span> self.handlers):</span><br><span class="line">                self.handlers.append(hdlr)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            _releaseLock()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeHandler</span><span class="params">(self, hdlr)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Remove the specified handler from this logger.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        _acquireLock()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> hdlr <span class="keyword">in</span> self.handlers:</span><br><span class="line">                self.handlers.remove(hdlr)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            _releaseLock()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasHandlers</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        See if this logger has any handlers configured.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Loop through all handlers for this logger and its parents in the</span></span><br><span class="line"><span class="string">        logger hierarchy. Return True if a handler was found, else False.</span></span><br><span class="line"><span class="string">        Stop searching up the hierarchy whenever a logger with the "propagate"</span></span><br><span class="line"><span class="string">        attribute set to zero is found - that will be the last logger which</span></span><br><span class="line"><span class="string">        is checked for the existence of handlers.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        c = self</span><br><span class="line">        rv = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">while</span> c:</span><br><span class="line">            <span class="keyword">if</span> c.handlers:</span><br><span class="line">                rv = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> c.propagate:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                c = c.parent</span><br><span class="line">        <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">callHandlers</span><span class="params">(self, record)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Pass a record to all relevant handlers.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Loop through all handlers for this logger and its parents in the</span></span><br><span class="line"><span class="string">        logger hierarchy. If no handler was found, output a one-off error</span></span><br><span class="line"><span class="string">        message to sys.stderr. Stop searching up the hierarchy whenever a</span></span><br><span class="line"><span class="string">        logger with the "propagate" attribute set to zero is found - that</span></span><br><span class="line"><span class="string">        will be the last logger whose handlers are called.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        c = self</span><br><span class="line">        found = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> c:</span><br><span class="line">            <span class="keyword">for</span> hdlr <span class="keyword">in</span> c.handlers:</span><br><span class="line">                found = found + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> record.levelno &gt;= hdlr.level:</span><br><span class="line">                    hdlr.handle(record)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> c.propagate:</span><br><span class="line">                c = <span class="literal">None</span>    <span class="comment">#break out</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                c = c.parent</span><br><span class="line">        <span class="keyword">if</span> (found == <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">if</span> lastResort:</span><br><span class="line">                <span class="keyword">if</span> record.levelno &gt;= lastResort.level:</span><br><span class="line">                    lastResort.handle(record)</span><br><span class="line">            <span class="keyword">elif</span> raiseExceptions <span class="keyword">and</span> <span class="keyword">not</span> self.manager.emittedNoHandlerWarning:</span><br><span class="line">                sys.stderr.write(<span class="string">"No handlers could be found for logger"</span></span><br><span class="line">                                 <span class="string">" \"%s\"\n"</span> % self.name)</span><br><span class="line">                self.manager.emittedNoHandlerWarning = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getEffectiveLevel</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Get the effective level for this logger.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Loop through this logger and its parents in the logger hierarchy,</span></span><br><span class="line"><span class="string">        looking for a non-zero logging level. Return the first one found.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        logger = self</span><br><span class="line">        <span class="keyword">while</span> logger:</span><br><span class="line">            <span class="keyword">if</span> logger.level:</span><br><span class="line">                <span class="keyword">return</span> logger.level</span><br><span class="line">            logger = logger.parent</span><br><span class="line">        <span class="keyword">return</span> NOTSET</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEnabledFor</span><span class="params">(self, level)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this logger enabled for level 'level'?</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.manager.disable &gt;= level:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> level &gt;= self.getEffectiveLevel()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getChild</span><span class="params">(self, suffix)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Get a logger which is a descendant to this one.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        This is a convenience method, such that</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logging.getLogger('abc').getChild('def.ghi')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        is the same as</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        logging.getLogger('abc.def.ghi')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        It's useful, for example, when the parent logger is named using</span></span><br><span class="line"><span class="string">        __name__ rather than a literal string.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.root <span class="keyword">is</span> <span class="keyword">not</span> self:</span><br><span class="line">            suffix = <span class="string">'.'</span>.join((self.name, suffix))</span><br><span class="line">        <span class="keyword">return</span> self.manager.getLogger(suffix)</span><br></pre></td></tr></table></figure>
+
+<p>上面实例中用到的<code>logger.setLevel</code> <code>logger.addHandler</code> <code>logger.debug</code> <code>logger.info</code> <code>logger.warn</code> <code>logger.error</code> <code>logger.critical</code> 都是这里提供的功能，这些都是对象方法，设置的参数和打印的日志都是对象的行为，与logging类一定要区分开（logging.basicConfig是类方法，logger.setLevel是对象方法）</p>
+<p><code>formatter = logging.Formatter(&#39;%(asctime)s - %(name)s - %(levelname)s - %(message)s&#39;)</code>，这句的意思是生成了一个formatter对象，这个对象保存了日志输出的格式，实例中，这个对象被当做参数传递到了<code>logging.StreamHandler()</code>和<code>logging.FileHandler(&quot;access.log&quot;)</code>对象中，意思是声明让这两个日志输出形式以<code>formatter</code>对象指定的格式进行输出</p>
+<p>最后需要说明的是<code>logger.addHandler</code>, Handler是输出方式，<code>logging.StreamHandler()</code>是输出到屏幕的对象（句柄），<code>logging.FileHandler(&quot;access.log&quot;)</code>是输出到文件的对象（句柄），上面的实例中，将这两个对象都添加到了logger对象中，所以使logger拥有了既输出到屏幕又写入到日志的能力。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/08/Python日志模块-logging/" rel="bookmark">Python日志模块-logging</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/08/Python时间模块详解/" rel="bookmark">Python时间模块详解</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/07/Python的序列化和反序列化/" rel="bookmark">Python的序列化和反序列化</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/08/Python时间模块详解 5/" rel="bookmark">Python时间模块详解</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/07/Python的序列化和反序列化 5/" rel="bookmark">Python的序列化和反序列化</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python%E6%A8%A1%E5%9D%97/" rel="tag"><i class="fa fa-tag"></i> Python模块</a>
+              <a href="/tags/logging/" rel="tag"><i class="fa fa-tag"></i> logging</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/08/Python%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3/" rel="prev" title="Python时间模块详解">
+      <i class="fa fa-chevron-left"></i> Python时间模块详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging/" rel="next" title="Python日志模块-logging">
+      Python日志模块-logging <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日志的等级"><span class="nav-number">1.</span> <span class="nav-text">日志的等级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logging"><span class="nav-number">2.</span> <span class="nav-text">logging</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最简单的用法"><span class="nav-number">2.1.</span> <span class="nav-text">最简单的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#logging-basicConfig"><span class="nav-number">2.2.</span> <span class="nav-text">logging.basicConfig()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filename"><span class="nav-number">2.2.1.</span> <span class="nav-text">filename</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level"><span class="nav-number">2.2.2.</span> <span class="nav-text">level</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filemode"><span class="nav-number">2.2.3.</span> <span class="nav-text">filemode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#datefmt"><span class="nav-number">2.2.4.</span> <span class="nav-text">datefmt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">2.2.5.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他参数"><span class="nav-number">2.2.6.</span> <span class="nav-text">其他参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时在终端和日志文件中记录日志"><span class="nav-number">2.3.</span> <span class="nav-text">同时在终端和日志文件中记录日志</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2016/06/08/Python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97-logging%205/";
+    this.page.identifier = "2016/06/08/Python日志模块-logging 5/";
+    this.page.title = "Python日志模块-logging";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Python面向对象中类的成员总共有三种，分别是字段、方法和属性 Python Version: 3.5+  字段普通字段12345678class A:	def __init__(self, name):		# 我就是字段，普通字段		self.name &#x3D; &quot;polarsnow&quot;			def show(self):		print(self.name)		return self.name  在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python面向对象中类的成员">
+<meta property="og:url" content="https://docs.lvrui.io/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="Python面向对象中类的成员总共有三种，分别是字段、方法和属性 Python Version: 3.5+  字段普通字段12345678class A:	def __init__(self, name):		# 我就是字段，普通字段		self.name &#x3D; &quot;polarsnow&quot;			def show(self):		print(self.name)		return self.name  在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oss.20150509.cn/QQ20160703-0.png">
+<meta property="article:published_time" content="2016-07-03T04:39:14.000Z">
+<meta property="article:modified_time" content="2020-03-22T05:22:47.140Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="方法">
+<meta property="article:tag" content="面向对象">
+<meta property="article:tag" content="字段">
+<meta property="article:tag" content="属性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oss.20150509.cn/QQ20160703-0.png">
+
+<link rel="canonical" href="https://docs.lvrui.io/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python面向对象中类的成员 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">370</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">285</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python面向对象中类的成员
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-03 12:39:14" itemprop="dateCreated datePublished" datetime="2016-07-03T12:39:14+08:00">2016-07-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/03/Python面向对象中类的成员/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Python面向对象中类的成员总共有三种，分别是字段、方法和属性</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><h2 id="普通字段"><a href="#普通字段" class="headerlink" title="普通字段"></a>普通字段</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">		<span class="comment"># 我就是字段，普通字段</span></span><br><span class="line">		self.name = <span class="string">"polarsnow"</span></span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(self.name)</span><br><span class="line">		<span class="keyword">return</span> self.name</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码块中，<code>self.name</code>就是类中的字段。该字段的信息会保存在每一个实例化的对象中</p>
+<h2 id="静态字段"><a href="#静态字段" class="headerlink" title="静态字段"></a>静态字段</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="comment"># 我也是字段，我是静态字段</span></span><br><span class="line">	country = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">		<span class="comment"># 我就是字段，普通字段</span></span><br><span class="line">		self.name = <span class="string">"polarsnow"</span></span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(self.name)</span><br><span class="line">		<span class="keyword">return</span> self.name</span><br></pre></td></tr></table></figure>
+
+<p>静态字段保存在类中。每个实例化的类中，都保存了一个类对象指针指向一个类。每个对象自己封装了自己的普通字段信息，但是该类所有的对象都共用了一份儿静态字段。</p>
+<p>静态字段的应用场景和好处是某个类中，共用的一些信息可以抽离出来当做静态字段，好处是每个对象可以不用再重复性的保存同一份数据。</p>
+<h2 id="字段访问规则"><a href="#字段访问规则" class="headerlink" title="字段访问规则"></a>字段访问规则</h2><p>一般情况下：自己去访问自己的字段</p>
+<p>例如：访问静态字段，前面提到了，静态字段保存在类中，所以原则上需要使用类去访问静态字段；如果访问普通字段，普通字段保存在对象中，所以只能使用对象去访问普通字段。</p>
+<p>在Java中，强制性的要求静态字段只能由类去访问；但是在Python中比较特殊，类中的静态字段也是可以通过对象去访问的。你需要坚持的原则就是：自己去访问自己的字段。不到特殊情况下，不要使用对象去访问类中的静态字段</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="comment"># 我也是字段，我是静态字段</span></span><br><span class="line">    country = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="comment"># 我就是字段，普通字段</span></span><br><span class="line">        self.name = <span class="string">"polarsnow"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name)</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">"polarsnow"</span>)</span><br><span class="line">print(<span class="string">"使用对象访问普通字段"</span>)</span><br><span class="line">print(a.name)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用类访问静态字段"</span>)</span><br><span class="line">print(A.country)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用对象访问静态字段"</span>)</span><br><span class="line">print(a.country)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">使用对象访问普通字段</span><br><span class="line">polarsnow</span><br><span class="line">使用类访问静态字段</span><br><span class="line">China</span><br><span class="line">使用对象访问静态字段</span><br><span class="line">China</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://oss.20150509.cn/QQ20160703-0.png" alt=""></p>
+<p>由于每个对象都保存了类对象指针，当访问的字段在本对象中找不到的时候会去类中查找有没有对应的静态字段</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>静态字段在代码加载的时候就已经被创建；而普通字段只有在实例化一个对象时候才被创建</p>
+<p>在类的内部访问静态字段，推荐也带上类名来访问<code>A.country</code>符合上面说的<code>自己去访问自己的字段</code>的访问原则</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>在其他面向对象语言中，类的方法有两种，但是在Python中有三种</p>
+<h2 id="普通方法"><a href="#普通方法" class="headerlink" title="普通方法"></a>普通方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">    country = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是普通方法 由对象调用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name)</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">b = B(<span class="string">"北京"</span>)</span><br><span class="line">b.show()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">北京</span><br></pre></td></tr></table></figure>
+
+<p>普通方法，由对象去调用执行（方法属于类）</p>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">    country = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是普通方法 由对象调用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name)</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是静态方法</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_static</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"我是静态方法"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是静态方法"</span></span><br><span class="line"></span><br><span class="line">b = B(<span class="string">"北京"</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用对象去调用执行普通方法"</span>)</span><br><span class="line">b.show()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用类去调用静态方法"</span>)</span><br><span class="line">B.func_static()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">使用对象去调用执行普通方法</span><br><span class="line">北京</span><br><span class="line">使用类去调用静态方法</span><br><span class="line">我是静态方法</span><br></pre></td></tr></table></figure>
+
+<p><strong>普通方法和静态方法的区别</strong>：在上面的字段介绍中，静态字段和普通字段的区别是，静态字段一般由类去调用而普通字段一定是由对象去调用。静态方法和普通方法也是一样，静态方法一般是由类去调用执行，而普通方法是由对象去调用执行</p>
+<p><strong>定义一个静态方法</strong></p>
+<p>定义一个静态方法，首先需要在方法上面加上一个装饰器<code>@staticmethod</code>，下面的方法参数中，不要再含有<code>self</code>参数。至于静态方法的用法，和普通的函数用法没有任何区别，后面可以添加任意参数进行传值</p>
+<p><strong>小结：</strong>静态方法虽然在类中，属于类，但是静态方法和对象没有任何关系，它是由类去调用的。这一点在静态方法的参数列表中也可以很明显的看出，它没有接受self参数，也就是没有接受对象。静态方法的调用不依赖与任何一个具体的对象。那为什么这个方法和类没有关系还要放在这个类中呢？一般情况下，我们把某些和类相关的操作都会放在类中，方便查找和使用，所以很多时候，类中会出现和对象不相关，但是和类却息息相关的操作。</p>
+<h2 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h2><p>类方法是Python独有的一个方法。本质上静态方法的一种特殊形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">    country = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是普通方法 由对象调用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name)</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是静态方法</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_static</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"我是静态方法"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是静态方法"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我是类方法</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func_class</span><span class="params">(cls)</span>:</span></span><br><span class="line">        print(<span class="string">"我是类方法"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是类方法"</span></span><br><span class="line"></span><br><span class="line">b = B(<span class="string">"北京"</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用对象去调用执行普通方法"</span>)</span><br><span class="line">b.show()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用类去调用静态方法"</span>)</span><br><span class="line">B.func_static()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"使用类去调用类方法"</span>)</span><br><span class="line">B.func_class()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">使用对象去调用执行普通方法</span><br><span class="line">北京</span><br><span class="line">使用类去调用静态方法</span><br><span class="line">我是静态方法</span><br><span class="line">使用类去调用类方法</span><br><span class="line">我是类方法</span><br></pre></td></tr></table></figure>
+
+<p>在静态方法中，可以没有任何参数，也可以有任意多个参数，使用类去调用；但是在类方法中，至少要有一个参数<code>cls</code>， 也是使用类去调用。这一特点和普通方法又很像，普通方法也是至少要有一个参数，但普通方法的必有参数为<code>self</code></p>
+<ul>
+<li>self在普通方法中，代指了对象</li>
+<li>cls在类方法中，代指了类。跟self一样会隐式传递</li>
+</ul>
+<p>类方法比静态方法只多了一步，就是隐式的把类传递给了类方法</p>
+<p><strong>类方法的应用：</strong>单例模式的实现</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>Python中类的三个方法都属于类</p>
+<ul>
+<li>普通方法 至少要有一个self参数 通过对象去执行</li>
+<li>静态方法 参数可有可无 通过类去执行（也可以对象执行）</li>
+<li>类方法 至少有一个cls参数 通过类去执行（也可以对象执行）</li>
+</ul>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><p><strong>属性的特征是：拥有普通方法的样式和表现形式，却拥有字段的访问方式</strong></p>
+<p>现有如下需求：需要做一个分页器，每10条内容分一页，最后得出一共分出多少页的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先使用普通方法的方式来实现这个功能</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pageer</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        self.num = num</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        p1, p2 = divmod(self.num, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">if</span> p2 == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> p1</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> p1 + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">p = Pageer(<span class="number">59</span>)</span><br><span class="line">print(p.all_pager())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用属性的方式来实现这个功能</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pageer</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        self.num = num</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        p1, p2 = divmod(self.num, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">if</span> p2 == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> p1</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> p1 + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">p = Pageer(<span class="number">59</span>)</span><br><span class="line">print(p.all_pager)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p>对比两段代码可以看出，有两点区别</p>
+<ul>
+<li>在普通方法的上面加了一个<code>@property</code>装饰器</li>
+<li>在调用这个普通成员的时候，第一段代码使用了标准的普通方法调用执行的方式<code>p.all_pager()</code>；第二段代码则使用了访问普通字段的方式<code>p.all_pager</code></li>
+</ul>
+<p>这就是上面说的属性的特征，既拥有和普通方法一样的表现形式，又有访问普通字段那样的访问形式</p>
+<h2 id="对属性的赋值"><a href="#对属性的赋值" class="headerlink" title="对属性的赋值"></a>对属性的赋值</h2><p>上面的小例子实现了对属性的取值。对于访问普通字段来说，不仅可以访问，还是为普通字段赋值。那么属性既然有着普通字段的访问形式，能不能也去实现像普通字段那样的赋值呢？<code>p.all_pager = 1991</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pageer</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        self.num = num</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        p1, p2 = divmod(self.num, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">if</span> p2 == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> p1</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> p1 + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @all_pager.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        print(value)</span><br><span class="line"></span><br><span class="line">p = Pageer(<span class="number">59</span>)</span><br><span class="line">print(p.all_pager)</span><br><span class="line"></span><br><span class="line">p.all_pager = <span class="number">1991</span></span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">1991</span></span><br></pre></td></tr></table></figure>
+
+<p>对属性进行赋值的关键语法：</p>
+<ul>
+<li>一定要使用<code>属性取值方法的方法名.setter</code>装饰器</li>
+<li>赋值方法的函数名必须和取值方法的方法名一致</li>
+<li>在赋值方法中，接受一个赋值参数<code>value</code></li>
+</ul>
+<p>在为<code>all_pager</code>赋值的时候，会自动执行<code>@all_pager.setter</code>下面的方法（特别注意：属性赋值方法中不能return返回值）</p>
+<h2 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h2><p>在对字段的操作中，可以访问字段，给字段赋值，还可以删除字段。上面的属性中，已经实现了属性的访问和赋值，接下来要实现属性的删除，这样一来，属性就拥有了和字段一样的操作特性了（查，改，删）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pageer</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        self.num = num</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        p1, p2 = divmod(self.num, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">if</span> p2 == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> p1</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> p1 + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @all_pager.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        print(value)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @all_pager.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"del all_pager"</span>)</span><br><span class="line"></span><br><span class="line">p = Pageer(<span class="number">59</span>)</span><br><span class="line">print(p.all_pager)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"为属性赋值"</span>)</span><br><span class="line">p.all_pager = <span class="number">1991</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"删除属性"</span>)</span><br><span class="line"><span class="keyword">del</span> p.all_pager</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><p>属性具有方法的表现形式，同时具有字段的访问形式<em>（通过不加括号<code>()</code>的方式去执行了一个方法）</em></p>
+<p>由于属性的这个访问特性是我们通过三个方法来伪造出来的，所以每个操作对应了具体什么内容，需要我们来自己定义。就像上面的删除方法，我只是print了一下而已~~ Python只是根据我们操作属性的方式，提供了一种关联方式而已，具体里面需要实现哪些功能都需要我们自己去定义</p>
+<p>注意：如果你想真的在内存中实现删除all_pager属性，你可能会这样写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@all_pager.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_pager</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">del</span> self.all_pager</span><br></pre></td></tr></table></figure>
+
+<p>这样做的结果是会进入一个死循环。因为你在外面调用del函数来删除对象属性的时候，会去deleter里面执行<code>del self.all_pager</code>代码，该代码又会跳到deleter里面执行<code>del self.all_pager</code>,所以会进入一个死循环。属性的删除方法，应该根据实际需要调整他的功能</p>
+<p><strong>属性存在意义是：访问属性时可以制造出和访问字段完全相同的假象。属性由方法变种而来，如果Python中没有属性，方法完全可以代替其功能</strong></p>
+<h2 id="属性的第二种表现形式"><a href="#属性的第二种表现形式" class="headerlink" title="属性的第二种表现形式"></a>属性的第二种表现形式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pageer</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        self.num = num</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func1</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1991</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        print(<span class="string">"set"</span>, value)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func3</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"del"</span>)</span><br><span class="line"></span><br><span class="line">    func = property(fget=func1, fset=func2, fdel=func3)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p = Pageer(<span class="number">59</span>)</span><br><span class="line">print(p.func)  <span class="comment"># 自动去调用fget=func1</span></span><br><span class="line">p.func = <span class="number">2016</span>  <span class="comment"># 自动去调用fset=func2</span></span><br><span class="line"><span class="keyword">del</span> p.func  <span class="comment"># 自动去调用fdel=func3</span></span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">1991</span></span><br><span class="line">set <span class="number">2016</span></span><br><span class="line"><span class="keyword">del</span></span><br></pre></td></tr></table></figure>
+
+<p>property的构造方法中有个四个参数</p>
+<ul>
+<li>第一个参数是方法名，调用 对象.属性 时自动触发执行方法</li>
+<li>第二个参数是方法名，调用 对象.属性 ＝ XXX 时自动触发执行方法</li>
+<li>第三个参数是方法名，调用 del 对象.属性 时自动触发执行方法</li>
+<li>第四个参数是字符串，调用 对象.属性.<strong>doc</strong> ，此参数是该属性的描述信息</li>
+</ul>
+<p>这种通过静态字段的方式实现属性的操作在很多源码中很常见，使用的频率是最高的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python WEB框架 Django 的视图中 request.POST 就是使用的静态字段的方式创建的属性</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WSGIRequest</span><span class="params">(http.HttpRequest)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, environ)</span>:</span></span><br><span class="line">        script_name = get_script_name(environ)</span><br><span class="line">        path_info = get_path_info(environ)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> path_info:</span><br><span class="line">            <span class="comment"># Sometimes PATH_INFO exists, but is empty (e.g. accessing</span></span><br><span class="line">            <span class="comment"># the SCRIPT_NAME URL without a trailing slash). We really need to</span></span><br><span class="line">            <span class="comment"># operate as if they'd requested '/'. Not amazingly nice to force</span></span><br><span class="line">            <span class="comment"># the path like this, but should be harmless.</span></span><br><span class="line">            path_info = <span class="string">'/'</span></span><br><span class="line">        self.environ = environ</span><br><span class="line">        self.path_info = path_info</span><br><span class="line">        self.path = <span class="string">'%s/%s'</span> % (script_name.rstrip(<span class="string">'/'</span>), path_info.lstrip(<span class="string">'/'</span>))</span><br><span class="line">        self.META = environ</span><br><span class="line">        self.META[<span class="string">'PATH_INFO'</span>] = path_info</span><br><span class="line">        self.META[<span class="string">'SCRIPT_NAME'</span>] = script_name</span><br><span class="line">        self.method = environ[<span class="string">'REQUEST_METHOD'</span>].upper()</span><br><span class="line">        _, content_params = cgi.parse_header(environ.get(<span class="string">'CONTENT_TYPE'</span>, <span class="string">''</span>))</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'charset'</span> <span class="keyword">in</span> content_params:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                codecs.lookup(content_params[<span class="string">'charset'</span>])</span><br><span class="line">            <span class="keyword">except</span> LookupError:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.encoding = content_params[<span class="string">'charset'</span>]</span><br><span class="line">        self._post_parse_error = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            content_length = int(environ.get(<span class="string">'CONTENT_LENGTH'</span>))</span><br><span class="line">        <span class="keyword">except</span> (ValueError, TypeError):</span><br><span class="line">            content_length = <span class="number">0</span></span><br><span class="line">        self._stream = LimitedStream(self.environ[<span class="string">'wsgi.input'</span>], content_length)</span><br><span class="line">        self._read_started = <span class="literal">False</span></span><br><span class="line">        self.resolver_match = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_scheme</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.environ.get(<span class="string">'wsgi.url_scheme'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_request</span><span class="params">(self)</span>:</span></span><br><span class="line">        warnings.warn(<span class="string">'`request.REQUEST` is deprecated, use `request.GET` or '</span></span><br><span class="line">                      <span class="string">'`request.POST` instead.'</span>, RemovedInDjango19Warning, <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_request'</span>):</span><br><span class="line">            self._request = datastructures.MergeDict(self.POST, self.GET)</span><br><span class="line">        <span class="keyword">return</span> self._request</span><br><span class="line"></span><br><span class="line"><span class="meta">    @cached_property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GET</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># The WSGI spec says 'QUERY_STRING' may be absent.</span></span><br><span class="line">        raw_query_string = get_bytes_from_wsgi(self.environ, <span class="string">'QUERY_STRING'</span>, <span class="string">''</span>)</span><br><span class="line">        <span class="keyword">return</span> http.QueryDict(raw_query_string, encoding=self._encoding)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_post</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_post'</span>):</span><br><span class="line">            self._load_post_and_files()</span><br><span class="line">        <span class="keyword">return</span> self._post</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_set_post</span><span class="params">(self, post)</span>:</span></span><br><span class="line">        self._post = post</span><br><span class="line"></span><br><span class="line"><span class="meta">    @cached_property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">COOKIES</span><span class="params">(self)</span>:</span></span><br><span class="line">        raw_cookie = get_str_from_wsgi(self.environ, <span class="string">'HTTP_COOKIE'</span>, <span class="string">''</span>)</span><br><span class="line">        <span class="keyword">return</span> http.parse_cookie(raw_cookie)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_files</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_files'</span>):</span><br><span class="line">            self._load_post_and_files()</span><br><span class="line">        <span class="keyword">return</span> self._files</span><br><span class="line"></span><br><span class="line">    POST = property(_get_post, _set_post)</span><br><span class="line">    </span><br><span class="line">    FILES = property(_get_files)</span><br><span class="line">    REQUEST = property(_get_request)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第70行，定义了属性的两个方法，取值和赋值</li>
+<li>第52行，取值</li>
+<li>第57行，赋值</li>
+</ul>
+<h1 id="特别强调"><a href="#特别强调" class="headerlink" title="特别强调"></a>特别强调</h1><p>最后再一次强调，本站关于Python的介绍大多数是基于Python3.5+</p>
+<p>上面关于属性通过装饰器的方式来实现不同的操作时，均是在Python3.5+的环境下，如果你在Python2.x的环境下，得到的结果肯定会不一样。因为Python2.x中</p>
+<ul>
+<li>经典类中的属性只有一种访问方式，其对应被<code>@property</code>修饰的方法</li>
+<li>新式类中的属性有三种访问方式，并分别对应了三个被<code>@property</code> <code>@方法名.setter</code> <code>@方法名.deleter</code>修饰的方法</li>
+</ul>
+<p>但是在Python3中，经典类也是拥有这三种访问方式的。</p>
+<p><em>继承了object的类就是新式类，否则为经典类</em></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/07/20/Python类中资源的访问/" rel="bookmark">Python类中资源的访问</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/08/14/Go面向对象之结构体和方法/" rel="bookmark">Go面向对象之结构体和方法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/12/Python2-7与Python3-5继承的区别/" rel="bookmark">Python2.7与Python3.5继承的区别</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/03/Python类中的特殊成员/" rel="bookmark">Python类中的特殊成员</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/07/03/Python类成员之成员修饰符/" rel="bookmark">Python类成员之成员修饰符</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%96%B9%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 方法</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"><i class="fa fa-tag"></i> 面向对象</a>
+              <a href="/tags/%E5%AD%97%E6%AE%B5/" rel="tag"><i class="fa fa-tag"></i> 字段</a>
+              <a href="/tags/%E5%B1%9E%E6%80%A7/" rel="tag"><i class="fa fa-tag"></i> 属性</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%A4%9A%E6%80%81/" rel="prev" title="Python面向对象基础篇之多态">
+      <i class="fa fa-chevron-left"></i> Python面向对象基础篇之多态
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/07/03/Python%E7%B1%BB%E6%88%90%E5%91%98%E4%B9%8B%E6%88%90%E5%91%98%E4%BF%AE%E9%A5%B0%E7%AC%A6/" rel="next" title="Python类成员之成员修饰符">
+      Python类成员之成员修饰符 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字段"><span class="nav-number">1.</span> <span class="nav-text">字段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#普通字段"><span class="nav-number">1.1.</span> <span class="nav-text">普通字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态字段"><span class="nav-number">1.2.</span> <span class="nav-text">静态字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段访问规则"><span class="nav-number">1.3.</span> <span class="nav-text">字段访问规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#普通方法"><span class="nav-number">2.1.</span> <span class="nav-text">普通方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法"><span class="nav-number">2.2.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类方法"><span class="nav-number">2.3.</span> <span class="nav-text">类方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性"><span class="nav-number">3.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对属性的赋值"><span class="nav-number">3.1.</span> <span class="nav-text">对属性的赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除属性"><span class="nav-number">3.2.</span> <span class="nav-text">删除属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-2"><span class="nav-number">3.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的第二种表现形式"><span class="nav-number">3.4.</span> <span class="nav-text">属性的第二种表现形式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特别强调"><span class="nav-number">4.</span> <span class="nav-text">特别强调</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">285</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">370</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98/";
+    this.page.identifier = "2016/07/03/Python面向对象中类的成员/";
+    this.page.title = "Python面向对象中类的成员";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

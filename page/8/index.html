@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">Python3编译安装后pip3命令报ssl错误</a>
+            <a href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python使用sorted对字典的key或value排序</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-12-26 22:19:53" itemprop="dateCreated datePublished" datetime="2017-12-26T22:19:53+08:00">2017-12-26</time>
+              <time title="创建时间：2018-08-08 16:45:03" itemprop="dateCreated datePublished" datetime="2018-08-08T16:45:03+08:00">2018-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/26/Python3编译安装后pip3命令报ssl错误/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python使用sorted对字典的key或value排序/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,110 +268,453 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Python3编译安装后pip3命令报ssl错误"><a href="#Python3编译安装后pip3命令报ssl错误" class="headerlink" title="Python3编译安装后pip3命令报ssl错误"></a>Python3编译安装后pip3命令报ssl错误</h1><p>首先确保ssl相关的库文件已经安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
-
-<p>在编译的时候加上<code>--with-ssl</code>参数即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Python-3.6.2</span><br><span class="line">./configure --with-ssl</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/" class="post-title-link" itemprop="url">对Element对象的自省</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-12-26 22:13:23" itemprop="dateCreated datePublished" datetime="2017-12-26T22:13:23+08:00">2017-12-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/26/对Element对象的自省/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="对Element对象的自省"><a href="#对Element对象的自省" class="headerlink" title="对Element对象的自省"></a>对Element对象的自省</h1><p>Python中的自省有两个核心模块实现</p>
+          <h2 id="sorted函数"><a href="#sorted函数" class="headerlink" title="sorted函数"></a>sorted函数</h2><p>sorted(iterable,key,reverse)</p>
 <ul>
-<li>isinstance(obj, cls)</li>
-<li>issubclass(sub, super)</li>
+<li>iterable 待排序的可迭代对象</li>
+<li>key 对应的是个函数, 该函数用来决定选取用哪些值来进行排序</li>
+<li>reverse 反转排序</li>
 </ul>
-<p>当判断一个基础数据类型的时候，我们可以这么做</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">10</span></span><br><span class="line">print(isinstance(i, int))</span><br></pre></td></tr></table></figure>
+<h2 id="对key排序"><a href="#对key排序" class="headerlink" title="对key排序"></a>对key排序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.keys())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
 
-<p>当判断一个自有数据类型的时候，我们可以这么做</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(isinstance(a, A))</span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#39;a&#39;, &#39;o&#39;, &#39;p&#39;, &#39;s&#39;, &#39;z&#39;]</span><br></pre></td></tr></table></figure>
 
-<p>现在我有一个Element对象，如何让他自省呢？</p>
-<p>在xml模块中，本身就提供了用于自省的函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml.etree.cElementTree <span class="keyword">as</span> ET</span><br><span class="line"></span><br><span class="line">root = ET.fromstring(<span class="string">"""&lt;xml&gt;&lt;name&gt;polarsnow&lt;/name&gt;&lt;/xml&gt;"""</span>)</span><br><span class="line"><span class="keyword">print</span> type(root)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> ET.iselement(root)</span><br></pre></td></tr></table></figure>
 
-<p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;type &#39;Element&#39;&gt;</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h2 id="对value排序"><a href="#对value排序" class="headerlink" title="对value排序"></a>对value排序</h2><p>在对value之前, 先来回炉一下Python的lambda表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="keyword">lambda</span> x: x+<span class="number">1</span></span><br><span class="line">print(f(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x+<span class="number">1</span></span><br><span class="line">print(ff(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+
+<p>以上两种方式是等价的, lambda表达式写法更简洁, 一般当做匿名表达式/匿名函数使用</p>
+<p><code>lambda x:y</code> </p>
+<ul>
+<li>x 为入参</li>
+<li>y 为计算表达式, 运算后返回</li>
+</ul>
+<p>接下来进入到对字典的value排序正题, 这里就需要使用到lambda表达式</p>
+<h3 id="直接对值排序"><a href="#直接对值排序" class="headerlink" title="直接对值排序"></a>直接对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.values())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5, 9, 18, 20, 59]</span><br></pre></td></tr></table></figure>
+
+<h3 id="在包含Key的情况下对值排序"><a href="#在包含Key的情况下对值排序" class="headerlink" title="在包含Key的情况下对值排序"></a>在包含Key的情况下对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.items(), key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(&#39;s&#39;, 5), (&#39;o&#39;, 9), (&#39;z&#39;, 18), (&#39;a&#39;, 20), (&#39;p&#39;, 59)]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>d.items()</code> 返回以元组形式构成的列表 <code>dict_items([(&#39;p&#39;, 59), (&#39;o&#39;, 9), (&#39;s&#39;, 5), (&#39;a&#39;, 20), (&#39;z&#39;, 18)])</code>  (列表为可迭代对象)</p>
+<p><code>lambda x: x[1]</code> lambda表达式中, x为入参, 每次x的值为一个<code>d.items()</code>中的元素(一个元组), 第一个入参为<code>(&#39;p&#39;, 59)</code> 冒号后面的x[1]是运算表达式, 意思是取元组中的第二个元素返回(索引为1), 返回的元素即为排序的依据. 所以如果需要对key进行排序, 也可以在表达式里写 <code>x[0]</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F%205/" class="post-title-link" itemprop="url">Python使用sorted对字典的key或value排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 16:45:03" itemprop="dateCreated datePublished" datetime="2018-08-08T16:45:03+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python使用sorted对字典的key或value排序 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="sorted函数"><a href="#sorted函数" class="headerlink" title="sorted函数"></a>sorted函数</h2><p>sorted(iterable,key,reverse)</p>
+<ul>
+<li>iterable 待排序的可迭代对象</li>
+<li>key 对应的是个函数, 该函数用来决定选取用哪些值来进行排序</li>
+<li>reverse 反转排序</li>
+</ul>
+<h2 id="对key排序"><a href="#对key排序" class="headerlink" title="对key排序"></a>对key排序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.keys())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#39;a&#39;, &#39;o&#39;, &#39;p&#39;, &#39;s&#39;, &#39;z&#39;]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="对value排序"><a href="#对value排序" class="headerlink" title="对value排序"></a>对value排序</h2><p>在对value之前, 先来回炉一下Python的lambda表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="keyword">lambda</span> x: x+<span class="number">1</span></span><br><span class="line">print(f(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x+<span class="number">1</span></span><br><span class="line">print(ff(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+
+<p>以上两种方式是等价的, lambda表达式写法更简洁, 一般当做匿名表达式/匿名函数使用</p>
+<p><code>lambda x:y</code> </p>
+<ul>
+<li>x 为入参</li>
+<li>y 为计算表达式, 运算后返回</li>
+</ul>
+<p>接下来进入到对字典的value排序正题, 这里就需要使用到lambda表达式</p>
+<h3 id="直接对值排序"><a href="#直接对值排序" class="headerlink" title="直接对值排序"></a>直接对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.values())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5, 9, 18, 20, 59]</span><br></pre></td></tr></table></figure>
+
+<h3 id="在包含Key的情况下对值排序"><a href="#在包含Key的情况下对值排序" class="headerlink" title="在包含Key的情况下对值排序"></a>在包含Key的情况下对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.items(), key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(&#39;s&#39;, 5), (&#39;o&#39;, 9), (&#39;z&#39;, 18), (&#39;a&#39;, 20), (&#39;p&#39;, 59)]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>d.items()</code> 返回以元组形式构成的列表 <code>dict_items([(&#39;p&#39;, 59), (&#39;o&#39;, 9), (&#39;s&#39;, 5), (&#39;a&#39;, 20), (&#39;z&#39;, 18)])</code>  (列表为可迭代对象)</p>
+<p><code>lambda x: x[1]</code> lambda表达式中, x为入参, 每次x的值为一个<code>d.items()</code>中的元素(一个元组), 第一个入参为<code>(&#39;p&#39;, 59)</code> 冒号后面的x[1]是运算表达式, 意思是取元组中的第二个元素返回(索引为1), 返回的元素即为排序的依据. 所以如果需要对key进行排序, 也可以在表达式里写 <code>x[0]</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/aiohttp-uvloop-gunicorn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/aiohttp-uvloop-gunicorn/" class="post-title-link" itemprop="url">aiohttp+uvloop+gunicorn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 15:42:45" itemprop="dateCreated datePublished" datetime="2018-08-08T15:42:45+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/aiohttp-uvloop-gunicorn/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/aiohttp-uvloop-gunicorn/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="aiohttp-uvloop"><a href="#aiohttp-uvloop" class="headerlink" title="aiohttp+uvloop"></a>aiohttp+uvloop</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"><span class="keyword">from</span> utils.logger_helper <span class="keyword">import</span> LogFactory</span><br><span class="line"></span><br><span class="line">logger = LogFactory.get_logger()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    web.run_app(app, host=cfg.host, port=cfg.port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 使用 uvloop 替换掉 asyncio 默认的事件循环</span></span><br><span class="line">    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启动 Server</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        main()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logger.error(e)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="aiohttp-uvloop-gunicorn"><a href="#aiohttp-uvloop-gunicorn" class="headerlink" title="aiohttp+uvloop+gunicorn"></a>aiohttp+uvloop+gunicorn</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For Gunicorn</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">web_app</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+
+<p><code>gunicorn ... --worker-class aiohttp.worker.GunicornUVLoopWebWorker</code></p>
+<p>在启动gunicorn的时候, 指定uvloop的worker-class即可</p>
+<h1 id="How-to-use-uvloop-in-an-asyncio-application"><a href="#How-to-use-uvloop-in-an-asyncio-application" class="headerlink" title="How to use uvloop in an asyncio application"></a>How to use uvloop in an asyncio application</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br></pre></td></tr></table></figure>
+
+<h1 id="How-to-use-uvloop-with-Tornado"><a href="#How-to-use-uvloop-with-Tornado" class="headerlink" title="How to use uvloop with Tornado"></a>How to use uvloop with Tornado</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tornado.platform.asyncio <span class="keyword">import</span> AsyncIOMainLoop</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"></span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">AsyncIOMainLoop().install()</span><br><span class="line">asyncio.get_event_loop().run_forever()</span><br></pre></td></tr></table></figure>
+
+<p>参考文档:</p>
+<ul>
+<li><a href="https://github.com/MagicStack/uvloop/wiki" target="_blank" rel="noopener">https://github.com/MagicStack/uvloop/wiki</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/aiohttp-uvloop-gunicorn%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/aiohttp-uvloop-gunicorn%203/" class="post-title-link" itemprop="url">aiohttp+uvloop+gunicorn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 15:42:45" itemprop="dateCreated datePublished" datetime="2018-08-08T15:42:45+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/aiohttp-uvloop-gunicorn%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/aiohttp-uvloop-gunicorn 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="aiohttp-uvloop"><a href="#aiohttp-uvloop" class="headerlink" title="aiohttp+uvloop"></a>aiohttp+uvloop</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"><span class="keyword">from</span> utils.logger_helper <span class="keyword">import</span> LogFactory</span><br><span class="line"></span><br><span class="line">logger = LogFactory.get_logger()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    web.run_app(app, host=cfg.host, port=cfg.port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 使用 uvloop 替换掉 asyncio 默认的事件循环</span></span><br><span class="line">    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启动 Server</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        main()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logger.error(e)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="aiohttp-uvloop-gunicorn"><a href="#aiohttp-uvloop-gunicorn" class="headerlink" title="aiohttp+uvloop+gunicorn"></a>aiohttp+uvloop+gunicorn</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For Gunicorn</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">web_app</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+
+<p><code>gunicorn ... --worker-class aiohttp.worker.GunicornUVLoopWebWorker</code></p>
+<p>在启动gunicorn的时候, 指定uvloop的worker-class即可</p>
+<h1 id="How-to-use-uvloop-in-an-asyncio-application"><a href="#How-to-use-uvloop-in-an-asyncio-application" class="headerlink" title="How to use uvloop in an asyncio application"></a>How to use uvloop in an asyncio application</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br></pre></td></tr></table></figure>
+
+<h1 id="How-to-use-uvloop-with-Tornado"><a href="#How-to-use-uvloop-with-Tornado" class="headerlink" title="How to use uvloop with Tornado"></a>How to use uvloop with Tornado</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tornado.platform.asyncio <span class="keyword">import</span> AsyncIOMainLoop</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"></span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">AsyncIOMainLoop().install()</span><br><span class="line">asyncio.get_event_loop().run_forever()</span><br></pre></td></tr></table></figure>
+
+<p>参考文档:</p>
+<ul>
+<li><a href="https://github.com/MagicStack/uvloop/wiki" target="_blank" rel="noopener">https://github.com/MagicStack/uvloop/wiki</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/" class="post-title-link" itemprop="url">Python SMTPException: No suitable authentication method found</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 15:32:26" itemprop="dateCreated datePublished" datetime="2018-08-08T15:32:26+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在发送邮件日报时, 使用<code>smtplib</code>库抛了一个异常<code>raise SMTPException(&quot;No suitable authentication method found.&quot;)</code></p>
+<p>原因是配置了<code>https</code>的邮件服务器, 在初始化SMTP和login之间调用<code>starttls()</code>方法即可解决问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line">server = smtplib.SMTP(self.server, self.port)</span><br><span class="line">server.set_debuglevel(<span class="number">1</span>)</span><br><span class="line">server.starttls()</span><br><span class="line">server.login(self.send_user, self.password)</span><br><span class="line">server.sendmail(self.send_user, [to], msg.as_string())</span><br><span class="line">server.quit()</span><br></pre></td></tr></table></figure>
 
 
       
@@ -394,7 +737,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -408,7 +751,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">Python中__import__()的fromlist参数用法</a>
+            <a href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found%205/" class="post-title-link" itemprop="url">Python SMTPException: No suitable authentication method found</a>
         </h2>
 
         <div class="post-meta">
@@ -418,7 +761,16 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-10-13 10:56:59" itemprop="dateCreated datePublished" datetime="2017-10-13T10:56:59+08:00">2017-10-13</time>
+              <time title="创建时间：2018-08-08 15:32:26" itemprop="dateCreated datePublished" datetime="2018-08-08T15:32:26+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
             </span>
 
           
@@ -430,8 +782,94 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/13/Python中-import-的fromlist参数用法/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python-SMTPException-No-suitable-authentication-method-found 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在发送邮件日报时, 使用<code>smtplib</code>库抛了一个异常<code>raise SMTPException(&quot;No suitable authentication method found.&quot;)</code></p>
+<p>原因是配置了<code>https</code>的邮件服务器, 在初始化SMTP和login之间调用<code>starttls()</code>方法即可解决问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line">server = smtplib.SMTP(self.server, self.port)</span><br><span class="line">server.set_debuglevel(<span class="number">1</span>)</span><br><span class="line">server.starttls()</span><br><span class="line">server.login(self.send_user, self.password)</span><br><span class="line">server.sendmail(self.send_user, [to], msg.as_string())</span><br><span class="line">server.quit()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod/" class="post-title-link" itemprop="url">Python中的抽象方法@abstractmethod</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 14:13:34" itemprop="dateCreated datePublished" datetime="2018-08-08T14:13:34+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python中的抽象方法-abstractmethod/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -447,50 +885,22 @@
 
       
           <blockquote>
-<p>Python中的<code>__import__()</code>函数用来动态的加载包文件, 其中<code>__import__()</code>有个<code>fromlist</code>的参数选项, 对于动态加载模块来说, 非常重要</p>
+<p>抽象方法是父类的一个方法, 父类没有实现这个方法, 父类是不可以实例化的. 子类继承父类, 子类必须实现父类定义的抽象方法, 子类才可以被实例化. Python中的abc提供了@abstractmethod装饰器实现抽象方法的定义</p>
 </blockquote>
-<p>Python 中的 import 大概有以下几种用法</p>
-<ul>
-<li>import pkg  调用方法: <code>pkg.mod.func()</code></li>
-<li>import pkg.mod 调用方法: <code>pkg.mod.func()</code></li>
-<li>import mod 调用方法: <code>mod.func()</code></li>
-<li>from pkg import mod 调用方法: <code>mod.func()</code></li>
-<li>from pkg.mod import func 调用方法 : <code>func()</code></li>
-<li>from mod import func 调用方法: <code>func()</code></li>
-</ul>
-<p>第一种和第二种情况下, 当使用<code>__import__</code>导入模块时, 得到的对象是完全一样的. 默认情况下, <code>__import__</code> 只能导入最左侧的包文件, 即以下两种写法, 导入的对象都是一样的</p>
-<ul>
-<li><code>pkg2 = __import__(pkg)</code> 调用方法: <code>pkg2.mod.func()</code></li>
-<li><code>pkg3 = __import__(pkg.mod)</code> 调用方法: <code>pkg3.mod.func()</code></li>
-</ul>
-<p>第三种情况下, 当使用<code>__import__</code>导入模块时, 与<code>import mod</code>的导入效果是一样的</p>
-<ul>
-<li>mod2 = <code>__import__(mod)</code> 调用方法: <code>mod2.func1(); mod2.func2()</code></li>
-</ul>
-<p>第四种情况下, 当使用<code>__import__</code>导入模块时的用法</p>
-<ul>
-<li><code>pkg4 = __import__(pkg, fromlist=[mod1, mod2])</code></li>
-</ul>
-<p>调用方法:</p>
-<ul>
-<li><code>pkg4.mod1.func1()</code></li>
-<li><code>pkg4.mod2.func2()</code></li>
-</ul>
-<p>第五种情况下, 不支持使用<code>__import__</code>直接导入包内模块中的函数,  默认情况下, 即使你是如下的写法</p>
-<ul>
-<li><code>pkg5 = __import__(pkg.mod)</code></li>
-</ul>
-<p>效果依然是只导入<code>pkg</code>包而已, <code>pkg.mod</code>这个模块并没有被导入</p>
-<ul>
-<li><code>pkg5 = __import__(pkg.mod, fromlist=[mod])</code></li>
-</ul>
-<p>如果是加入了 <code>fromlist</code> 关键字的话, 那么该 pkg5 为 mod 模块对象</p>
-<p><em>总结来说就是当 <code>__import__(A.B)</code>时, 当 fromlist 为空, 则导入的对象时 A, 如果 fromlist 不为空, 导入的对象就是 B</em></p>
-<p>第六种情况下, 当使用<code>__import__</code>导入模块时, 与<code>from mod import func</code>的效果是一样的, 不需要使用fromlist参数支持就可以导入全部函数</p>
-<ul>
-<li><code>mod3 = __import__(mod)</code> 调用方法: <code>mod3.func()</code></li>
-<li><code>pkg5 = __import__(&#39;mod2&#39;, fromlist=[&#39;func2&#39;, &#39;func3&#39;])</code> 这种写法非常啰嗦, 上面的写法已经可以导入全部函数了, 不需要再使用 fromlist 单独指定</li>
-</ul>
+<h2 id="抽象类的实现"><a href="#抽象类的实现" class="headerlink" title="抽象类的实现"></a>抽象类的实现</h2><p>Python 3.4+</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(ABC)</span>:</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        你需要在子类中实现该方法, 子类才允许被实例化</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubFoo</span><span class="params">(Foo)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"子类实现父类的抽象方法"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    sf = SubFoo()</span><br><span class="line">    sf.fun()</span><br></pre></td></tr></table></figure>
+
+<p>Python 3.0 - 3.3 版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> abstractmethod, ABCMeta</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(metaclass=ABCMeta)</span>:</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">    	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>Python 2 版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooBar</span><span class="params">()</span>:</span></span><br><span class="line">    __metaclass__ = ABCMeta</span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">    	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="浅谈抽象类"><a href="#浅谈抽象类" class="headerlink" title="浅谈抽象类"></a>浅谈抽象类</h2><p>类, 是从一堆对象中抽象出来的, 比如<code>猫类</code>,<code>狗类</code>,<code>人类</code></p>
+<p>抽象类, 是从一堆类中抽象出来的,  比如上面的三个类可以抽取出<code>动物类</code></p>
+<p>抽象类的特点是不能给实例化, 只能被子类继承, 由子类实现了父类的抽象方法后, 子类才能被实例化</p>
+<h2 id="Python中的接口-抽象类-抽象函数"><a href="#Python中的接口-抽象类-抽象函数" class="headerlink" title="Python中的接口, 抽象类, 抽象函数"></a>Python中的接口, 抽象类, 抽象函数</h2><p>Python中的接口是个弱概念, 从Java中的概念延伸而来, Python中通过抽象类和抽象方法来实现一个接口, 例如Python3中, class 类继承的 <code>abc.ABC</code> 即为抽象类, <code>@abstractmethod</code> 装饰器使其装饰的函数成为抽象函数</p>
+<p>一般情况下, Python多在单继承的情况下使用抽象类</p>
 
       
     </div>
@@ -512,7 +922,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -526,7 +936,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">collections中deque的用法</a>
+            <a href="/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod%205/" class="post-title-link" itemprop="url">Python中的抽象方法@abstractmethod</a>
         </h2>
 
         <div class="post-meta">
@@ -536,7 +946,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 17:14:59" itemprop="dateCreated datePublished" datetime="2017-07-26T17:14:59+08:00">2017-07-26</time>
+              <time title="创建时间：2018-08-08 14:13:34" itemprop="dateCreated datePublished" datetime="2018-08-08T14:13:34+08:00">2018-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -557,8 +967,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/collections中deque的用法/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/08/08/Python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95-abstractmethod%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python中的抽象方法-abstractmethod 5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -574,105 +984,22 @@
 
       
           <blockquote>
-<p>collections.deque 是用来创建一个有序的队列, 而且可以限定其队列的大小, 当队列已经装满后, 再填入的元素将实现头部元素被抛弃, 所有元素向前挪动一位, 新元素追加到最后的效果</p>
+<p>抽象方法是父类的一个方法, 父类没有实现这个方法, 父类是不可以实例化的. 子类继承父类, 子类必须实现父类定义的抽象方法, 子类才可以被实例化. Python中的abc提供了@abstractmethod装饰器实现抽象方法的定义</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">q = collections.deque([], <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">1</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">2</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">3</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">4</span>)</span><br><span class="line">print(q)</span><br></pre></td></tr></table></figure>
+<h2 id="抽象类的实现"><a href="#抽象类的实现" class="headerlink" title="抽象类的实现"></a>抽象类的实现</h2><p>Python 3.4+</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(ABC)</span>:</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        你需要在子类中实现该方法, 子类才允许被实例化</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubFoo</span><span class="params">(Foo)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"子类实现父类的抽象方法"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    sf = SubFoo()</span><br><span class="line">    sf.fun()</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deque([<span class="number">1</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">1</span>, <span class="number">2</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], maxlen=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>Python 3.0 - 3.3 版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> abstractmethod, ABCMeta</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(metaclass=ABCMeta)</span>:</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">    	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>Python 2 版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooBar</span><span class="params">()</span>:</span></span><br><span class="line">    __metaclass__ = ABCMeta</span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(self)</span>:</span></span><br><span class="line">    	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/" class="post-title-link" itemprop="url">Python中的有序字典</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-26 16:56:08" itemprop="dateCreated datePublished" datetime="2017-07-26T16:56:08+08:00">2017-07-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中的有序字典/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 Python 3.5版本(含3.5)之前, 默认的字典是无序的. 在最新的3.6版本中, 字典变成了有序字典, 本篇文章将介绍3.5版本及之前版本中有序字典的使用和3.6版本原生有序字典的使用</p>
-</blockquote>
-<h1 id="3-5"><a href="#3-5" class="headerlink" title="3.5-"></a>3.5-</h1><p>3.5版本及之前的版本中, 需要借助<code>collections</code>模块中的<code>OrderedDict</code>来实现有序字典的声明和使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">od = OrderedDict()</span><br><span class="line">d = &#123;&#125;</span><br><span class="line"></span><br><span class="line">od[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">od[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">od[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">print(od)</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'lvrui'</span>), (<span class="string">'age'</span>, <span class="number">26</span>), (<span class="string">'city'</span>, <span class="string">'HeBei'</span>)])</span><br><span class="line">&#123;<span class="string">'city'</span>: <span class="string">'HeBei'</span>, <span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-6"><a href="#3-6" class="headerlink" title="3.6+"></a>3.6+</h1><p>在 Python3.6+ 版本中, 内置字典默认就是有序的😆 爽~</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3<span class="number">.6</span></span><br><span class="line">Python <span class="number">3.6</span><span class="number">.2</span> (v3<span class="number">.6</span><span class="number">.2</span>:<span class="number">5</span>fd33b5926, Jul <span class="number">16</span> <span class="number">2017</span>, <span class="number">20</span>:<span class="number">11</span>:<span class="number">06</span>) </span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>, <span class="string">'city'</span>: <span class="string">'HeBei'</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="浅谈抽象类"><a href="#浅谈抽象类" class="headerlink" title="浅谈抽象类"></a>浅谈抽象类</h2><p>类, 是从一堆对象中抽象出来的, 比如<code>猫类</code>,<code>狗类</code>,<code>人类</code></p>
+<p>抽象类, 是从一堆类中抽象出来的,  比如上面的三个类可以抽取出<code>动物类</code></p>
+<p>抽象类的特点是不能给实例化, 只能被子类继承, 由子类实现了父类的抽象方法后, 子类才能被实例化</p>
+<h2 id="Python中的接口-抽象类-抽象函数"><a href="#Python中的接口-抽象类-抽象函数" class="headerlink" title="Python中的接口, 抽象类, 抽象函数"></a>Python中的接口, 抽象类, 抽象函数</h2><p>Python中的接口是个弱概念, 从Java中的概念延伸而来, Python中通过抽象类和抽象方法来实现一个接口, 例如Python3中, class 类继承的 <code>abc.ABC</code> 即为抽象类, <code>@abstractmethod</code> 装饰器使其装饰的函数成为抽象函数</p>
+<p>一般情况下, Python多在单继承的情况下使用抽象类</p>
 
       
     </div>
@@ -694,7 +1021,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -708,7 +1035,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/" class="post-title-link" itemprop="url">Python中为元组的每个元素命名</a>
+            <a href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Go基础之切片Slice操作</a>
         </h2>
 
         <div class="post-meta">
@@ -718,7 +1045,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:53:19" itemprop="dateCreated datePublished" datetime="2017-07-26T11:53:19+08:00">2017-07-26</time>
+              <time title="创建时间：2018-08-08 01:34:34" itemprop="dateCreated datePublished" datetime="2018-08-08T01:34:34+08:00">2018-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -726,7 +1053,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
                 </span>
             </span>
 
@@ -739,8 +1066,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中为元组的每个元素命名/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Go基础之切片Slice操作/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -755,25 +1082,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>元组是一种高效的数据类型, 同时我们为了提高提取元组元素的可读性,  做出如下修改来为元组的元素命名</p>
-</blockquote>
-<p>比如我们用一个元组来描述一个位置信息, 比如 <code>(5,9)</code>来标识横坐标信息和纵坐标信息</p>
-<h1 id="第一种方式-通过变量"><a href="#第一种方式-通过变量" class="headerlink" title="第一种方式: 通过变量"></a>第一种方式: 通过变量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = (<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">x, y = range(<span class="number">2</span>)</span><br><span class="line">print(p[x])</span><br><span class="line">print(p[y])</span><br></pre></td></tr></table></figure>
+          <h2 id="向Slice中添加元素"><a href="#向Slice中添加元素" class="headerlink" title="向Slice中添加元素"></a>向Slice中添加元素</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>&#125;</span><br><span class="line">	s := arr[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	ss := <span class="built_in">append</span>(s, <span class="string">"xx"</span>)</span><br><span class="line">	sss := <span class="built_in">append</span>(ss, <span class="string">"yy"</span>)</span><br><span class="line">	ssss := <span class="built_in">append</span>(sss, <span class="string">"zz"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">	fmt.Println(<span class="string">"sss"</span>, sss)</span><br><span class="line">	fmt.Println(<span class="string">"ssss"</span>, ssss)</span><br><span class="line">	fmt.Println(<span class="string">"arr"</span>, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s [c d e f]</span><br><span class="line">ss [c d e f xx]</span><br><span class="line">sss [c d e f xx yy]</span><br><span class="line">ssss [c d e f xx yy zz]</span><br><span class="line">arr [a b c d e f xx yy]</span><br></pre></td></tr></table></figure>
 
-<h1 id="第二种方式-collections-内置函数"><a href="#第二种方式-collections-内置函数" class="headerlink" title="第二种方式: collections 内置函数"></a>第二种方式: collections 内置函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">P = collections.namedtuple(<span class="string">'P'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</span><br><span class="line">p = P(<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">print(p.x)</span><br><span class="line">print(p.y)</span><br></pre></td></tr></table></figure>
+<p>从执行结果中可以看出, 向Slice中append元素后, 会覆盖掉底层Array的值, 会覆盖掉索引为<code>ptr+len(Slice)</code>的值. 当Slice append后, 超出了cap的长度, 底层Array中已经没有多余的值可以给他覆盖后, 这时, 新的Slice其实已经不再是老的Array的view了, Go语言会在内部创建一个新的Array, 把老数据拷贝过去, 且新的Array的长度会设置的更长一些. 上面的Demo中, ssss已经不再是原始Array的view</p>
+<ul>
+<li><p>当添加元素时, 如果超越了cap, 系统会重新分配更大的底层数组, 原来的Array如果没有被任何对象使用, 将被垃圾回收机制回收</p>
+</li>
+<li><p>由于Go语言是值传递, 在append后, 必须接收其返回值. 原因是在append操作后, Slice的len肯定会变化, 如果超过了Array长度, cap的值也会变化, 所以需要我们使用新的Slice对象去接收新的返回值</p>
+</li>
+</ul>
+<h2 id="创建Slice"><a href="#创建Slice" class="headerlink" title="创建Slice"></a>创建Slice</h2><p>上一篇文章的介绍中, 全篇都使用了Array去创建Slice, 我们可以直接创建Slice</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span>  <span class="comment">// 声明创建一个int类型的Slice</span></span><br><span class="line">	<span class="comment">// 如果变量没有被赋值, Go语言会为每个变量定义Zero Value</span></span><br><span class="line">	<span class="comment">// Slice的Zero Value 为 nil</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>; i&lt;=<span class="number">59</span>; i++ &#123;</span><br><span class="line">		printSliceInfo(s)</span><br><span class="line">		s = <span class="built_in">append</span>(s, i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;0 cap&#x3D;0</span><br><span class="line">len&#x3D;1 cap&#x3D;1</span><br><span class="line">len&#x3D;2 cap&#x3D;2</span><br><span class="line">len&#x3D;3 cap&#x3D;4</span><br><span class="line">len&#x3D;4 cap&#x3D;4</span><br><span class="line">len&#x3D;5 cap&#x3D;8</span><br><span class="line">len&#x3D;6 cap&#x3D;8</span><br><span class="line">len&#x3D;7 cap&#x3D;8</span><br><span class="line">len&#x3D;8 cap&#x3D;8</span><br><span class="line">len&#x3D;9 cap&#x3D;16</span><br><span class="line">len&#x3D;10 cap&#x3D;16</span><br><span class="line">len&#x3D;11 cap&#x3D;16</span><br><span class="line">len&#x3D;12 cap&#x3D;16</span><br><span class="line">len&#x3D;13 cap&#x3D;16</span><br><span class="line">len&#x3D;14 cap&#x3D;16</span><br><span class="line">len&#x3D;15 cap&#x3D;16</span><br><span class="line">len&#x3D;16 cap&#x3D;16</span><br><span class="line">len&#x3D;17 cap&#x3D;32</span><br><span class="line">len&#x3D;18 cap&#x3D;32</span><br><span class="line">len&#x3D;19 cap&#x3D;32</span><br><span class="line">len&#x3D;20 cap&#x3D;32</span><br><span class="line">len&#x3D;21 cap&#x3D;32</span><br><span class="line">len&#x3D;22 cap&#x3D;32</span><br><span class="line">len&#x3D;23 cap&#x3D;32</span><br><span class="line">len&#x3D;24 cap&#x3D;32</span><br><span class="line">len&#x3D;25 cap&#x3D;32</span><br><span class="line">len&#x3D;26 cap&#x3D;32</span><br><span class="line">len&#x3D;27 cap&#x3D;32</span><br><span class="line">len&#x3D;28 cap&#x3D;32</span><br><span class="line">len&#x3D;29 cap&#x3D;32</span><br><span class="line">len&#x3D;30 cap&#x3D;32</span><br><span class="line">len&#x3D;31 cap&#x3D;32</span><br><span class="line">len&#x3D;32 cap&#x3D;32</span><br><span class="line">len&#x3D;33 cap&#x3D;64</span><br><span class="line">len&#x3D;34 cap&#x3D;64</span><br><span class="line">len&#x3D;35 cap&#x3D;64</span><br><span class="line">len&#x3D;36 cap&#x3D;64</span><br><span class="line">len&#x3D;37 cap&#x3D;64</span><br><span class="line">len&#x3D;38 cap&#x3D;64</span><br><span class="line">len&#x3D;39 cap&#x3D;64</span><br><span class="line">len&#x3D;40 cap&#x3D;64</span><br><span class="line">len&#x3D;41 cap&#x3D;64</span><br><span class="line">len&#x3D;42 cap&#x3D;64</span><br><span class="line">len&#x3D;43 cap&#x3D;64</span><br><span class="line">len&#x3D;44 cap&#x3D;64</span><br><span class="line">len&#x3D;45 cap&#x3D;64</span><br><span class="line">len&#x3D;46 cap&#x3D;64</span><br><span class="line">len&#x3D;47 cap&#x3D;64</span><br><span class="line">len&#x3D;48 cap&#x3D;64</span><br><span class="line">len&#x3D;49 cap&#x3D;64</span><br><span class="line">len&#x3D;50 cap&#x3D;64</span><br><span class="line">len&#x3D;51 cap&#x3D;64</span><br><span class="line">len&#x3D;52 cap&#x3D;64</span><br><span class="line">len&#x3D;53 cap&#x3D;64</span><br><span class="line">len&#x3D;54 cap&#x3D;64</span><br><span class="line">len&#x3D;55 cap&#x3D;64</span><br><span class="line">len&#x3D;56 cap&#x3D;64</span><br><span class="line">len&#x3D;57 cap&#x3D;64</span><br><span class="line">len&#x3D;58 cap&#x3D;64</span><br><span class="line">len&#x3D;59 cap&#x3D;64</span><br><span class="line">[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59]</span><br></pre></td></tr></table></figure>
 
-<p>查看<code>p</code>的数据类型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(isinstance(p, P))</span><br><span class="line">print(isinstance(p, tuple))</span><br></pre></td></tr></table></figure>
+<p>从上面的执行结果可以看出, Go语言会根据使用情况自动去扩展Slice的len以及cap</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">16</span>, <span class="number">32</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">  len&#x3D;16 cap&#x3D;32</span><br></pre></td></tr></table></figure>
+
+<h2 id="拷贝Slice"><a href="#拷贝Slice" class="headerlink" title="拷贝Slice"></a>拷贝Slice</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">4</span>, <span class="number">8</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">copy</span>(ss, s)  <span class="comment">// 将s切片的数据拷贝到ss切片中</span></span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">s [2015 5 9]</span><br><span class="line">len&#x3D;4 cap&#x3D;8</span><br><span class="line">ss [0 0 0 0]</span><br><span class="line">ss [2015 5 9 0]</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除Slice中的元素"><a href="#删除Slice中的元素" class="headerlink" title="删除Slice中的元素"></a>删除Slice中的元素</h2><p>对于Slice的删除功能, Go语言没有提供直接的操作语句, 但是可以通过Reslice来实现</p>
+<p>需求: 删除Slice中的第3个元素 [12, 34, 56, 78, 90, 89, 72]</p>
+<p>思路: 使用Reslice, s[:3] + s[4:] 取得的就是删除原切片第三个元素的数据, 但Go语言也没有提供Slice相加的功能, 只能通过append函数来实现, append(s[:3], s[4:]), 问题又来了, append的源码中要求第二参数必须是可变参数, 也就是一个值一个值的写在后面 <code>func append(slice []Type, elems ...Type) []Type</code></p>
+<p>Go语言中提供了相关的语法, 来解决s[4:]变成可变参数的问题</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">append</span>(s[:<span class="number">3</span>], s[<span class="number">4</span>:]...)</span><br><span class="line">	fmt.Println(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">[12 34 56 90 89 72]</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除头尾"><a href="#删除头尾" class="headerlink" title="删除头尾"></a>删除头尾</h3><p>删头</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	front := s[<span class="number">0</span>]</span><br><span class="line">	ss := s[<span class="number">1</span>:]</span><br><span class="line">	fmt.Println(<span class="string">"取出的头部元素为"</span>, front)</span><br><span class="line">	fmt.Println(<span class="string">"取出头部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的头部元素为 12</span><br><span class="line">取出头部元素后的Slice为 [34 56 78 90 89 72]</span><br></pre></td></tr></table></figure>
+
+<p>删尾</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	tail := s[<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	ss := s[:<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	fmt.Println(<span class="string">"取出的尾部元素为"</span>, tail)</span><br><span class="line">	fmt.Println(<span class="string">"取出尾部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的尾部元素为 72</span><br><span class="line">取出尾部元素后的Slice为 [12 34 56 78 90 89]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -795,7 +1152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -809,7 +1166,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/" class="post-title-link" itemprop="url">Python中使用Counter实现简单的计数器</a>
+            <a href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/" class="post-title-link" itemprop="url">Go基础之切片Slice操作</a>
         </h2>
 
         <div class="post-meta">
@@ -819,7 +1176,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:51:21" itemprop="dateCreated datePublished" datetime="2017-07-26T11:51:21+08:00">2017-07-26</time>
+              <time title="创建时间：2018-08-08 01:34:34" itemprop="dateCreated datePublished" datetime="2018-08-08T01:34:34+08:00">2018-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -827,7 +1184,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
                 </span>
             </span>
 
@@ -840,8 +1197,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中使用Counter实现简单的计数器/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Go基础之切片Slice操作 3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -856,398 +1213,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>在 Python 中可以使用 collections 内置模块下的 Counter 来实现简单的统计功能</p>
-</blockquote>
-<h1 id="统计列表中的元素"><a href="#统计列表中的元素" class="headerlink" title="统计列表中的元素"></a>统计列表中的元素</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [chr(random.randint(<span class="number">97</span>, <span class="number">102</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">result = collections.Counter(l)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+          <h2 id="向Slice中添加元素"><a href="#向Slice中添加元素" class="headerlink" title="向Slice中添加元素"></a>向Slice中添加元素</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>&#125;</span><br><span class="line">	s := arr[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	ss := <span class="built_in">append</span>(s, <span class="string">"xx"</span>)</span><br><span class="line">	sss := <span class="built_in">append</span>(ss, <span class="string">"yy"</span>)</span><br><span class="line">	ssss := <span class="built_in">append</span>(sss, <span class="string">"zz"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">	fmt.Println(<span class="string">"sss"</span>, sss)</span><br><span class="line">	fmt.Println(<span class="string">"ssss"</span>, ssss)</span><br><span class="line">	fmt.Println(<span class="string">"arr"</span>, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'f'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'f'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>]</span><br><span class="line">Counter(&#123;<span class="string">'f'</span>: <span class="number">6</span>, <span class="string">'e'</span>: <span class="number">6</span>, <span class="string">'c'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s [c d e f]</span><br><span class="line">ss [c d e f xx]</span><br><span class="line">sss [c d e f xx yy]</span><br><span class="line">ssss [c d e f xx yy zz]</span><br><span class="line">arr [a b c d e f xx yy]</span><br></pre></td></tr></table></figure>
 
-<h1 id="统计文件中单词出现的频率"><a href="#统计文件中单词出现的频率" class="headerlink" title="统计文件中单词出现的频率"></a>统计文件中单词出现的频率</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">txt = re.split(<span class="string">'\W+'</span>, f.read())</span><br><span class="line">s = collections.Counter(txt)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<p>从执行结果中可以看出, 向Slice中append元素后, 会覆盖掉底层Array的值, 会覆盖掉索引为<code>ptr+len(Slice)</code>的值. 当Slice append后, 超出了cap的长度, 底层Array中已经没有多余的值可以给他覆盖后, 这时, 新的Slice其实已经不再是老的Array的view了, Go语言会在内部创建一个新的Array, 把老数据拷贝过去, 且新的Array的长度会设置的更长一些. 上面的Demo中, ssss已经不再是原始Array的view</p>
+<ul>
+<li><p>当添加元素时, 如果超越了cap, 系统会重新分配更大的底层数组, 原来的Array如果没有被任何对象使用, 将被垃圾回收机制回收</p>
+</li>
+<li><p>由于Go语言是值传递, 在append后, 必须接收其返回值. 原因是在append操作后, Slice的len肯定会变化, 如果超过了Array长度, cap的值也会变化, 所以需要我们使用新的Slice对象去接收新的返回值</p>
+</li>
+</ul>
+<h2 id="创建Slice"><a href="#创建Slice" class="headerlink" title="创建Slice"></a>创建Slice</h2><p>上一篇文章的介绍中, 全篇都使用了Array去创建Slice, 我们可以直接创建Slice</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span>  <span class="comment">// 声明创建一个int类型的Slice</span></span><br><span class="line">	<span class="comment">// 如果变量没有被赋值, Go语言会为每个变量定义Zero Value</span></span><br><span class="line">	<span class="comment">// Slice的Zero Value 为 nil</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>; i&lt;=<span class="number">59</span>; i++ &#123;</span><br><span class="line">		printSliceInfo(s)</span><br><span class="line">		s = <span class="built_in">append</span>(s, i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Counter(&#123;<span class="string">'the'</span>: <span class="number">93</span>, <span class="string">'to'</span>: <span class="number">39</span>, <span class="string">'and'</span>: <span class="number">32</span>, <span class="string">'for'</span>: <span class="number">31</span>, <span class="string">'SSL'</span>: <span class="number">29</span>, <span class="string">'is'</span>: <span class="number">26</span>, <span class="string">'a'</span>: <span class="number">21</span>, <span class="string">'of'</span>: <span class="number">21</span>, <span class="string">'private'</span>: <span class="number">20</span>, <span class="string">'in'</span>: <span class="number">18</span>, <span class="string">'you'</span>: <span class="number">17</span>, <span class="string">'server'</span>: <span class="number">17</span>, <span class="string">'file'</span>: <span class="number">16</span>, <span class="string">'apache2'</span>: <span class="number">16</span>, <span class="string">'be'</span>: <span class="number">16</span>, <span class="string">'1'</span>: <span class="number">16</span>, <span class="string">'etc'</span>: <span class="number">15</span>, <span class="string">'certificate'</span>: <span class="number">15</span>, <span class="string">'this'</span>: <span class="number">14</span>, <span class="string">'as'</span>: <span class="number">13</span>, <span class="string">'This'</span>: <span class="number">13</span>, <span class="string">'0'</span>: <span class="number">13</span>, <span class="string">'or'</span>: <span class="number">13</span>, <span class="string">'use'</span>: <span class="number">12</span>, <span class="string">'client'</span>: <span class="number">10</span>, <span class="string">'that'</span>: <span class="number">10</span>, <span class="string">'when'</span>: <span class="number">10</span>, <span class="string">'can'</span>: <span class="number">10</span>, <span class="string">'are'</span>: <span class="number">9</span>, <span class="string">'mod_ssl'</span>: <span class="number">9</span>, <span class="string">'ciphers'</span>: <span class="number">9</span>, <span class="string">'CA'</span>: <span class="number">8</span>, <span class="string">'on'</span>: <span class="number">8</span>, <span class="string">'one'</span>: <span class="number">8</span>, <span class="string">'2'</span>: <span class="number">8</span>, <span class="string">'an'</span>: <span class="number">7</span>, <span class="string">'crt'</span>: <span class="number">7</span>, <span class="string">'standard'</span>: <span class="number">7</span>, <span class="string">'TLS'</span>: <span class="number">7</span>, <span class="string">'The'</span>: <span class="number">7</span>, <span class="string">'directives'</span>: <span class="number">7</span>, <span class="string">'ssl'</span>: <span class="number">7</span>, <span class="string">'Use'</span>: <span class="number">7</span>, <span class="string">'only'</span>: <span class="number">7</span>, <span class="string">'o'</span>: <span class="number">7</span>, <span class="string">'shutdown'</span>: <span class="number">7</span>, <span class="string">'dev'</span>: <span class="number">7</span>, <span class="string">'all'</span>: <span class="number">6</span>, <span class="string">'more'</span>: <span class="number">6</span>, <span class="string">'close'</span>: <span class="number">6</span>, <span class="string">'used'</span>: <span class="number">6</span>, <span class="string">'not'</span>: <span class="number">6</span>, <span class="string">'which'</span>: <span class="number">6</span>, <span class="string">'notify'</span>: <span class="number">6</span>, <span class="string">'key'</span>: <span class="number">6</span>, <span class="string">'default'</span>: <span class="number">6</span>, <span class="string">'certificates'</span>: <span class="number">6</span>, <span class="string">'alert'</span>: <span class="number">6</span>, <span class="string">'var'</span>: <span class="number">6</span>, <span class="string">'also'</span>: <span class="number">6</span>, <span class="string">'should'</span>: <span class="number">5</span>, <span class="string">'OpenSSL'</span>: <span class="number">5</span>, <span class="string">'SSLv3'</span>: <span class="number">5</span>, <span class="string">'PEM'</span>: <span class="number">5</span>, <span class="string">'encoded'</span>: <span class="number">5</span>, <span class="string">'clients'</span>: <span class="number">5</span>, <span class="string">'random'</span>: <span class="number">5</span>, <span class="string">'OCSP'</span>: <span class="number">5</span>, <span class="string">'containing'</span>: <span class="number">5</span>, <span class="string">'with'</span>: <span class="number">5</span>, <span class="string">'connection'</span>: <span class="number">5</span>, <span class="string">'from'</span>: <span class="number">5</span>, <span class="string">'SSLCertificateFile'</span>: <span class="number">5</span>, <span class="string">'user'</span>: <span class="number">5</span>, <span class="string">'both'</span>: <span class="number">5</span>, <span class="string">'parallel'</span>: <span class="number">4</span>, <span class="string">'variables'</span>: <span class="number">4</span>, <span class="string">'usually'</span>: <span class="number">4</span>, <span class="string">'at'</span>: <span class="number">4</span>, <span class="string">'Note'</span>: <span class="number">4</span>, <span class="string">'HIGH'</span>: <span class="number">4</span>, <span class="string">'configured'</span>: <span class="number">4</span>, </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;0 cap&#x3D;0</span><br><span class="line">len&#x3D;1 cap&#x3D;1</span><br><span class="line">len&#x3D;2 cap&#x3D;2</span><br><span class="line">len&#x3D;3 cap&#x3D;4</span><br><span class="line">len&#x3D;4 cap&#x3D;4</span><br><span class="line">len&#x3D;5 cap&#x3D;8</span><br><span class="line">len&#x3D;6 cap&#x3D;8</span><br><span class="line">len&#x3D;7 cap&#x3D;8</span><br><span class="line">len&#x3D;8 cap&#x3D;8</span><br><span class="line">len&#x3D;9 cap&#x3D;16</span><br><span class="line">len&#x3D;10 cap&#x3D;16</span><br><span class="line">len&#x3D;11 cap&#x3D;16</span><br><span class="line">len&#x3D;12 cap&#x3D;16</span><br><span class="line">len&#x3D;13 cap&#x3D;16</span><br><span class="line">len&#x3D;14 cap&#x3D;16</span><br><span class="line">len&#x3D;15 cap&#x3D;16</span><br><span class="line">len&#x3D;16 cap&#x3D;16</span><br><span class="line">len&#x3D;17 cap&#x3D;32</span><br><span class="line">len&#x3D;18 cap&#x3D;32</span><br><span class="line">len&#x3D;19 cap&#x3D;32</span><br><span class="line">len&#x3D;20 cap&#x3D;32</span><br><span class="line">len&#x3D;21 cap&#x3D;32</span><br><span class="line">len&#x3D;22 cap&#x3D;32</span><br><span class="line">len&#x3D;23 cap&#x3D;32</span><br><span class="line">len&#x3D;24 cap&#x3D;32</span><br><span class="line">len&#x3D;25 cap&#x3D;32</span><br><span class="line">len&#x3D;26 cap&#x3D;32</span><br><span class="line">len&#x3D;27 cap&#x3D;32</span><br><span class="line">len&#x3D;28 cap&#x3D;32</span><br><span class="line">len&#x3D;29 cap&#x3D;32</span><br><span class="line">len&#x3D;30 cap&#x3D;32</span><br><span class="line">len&#x3D;31 cap&#x3D;32</span><br><span class="line">len&#x3D;32 cap&#x3D;32</span><br><span class="line">len&#x3D;33 cap&#x3D;64</span><br><span class="line">len&#x3D;34 cap&#x3D;64</span><br><span class="line">len&#x3D;35 cap&#x3D;64</span><br><span class="line">len&#x3D;36 cap&#x3D;64</span><br><span class="line">len&#x3D;37 cap&#x3D;64</span><br><span class="line">len&#x3D;38 cap&#x3D;64</span><br><span class="line">len&#x3D;39 cap&#x3D;64</span><br><span class="line">len&#x3D;40 cap&#x3D;64</span><br><span class="line">len&#x3D;41 cap&#x3D;64</span><br><span class="line">len&#x3D;42 cap&#x3D;64</span><br><span class="line">len&#x3D;43 cap&#x3D;64</span><br><span class="line">len&#x3D;44 cap&#x3D;64</span><br><span class="line">len&#x3D;45 cap&#x3D;64</span><br><span class="line">len&#x3D;46 cap&#x3D;64</span><br><span class="line">len&#x3D;47 cap&#x3D;64</span><br><span class="line">len&#x3D;48 cap&#x3D;64</span><br><span class="line">len&#x3D;49 cap&#x3D;64</span><br><span class="line">len&#x3D;50 cap&#x3D;64</span><br><span class="line">len&#x3D;51 cap&#x3D;64</span><br><span class="line">len&#x3D;52 cap&#x3D;64</span><br><span class="line">len&#x3D;53 cap&#x3D;64</span><br><span class="line">len&#x3D;54 cap&#x3D;64</span><br><span class="line">len&#x3D;55 cap&#x3D;64</span><br><span class="line">len&#x3D;56 cap&#x3D;64</span><br><span class="line">len&#x3D;57 cap&#x3D;64</span><br><span class="line">len&#x3D;58 cap&#x3D;64</span><br><span class="line">len&#x3D;59 cap&#x3D;64</span><br><span class="line">[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59]</span><br></pre></td></tr></table></figure>
 
-<p>以上方法在读取文件的时候, 采用了读取全部内容到内存的方法, 如果文件体积较大, 会对内存造成较大压力, 可以通过如下这种迭代的用法实现相同的功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个空集合对象</span></span><br><span class="line">s = collections.Counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代文件中的每一行</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="comment"># 将每行内容进行按单词的切割, 在切割之前去掉每行字符串的首位空格以及换行</span></span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串切割后, 拿到 res 列表, 循环迭代它</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="comment"># 如果不是空字符的话就在集合中将该键出现的次数+1</span></span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<p>从上面的执行结果可以看出, Go语言会根据使用情况自动去扩展Slice的len以及cap</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">16</span>, <span class="number">32</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果与上面相同</p>
-<h1 id="统计后找出前三个元素"><a href="#统计后找出前三个元素" class="headerlink" title="统计后找出前三个元素"></a>统计后找出前三个元素</h1><p>在 counter 对象中, 还有一个功能可以帮我们取出指定的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">s = collections.Counter()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">  len&#x3D;16 cap&#x3D;32</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'the'</span>, <span class="number">93</span>), (<span class="string">'to'</span>, <span class="number">39</span>), (<span class="string">'and'</span>, <span class="number">32</span>)]</span><br></pre></td></tr></table></figure>
+<h2 id="拷贝Slice"><a href="#拷贝Slice" class="headerlink" title="拷贝Slice"></a>拷贝Slice</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">4</span>, <span class="number">8</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">copy</span>(ss, s)  <span class="comment">// 将s切片的数据拷贝到ss切片中</span></span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">s [2015 5 9]</span><br><span class="line">len&#x3D;4 cap&#x3D;8</span><br><span class="line">ss [0 0 0 0]</span><br><span class="line">ss [2015 5 9 0]</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      
+<h2 id="删除Slice中的元素"><a href="#删除Slice中的元素" class="headerlink" title="删除Slice中的元素"></a>删除Slice中的元素</h2><p>对于Slice的删除功能, Go语言没有提供直接的操作语句, 但是可以通过Reslice来实现</p>
+<p>需求: 删除Slice中的第3个元素 [12, 34, 56, 78, 90, 89, 72]</p>
+<p>思路: 使用Reslice, s[:3] + s[4:] 取得的就是删除原切片第三个元素的数据, 但Go语言也没有提供Slice相加的功能, 只能通过append函数来实现, append(s[:3], s[4:]), 问题又来了, append的源码中要求第二参数必须是可变参数, 也就是一个值一个值的写在后面 <code>func append(slice []Type, elems ...Type) []Type</code></p>
+<p>Go语言中提供了相关的语法, 来解决s[4:]变成可变参数的问题</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">append</span>(s[:<span class="number">3</span>], s[<span class="number">4</span>:]...)</span><br><span class="line">	fmt.Println(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<p>执行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">[12 34 56 90 89 72]</span><br></pre></td></tr></table></figure>
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/">
+<h3 id="删除头尾"><a href="#删除头尾" class="headerlink" title="删除头尾"></a>删除头尾</h3><p>删头</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	front := s[<span class="number">0</span>]</span><br><span class="line">	ss := s[<span class="number">1</span>:]</span><br><span class="line">	fmt.Println(<span class="string">"取出的头部元素为"</span>, front)</span><br><span class="line">	fmt.Println(<span class="string">"取出头部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的头部元素为 12</span><br><span class="line">取出头部元素后的Slice为 [34 56 78 90 89 72]</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python中可迭代对象的排序</a>
-        </h2>
+<p>删尾</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	tail := s[<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	ss := s[:<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	fmt.Println(<span class="string">"取出的尾部元素为"</span>, tail)</span><br><span class="line">	fmt.Println(<span class="string">"取出尾部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-26 10:44:44" itemprop="dateCreated datePublished" datetime="2017-07-26T10:44:44+08:00">2017-07-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中可迭代对象的排序/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 Python 中, 提供给我们了两种排序的方式, 一种是列表对象自己的<code>.sort</code>方法, 一种是Python 内置的<code>sorted</code>函数</p>
-</blockquote>
-<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><p>列表排序有两种方式可以实现, 分别是自带的 <code>.sort</code>方法, 还有内置的<code>sorted</code>函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">16</span>, <span class="number">42</span>, <span class="number">84</span>, <span class="number">78</span>, <span class="number">22</span>, <span class="number">50</span>, <span class="number">86</span>, <span class="number">14</span>, <span class="number">95</span>, <span class="number">75</span>]</span><br></pre></td></tr></table></figure>
-
-<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title=".sort 方法"></a>.sort 方法</h2><p>列表对象自身的<code>.sort</code>方法执行后, 会改变原列表对象的顺序</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.sort()</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的结果可以看出, 原列表的成员位置已经发生了变化</p>
-<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted 函数"></a>sorted 函数</h2><p>使用<code>sorted</code>函数排序后会返回新的对象, 不会在原对象中修改</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l2 = sorted(l)</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="元组排序"><a href="#元组排序" class="headerlink" title="元组排序"></a>元组排序</h1><p>元组中的元素是有序的, 但是本身的元素是不可修改的, 所以元组自身没有<code>.sort</code>方法可以使用. 但是可以通过转化为列表的方式, 间接使用<code>.sort</code></p>
-<h2 id="使用类型转换得到元组"><a href="#使用类型转换得到元组" class="headerlink" title="使用类型转换得到元组"></a>使用类型转换得到元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">t = tuple(l)</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">10</span>, <span class="number">47</span>, <span class="number">33</span>, <span class="number">68</span>, <span class="number">5</span>, <span class="number">86</span>, <span class="number">95</span>, <span class="number">51</span>, <span class="number">12</span>, <span class="number">28</span>)</span><br><span class="line">[<span class="number">5</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">68</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用生成器表达式得到元组-迭代对象"><a href="#使用生成器表达式得到元组-迭代对象" class="headerlink" title="使用生成器表达式得到元组(迭代对象)"></a>使用生成器表达式得到元组(迭代对象)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = (random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x1019962b0</span>&gt;</span><br><span class="line">[<span class="number">6</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">68</span>, <span class="number">72</span>, <span class="number">88</span>, <span class="number">89</span>, <span class="number">93</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="集合排序"><a href="#集合排序" class="headerlink" title="集合排序"></a>集合排序</h1><p> 集合本身是无序的, 本身也没有<code>.sort</code>方法. 但是集合也可以间接的通过先转化为列表的方式来使用<code>.sort</code>方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = &#123;random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">s2 = sorted(s)</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">100</span>, <span class="number">6</span>, <span class="number">71</span>, <span class="number">11</span>, <span class="number">50</span>, <span class="number">21</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">26</span>, <span class="number">94</span>&#125;</span><br><span class="line">[<span class="number">6</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">26</span>, <span class="number">50</span>, <span class="number">62</span>, <span class="number">71</span>, <span class="number">89</span>, <span class="number">94</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h1><h2 id="依据-key-排序"><a href="#依据-key-排序" class="headerlink" title="依据 key 排序"></a>依据 key 排序</h2><p>使用 sorted 对一个字典进行排序, 只需要把对象传进去即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line">d2 = sorted(d)</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'m'</span>: <span class="number">11</span>, <span class="string">'s'</span>: <span class="number">18</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">15</span>, <span class="string">'v'</span>: <span class="number">17</span>, <span class="string">'a'</span>: <span class="number">4</span>, <span class="string">'h'</span>: <span class="number">6</span>, <span class="string">'i'</span>: <span class="number">20</span>, <span class="string">'l'</span>: <span class="number">10</span>&#125;</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'s'</span>, <span class="string">'v'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>当我们拿到这个排序过后的列表之后, 就可以依据列表里的”键”的顺序, 到对应的字典中取值了</p>
-<h2 id="依据-value-排序"><a href="#依据-value-排序" class="headerlink" title="依据 value 排序"></a>依据 value 排序</h2><p>依据 value 排序就需要用到 sorted 函数中的<code>key</code>参数了, <code>key</code>参数接收一个函数, 此函数即为处理迭代对象每一个元素的函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>, <span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment"># 字典对象.items() 会把每个键值对转化成元组, 并把字典的最外层转化为列表</span></span><br><span class="line">print(d.items())</span><br><span class="line">d2 = sorted(d.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'y'</span>: <span class="number">8</span>, <span class="string">'h'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">17</span>, <span class="string">'p'</span>: <span class="number">9</span>, <span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'o'</span>: <span class="number">14</span>, <span class="string">'c'</span>: <span class="number">15</span>, <span class="string">'a'</span>: <span class="number">9</span>, <span class="string">'z'</span>: <span class="number">9</span>&#125;</span><br><span class="line">dict_items([(<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'d'</span>, <span class="number">17</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>)])</span><br><span class="line">[(<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'d'</span>, <span class="number">17</span>)]</span><br></pre></td></tr></table></figure>
-
-<p>从结果的第一行和第二行可以看出<code>字典. items()</code>的执行效果.</p>
-<p>key 后面的 lambda 函数, 将循环接收前面迭代元素的每一个值, 第一次迭代时, 第一个值 <code>(&#39;y&#39;, 8)</code>被传递给 lambda 函数的参数. lambda 函数接收这个参数, 并取这个参数值的第二位值, 也就是取得 <code>(&#39;y&#39;, 8)</code>的第二个值, 并依据此值进行排序</p>
-<h1 id="列表嵌套字典混合排序"><a href="#列表嵌套字典混合排序" class="headerlink" title="列表嵌套字典混合排序"></a>列表嵌套字典混合排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line">dd.sort(key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd)</span><br></pre></td></tr></table></figure>
-
-<p>以上的方式是通过列表自身的<code>.sort</code>方法实现的, 修改了元列表内部元素的位置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line"></span><br><span class="line">dd2 = sorted(dd, key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd2)</span><br></pre></td></tr></table></figure>
-
-<p>以上则是通过<code>sorted</code>函数实现.</p>
-<p>列举这种用法主要是为了体现 sorted 函数中, key 参数的使用方法, 前面的迭代对象的中每个值, 都会依次传递给 key 中的函数, key 中的函数需要接收一个参数, 并对这个参数的值进行处理, 返回需要排序的对象</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在集合中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:54:38" itemprop="dateCreated datePublished" datetime="2017-07-25T11:54:38+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在集合中根据条件筛选数据/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首选创建一个集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">s = set(l)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">-1</span>, <span class="number">-9</span>, <span class="number">-6</span>, <span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-2</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此集合中筛选出可以被3整除的数字都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方式-循环迭代"><a href="#第一种方式-循环迭代" class="headerlink" title="第一种方式: 循环迭代"></a>第一种方式: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s1 = set()</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> item % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        s1.add(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(s1)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.77478</span></span><br><span class="line"><span class="number">1500954512.774822</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000042</code></p>
-<h2 id="第二种方式-filter-函数"><a href="#第二种方式-filter-函数" class="headerlink" title="第二种方式: filter 函数"></a>第二种方式: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'---'</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">s2 = list(filter(<span class="keyword">lambda</span> x: x % <span class="number">3</span> == <span class="number">0</span>, s))</span><br><span class="line">print(time.time())</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774839</span></span><br><span class="line"><span class="number">1500954512.774854</span></span><br><span class="line">[<span class="number">3</span>, <span class="number">-9</span>, <span class="number">-6</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000015</code></p>
-<h2 id="第三种方式-集合解析式"><a href="#第三种方式-集合解析式" class="headerlink" title="第三种方式: 集合解析式"></a>第三种方式: 集合解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s3 = &#123;i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(s3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774865</span></span><br><span class="line"><span class="number">1500954512.774885</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000020</code></p>
-<h2 id="第四种方式-生成器表达式"><a href="#第四种方式-生成器表达式" class="headerlink" title="第四种方式: 生成器表达式"></a>第四种方式: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s4 = (i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774917</span></span><br><span class="line"><span class="number">1500954512.774934</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">-9</span></span><br><span class="line"><span class="number">-6</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>集合与之前的字典,列表一样, 要实现数据的筛选依然有四种选择, 小数据量下依然推荐使用<code>集合解析式</code>, 大数据量的情况下推荐使用<code>生成器表达式</code>或 <code>filter 函数</code>(直接返回 filter 迭代对象, 而不直接使用 list 转换)</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先创建一个字典</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000029</code></p>
-<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000014</code></p>
-<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000009</code></p>
-<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000005</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的尾部元素为 72</span><br><span class="line">取出尾部元素后的Slice为 [12 34 56 78 90 89]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1269,7 +1283,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1337,7 +1351,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

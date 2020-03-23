@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="zap 的官方案例中, 介绍了三种使用方式, 分别是 AdvancedConfiguration BasicConfiguration 和 Presets 本篇文章介绍 zap 包的 BasicConfiguration 用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言优秀的日志包zap基础自定义配置用法">
+<meta property="og:url" content="https://docs.lvrui.io/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="zap 的官方案例中, 介绍了三种使用方式, 分别是 AdvancedConfiguration BasicConfiguration 和 Presets 本篇文章介绍 zap 包的 BasicConfiguration 用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-23T07:03:25.000Z">
+<meta property="article:modified_time" content="2020-03-23T07:05:14.802Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="log">
+<meta property="article:tag" content="zap">
+<meta property="article:tag" content="日志">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>go语言优秀的日志包zap基础自定义配置用法 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go语言优秀的日志包zap基础自定义配置用法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-23 15:03:25" itemprop="dateCreated datePublished" datetime="2020-03-23T15:03:25+08:00">2020-03-23</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/23/go语言优秀的日志包zap基础自定义配置用法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>zap 的官方案例中, 介绍了三种使用方式, 分别是 <code>AdvancedConfiguration</code> <code>BasicConfiguration</code> 和 <code>Presets</code> 本篇文章介绍 zap 包的 BasicConfiguration 用法</p>
+</blockquote>
+<a id="more"></a>
+
+<p>上一篇文档中引用官方案例介绍了预置函数的用法, 当预置函数的logger配置不满足我们的需求时, 可以自定义配置logger</p>
+<p>自定义配置logger, 有如下选项可以配置</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Config <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Level is the minimum enabled logging level. Note that this is a dynamic</span></span><br><span class="line">	<span class="comment">// level, so calling Config.Level.SetLevel will atomically change the log</span></span><br><span class="line">	<span class="comment">// level of all loggers descended from this config.</span></span><br><span class="line">	Level AtomicLevel <span class="string">`json:"level" yaml:"level"`</span></span><br><span class="line">	<span class="comment">// Development puts the logger in development mode, which changes the</span></span><br><span class="line">	<span class="comment">// behavior of DPanicLevel and takes stacktraces more liberally.</span></span><br><span class="line">	Development <span class="keyword">bool</span> <span class="string">`json:"development" yaml:"development"`</span></span><br><span class="line">	<span class="comment">// DisableCaller stops annotating logs with the calling function's file</span></span><br><span class="line">	<span class="comment">// name and line number. By default, all logs are annotated.</span></span><br><span class="line">	DisableCaller <span class="keyword">bool</span> <span class="string">`json:"disableCaller" yaml:"disableCaller"`</span></span><br><span class="line">	<span class="comment">// DisableStacktrace completely disables automatic stacktrace capturing. By</span></span><br><span class="line">	<span class="comment">// default, stacktraces are captured for WarnLevel and above logs in</span></span><br><span class="line">	<span class="comment">// development and ErrorLevel and above in production.</span></span><br><span class="line">	DisableStacktrace <span class="keyword">bool</span> <span class="string">`json:"disableStacktrace" yaml:"disableStacktrace"`</span></span><br><span class="line">	<span class="comment">// Sampling sets a sampling policy. A nil SamplingConfig disables sampling.</span></span><br><span class="line">	Sampling *SamplingConfig <span class="string">`json:"sampling" yaml:"sampling"`</span></span><br><span class="line">	<span class="comment">// Encoding sets the logger's encoding. Valid values are "json" and</span></span><br><span class="line">	<span class="comment">// "console", as well as any third-party encodings registered via</span></span><br><span class="line">	<span class="comment">// RegisterEncoder.</span></span><br><span class="line">	Encoding <span class="keyword">string</span> <span class="string">`json:"encoding" yaml:"encoding"`</span></span><br><span class="line">	<span class="comment">// EncoderConfig sets options for the chosen encoder. See</span></span><br><span class="line">	<span class="comment">// zapcore.EncoderConfig for details.</span></span><br><span class="line">	EncoderConfig zapcore.EncoderConfig <span class="string">`json:"encoderConfig" yaml:"encoderConfig"`</span></span><br><span class="line">	<span class="comment">// OutputPaths is a list of URLs or file paths to write logging output to.</span></span><br><span class="line">	<span class="comment">// See Open for details.</span></span><br><span class="line">	OutputPaths []<span class="keyword">string</span> <span class="string">`json:"outputPaths" yaml:"outputPaths"`</span></span><br><span class="line">	<span class="comment">// ErrorOutputPaths is a list of URLs to write internal logger errors to.</span></span><br><span class="line">	<span class="comment">// The default is standard error.</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Note that this setting only affects internal errors; for sample code that</span></span><br><span class="line">	<span class="comment">// sends error-level logs to a different location from info- and debug-level</span></span><br><span class="line">	<span class="comment">// logs, see the package-level AdvancedConfiguration example.</span></span><br><span class="line">	ErrorOutputPaths []<span class="keyword">string</span> <span class="string">`json:"errorOutputPaths" yaml:"errorOutputPaths"`</span></span><br><span class="line">	<span class="comment">// InitialFields is a collection of fields to add to the root logger.</span></span><br><span class="line">	InitialFields <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125; <span class="string">`json:"initialFields" yaml:"initialFields"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Level-AtomicLevel"><a href="#Level-AtomicLevel" class="headerlink" title="Level AtomicLevel"></a>Level AtomicLevel</h2><p>zap 提供如下日志级别</p>
+<ul>
+<li>debug</li>
+<li>info</li>
+<li>warn</li>
+<li>error</li>
+<li>dpanic 如果开发模式开启 DPanicLevel 日志会产生 panic, 反之如果开发模式没有开启, 则仅会打印一行日志, 不会有 panic 抛出</li>
+<li>panic 在日志记录后产生 panic</li>
+<li>fatal 在日志记录后调用 os.Exit(1)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成 debug level 对象</span></span><br><span class="line">logLevel := zap.NewAtomicLevelAt(zapcore.DebugLevel)</span><br><span class="line"><span class="comment">// 生成 error level 对象</span></span><br><span class="line">errLevel := zap.NewAtomicLevelAt(zapcore.ErrorLevel)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><p>开发模式开关, 如果该字段的值为<code>true</code>, 意为开启开发模式. 在开发模式下, DPanicLevel 的错误就打印出完整的堆栈, 并随后抛出一个 panic, 如果你不希望因为日志中的 panic 影响程序继续运行, 那么你必须处理这个 panic.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 预置函数 zap.NewDevelopment() 中开发模式默认为开启</span></span><br><span class="line">logger, err := zap.NewDevelopment()</span><br><span class="line">...</span><br><span class="line">logger.DPanic(<span class="string">"diy dpanic"</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">2020-03-17T23:27:30.380+0800    DPANIC  log&#x2F;l2.go:26    diy dpanic</span><br><span class="line">main.main</span><br><span class="line">        &#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;awesomeProject&#x2F;log&#x2F;l2.go:26</span><br><span class="line">runtime.main</span><br><span class="line">        &#x2F;usr&#x2F;local&#x2F;go&#x2F;src&#x2F;runtime&#x2F;proc.go:203</span><br><span class="line">panic: diy dpanic</span><br><span class="line"></span><br><span class="line">goroutine 1 [running]:</span><br><span class="line">go.uber.org&#x2F;zap&#x2F;zapcore.(*CheckedEntry).Write(0xc0000c62c0, 0x0, 0x0, 0x0)</span><br><span class="line">        &#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;go.uber.org&#x2F;zap&#x2F;zapcore&#x2F;entry.go:230 +0x546</span><br><span class="line">go.uber.org&#x2F;zap.(*SugaredLogger).log(0xc0000fbd78, 0xc0000b2203, 0x0, 0x0, 0xc0000fbd90, 0x1, 0x1, 0x0, 0x0, 0x0)</span><br><span class="line">        &#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;go.uber.org&#x2F;zap&#x2F;sugar.go:234 +0x100</span><br><span class="line">go.uber.org&#x2F;zap.(*SugaredLogger).DPanic(...)</span><br><span class="line">        &#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;go.uber.org&#x2F;zap&#x2F;sugar.go:118</span><br><span class="line">main.main()</span><br><span class="line">        &#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;awesomeProject&#x2F;log&#x2F;l2.go:26 +0x30c</span><br><span class="line">exit status 2</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>Development</code> 字段的值为 <code>false</code>, 意为关闭开发模式, 此时 <code>DPanicLevel</code> 的错误不会打印完整的堆栈, 也不会抛出 panic, 仅会记录日志</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 预置函数 zap.NewProduction() 中开发模式默认为关闭</span></span><br><span class="line">logger, err := zap.NewProduction()</span><br><span class="line">...</span><br><span class="line">logger.DPanic(<span class="string">"diy dpanic"</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;level&quot;:&quot;dpanic&quot;,&quot;ts&quot;:1584459058.8611479,&quot;caller&quot;:&quot;log&#x2F;l2.go:26&quot;,&quot;msg&quot;:&quot;diy dpanic&quot;,&quot;stacktrace&quot;:&quot;main.main\n\t&#x2F;Users&#x2F;lvrui&#x2F;go&#x2F;src&#x2F;awesomeProject&#x2F;log&#x2F;l2.go:26\nruntime.main\n\t&#x2F;usr&#x2F;local&#x2F;go&#x2F;src&#x2F;runtime&#x2F;proc.go:203&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DisableCaller"><a href="#DisableCaller" class="headerlink" title="DisableCaller"></a>DisableCaller</h2><p>是否禁用调用信息. 该字段值为 <code>true</code> 时, 日志中将不再显示该日志所在的函数调用信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; false 显示调用信息</span><br><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-17T23:33:57.881+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;l1.go:44&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;zapdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-17T23:33:57.881+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;l1.go:51&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;zapdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; true 关闭调用信息</span><br><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-17T23:34:25.064+0800&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;zapdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-17T23:34:25.064+0800&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;zapdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DisableStacktrace"><a href="#DisableStacktrace" class="headerlink" title="DisableStacktrace"></a>DisableStacktrace</h2><p>是否禁用自动堆栈跟踪捕获.</p>
+<ul>
+<li>默认情况下, 在 warn level 及以上日志捕获 stacktrace</li>
+<li>在生产环境, 一般在 error level 及以上日志捕获 stacktrace</li>
+</ul>
+<h2 id="Sampling"><a href="#Sampling" class="headerlink" title="Sampling"></a>Sampling</h2><p>流控配置, 也叫采样. 单位是每秒钟, 作用是限制日志在每秒钟内的输出数量, 以防止CPU和IO被过度占用</p>
+<p>源码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SamplingConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">	Initial    <span class="keyword">int</span> <span class="string">`json:"initial" yaml:"initial"`</span></span><br><span class="line">	Thereafter <span class="keyword">int</span> <span class="string">`json:"thereafter" yaml:"thereafter"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有两个参数可以配置</p>
+<ul>
+<li>Initial</li>
+<li>Thereafter</li>
+</ul>
+<p>在一秒钟内, 如果某个级别的日志输出量超过了 <code>Initial</code>, 那么在超过之后, 每 <code>Thereafter</code> 条日志才会输出一条, 其余的日志都将被删除</p>
+<p>在官方文档中有这么一句话:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Keep in mind that zap&#39;s sampling implementation is optimized for speed over</span><br><span class="line">&#x2F;&#x2F; absolute precision; under load, each tick may be slightly over- or</span><br><span class="line">&#x2F;&#x2F; under-sampled.</span><br></pre></td></tr></table></figure>
+
+<p>由此可见 zap 性能至上的设计理念</p>
+<h2 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a>Encoding</h2><p>指定日志编码器, 目前仅支持两种编码器</p>
+<ul>
+<li>console</li>
+<li>json</li>
+</ul>
+<p>上篇 zap 预置函数用法中的 <code>NewProduction</code> 用的就是 <code>json</code>, 而 <code>NewDevelopment</code> 用的则是 <code>console</code></p>
+<p>在实际生产环境中, 一般推荐使用 <code>json</code> 编码器, 方便日志收集器收集, 免去格式化成结构化日志的CPU性能损耗</p>
+<h2 id="EncoderConfig"><a href="#EncoderConfig" class="headerlink" title="EncoderConfig"></a>EncoderConfig</h2><p><code>EncoderConfig</code> 接收一个 <code>zapcore.EncoderConfig</code> 类型的变量, 支持如下配置项:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An EncoderConfig allows users to configure the concrete encoders supplied by</span></span><br><span class="line"><span class="comment">// zapcore.</span></span><br><span class="line"><span class="keyword">type</span> EncoderConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Set the keys used for each log entry. If any key is empty, that portion</span></span><br><span class="line">	<span class="comment">// of the entry is omitted.</span></span><br><span class="line">	MessageKey    <span class="keyword">string</span> <span class="string">`json:"messageKey" yaml:"messageKey"`</span></span><br><span class="line">	LevelKey      <span class="keyword">string</span> <span class="string">`json:"levelKey" yaml:"levelKey"`</span></span><br><span class="line">	TimeKey       <span class="keyword">string</span> <span class="string">`json:"timeKey" yaml:"timeKey"`</span></span><br><span class="line">	NameKey       <span class="keyword">string</span> <span class="string">`json:"nameKey" yaml:"nameKey"`</span></span><br><span class="line">	CallerKey     <span class="keyword">string</span> <span class="string">`json:"callerKey" yaml:"callerKey"`</span></span><br><span class="line">	StacktraceKey <span class="keyword">string</span> <span class="string">`json:"stacktraceKey" yaml:"stacktraceKey"`</span></span><br><span class="line">	LineEnding    <span class="keyword">string</span> <span class="string">`json:"lineEnding" yaml:"lineEnding"`</span></span><br><span class="line">	<span class="comment">// Configure the primitive representations of common complex types. For</span></span><br><span class="line">	<span class="comment">// example, some users may want all time.Times serialized as floating-point</span></span><br><span class="line">	<span class="comment">// seconds since epoch, while others may prefer ISO8601 strings.</span></span><br><span class="line">	EncodeLevel    LevelEncoder    <span class="string">`json:"levelEncoder" yaml:"levelEncoder"`</span></span><br><span class="line">	EncodeTime     TimeEncoder     <span class="string">`json:"timeEncoder" yaml:"timeEncoder"`</span></span><br><span class="line">	EncodeDuration DurationEncoder <span class="string">`json:"durationEncoder" yaml:"durationEncoder"`</span></span><br><span class="line">	EncodeCaller   CallerEncoder   <span class="string">`json:"callerEncoder" yaml:"callerEncoder"`</span></span><br><span class="line">	<span class="comment">// Unlike the other primitive type encoders, EncodeName is optional. The</span></span><br><span class="line">	<span class="comment">// zero value falls back to FullNameEncoder.</span></span><br><span class="line">	EncodeName NameEncoder <span class="string">`json:"nameEncoder" yaml:"nameEncoder"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h3><p><code>MessageKey</code> <code>LevelKey</code> <code>TimeKey</code> <code>NameKey</code> <code>CallerKey</code> <code>StacktraceKey</code> 用来标识日志中对应字段的<code>Key</code>的名字</p>
+<h3 id="LineEnding"><a href="#LineEnding" class="headerlink" title="LineEnding"></a>LineEnding</h3><p>设置每行日志的结束符, 默认使用换行符</p>
+<h3 id="EncodeLevel"><a href="#EncodeLevel" class="headerlink" title="EncodeLevel"></a>EncodeLevel</h3><p>配置日志级别编码器, 可以配置例如带控制台颜色的输出, 全小写输出或首字母大写输出等</p>
+<h3 id="EncodeTime"><a href="#EncodeTime" class="headerlink" title="EncodeTime"></a>EncodeTime</h3><p>配置时间编码器, 配置显示时间的格式</p>
+<h3 id="EncodeDuration"><a href="#EncodeDuration" class="headerlink" title="EncodeDuration"></a>EncodeDuration</h3><p>配置序列化时间的类型, 可配置int64类型的毫秒, int64类型的纳秒, float64类型的秒, 和字符串类型的时间</p>
+<h3 id="EncodeCaller"><a href="#EncodeCaller" class="headerlink" title="EncodeCaller"></a>EncodeCaller</h3><p>配置调用点编码器, 可配置全路径或短路径的显示形式</p>
+<h3 id="EncodeName"><a href="#EncodeName" class="headerlink" title="EncodeName"></a>EncodeName</h3><p>配置logger名称编码器</p>
+<h2 id="OutputPaths"><a href="#OutputPaths" class="headerlink" title="OutputPaths"></a>OutputPaths</h2><p>配置日志标准输出, 接收数据类型为 <code>[]string</code> 意味着可以配置多个路径作为日志的输出路径, 一般情况可以仅配置标准输出或输出到文件, 如有需求的话, 也可以两者同时配置.</p>
+<p>也可以自定义输出协议, 但是需要使用RegisterSink方法先注册一个该协议对应的工厂方法, 该工厂方法实现了Sink接口</p>
+<h2 id="ErrorOutputPaths"><a href="#ErrorOutputPaths" class="headerlink" title="ErrorOutputPaths"></a>ErrorOutputPaths</h2><p>配置标准错误输出, 使用方式同<code>OutputPaths</code></p>
+<h2 id="InitialFields"><a href="#InitialFields" class="headerlink" title="InitialFields"></a>InitialFields</h2><p>初始化字段配置, 该配置的字段会以结构化的形式打印在每条日志输出中</p>
+<h2 id="配置完整示例"><a href="#配置完整示例" class="headerlink" title="配置完整示例"></a>配置完整示例</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"go.uber.org/zap"</span></span><br><span class="line">	<span class="string">"go.uber.org/zap/zapcore"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	logLevel := zap.NewAtomicLevelAt(zapcore.DebugLevel)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> zc = zap.Config&#123;</span><br><span class="line">		Level:             logLevel,</span><br><span class="line">		Development:       <span class="literal">false</span>,</span><br><span class="line">		DisableCaller:     <span class="literal">false</span>,</span><br><span class="line">		DisableStacktrace: <span class="literal">false</span>,</span><br><span class="line">		Sampling:          <span class="literal">nil</span>,</span><br><span class="line">		Encoding:          <span class="string">"json"</span>,</span><br><span class="line">		EncoderConfig: zapcore.EncoderConfig&#123;</span><br><span class="line">			MessageKey:     <span class="string">"message"</span>,</span><br><span class="line">			LevelKey:       <span class="string">"level"</span>,</span><br><span class="line">			TimeKey:        <span class="string">"time"</span>,</span><br><span class="line">			NameKey:        <span class="string">"name"</span>,</span><br><span class="line">			CallerKey:      <span class="string">"caller"</span>,</span><br><span class="line">			StacktraceKey:  <span class="string">"stacktrace"</span>,</span><br><span class="line">			LineEnding:     zapcore.DefaultLineEnding,</span><br><span class="line">			EncodeLevel:    zapcore.LowercaseLevelEncoder,</span><br><span class="line">			EncodeTime:     zapcore.ISO8601TimeEncoder,</span><br><span class="line">			EncodeDuration: zapcore.StringDurationEncoder,</span><br><span class="line">			EncodeCaller:   zapcore.ShortCallerEncoder,</span><br><span class="line">			EncodeName:     zapcore.FullNameEncoder,</span><br><span class="line">		&#125;,</span><br><span class="line">		OutputPaths:      []<span class="keyword">string</span>&#123;<span class="string">"stdout"</span>&#125;,</span><br><span class="line">		ErrorOutputPaths: []<span class="keyword">string</span>&#123;<span class="string">"stderr"</span>&#125;,</span><br><span class="line">		InitialFields:    <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"app"</span>: <span class="string">"zapdex"</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger, err := zc.Build()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> logger.Sync()</span><br><span class="line"></span><br><span class="line">	logger.Info(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		zap.String(<span class="string">"key"</span>, <span class="string">"value"</span>),</span><br><span class="line">		zap.Int(<span class="string">"number"</span>, <span class="number">9</span>),</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	sugarLogger := logger.Sugar()</span><br><span class="line"></span><br><span class="line">	sugarLogger.Infow(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		<span class="string">"key"</span>, <span class="string">"value"</span>, <span class="string">"number"</span>, <span class="number">9</span>,</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/03/21/go语言优秀的日志包zap预置函数用法/" rel="bookmark">go语言优秀的日志包zap预置函数用法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages 5/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/log/" rel="tag"><i class="fa fa-tag"></i> log</a>
+              <a href="/tags/zap/" rel="tag"><i class="fa fa-tag"></i> zap</a>
+              <a href="/tags/%E6%97%A5%E5%BF%97/" rel="tag"><i class="fa fa-tag"></i> 日志</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/" rel="prev" title="go语言优秀的日志包zap预置函数用法">
+      <i class="fa fa-chevron-left"></i> go语言优秀的日志包zap预置函数用法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-AtomicLevel"><span class="nav-number">1.</span> <span class="nav-text">Level AtomicLevel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Development"><span class="nav-number">2.</span> <span class="nav-text">Development</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DisableCaller"><span class="nav-number">3.</span> <span class="nav-text">DisableCaller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DisableStacktrace"><span class="nav-number">4.</span> <span class="nav-text">DisableStacktrace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sampling"><span class="nav-number">5.</span> <span class="nav-text">Sampling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoding"><span class="nav-number">6.</span> <span class="nav-text">Encoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EncoderConfig"><span class="nav-number">7.</span> <span class="nav-text">EncoderConfig</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Key"><span class="nav-number">7.1.</span> <span class="nav-text">Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LineEnding"><span class="nav-number">7.2.</span> <span class="nav-text">LineEnding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EncodeLevel"><span class="nav-number">7.3.</span> <span class="nav-text">EncodeLevel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EncodeTime"><span class="nav-number">7.4.</span> <span class="nav-text">EncodeTime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EncodeDuration"><span class="nav-number">7.5.</span> <span class="nav-text">EncodeDuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EncodeCaller"><span class="nav-number">7.6.</span> <span class="nav-text">EncodeCaller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EncodeName"><span class="nav-number">7.7.</span> <span class="nav-text">EncodeName</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OutputPaths"><span class="nav-number">8.</span> <span class="nav-text">OutputPaths</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ErrorOutputPaths"><span class="nav-number">9.</span> <span class="nav-text">ErrorOutputPaths</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InitialFields"><span class="nav-number">10.</span> <span class="nav-text">InitialFields</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置完整示例"><span class="nav-number">11.</span> <span class="nav-text">配置完整示例</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/";
+    this.page.identifier = "2020/03/23/go语言优秀的日志包zap基础自定义配置用法/";
+    this.page.title = "go语言优秀的日志包zap基础自定义配置用法";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反射，可以理解为利用字符串的形式去对象中操作成员属性和方法 反射的这点特性让我联想到了exec函数，也是把利用字符串的形式去让Python解释器去执行命令 Python Version: 3.5+  解释Python的反射，先提一个简单的需求，现在我有一个简易的网站，由两个文件组成，一个是具体执行操作的commons.py文件，一个是入口文件index.py，现在我需要在入口文件中设置，让用户输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python反射详解">
+<meta property="og:url" content="https://docs.lvrui.io/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3%205/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="反射，可以理解为利用字符串的形式去对象中操作成员属性和方法 反射的这点特性让我联想到了exec函数，也是把利用字符串的形式去让Python解释器去执行命令 Python Version: 3.5+  解释Python的反射，先提一个简单的需求，现在我有一个简易的网站，由两个文件组成，一个是具体执行操作的commons.py文件，一个是入口文件index.py，现在我需要在入口文件中设置，让用户输">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-15T18:03:20.000Z">
+<meta property="article:modified_time" content="2020-03-22T05:22:11.000Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="反射">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3%205/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python反射详解 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python反射详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-16 02:03:20" itemprop="dateCreated datePublished" datetime="2016-06-16T02:03:20+08:00">2016-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/16/Python反射详解 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>反射，可以理解为利用字符串的形式去对象中操作成员属性和方法</p>
+<p>反射的这点特性让我联想到了<code>exec</code>函数，也是把利用字符串的形式去让Python解释器去执行命令</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<p>解释Python的反射，先提一个简单的需求，现在我有一个简易的网站，由两个文件组成，一个是具体执行操作的<code>commons.py</code>文件，一个是入口文件<code>index.py</code>，现在我需要在入口文件中设置，让用户输入url，根据用户输入的url去后端执行相应的操作，内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># commons.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'登录页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'退出页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'主页面'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> inp == <span class="string">'login'</span>:</span><br><span class="line">    commons.login()</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">'logout'</span>:</span><br><span class="line">    commons.logout()</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">'index'</span>:</span><br><span class="line">    commons.index()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">url &gt; login</span><br><span class="line">登录页面!</span><br></pre></td></tr></table></figure>
+
+<p>上面我使用了if判断，根据每一个url请求去后端执行指定的函数。那现在我的网站内容变多了，在<code>commons.py</code>中有100个页面操作，那么相对应的我在<code>index.py</code>中也要使用if else 对这100个页面函数进行手动指定。</p>
+<p>有了Python🐍反射的特性，这个需求就变得异常简单了，先不多解释，先看代码(commons.py保持文件不变，还是拿三个页面的操作举例🌰)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> hasattr(commons, inp):</span><br><span class="line">        func = getattr(commons, inp)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">url &gt; logout</span><br><span class="line">退出页面!</span><br></pre></td></tr></table></figure>
+
+<p>Look! Python的反射立了大功，使用这几行代码，可以应对<code>commons.py</code>文件中任意多个页面函数的调用！接下来我们来详细介绍Python反射中用到的内建函数</p>
+<h1 id="getattr"><a href="#getattr" class="headerlink" title="getattr()"></a>getattr()</h1><p>先看下源码中的解释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getattr</span><span class="params">(object, name, default=None)</span>:</span> <span class="comment"># known special case of getattr</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    getattr(object, name[, default]) -&gt; value</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.</span></span><br><span class="line"><span class="string">    When a default argument is given, it is returned when the attribute doesn't</span></span><br><span class="line"><span class="string">    exist; without it, an exception is raised in that case.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>getattr()</code>函数执行成功后会将参数中对象中的方法赋值给新的变量（会返回参数中指定的对象中的方法）相当于参数中的方法又多了一个栈区的变量去引用</p>
+<p><code>getattr()</code>函数的第一个参数需要是个对象，上面的例子中，我导入了自定义的commons模块，commons就是个对象；第二个参数是指定前面对象中的一个方法名称。<code>getattr(x, &#39;y&#39;)</code> 等价于执行了 <code>x.y</code>。假如第二个参数输入了前面对象中不存在的方法，该函数会抛出异常并退出。所以这个时候，为了程序的健壮性，我们需要先判断一下该对象中有没有这个方法，于是<code>hasattr()</code>函数登场了~~</p>
+<h1 id="hasattr"><a href="#hasattr" class="headerlink" title="hasattr()"></a>hasattr()</h1><p>还是先看下源码的解释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hasattr</span><span class="params">(*args, **kwargs)</span>:</span> <span class="comment"># real signature unknown</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Return whether the object has an attribute with the given name.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    This is done by calling getattr(obj, name) and catching AttributeError.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>hasattr()</code>函数返回对象是否拥有指定名称的属性，简单的说就是检查在第一个参数的对象中，能否找到与第二参数名相同的方法。源码的解释还说，该函数的实现其实就是调用了<code>getattr()</code>函数，只不过它捕获了异常而已。所以通过这个函数，我们可以先去判断对象中有没有这个方法，有则使用<code>getattr()</code>来获取该方法。</p>
+<h1 id="delattr"><a href="#delattr" class="headerlink" title="delattr()"></a>delattr()</h1><p>删除指定对象中的指定方法，特别提示：只是在本次运行程序的内存中将该方法删除，并没有影响到文件的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">print(dir(commons))</span><br><span class="line">delattr(commons, <span class="string">'index'</span>)</span><br><span class="line">print(dir(commons))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__cached__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__file__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>, <span class="string">'__package__'</span>, <span class="string">'__spec__'</span>, <span class="string">'index'</span>, <span class="string">'login'</span>, <span class="string">'logout'</span>]</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__cached__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__file__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>, <span class="string">'__package__'</span>, <span class="string">'__spec__'</span>, <span class="string">'login'</span>, <span class="string">'logout'</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="setattr"><a href="#setattr" class="headerlink" title="setattr()"></a>setattr()</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setattr</span><span class="params">(x, y, v)</span>:</span> <span class="comment"># real signature unknown; restored from __doc__</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Sets the named attribute on the given object to the specified value.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    setattr(x, 'y', v) is equivalent to ``x.y = v''</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>setattr()</code>函数用来给指定对象中的方法重新赋值（将新的函数体/方法体赋值给指定的对象名）仅在本次程序运行的内存中生效。<code>setattr(x, &#39;y&#39;, v)</code> 等价于 <code>x.y = v</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">commons.index()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">newindex</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'new 主页面!'</span>)</span><br><span class="line"></span><br><span class="line">setattr(commons, <span class="string">'index'</span>, newindex)</span><br><span class="line"></span><br><span class="line">commons.index()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">主页面</span><br><span class="line">new 主页面!</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="import"><a href="#import" class="headerlink" title="__import__"></a>__import__</h1><p>好的，网站发展至今，功能有了很多的扩展，现在一个后台文件已经不能满足我的需求，这个时候需要根据职能划分后台文件，现在我又新增了一个<code>account.py</code>这个用户管理类的文件，也需要导入到首页以备调用。</p>
+<p>这个时候，我的首页通过反射，只能指定<code>commons</code>模块的方法任意调用，现在新增了<code>account</code>模块，是不是我又要加入if去判断啦？不用！Python已经帮我们想到这一点了！最后搬出<code>__import__</code>这个大救星。</p>
+<p>由于模块的导入也需要使用Python反射的特性，所以模块名也要加入到url中，所以现在url请求变成了类似于<code>commons/index</code>的形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># account.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_user</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'添加用户'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_user</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'删除用户'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># commons.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'登录页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'退出页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'主页面'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(m)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行</span></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; account/add_user</span><br><span class="line">添加用户</span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; commons/login</span><br><span class="line">登录页面!</span><br></pre></td></tr></table></figure>
+
+<p>能体会到<code>__import__</code>的作用了吗，就是把字符串当做模块去导入。<code>import &#39;sys&#39;</code> 和 <code>import sys</code> 是不一样的，不信你执行一下~~要想导入字符串<code>&#39;sys&#39;</code>只能通过<code>__import__(&#39;sys&#39;)</code>的方式导入</p>
+<p>等等，还没完，我的网站进一步细化分工，现在又多了一层目录结构，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|- index.py</span><br><span class="line">|- commons.py</span><br><span class="line">|- account.py</span><br><span class="line">|- lib</span><br><span class="line">	|- __init__.py</span><br><span class="line">	|- connectdb.py</span><br></pre></td></tr></table></figure>
+
+<p>现在我想在<code>index</code>页面中调用<code>lib</code>包下<code>connectdb</code>模块中的方法，还是用之前的方式调用可以吗？我们试一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(<span class="string">'lib.'</span> + m)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line"><span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>哎呦，不行啊。上面我为了测试调用lib下的模块，抛弃了对所有同级目录模块的支持，可还是不行，居然找不到这个这个模块的这个方法。还是来看下源码是怎么说的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__import__</span><span class="params">(name, globals=None, locals=None, fromlist=<span class="params">()</span>, level=<span class="number">0</span>)</span>:</span> <span class="comment"># real signature unknown; restored from __doc__</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    __import__(name, globals=None, locals=None, fromlist=(), level=0) -&gt; module</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Import a module. Because this function is meant for use by the Python</span></span><br><span class="line"><span class="string">    interpreter and not for general use it is better to use</span></span><br><span class="line"><span class="string">    importlib.import_module() to programmatically import a module.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    The globals argument is only used to determine the context;</span></span><br><span class="line"><span class="string">    they are not modified.  The locals argument is unused.  The fromlist</span></span><br><span class="line"><span class="string">    should be a list of names to emulate ``from name import ...'', or an</span></span><br><span class="line"><span class="string">    empty list to emulate ``import name''.</span></span><br><span class="line"><span class="string">    When importing a module from a package, note that __import__('A.B', ...)</span></span><br><span class="line"><span class="string">    returns package A when fromlist is empty, but its submodule B when</span></span><br><span class="line"><span class="string">    fromlist is not empty.  Level is used to determine whether to perform </span></span><br><span class="line"><span class="string">    absolute or relative imports. 0 is absolute while a positive number</span></span><br><span class="line"><span class="string">    is the number of parent directories to search relative to the current module.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>__import__</code>函数中有一个<code>fromlist</code>参数，源码解释说，如果在一个包中导入一个模块，这个参数如果为空，则return这个包对象，如果这个参数不为空，则返回包下面指定的模块对象，于是做出如下修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(<span class="string">'lib.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">url &gt; connectdb/mysql</span><br><span class="line">已连接mysql</span><br></pre></td></tr></table></figure>
+
+<p>成功了~~ 但是为了这次成功，我写死了lib前缀，相当于抛弃了commons和account两个导入的功能，所以以上代码并不完善，需求复杂后，还是需要对请求的url做一下判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">2</span>:</span><br><span class="line">        m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(m)</span><br><span class="line">        <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">            func = getattr(obj_module, f)</span><br><span class="line">            func()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'404'</span>)</span><br><span class="line">    <span class="keyword">elif</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">3</span>:</span><br><span class="line">        p, m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(p + <span class="string">'.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">            func = getattr(obj_module, f)</span><br><span class="line">            func()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行</span></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; lib/connectdb/mysql</span><br><span class="line">已连接mysql</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; account/del_user</span><br><span class="line">删除用户</span><br></pre></td></tr></table></figure>
+
+<p>虽然重复代码量不高，但我们仍要有一颗消除重复代码的❤️</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">2</span>:</span><br><span class="line">        m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(m)</span><br><span class="line">        getf(obj_module, f)</span><br><span class="line">    <span class="keyword">elif</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">3</span>:</span><br><span class="line">        p, m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(p + <span class="string">'.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">        getf(obj_module, f)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getf</span><span class="params">(m, f)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> hasattr(m, f):</span><br><span class="line">        func = getattr(m, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2016/06/16/Python反射详解/" rel="bookmark">Python反射详解</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag"><i class="fa fa-tag"></i> 反射</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/15/Python%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97hashlibx/" rel="prev" title="Python加密模块">
+      <i class="fa fa-chevron-left"></i> Python加密模块
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3/" rel="next" title="Python反射详解">
+      Python反射详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getattr"><span class="nav-number">1.</span> <span class="nav-text">getattr()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hasattr"><span class="nav-number">2.</span> <span class="nav-text">hasattr()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#delattr"><span class="nav-number">3.</span> <span class="nav-text">delattr()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setattr"><span class="nav-number">4.</span> <span class="nav-text">setattr()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#import"><span class="nav-number">5.</span> <span class="nav-text">__import__</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3%205/";
+    this.page.identifier = "2016/06/16/Python反射详解 5/";
+    this.page.title = "Python反射详解";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

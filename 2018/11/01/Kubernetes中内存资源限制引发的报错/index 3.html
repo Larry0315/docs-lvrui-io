@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一个 Pod 被创建后, 一直卡在ContainerCreating的状态, 执行describe命令查看该 Pod 详细信息后发现如下 Event 1234567Events:  Type     Reason                  Age               From                            Message  ----     ------">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes中内存资源限制引发的报错">
+<meta property="og:url" content="https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="一个 Pod 被创建后, 一直卡在ContainerCreating的状态, 执行describe命令查看该 Pod 详细信息后发现如下 Event 1234567Events:  Type     Reason                  Age               From                            Message  ----     ------">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-01T07:28:57.000Z">
+<meta property="article:modified_time" content="2020-03-22T05:21:47.346Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="kubelet">
+<meta property="article:tag" content="Limit">
+<meta property="article:tag" content="oom">
+<meta property="article:tag" content="OOMKilled">
+<meta property="article:tag" content="kill">
+<meta property="article:tag" content="ContainerCreating">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Kubernetes中内存资源限制引发的报错 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">370</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">285</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kubernetes中内存资源限制引发的报错
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 15:28:57" itemprop="dateCreated datePublished" datetime="2018-11-01T15:28:57+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/Kubernetes中内存资源限制引发的报错/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一个 Pod 被创建后, 一直卡在<code>ContainerCreating</code>的状态, 执行<code>describe</code>命令查看该 Pod 详细信息后发现如下 Event</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Events:</span><br><span class="line">  Type     Reason                  Age               From                            Message</span><br><span class="line">  ----     ------                  ----              ----                            -------</span><br><span class="line">  Normal   Scheduled               2m                default-scheduler               Successfully assigned 61f983b5-19ca-4b33-8647-6b279ae93812 to k8node3</span><br><span class="line">  Normal   SuccessfulMountVolume   2m                kubelet, k8node3  MountVolume.SetUp succeeded for volume &quot;default-token-7r9jt&quot;</span><br><span class="line">  Warning  FailedCreatePodSandBox  2m (x12 over 2m)  kubelet, k8node3  Failed create pod sandbox: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">  Normal   SandboxChanged          2m (x12 over 2m)  kubelet, k8node3  Pod sandbox changed, it will be killed and re-created.</span><br></pre></td></tr></table></figure>
+
+<p>以上 Event 信息中, 能解读到的信息极其有限</p>
+<ul>
+<li>Failed create pod sandbox: Google 提供的 pause 容器启动失败</li>
+<li>oci runtime error: 运行时接口出的问题, 我的环境中运行时环境为 docker</li>
+<li>connection reset by peer: 连接被重置</li>
+<li>Pod sandbox changed, it will be killed and re-created: pause 容器引导的 Pod 环境被改变, 重新创建 Pod 中的 pause 引导</li>
+</ul>
+<p>看完上面的报错信息并不能准确定位到问题的根源, 只能大致了解到是因为创建SandBox失败导致的, 接下来查看 kubelet 的日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551282    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551415    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551459    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551581    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718255    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718406    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718443    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718597    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114171    1865 kubelet.go:1644] Unable to mount volumes for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]; skipping pod</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114262    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]</span><br></pre></td></tr></table></figure>
+
+<p>kubelet 的日志中, 与 describe 出来的信息差不多, tail 的时候更直观的感觉到频繁的Sandbox创建的过程, 既然是 OCI 运行时报错, 只能去 docker 的日志中找找看了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671146675+08:00&quot; level&#x3D;error msg&#x3D;&quot;containerd: start container&quot; error&#x3D;&quot;oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot; id&#x3D;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671871096+08:00&quot; level&#x3D;error msg&#x3D;&quot;Create container failed with error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.717553371+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f&#x2F;start returned error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.759631102+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274&#x2F;stop returned error: Container 207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.768603351+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573&#x2F;stop returned error: Container 03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.777073508+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728&#x2F;stop returned error: Container 7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.785774443+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431&#x2F;stop returned error: Container 1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.794198279+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176&#x2F;stop returned error: Container c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.802698120+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d&#x2F;stop returned error: Container 8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.811103238+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f&#x2F;stop returned error: Container 7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f is already stopped&quot;</span><br></pre></td></tr></table></figure>
+
+<p>Docker 的日志中, 除了已经看了很多遍的<code>connection reset by peer</code>之外, 还有一些新的发现</p>
+<ul>
+<li>xxx is already stopped: 看日志, 感觉是向容器接口发送了 POST 请求以 stop 容器, 但是该容器已经被 stop 掉了</li>
+</ul>
+<p>Docker 的日志和 kubelet 的日志的共同点就是, kubelet 频繁 recreate Sandbox</p>
+<p>执行 <code>docker container ls -a</code> 命令发现存在大量 create 状态的 pause 容器</p>
+<p>查看 <code>demesg -T</code> 信息, 发现了大量 oom-killer 的字眼的日志, 初步判断是由于内存溢出, 导致系统主动 kill 进程.</p>
+<p>发生这样的情况的概率并不高, 一般情况下有两种类型的 oom kill</p>
+<ul>
+<li>由于 pod 内进程超出了 pod 指定 Limit 限制的值, 将导致 oom kill, 此时 pod 退出的 Reason 会显示 OOMKilled</li>
+<li>另一种情况是 pod 内的进程给自己设置了可用内存, 比如 jvm 内存限制设置为2G, pod Limit 设置为6G, 此时由于程序的原因导致内存使用超过2G 时, 也会引发 oom kill</li>
+</ul>
+<p>这两种内存溢出的 kill 区别是第一种原因直接显示在 pod 的 Event 里; 第二种你在 Event 里找不到, 在宿主机的 dmesg 里面可以找到 invoked oom-killer 的日志</p>
+<p>这次的情况看起来像属于第二种情况, 于是赶紧再次 describe pod, 查看 Limit 限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Containers:</span><br><span class="line">  61f983b5-19ca-4b33-8647-6b279ae93812:</span><br><span class="line">    Container ID:</span><br><span class="line">    Image:          reg.lvrui.io&#x2F;public&#x2F;testpublish:latest</span><br><span class="line">    Image ID:</span><br><span class="line">    Port:           &lt;none&gt;</span><br><span class="line">    Host Port:      &lt;none&gt;</span><br><span class="line">    State:          Waiting</span><br><span class="line">      Reason:       ContainerCreating</span><br><span class="line">    Ready:          False</span><br><span class="line">    Restart Count:  0</span><br><span class="line">    Limits:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Requests:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Environment:</span><br><span class="line">      key:  value</span><br><span class="line">    Mounts:</span><br><span class="line">      &#x2F;var&#x2F;run&#x2F;secrets&#x2F;kubernetes.io&#x2F;serviceaccount from default-token-7r9jt (ro)</span><br></pre></td></tr></table></figure>
+
+<p>终于找到了原因, 就是因为对内存的 Limit 导致的. 这里显示内存 Limit 为2k, 实际上是因为在创建资源时, 写的是 2000(不加单位时, 默认单位为 bytes), k8s 自动转成了以小写 k 的单位表示方式,  所以就变成了2k</p>
+<p>理论上来说,  按照之前的经验, 此种情况(实际使用内存超过 Limit 内存的情况)应该属于第一种, 会在 Event 里显示的由于 OOMkilled 原因导致 Terminated 状态. 但实际情况却是在 Event 里找不到 oom kill 的日志, 且 pod 状态处于 ContainerCreating 状态.</p>
+<ul>
+<li>由于 OOMkilled 处于 Terminated 的状态是因为 pod 已经正常被引导创建后, 导致的内存溢出</li>
+<li>由于系统 invoked oom-killer 导致的处于 ContainerCreating 状态的 pod 是因为 pod 还没正常被创建, pod 中的 pause 容器都没有被正常引导就已经被 cgroup 的内存限制而招来杀身之祸</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/21/Docker-For-Fedora/" rel="bookmark">Docker For Fedora</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/21/Docker-For-CentOS/" rel="bookmark">Docker For CentOS</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/21/Docker-For-RHEL/" rel="bookmark">Docker For RHEL</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/20/Docker-For-Ubuntu/" rel="bookmark">Docker For Ubuntu</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/06/Docker-在国内的发展现状/" rel="bookmark">Docker 在国内的发展现状</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+              <a href="/tags/kubelet/" rel="tag"><i class="fa fa-tag"></i> kubelet</a>
+              <a href="/tags/Limit/" rel="tag"><i class="fa fa-tag"></i> Limit</a>
+              <a href="/tags/oom/" rel="tag"><i class="fa fa-tag"></i> oom</a>
+              <a href="/tags/OOMKilled/" rel="tag"><i class="fa fa-tag"></i> OOMKilled</a>
+              <a href="/tags/kill/" rel="tag"><i class="fa fa-tag"></i> kill</a>
+              <a href="/tags/ContainerCreating/" rel="tag"><i class="fa fa-tag"></i> ContainerCreating</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/19/%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6%E5%AE%89%E8%A3%85Linux%E5%B7%A5%E5%85%B7/" rel="prev" title="为容器镜像定制安装Linux工具">
+      <i class="fa fa-chevron-left"></i> 为容器镜像定制安装Linux工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/01/DHCP%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84k8s%E6%8E%92%E9%94%99/" rel="next" title="DHCP模式下的k8s排错">
+      DHCP模式下的k8s排错 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">285</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">370</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/";
+    this.page.identifier = "2018/11/01/Kubernetes中内存资源限制引发的报错/";
+    this.page.title = "Kubernetes中内存资源限制引发的报错";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

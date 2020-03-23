@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E5%92%8C%E4%BD%8D%E7%BD%AE%E6%9F%A5%E7%9C%8BMySQL-binlog/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/21/%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E5%92%8C%E4%BD%8D%E7%BD%AE%E6%9F%A5%E7%9C%8BMySQL-binlog/" class="post-title-link" itemprop="url">基于时间和位置查看MySQL binlog</a>
+            <a href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="post-title-link" itemprop="url">python中的mysql连接池</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-21 11:28:49" itemprop="dateCreated datePublished" datetime="2017-03-21T11:28:49+08:00">2017-03-21</time>
+              <time title="创建时间：2018-03-16 15:43:02" itemprop="dateCreated datePublished" datetime="2018-03-16T15:43:02+08:00">2018-03-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -252,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/21/%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E5%92%8C%E4%BD%8D%E7%BD%AE%E6%9F%A5%E7%9C%8BMySQL-binlog/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/基于时间和位置查看MySQL-binlog/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python中的mysql连接池/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,12 +268,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="基于时间查看-binlog-日志"><a href="#基于时间查看-binlog-日志" class="headerlink" title="基于时间查看 binlog 日志"></a>基于时间查看 binlog 日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog  --no-defaults --start-datetime=<span class="string">"2016-10-31 23:08:03"</span> mysql-bin.000214 |more</span><br></pre></td></tr></table></figure>
+          <h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> DBUtils.PooledDB <span class="keyword">import</span> PooledDB</span><br><span class="line"></span><br><span class="line">MYSQL_HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">USER = <span class="string">'zabbix'</span></span><br><span class="line">PASSWORD = <span class="string">'p@55w0rd'</span></span><br><span class="line">DB = <span class="string">'zabbix'</span></span><br><span class="line">PORT = <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建数据库连接池</span></span><br><span class="line">mp = PooledDB(</span><br><span class="line">    pymysql, mincached=<span class="number">5</span>, maxconnections=<span class="number">10</span>, blocking=<span class="literal">True</span>,</span><br><span class="line">    host=MYSQL_HOST, user=USER, passwd=PASSWORD, db=DB, port=PORT, charset=<span class="string">"utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">conn = mp.connection()</span><br><span class="line">cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select hostid from hosts where name='xxx';"</span></span><br><span class="line">mysql.cur.execute(sql)</span><br><span class="line"></span><br><span class="line">cur.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
 
-
-
-<h2 id="基于位置查看-binlog-日志"><a href="#基于位置查看-binlog-日志" class="headerlink" title="基于位置查看 binlog 日志"></a>基于位置查看 binlog 日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog --no-defaults --start-position=690271 mysql-bin.000214 |more</span><br></pre></td></tr></table></figure>
-
+<h1 id="PooledDB的参数"><a href="#PooledDB的参数" class="headerlink" title="PooledDB的参数"></a>PooledDB的参数</h1><ul>
+<li>mincached: 最少的空闲连接数, 如果空闲连接数小于这个数, pool会创建一个新的连接</li>
+<li>maxcached: 最大的空闲连接数, 如果空闲连接数大于这个数, pool会关闭空闲连接</li>
+<li>maxconnections: 最大的连接数</li>
+<li>blocking: 当连接数达到最大的连接数时, 在请求连接的时候, 如果这个值是True, 请求连接的程序会一直等待, 直到当前连接数小于最大连接数, 如果这个值是False, 会报错</li>
+</ul>
 
       
     </div>
@@ -295,7 +297,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -309,7 +311,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">MySQL主从1061报错</a>
+            <a href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0%205/" class="post-title-link" itemprop="url">python中的mysql连接池</a>
         </h2>
 
         <div class="post-meta">
@@ -319,7 +321,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-21 11:09:43" itemprop="dateCreated datePublished" datetime="2017-03-21T11:09:43+08:00">2017-03-21</time>
+              <time title="创建时间：2018-03-16 15:43:02" itemprop="dateCreated datePublished" datetime="2018-03-16T15:43:02+08:00">2018-03-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +329,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -340,8 +342,274 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL主从1061报错/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python中的mysql连接池 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> DBUtils.PooledDB <span class="keyword">import</span> PooledDB</span><br><span class="line"></span><br><span class="line">MYSQL_HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">USER = <span class="string">'zabbix'</span></span><br><span class="line">PASSWORD = <span class="string">'p@55w0rd'</span></span><br><span class="line">DB = <span class="string">'zabbix'</span></span><br><span class="line">PORT = <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建数据库连接池</span></span><br><span class="line">mp = PooledDB(</span><br><span class="line">    pymysql, mincached=<span class="number">5</span>, maxconnections=<span class="number">10</span>, blocking=<span class="literal">True</span>,</span><br><span class="line">    host=MYSQL_HOST, user=USER, passwd=PASSWORD, db=DB, port=PORT, charset=<span class="string">"utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">conn = mp.connection()</span><br><span class="line">cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select hostid from hosts where name='xxx';"</span></span><br><span class="line">mysql.cur.execute(sql)</span><br><span class="line"></span><br><span class="line">cur.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+
+<h1 id="PooledDB的参数"><a href="#PooledDB的参数" class="headerlink" title="PooledDB的参数"></a>PooledDB的参数</h1><ul>
+<li>mincached: 最少的空闲连接数, 如果空闲连接数小于这个数, pool会创建一个新的连接</li>
+<li>maxcached: 最大的空闲连接数, 如果空闲连接数大于这个数, pool会关闭空闲连接</li>
+<li>maxconnections: 最大的连接数</li>
+<li>blocking: 当连接数达到最大的连接数时, 在请求连接的时候, 如果这个值是True, 请求连接的程序会一直等待, 直到当前连接数小于最大连接数, 如果这个值是False, 会报错</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/" class="post-title-link" itemprop="url">python下http.client与urllib访问https报证书认证失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-16 15:35:56" itemprop="dateCreated datePublished" datetime="2018-03-16T15:35:56+08:00">2018-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python下http-client与urllib访问https报证书认证失败/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在python3代码中, 使用http.client或urllib.request进行https访问的时候, 出现以下报错</p>
+<p><code>ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)</code></p>
+<p>解决方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import ssl</span><br><span class="line"></span><br><span class="line">ssl._create_default_https_context &#x3D; ssl._create_unverified_context</span><br></pre></td></tr></table></figure>
+
+<p>再次访问, 即可正常访问https站点</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5%205/" class="post-title-link" itemprop="url">python下http.client与urllib访问https报证书认证失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-16 15:35:56" itemprop="dateCreated datePublished" datetime="2018-03-16T15:35:56+08:00">2018-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python下http-client与urllib访问https报证书认证失败 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在python3代码中, 使用http.client或urllib.request进行https访问的时候, 出现以下报错</p>
+<p><code>ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)</code></p>
+<p>解决方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import ssl</span><br><span class="line"></span><br><span class="line">ssl._create_default_https_context &#x3D; ssl._create_unverified_context</span><br></pre></td></tr></table></figure>
+
+<p>再次访问, 即可正常访问https站点</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/" class="post-title-link" itemprop="url">python连接mysql报错:'latin-1' codec can't encode characters</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-16 14:58:31" itemprop="dateCreated datePublished" datetime="2018-03-16T14:58:31+08:00">2018-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python连接mysql报错-latin-1-codec-can-t-encode-characters/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -357,240 +625,26 @@
 
       
           <blockquote>
-<p>MySQL主从 1061 报错, 键冲突, 产生的原因一般为用户在主库上建立索引导致, 可以通过在从库手动删除冲突的索引解决</p>
+<p>python连接mysql数据库进行查询时, 遇到以下报错: <code>UnicodeEncodeError: &#39;latin-1&#39; codec can&#39;t encode characters in position 40-41: ordinal not in range(256)</code> 很明显提示了是字符编码的问题</p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先暂停主从同步</span></span><br><span class="line">mysql&gt; stop slave for channel "dbtest";  # MySQL5.7多源复制语法</span><br><span class="line">mysql&gt; stop slave;  # 单主复制语法</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除冲突的索引</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`tableNmae`</span> <span class="keyword">DROP</span> <span class="keyword">INDEX</span> <span class="string">`indexName`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启主从同步</span></span><br><span class="line">mysql&gt; start slave for channel "dbtest"; # MySQL5.7多源复制语法</span><br><span class="line">mysql&gt; start slave;  # 单主复制语法</span><br></pre></td></tr></table></figure>
+<p>发生以上问题, 是因为我在sql语句中出现了中文, 在拿到db游标对象之后, 去执行sql的时候的报错</p>
+<h1 id="排查数据库字符编码"><a href="#排查数据库字符编码" class="headerlink" title="排查数据库字符编码"></a>排查数据库字符编码</h1><p>登录MySQL数据库, 执行以下SQL语句执行查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| Variable_name            | Value              |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| character_set_client     | utf8mb4            |</span><br><span class="line">| character_set_connection | utf8mb4            |</span><br><span class="line">| character_set_database   | utf8mb4            |</span><br><span class="line">| character_set_filesystem | binary             |</span><br><span class="line">| character_set_results    | utf8mb4            |</span><br><span class="line">| character_set_server     | utf8mb4            |</span><br><span class="line">| character_set_system     | utf8               |</span><br><span class="line">| collation_connection     | utf8mb4_unicode_ci |</span><br><span class="line">| collation_database       | utf8mb4_unicode_ci |</span><br><span class="line">| collation_server         | utf8mb4_unicode_ci |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">10 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">MySQL权限管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-21 10:08:30" itemprop="dateCreated datePublished" datetime="2017-03-21T10:08:30+08:00">2017-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL权限管理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;;</code></p>
-<h2 id="主机的表示方式"><a href="#主机的表示方式" class="headerlink" title="主机的表示方式"></a>主机的表示方式</h2><ul>
-<li>192.168.10.85  单主机授权方式</li>
-<li>localhost 本地授权 方式</li>
-<li>% 不限制远程主机的 IP 地址</li>
-<li>192.168.10.% 网段批量授权</li>
+<p>经过查询, 发现mysql数据库本身已是 <code>utf8</code> 的字符编码</p>
+<p>分析可能的原因:</p>
+<p>mysql一般有三段配置, 分别是: <code>[mysql]</code> <code>[clinet]</code> <code>[mysqld]</code></p>
+<ul>
+<li>[mysql] 对其他远程连接的mysql客户端的配置, 例如在其他服务器执行<code>mysql -h -u -p</code>或使用代码进行连接</li>
+<li>[client] 对本地的mysql客户端的配置, 例如在本地执行<code>mysql -u -p</code></li>
+<li>[mysqld] 对mysql服务进行配置</li>
 </ul>
-<h2 id="权限列表"><a href="#权限列表" class="headerlink" title="权限列表"></a>权限列表</h2><table>
-<thead>
-<tr>
-<th>权限</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>usage</td>
-<td>连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予<code>usage</code>权限. 该权限只能用于数据库登录, 不能执行任何操作, 且 usage 权限不能被回收♻️</td>
-</tr>
-<tr>
-<td>file</td>
-<td>拥有 file 权限才可以执行 <code>select ... into outfile</code> 和 <code>load data infile…</code> 操作, 但是不要把 <code>file</code>, <code>process</code>, <code>super</code> 权限授予管理员以外的账号, 否则存在严重的安全隐患</td>
-</tr>
-<tr>
-<td>super</td>
-<td>该权限允许用户终止任何查询; 修改全局变量的 SET 语句; 使用 <code>change master</code> <code>purge master logs</code></td>
-</tr>
-<tr>
-<td>select</td>
-<td>必须拥有 select 权限才可以使用 <code>select</code>查询数据</td>
-</tr>
-<tr>
-<td>insert</td>
-<td>必须拥有 insert 权限才可以使用<code>insert</code>向表中插入数据</td>
-</tr>
-<tr>
-<td>update</td>
-<td>必须拥有 update 权限才可以使用<code>update</code>更新表中的记录📝</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>必须拥有 delete 权限才可以使用<code>delete</code>删除表中的数据</td>
-</tr>
-<tr>
-<td>alter</td>
-<td>必须拥有 alter 权限才可以使用<code>alter</code>命令更改表的属性</td>
-</tr>
-<tr>
-<td>alter routine</td>
-<td>必须拥有 alter routine 权限才可以执行 <code>alter/drop procedure/function</code>命令</td>
-</tr>
-<tr>
-<td>create</td>
-<td>必须拥有 create 权限才可以使用<code>create</code>命令建表</td>
-</tr>
-<tr>
-<td>create routine</td>
-<td>必须拥有 create routine 权限才可以执行 <code>create/alter/drop procedure/function</code></td>
-</tr>
-<tr>
-<td>create temporary tables</td>
-<td>必须有create  temporary tables的权限，才可以使用<code>create temporary tables</code></td>
-</tr>
-<tr>
-<td>create view</td>
-<td>执行<code>create view</code>创建视图的权限</td>
-</tr>
-<tr>
-<td>create user</td>
-<td>执行<code>create user</code>创建用户的权限(拥有 insert 权限也可以通过直接向 mysql.user 表中插入数据来创建用户)</td>
-</tr>
-<tr>
-<td>show database</td>
-<td>通过 <code>show database</code> 只能看到你拥有的某些权限的数据库, 除非你拥有全局<code>show database</code>权限</td>
-</tr>
-<tr>
-<td>show view</td>
-<td>必须拥有<code>show view</code>权限才可以执行<code>show create view</code>查询已经创建的视图</td>
-</tr>
-<tr>
-<td>index</td>
-<td>必须拥有 index 权限才能创建和删除索引 <code>create/drop index</code></td>
-</tr>
-<tr>
-<td>excute</td>
-<td>必须拥有 excute 权限才可以执行存在的函数(Function)和存储过程(Procedures)</td>
-</tr>
-<tr>
-<td>event</td>
-<td>如果event 的使用频率较低, 建议使用 root 用户进行管理和维护. (要使event 起作用, MySQL 的常量 <code>global event_scheduler</code>必须为<code>on</code>或者<code>1</code>)</td>
-</tr>
-<tr>
-<td>lock tables</td>
-<td>锁表🔐权限</td>
-</tr>
-<tr>
-<td>references</td>
-<td>创建外键约束权限</td>
-</tr>
-<tr>
-<td>reload</td>
-<td>flush talbes/logs/privileges 权限</td>
-</tr>
-<tr>
-<td>replication client</td>
-<td>拥有此权限可以查询<code>master</code> <code>slave</code>状态</td>
-</tr>
-<tr>
-<td>replication slave</td>
-<td>拥有此权限可以从主库读取二进制日志</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td>关闭 mysql 的权限</td>
-</tr>
-<tr>
-<td>grant option</td>
-<td>可以将自己拥有的权限授权给其他用户(仅限于自己拥有的权限)</td>
-</tr>
-<tr>
-<td>process</td>
-<td>拥有此权限可以执行<code>show processlist</code>和<code>kill</code>命令. 默认情况下, 每个用户都可以执行该命令, 但是只能查看本用户的进程</td>
-</tr>
-<tr>
-<td>all privileges</td>
-<td>所有权限. 使用<code>with grant option</code>可以连带授权 <code>grant all privileges on *.* to &#39;polarsnow&#39;@&#39;%&#39; with grant option;</code></td>
-</tr>
-<tr>
-<td>truncate</td>
-<td>truncate 权限其实就是 create+drop 权限的组合</td>
-</tr>
-<tr>
-<td>drop</td>
-<td>删库删表删索引删视图等权限</td>
-</tr>
-</tbody></table>
-<p><strong>注意:</strong> 管理权限(如 super, process, file 等)  不能指定某个数据库授权, <code>on</code>关键字之后必须跟 <code>*.*</code></p>
-<h1 id="查看用户授权"><a href="#查看用户授权" class="headerlink" title="查看用户授权"></a>查看用户授权</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show grants for username;</span><br></pre></td></tr></table></figure>
+<p>有可能mysql配置文件中的[mysql]下没有配置 <code>default-character-set = utf8mb4</code>, 导致远程客户端连接到服务器端后, 没有获得服务端声明的字符编码, 而使用客户端默认带的字符编码进行连接, 如果是这种情况, 可以在mysql服务端更改配置文件并重启mysql服务, 如果你不想重启数据库, 可以显示地在mysql客户端声明使用的字符编码</p>
+<h1 id="解决pymysql字符编码问题"><a href="#解决pymysql字符编码问题" class="headerlink" title="解决pymysql字符编码问题"></a>解决pymysql字符编码问题</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">"123"</span>,<span class="string">"mysql"</span>, charset=<span class="string">"utf8"</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select Host, User from user where User='中文';"</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
 
-
-
-<h1 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke select,update,insert,delete on *.* from username;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
-
-
-
+<p>解决方法很简单, 只需要在创建数据库连接对象的时候, 显示地声明字符编码就可以了 <code>charset=&quot;utf8&quot;</code></p>
+<p>注意: 如果你的MySQL服务器的字符编码使用的是<code>utf-8</code> 的话, 你需要声明你的连接对象的字符编码也是 <code>utf-8</code></p>
+<p>如果你的MySQL服务器的字符编码使用的是<code>utf8mb4</code> 的话, 相对应的, 你应该声明自己客户端的字符编码是 <code>utf8mb4</code></p>
 
       
     </div>
@@ -612,7 +666,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/Docker-For-RHEL/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -626,7 +680,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/21/Docker-For-RHEL/" class="post-title-link" itemprop="url">Docker For RHEL</a>
+            <a href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters%205/" class="post-title-link" itemprop="url">python连接mysql报错:'latin-1' codec can't encode characters</a>
         </h2>
 
         <div class="post-meta">
@@ -636,7 +690,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-21 00:01:22" itemprop="dateCreated datePublished" datetime="2017-03-21T00:01:22+08:00">2017-03-21</time>
+              <time title="创建时间：2018-03-16 14:58:31" itemprop="dateCreated datePublished" datetime="2018-03-16T14:58:31+08:00">2018-03-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -644,7 +698,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -657,8 +711,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/21/Docker-For-RHEL/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/Docker-For-RHEL/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python连接mysql报错-latin-1-codec-can-t-encode-characters 5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -674,65 +728,26 @@
 
       
           <blockquote>
-<p>RHEL 也是大力支持 Docker 的系统发行版, 但是由于 Docker 最开始使用的 AUFS 存储引擎在 RHEL 上并不支持, 所以 RHEL 自主研发了 <code>device mapper</code> 存储引擎专门适配自己的系统. 这个东西确实很牛 X, 但是实际用起来有多不爽恐怕只有用过才会知道吧. </p>
+<p>python连接mysql数据库进行查询时, 遇到以下报错: <code>UnicodeEncodeError: &#39;latin-1&#39; codec can&#39;t encode characters in position 40-41: ordinal not in range(256)</code> 很明显提示了是字符编码的问题</p>
 </blockquote>
-<p><strong>最重要的是: Docker 官方声明, RHEL 7 不支持 Docker CE, 在 RHEL 系统上, 只能安装 Docker EE 版本, 所以本篇不做详细介绍</strong></p>
-<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
-<li>64bit RHEL7</li>
-</ul>
-<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  container-selinux \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<p>发生以上问题, 是因为我在sql语句中出现了中文, 在拿到db游标对象之后, 去执行sql的时候的报错</p>
+<h1 id="排查数据库字符编码"><a href="#排查数据库字符编码" class="headerlink" title="排查数据库字符编码"></a>排查数据库字符编码</h1><p>登录MySQL数据库, 执行以下SQL语句执行查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| Variable_name            | Value              |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| character_set_client     | utf8mb4            |</span><br><span class="line">| character_set_connection | utf8mb4            |</span><br><span class="line">| character_set_database   | utf8mb4            |</span><br><span class="line">| character_set_filesystem | binary             |</span><br><span class="line">| character_set_results    | utf8mb4            |</span><br><span class="line">| character_set_server     | utf8mb4            |</span><br><span class="line">| character_set_system     | utf8               |</span><br><span class="line">| collation_connection     | utf8mb4_unicode_ci |</span><br><span class="line">| collation_database       | utf8mb4_unicode_ci |</span><br><span class="line">| collation_server         | utf8mb4_unicode_ci |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">10 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
-<p>需要 <code>yum</code> 命令的回显显示没有相关的软件包被安装</p>
-<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
-<h2 id="安装-Docker-EE"><a href="#安装-Docker-EE" class="headerlink" title="安装 Docker EE"></a>安装 Docker EE</h2><h3 id="设置软件源"><a href="#设置软件源" class="headerlink" title="设置软件源"></a>设置软件源</h3><ul>
-<li>在 <code>/etc/yum.repos.d/</code> 下清除所有跟 docker 相关的软件仓库配置</li>
-</ul>
+<p>经过查询, 发现mysql数据库本身已是 <code>utf8</code> 的字符编码</p>
+<p>分析可能的原因:</p>
+<p>mysql一般有三段配置, 分别是: <code>[mysql]</code> <code>[clinet]</code> <code>[mysqld]</code></p>
 <ul>
-<li>在 <code>/etc/yum/vars/</code> 下创建两个变量<ul>
-<li>Docker EE 的 URL</li>
+<li>[mysql] 对其他远程连接的mysql客户端的配置, 例如在其他服务器执行<code>mysql -h -u -p</code>或使用代码进行连接</li>
+<li>[client] 对本地的mysql客户端的配置, 例如在本地执行<code>mysql -u -p</code></li>
+<li>[mysqld] 对mysql服务进行配置</li>
 </ul>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">'echo "&lt;DOCKER-EE-URL&gt;" &gt; /etc/yum/vars/dockerurl'</span></span><br></pre></td></tr></table></figure>
+<p>有可能mysql配置文件中的[mysql]下没有配置 <code>default-character-set = utf8mb4</code>, 导致远程客户端连接到服务器端后, 没有获得服务端声明的字符编码, 而使用客户端默认带的字符编码进行连接, 如果是这种情况, 可以在mysql服务端更改配置文件并重启mysql服务, 如果你不想重启数据库, 可以显示地在mysql客户端声明使用的字符编码</p>
+<h1 id="解决pymysql字符编码问题"><a href="#解决pymysql字符编码问题" class="headerlink" title="解决pymysql字符编码问题"></a>解决pymysql字符编码问题</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">"123"</span>,<span class="string">"mysql"</span>, charset=<span class="string">"utf8"</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select Host, User from user where User='中文';"</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
 
-<pre><code>- RHEL 的版本 </code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">'echo "&lt;VERSION-STRING&gt;" &gt; /etc/yum/vars/dockerosversion'</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 yum 工具集<code>yum-utils</code> 以得到 <code>yum-config-manager</code>命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>配置软件源</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    &lt;DOCKER-EE-URL&gt;/docker-ee.repo</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-Docker-EE-1"><a href="#安装-Docker-EE-1" class="headerlink" title="安装 Docker EE"></a>安装 Docker EE</h3><ul>
-<li>更新 yum 软件源索引</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 Docker EE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum -y install docker-ee</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>启动 Docker EE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证 Docker EE 正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考官方文档:</p>
-<ul>
-<li><a href="https://docs.docker.com/engine/installation/linux/rhel/#install-using-the-repository" target="_blank" rel="noopener">https://docs.docker.com/engine/installation/linux/rhel/#install-using-the-repository</a></li>
-</ul>
+<p>解决方法很简单, 只需要在创建数据库连接对象的时候, 显示地声明字符编码就可以了 <code>charset=&quot;utf8&quot;</code></p>
+<p>注意: 如果你的MySQL服务器的字符编码使用的是<code>utf-8</code> 的话, 你需要声明你的连接对象的字符编码也是 <code>utf-8</code></p>
+<p>如果你的MySQL服务器的字符编码使用的是<code>utf8mb4</code> 的话, 相对应的, 你应该声明自己客户端的字符编码是 <code>utf8mb4</code></p>
 
       
     </div>
@@ -754,7 +769,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/Docker-For-Ubuntu/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -768,7 +783,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/20/Docker-For-Ubuntu/" class="post-title-link" itemprop="url">Docker For Ubuntu</a>
+            <a href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/" class="post-title-link" itemprop="url">heartbeat-elastic报错:system_api_version [6] is not supported by system_id [beats]</a>
         </h2>
 
         <div class="post-meta">
@@ -778,7 +793,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-20 23:39:54" itemprop="dateCreated datePublished" datetime="2017-03-20T23:39:54+08:00">2017-03-20</time>
+              <time title="创建时间：2018-02-11 20:43:00" itemprop="dateCreated datePublished" datetime="2018-02-11T20:43:00+08:00">2018-02-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -786,7 +801,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                  <a href="/categories/ELK-Stack/" itemprop="url" rel="index"><span itemprop="name">ELK Stack</span></a>
                 </span>
             </span>
 
@@ -799,8 +814,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/20/Docker-For-Ubuntu/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/Docker-For-Ubuntu/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/11/heartbeat-elastic报错-system-api-version-6-is-not-supported-by-system-id-beats/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -816,101 +831,12 @@
 
       
           <blockquote>
-<p>Ubuntu 是 docker 第一个支持的系统发行版, 截止到目前, 我们也依然推荐在生产环境中使用 Ubuntu 系统. 虽然我也很喜欢 CentOS, 但是在 docker 这件事儿中, Ubuntu 确实是最合适的系统选择</p>
+<p>配置heartbeat-elastic服务时日志报错如下<code>2018-02-11T07:36:29.217-0500    ERROR   pipeline/output.go:92   Failed to publish events: 400 Bad Request: {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;}],&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;},&quot;status&quot;:400}</code></p>
 </blockquote>
-<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
-<li>64bit Yakkety 16.10</li>
-</ul>
-<ul>
-<li>64bit Xenial 16.04 (LTS)    &lt;== 个人推荐使用此版本的 Ubuntu 发行版</li>
-<li>64bit Trusty 14.04 (LTS)</li>
-</ul>
-<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
-
-<p>需要 <code>apt-get</code> 命令的回显显示没有相关的软件包被安装</p>
-<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
-<h2 id="Ubuntu-Trusty-14-04-额外安装的软件包"><a href="#Ubuntu-Trusty-14-04-额外安装的软件包" class="headerlink" title="Ubuntu Trusty 14.04 额外安装的软件包"></a>Ubuntu Trusty 14.04 额外安装的软件包</h2><p>在官方文档中, 强烈推荐 Ubuntu14.04版本如果使用<code>aufs</code> 存储引擎, 那么一定要安装以下软件包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><h3 id="从软件源中安装-Docker"><a href="#从软件源中安装-Docker" class="headerlink" title="从软件源中安装 Docker"></a>从软件源中安装 Docker</h3><h4 id="配置软件仓库-Docker-CE"><a href="#配置软件仓库-Docker-CE" class="headerlink" title="配置软件仓库 Docker-CE"></a>配置软件仓库 Docker-CE</h4><ul>
-<li>安装软件包, 以允许<code>apt</code>命令可以通过 https 协议使用软件源(repository)</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 Docker 官方 GPG key</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>配置 <code>stable</code> 版本的软件源</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository \</span><br><span class="line">   &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu \</span><br><span class="line">   $(lsb_release -cs) \</span><br><span class="line">   stable&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><ul>
-<li>更新系统软件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装最新版本的 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在生产环境, 你可能需要安装指定版本的 Docker,</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce=&lt;VERSION&gt;</span><br></pre></td></tr></table></figure>
-
-<p><em>docker-ce 在安装好后自动启动</em></p>
-<ul>
-<li>启动 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>添加用户到 Docker 组</li>
-</ul>
-<p>在生产环境中, 不是每个人登录都是使用 root 用户, 可能需要给普通用户操作 docker 的权限, 那么将该用户添加到 docker 组是简单方便的方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>升级 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="使用软件包直接安装"><a href="#使用软件包直接安装" class="headerlink" title="使用软件包直接安装"></a>使用软件包直接安装</h3><ul>
-<li>下载对应版本的 <code>.deb</code> 软件包</li>
-</ul>
-<p>Docker CE: Go to <a href="https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/</a> and download the .deb </p>
-<ul>
-<li>安装软件包</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i /path/to/package.deb</span><br></pre></td></tr></table></figure>
-
-<p>The Docker daemon starts automatically.</p>
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="卸载-Docker-CE"><a href="#卸载-Docker-CE" class="headerlink" title="卸载 Docker CE"></a>卸载 Docker CE</h2><ul>
-<li>卸载 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>镜像/容器/数据卷和自定义配置文件不会随着卸载而自动删除, 你需要手动去清除他们</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
+<p>解决方法:</p>
+<p>手动设置<code>/etc/heartbeat/heartbeat.yml</code> 配置文件中的 <code>name</code>变量 <code>name: 10.10.62.16</code> </p>
+<p>重启<code>heartbeat-elastic</code>服务即可</p>
+<p><code>systemctl restart heartbeat-elastic.service</code></p>
 
       
     </div>
@@ -932,7 +858,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/DockerForWindows/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats%203/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -946,7 +872,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/20/DockerForWindows/" class="post-title-link" itemprop="url">DockerForWindows</a>
+            <a href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats%203/" class="post-title-link" itemprop="url">heartbeat-elastic报错:system_api_version [6] is not supported by system_id [beats]</a>
         </h2>
 
         <div class="post-meta">
@@ -956,7 +882,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-20 19:03:37" itemprop="dateCreated datePublished" datetime="2017-03-20T19:03:37+08:00">2017-03-20</time>
+              <time title="创建时间：2018-02-11 20:43:00" itemprop="dateCreated datePublished" datetime="2018-02-11T20:43:00+08:00">2018-02-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -964,7 +890,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                  <a href="/categories/ELK-Stack/" itemprop="url" rel="index"><span itemprop="name">ELK Stack</span></a>
                 </span>
             </span>
 
@@ -977,8 +903,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/20/DockerForWindows/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/DockerForWindows/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/11/heartbeat-elastic报错-system-api-version-6-is-not-supported-by-system-id-beats 3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -994,29 +920,12 @@
 
       
           <blockquote>
-<p>Docker CE For Windows 同样分为了两个版本,  一个是稳定版; 一个是开发版</p>
+<p>配置heartbeat-elastic服务时日志报错如下<code>2018-02-11T07:36:29.217-0500    ERROR   pipeline/output.go:92   Failed to publish events: 400 Bad Request: {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;}],&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;},&quot;status&quot;:400}</code></p>
 </blockquote>
-<p>下载链接:</p>
-<ul>
-<li><a href="https://download.docker.com/win/stable/InstallDocker.msi" target="_blank" rel="noopener">Get Docker for Windows Stable</a></li>
-</ul>
-<ul>
-<li><a href="https://download.docker.com/win/beta/InstallDocker.msi" target="_blank" rel="noopener">Get Docker for Windows Edge</a></li>
-</ul>
-<p>系统要求:</p>
-<ul>
-<li>Windows 10 Pro Enterprise and Education (1511 November update, Build 10586 or later) 64bit</li>
-</ul>
-<ul>
-<li>Microsoft Hyper-V</li>
-</ul>
-<p>双击安装文件: InstallDocker.msi 打开安全程序界面.  按照正常的 Windows 软件安装流程, 我接受, 下一步, 下一步即可完成 docker 的安装</p>
-<p><em>提示: mac 版本和 windows 版本的 docker 仅限于体验. 甚至连测试环境都不推荐使用 mac 版和 windows 版, 因为在实际生产环境中,  依然还是在 Linux 系统下使用 docker, 而且相同的镜像, 相同的参数, 在 Linux 环境执行没有问题, 而在 mac 上执行出问题的事情已经发生过很多次了. 建议不要给自己铺垫这些不必要的麻烦!</em></p>
-<hr>
-<p>官方文档: </p>
-<ul>
-<li><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Install Docker for Windows - Docker Documentation</a></li>
-</ul>
+<p>解决方法:</p>
+<p>手动设置<code>/etc/heartbeat/heartbeat.yml</code> 配置文件中的 <code>name</code>变量 <code>name: 10.10.62.16</code> </p>
+<p>重启<code>heartbeat-elastic</code>服务即可</p>
+<p><code>systemctl restart heartbeat-elastic.service</code></p>
 
       
     </div>
@@ -1038,7 +947,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/DockerForMac/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1052,7 +961,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/20/DockerForMac/" class="post-title-link" itemprop="url">DockerForMac</a>
+            <a href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Python实现redis的自增操作</a>
         </h2>
 
         <div class="post-meta">
@@ -1062,7 +971,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-20 19:03:26" itemprop="dateCreated datePublished" datetime="2017-03-20T19:03:26+08:00">2017-03-20</time>
+              <time title="创建时间：2018-01-29 11:56:00" itemprop="dateCreated datePublished" datetime="2018-01-29T11:56:00+08:00">2018-01-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1070,7 +979,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1083,8 +992,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/20/DockerForMac/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/DockerForMac/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/29/Python实现redis的自增操作/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1100,29 +1009,21 @@
 
       
           <blockquote>
-<p>Docker CE For Mac 同样分为了两个版本,  一个是稳定版; 一个是开发版</p>
+<p>在传统的数据库中, 如果实现一个计数器的操作, 需要先去数据库中读取该值, 再程序中加1, 再讲最新的值存入数据库. 用户操作的流程步骤多不说, 还容易出现数据安全性的问题, 比如多进程/多线程的并发情况, 有可能出现A进程读取的计数器为5, 在本地执行+1, 操作的时候, 此时B进程也去执行计数器+1操作, B读取的数值也是5, 然后A将+1之后的数字6存入数据库, 之后B处理完后也将+1之后的6存入数据库, 这样就导致了在并发的情况下, 计数器的数据不准的情况.</p>
 </blockquote>
-<p>下载链接:</p>
+<p>Redis的很多操作本身都是原子性的, 例如上面案例中, 计数器+1的问题, 会有三个步骤</p>
 <ul>
-<li><a href="https://download.docker.com/mac/stable/Docker.dmg" target="_blank" rel="noopener">Get Docker for Mac Stable</a></li>
+<li>读取数值</li>
+<li>自增操作</li>
+<li>写入数值</li>
 </ul>
-<ul>
-<li><a href="https://download.docker.com/mac/beta/Docker.dmg" target="_blank" rel="noopener">Get Docker for Mac Edge</a></li>
-</ul>
-<p>双击安装文件: Docker.dmg 打开安全程序界面. 将左边的图标拖拽到右边的文件夹中.</p>
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/docker-app-drag.png" alt=""></p>
-<p>在 launchpad 中找到 docker 图标, 单机启动</p>
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/docker-app-in-apps.png" alt=""></p>
-<p>启动后会在 macOS 的导航栏中出现 docker 的图标</p>
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/whale-in-menu-bar.png" alt=""></p>
-<p>点击导航栏中的 docker 图标, 可以查看运行状态</p>
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/menu.png" alt=""></p>
-<p><em>提示: mac 版本和 windows 版本的 docker 仅限于体验. 甚至连测试环境都不推荐使用 mac 版和 windows 版, 因为在实际生产环境中,  依然还是在 Linux 系统下使用 docker, 而且相同的镜像, 相同的参数, 在 Linux 环境执行没有问题, 而在 mac 上执行出问题的事情已经发生过很多次了. 建议不要给自己铺垫这些不必要的麻烦!</em></p>
-<hr>
-<p>官方文档: </p>
-<ul>
-<li><a href="https://docs.docker.com/docker-for-mac/install/" target="_blank" rel="noopener">Install Docker for Mac - Docker Documentation</a> </li>
-</ul>
+<p>在传统数据库中, 为了保证数据的安全性, 这三个步骤通常是要加锁的, 也就是在步骤已经很多的情况下, 还需要考虑锁的问题. 但是Redis就不同了, Redis原子性的意思就是说, 可以保证上面的三个步骤是一个操作, 在这个操作完成之后才允许我们对其进行其他操作, 这就原生的保证了数据安全性</p>
+<h1 id="redis中的自增"><a href="#redis中的自增" class="headerlink" title="redis中的自增"></a>redis中的自增</h1><p>在redis中, 如果一个key的value是数值类型, 我们就可以对这个值进行incr操作, 如果数值是整形int, 使用incr进行自增操作, 如果数值是浮点型float, 则需要使用incrbyfloat进行操作, 还有一种情况, 就是对int使用了incrbyfloat操作, 则这个数值就会变成float类型, 也就无法再对其执行incr操作了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: pool=redis.ConnectionPool(host=<span class="string">'127.0.0.1'</span>,port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: r = redis.StrictRedis(connection_pool=pool)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: r.keys()</span><br><span class="line">Out[<span class="number">4</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: r.incr(<span class="string">'counter'</span>, <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: r.keys()</span><br><span class="line">Out[<span class="number">9</span>]: [<span class="string">b'counter'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: r.get(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">10</span>]: <span class="string">b'5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">11</span>]: <span class="number">6.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">12</span>]: <span class="number">7.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">7.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">14</span>]: <span class="number">7.2</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="redis中的自减"><a href="#redis中的自减" class="headerlink" title="redis中的自减"></a>redis中的自减</h1><p>redis中使用decr函数进行自减操作, 但是自减中, 没有提供类似incrbyfloat的操作, 如果在自减中想实现浮点数的效果, 可以通过在incrbyfloat函数中使用负数的方式实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: r.keys()</span><br><span class="line">Out[<span class="number">19</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">20</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: r.decr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">22</span>]: <span class="number">-1.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">23</span>]: <span class="number">-2.2</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1144,7 +1045,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/18/%E5%AE%89%E8%A3%85Docker/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1158,7 +1059,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/03/18/%E5%AE%89%E8%A3%85Docker/" class="post-title-link" itemprop="url">安装Docker</a>
+            <a href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/" class="post-title-link" itemprop="url">Python实现redis的自增操作</a>
         </h2>
 
         <div class="post-meta">
@@ -1168,7 +1069,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-03-18 11:24:00" itemprop="dateCreated datePublished" datetime="2017-03-18T11:24:00+08:00">2017-03-18</time>
+              <time title="创建时间：2018-01-29 11:56:00" itemprop="dateCreated datePublished" datetime="2018-01-29T11:56:00+08:00">2018-01-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1176,7 +1077,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1189,8 +1090,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/03/18/%E5%AE%89%E8%A3%85Docker/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/18/安装Docker/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/29/Python实现redis的自增操作 5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1205,315 +1106,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h1><p>在 Docker1.13.1版本之后, 突然改变了 Docker 版本的命令方式, 以<code>v年.月</code>的方式命令, 并且首次明确区分了社区版<code>CE</code>和企业版<code>EE</code></p>
-<h2 id="Docker-的版本"><a href="#Docker-的版本" class="headerlink" title="Docker 的版本"></a>Docker 的版本</h2><ul>
-<li>Docker Enterprise Edition (Docker EE)  Docker EE 的明显优势不在于 Docker Engine 的本身, 而在于 Docker 周边的生态配件. Docker 官方为 EE 版本设计开发了一套目前集成度极高的 Docker 容器管理平台. 集Docker 企业版 Engine, Docker Registry UI,  CICD,  监控等功能于一身(Docker Datacenter)</li>
-</ul>
+          <blockquote>
+<p>在传统的数据库中, 如果实现一个计数器的操作, 需要先去数据库中读取该值, 再程序中加1, 再讲最新的值存入数据库. 用户操作的流程步骤多不说, 还容易出现数据安全性的问题, 比如多进程/多线程的并发情况, 有可能出现A进程读取的计数器为5, 在本地执行+1, 操作的时候, 此时B进程也去执行计数器+1操作, B读取的数值也是5, 然后A将+1之后的数字6存入数据库, 之后B处理完后也将+1之后的6存入数据库, 这样就导致了在并发的情况下, 计数器的数据不准的情况.</p>
+</blockquote>
+<p>Redis的很多操作本身都是原子性的, 例如上面案例中, 计数器+1的问题, 会有三个步骤</p>
 <ul>
-<li>Docker Community Edition (Docker CE)  Docker CE 就是我们之前一直在使用的开源版 Docker-engine. 也是我们将来主要使用的版本. Docker CE的版本发布规则如下:<ul>
-<li>Stable 稳定版. 每季度发行一版</li>
-<li>Edge 开发版. 每月发行一版</li>
+<li>读取数值</li>
+<li>自增操作</li>
+<li>写入数值</li>
 </ul>
-</li>
-</ul>
-<h2 id="平台支持一览表"><a href="#平台支持一览表" class="headerlink" title="平台支持一览表"></a>平台支持一览表</h2><table>
-<thead>
-<tr>
-<th>平台</th>
-<th>Docker EE</th>
-<th>Docker</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ubuntu</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Debian</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Red Hat Enterprise Linux</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>CentOS</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Fedora</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Oracle Linux</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>SUSE Linux Enterprise Server</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Microsoft WinServer 2016</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Microsoft Windows 10</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>macOS</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-</tbody></table>
-<h2 id="查看官方帮助文档"><a href="#查看官方帮助文档" class="headerlink" title="查看官方帮助文档"></a>查看官方帮助文档</h2><p>截止到目前, 最新版本为 v17.03, 你可以通过<code>latest</code>标签🏷获取最新文档</p>
-<ul>
-<li>v17.03 (current)<br>Docs for v17.03 (current) are accessible at <a href="https://docs.docker.com/" target="_blank" rel="noopener">https://docs.docker.com/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:latest</code></li>
-<li>v1.13<br>Docs for v1.13 are accessible at <a href="https://docs.docker.com/v1.13/" target="_blank" rel="noopener">https://docs.docker.com/v1.13/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.13</code></li>
-<li>v1.12<br>Docs for v1.12 are accessible at <a href="https://docs.docker.com/v1.12/" target="_blank" rel="noopener">https://docs.docker.com/v1.12/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.12</code></li>
-<li>v1.11<br>Docs for v1.11 are accessible at <a href="https://docs.docker.com/v1.11/" target="_blank" rel="noopener">https://docs.docker.com/v1.11/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.11</code></li>
-<li>v1.10<br>Docs for v1.10 are accessible at <a href="https://docs.docker.com/v1.10/" target="_blank" rel="noopener">https://docs.docker.com/v1.10/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.10</code></li>
-<li>v1.9<br>Docs for v1.9 are accessible at <a href="https://docs.docker.com/v1.9/" target="_blank" rel="noopener">https://docs.docker.com/v1.9/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.9</code></li>
-<li>v1.8<br>Docs for v1.8 are accessible at <a href="https://docs.docker.com/v1.8/" target="_blank" rel="noopener">https://docs.docker.com/v1.8/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.8</code></li>
-<li>v1.7<br>Docs for v1.7 are accessible at <a href="https://docs.docker.com/v1.7/" target="_blank" rel="noopener">https://docs.docker.com/v1.7/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.7</code></li>
-<li>v1.6<br>Docs for v1.6 are accessible at <a href="https://docs.docker.com/v1.6/" target="_blank" rel="noopener">https://docs.docker.com/v1.6/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.6</code></li>
-<li>v1.5<br>Docs for v1.5 are accessible at <a href="https://docs.docker.com/v1.5/" target="_blank" rel="noopener">https://docs.docker.com/v1.5/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.5</code></li>
-<li>v1.4<br>Docs for v1.4 are accessible at <a href="https://docs.docker.com/v1.4/" target="_blank" rel="noopener">https://docs.docker.com/v1.4/</a>, or run:<br><code>docker run -ti -p 4000:4000 docs/docker.github.io:v1.4</code></li>
-</ul>
+<p>在传统数据库中, 为了保证数据的安全性, 这三个步骤通常是要加锁的, 也就是在步骤已经很多的情况下, 还需要考虑锁的问题. 但是Redis就不同了, Redis原子性的意思就是说, 可以保证上面的三个步骤是一个操作, 在这个操作完成之后才允许我们对其进行其他操作, 这就原生的保证了数据安全性</p>
+<h1 id="redis中的自增"><a href="#redis中的自增" class="headerlink" title="redis中的自增"></a>redis中的自增</h1><p>在redis中, 如果一个key的value是数值类型, 我们就可以对这个值进行incr操作, 如果数值是整形int, 使用incr进行自增操作, 如果数值是浮点型float, 则需要使用incrbyfloat进行操作, 还有一种情况, 就是对int使用了incrbyfloat操作, 则这个数值就会变成float类型, 也就无法再对其执行incr操作了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: pool=redis.ConnectionPool(host=<span class="string">'127.0.0.1'</span>,port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: r = redis.StrictRedis(connection_pool=pool)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: r.keys()</span><br><span class="line">Out[<span class="number">4</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: r.incr(<span class="string">'counter'</span>, <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: r.keys()</span><br><span class="line">Out[<span class="number">9</span>]: [<span class="string">b'counter'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: r.get(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">10</span>]: <span class="string">b'5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">11</span>]: <span class="number">6.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">12</span>]: <span class="number">7.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">7.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">14</span>]: <span class="number">7.2</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h1 id="redis中的自减"><a href="#redis中的自减" class="headerlink" title="redis中的自减"></a>redis中的自减</h1><p>redis中使用decr函数进行自减操作, 但是自减中, 没有提供类似incrbyfloat的操作, 如果在自减中想实现浮点数的效果, 可以通过在incrbyfloat函数中使用负数的方式实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: r.keys()</span><br><span class="line">Out[<span class="number">19</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">20</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: r.decr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">22</span>]: <span class="number">-1.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">23</span>]: <span class="number">-2.2</span></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/" class="post-title-link" itemprop="url">为什么要使用Docker</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-18 01:10:57" itemprop="dateCreated datePublished" datetime="2017-03-18T01:10:57+08:00">2017-03-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/18/为什么要使用Docker/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="为什么要使用-Docker"><a href="#为什么要使用-Docker" class="headerlink" title="为什么要使用 Docker"></a>为什么要使用 Docker</h1><h2 id="Docker-容器虚拟化带来的好处"><a href="#Docker-容器虚拟化带来的好处" class="headerlink" title="Docker 容器虚拟化带来的好处"></a>Docker 容器虚拟化带来的好处</h2><p>传统的 LAMP 架构, 搭建起来费时费力, 需要调整很多依赖环境. 更可怕的是一旦需要做服务迁移, 一切都要重来.</p>
-<p>Docker 提供了一种更为简单的方式, 通过容器来打包应用, 意味着迁移服务只需要在新的服务器上启动相应的容器即可. 大大减少迁移的时间和成本, 并大幅降低部署过程中可能会出现的问题和风险</p>
-<h2 id="Docker-在开发和运维中的优势"><a href="#Docker-在开发和运维中的优势" class="headerlink" title="Docker 在开发和运维中的优势"></a>Docker 在开发和运维中的优势</h2><p>对于开发和运维来说, 最梦寐以求的就是一次性的创建或配置, 可以在任意环境, 任意时间让应用正常的运行. 而 Docker 就是实现这一目标的利器.</p>
-<p>具体来说, Docker 在开发和运维中具有如下优势:</p>
-<ul>
-<li>更快的交付和部署</li>
-</ul>
-<ul>
-<li>更高效的资源利用</li>
-<li>更轻松的迁移扩展</li>
-<li>更简单的更新管理</li>
-</ul>
-<h2 id="Docker-与虚拟机的比较"><a href="#Docker-与虚拟机的比较" class="headerlink" title="Docker 与虚拟机的比较"></a>Docker 与虚拟机的比较</h2><ul>
-<li>Docker 启动和关闭容器的速度非常快, 可以在秒级实现, 相比传统的虚拟机速度要快很多</li>
-</ul>
-<ul>
-<li>Docker 容器对系统资源需求很少, 一台主机上可以同时运行数千个 Docker 容器</li>
-<li>Docker 通过类似 Git 的操作来方便用户获取/分发和更新应用镜像, 指令简明, 学习成本低</li>
-<li>Docker 可以通过 Dockerfile 配置文件来支持灵活的自动化创建和部署机制, 提高工作效率</li>
-</ul>
-<p>Docker 容器除了运行其中的应用之外, 基本上不消耗额外的系统资源, 保证应用性能的同时, 尽量减小系统开销. 传统的虚拟机运行 N 个不同的应用就要启动 N 个虚拟机, 每个虚拟机需要单独配置独占的内存,硬盘等资源, 而 Docker 只需要启动 N 个隔离的容器, 并将应用放到容器内即可</p>
-<p>在隔离性方面, 传统的虚拟机方式多了一层额外的隔离. 但这并不意味这 Docker 不安全. Docker 利用 Linux 系统上的多种防护机制实现了严格可靠的隔离. 从1.3版本开始, Docker 引入了安全选项和镜像签名机制, 极大地提高了 Docker 的安全性.</p>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>容器</th>
-<th>虚拟机</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>启动速度</td>
-<td>秒级</td>
-<td>分钟级</td>
-</tr>
-<tr>
-<td>硬盘使用</td>
-<td>MB</td>
-<td>GB</td>
-</tr>
-<tr>
-<td>性能</td>
-<td>接近原生</td>
-<td>5%以上的性能损耗</td>
-</tr>
-<tr>
-<td>系统支持量</td>
-<td>单机支持上千个容器</td>
-<td>一般几十个容器</td>
-</tr>
-<tr>
-<td>隔离性</td>
-<td>安全隔离</td>
-<td>完全隔离</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/" class="post-title-link" itemprop="url">Docker 在国内的发展现状</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-06 23:49:41" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:41+08:00">2017-03-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/Docker-在国内的发展现状/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Docker 在国际上虽然也可以称得上是新兴技术, 但是在国内, 丝毫没有看出 Docker 一个起步不到4年的年轻产品. 在国内, 众多大厂开始大量使用 Docker 基础. 其中 <code>滴滴</code> <code>京东</code> <code>蘑菇街</code> <code>知乎</code> <code>豆瓣</code>等大型互联网公司都在大规模的在线上环境落地 Docker 技术.</p>
-<p>在2016年的双11之后, 京东更是首先爆出15万 Docker 服务器的规模. 可见 Docker 现在虽然还是一个快速迭代, 快速完善的系统, 但是已经得到了世界互联网大厂的任何. Docker 的早期线上落地的推广, 大都是由这些互联网大厂实施的. 给后续的中小企业也带来了极高的参考价值.</p>
-<p>在5年前, 像 OpenStack 以及 CloudStack 这类云服务基础架构出现时, 在运维领域刮起了一阵飓风🌪 短短几年间, IDC 机房不再是所有互联网公司的标配, 为了减少运维成本, 更多的去关注业务的本身, 越来越多的创业公司选择使用公有云服务. </p>
-<p>5年后的今天, IaaS 的公有云服务仍然是主流, 在 IaaS 之上又出现了 CaaS 服务, 即以 Container 为主导的基础服务架构. 将 IaaS 的资源利用到极致. Docker 不是 IaaS 的替代品, 但却是 IaaS 平台强有力的补充, 在为企业提高资源利用率, 减少成本, 提高自动化程度等方面提供了强有力的支持. </p>
-<p>即使目前大多中小企业依然在自己的开发环境和测试环境观望 Docker 技术的发展, 但是不可否认的是 Docker 目前已经有能力胜任线上业务的重担. 通过网上大厂们流传出的”最佳实践”, 完全可以指到我们将服务容器化, 并很好的调试和排错.</p>
 
       
     </div>
@@ -1535,7 +1143,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1603,7 +1211,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
