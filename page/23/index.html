@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,176 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/Docker-For-CentOS%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/21/Docker-For-CentOS%203/" class="post-title-link" itemprop="url">Docker For CentOS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-21 14:39:36" itemprop="dateCreated datePublished" datetime="2017-03-21T14:39:36+08:00">2017-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/21/Docker-For-CentOS%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/Docker-For-CentOS 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>CentOS是 RHEL 的近亲, 在于对 Docker 的支持方面, CentOS 要比 RHEL 好一些, 至少, CentOS 支持 Docker CE 版本的部署. 在实际生产环境中, CentOS 服务器占有很大的比重, 但是如果需要在 CentOS 系统中使用 Docker, 比较推荐将内核升级到4.0+</p>
+</blockquote>
+<p>本篇文章只介绍 Docker CE 版本在 CentOS 系统中的部署</p>
+<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
+<li>64bit CentOS 7</li>
+</ul>
+<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  container-selinux \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<p>需要 <code>yum</code> 命令的回显显示没有相关的软件包被安装</p>
+<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
+<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><h3 id="从软件源中安装-Docker"><a href="#从软件源中安装-Docker" class="headerlink" title="从软件源中安装 Docker"></a>从软件源中安装 Docker</h3><h4 id="配置软件仓库-Docker-CE"><a href="#配置软件仓库-Docker-CE" class="headerlink" title="配置软件仓库 Docker-CE"></a>配置软件仓库 Docker-CE</h4><ul>
+<li>安装 <code>yum-utils</code> 工具集, 以提供 <code>yum-config-manager</code>命令的支持</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置 Docker 软件源 (Stable)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开启/关闭 开发版(edge) Docker 软件源</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</span><br><span class="line">$ sudo yum-config-manager --<span class="built_in">disable</span> docker-ce-edge</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><ul>
+<li>更新软件源索引</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p>接受 GPG key</p>
+<ul>
+<li>安装 Docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-ce  <span class="comment"># 安装最新版本</span></span><br><span class="line">$ sudo yum install docker-ce-&lt;VERSION&gt;  <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 Docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>验证 Docker EE 正常运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>升级 Docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum makecache fast</span><br><span class="line">$ sudo yum update docker-ce</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="使用软件包直接安装"><a href="#使用软件包直接安装" class="headerlink" title="使用软件包直接安装"></a>使用软件包直接安装</h3><ul>
+<li>下载对应版本的 <code>.rpm</code> 软件包</li>
+</ul>
+<p>Docker CE: Go to <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/" target="_blank" rel="noopener">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/</a>  and download the <code>.rpm</code></p>
+<ul>
+<li>安装软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install /path/to/package.rpm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 Docker 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>验证 Docker 服务正常运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h2 id="卸载-Docker-CE"><a href="#卸载-Docker-CE" class="headerlink" title="卸载 Docker CE"></a>卸载 Docker CE</h2><ul>
+<li>卸载 Docker CE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker-ce</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>镜像/容器/数据卷和自定义配置文件不会随着卸载而自动删除, 你需要手动去清除他们</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考官方文档:</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/installation/linux/centos/#install-from-a-package" target="_blank" rel="noopener">Get Docker for CentOS - Docker Documentation</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1475,184 +1645,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/Docker-For-Ubuntu%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/20/Docker-For-Ubuntu%203/" class="post-title-link" itemprop="url">Docker For Ubuntu</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-20 23:39:54" itemprop="dateCreated datePublished" datetime="2017-03-20T23:39:54+08:00">2017-03-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/20/Docker-For-Ubuntu%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/Docker-For-Ubuntu 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Ubuntu 是 docker 第一个支持的系统发行版, 截止到目前, 我们也依然推荐在生产环境中使用 Ubuntu 系统. 虽然我也很喜欢 CentOS, 但是在 docker 这件事儿中, Ubuntu 确实是最合适的系统选择</p>
-</blockquote>
-<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
-<li>64bit Yakkety 16.10</li>
-</ul>
-<ul>
-<li>64bit Xenial 16.04 (LTS)    &lt;== 个人推荐使用此版本的 Ubuntu 发行版</li>
-<li>64bit Trusty 14.04 (LTS)</li>
-</ul>
-<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
-
-<p>需要 <code>apt-get</code> 命令的回显显示没有相关的软件包被安装</p>
-<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
-<h2 id="Ubuntu-Trusty-14-04-额外安装的软件包"><a href="#Ubuntu-Trusty-14-04-额外安装的软件包" class="headerlink" title="Ubuntu Trusty 14.04 额外安装的软件包"></a>Ubuntu Trusty 14.04 额外安装的软件包</h2><p>在官方文档中, 强烈推荐 Ubuntu14.04版本如果使用<code>aufs</code> 存储引擎, 那么一定要安装以下软件包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><h3 id="从软件源中安装-Docker"><a href="#从软件源中安装-Docker" class="headerlink" title="从软件源中安装 Docker"></a>从软件源中安装 Docker</h3><h4 id="配置软件仓库-Docker-CE"><a href="#配置软件仓库-Docker-CE" class="headerlink" title="配置软件仓库 Docker-CE"></a>配置软件仓库 Docker-CE</h4><ul>
-<li>安装软件包, 以允许<code>apt</code>命令可以通过 https 协议使用软件源(repository)</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 Docker 官方 GPG key</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>配置 <code>stable</code> 版本的软件源</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository \</span><br><span class="line">   &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu \</span><br><span class="line">   $(lsb_release -cs) \</span><br><span class="line">   stable&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><ul>
-<li>更新系统软件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装最新版本的 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在生产环境, 你可能需要安装指定版本的 Docker,</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce=&lt;VERSION&gt;</span><br></pre></td></tr></table></figure>
-
-<p><em>docker-ce 在安装好后自动启动</em></p>
-<ul>
-<li>启动 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>添加用户到 Docker 组</li>
-</ul>
-<p>在生产环境中, 不是每个人登录都是使用 root 用户, 可能需要给普通用户操作 docker 的权限, 那么将该用户添加到 docker 组是简单方便的方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>升级 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="使用软件包直接安装"><a href="#使用软件包直接安装" class="headerlink" title="使用软件包直接安装"></a>使用软件包直接安装</h3><ul>
-<li>下载对应版本的 <code>.deb</code> 软件包</li>
-</ul>
-<p>Docker CE: Go to <a href="https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/</a> and download the .deb </p>
-<ul>
-<li>安装软件包</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i /path/to/package.deb</span><br></pre></td></tr></table></figure>
-
-<p>The Docker daemon starts automatically.</p>
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="卸载-Docker-CE"><a href="#卸载-Docker-CE" class="headerlink" title="卸载 Docker CE"></a>卸载 Docker CE</h2><ul>
-<li>卸载 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>镜像/容器/数据卷和自定义配置文件不会随着卸载而自动删除, 你需要手动去清除他们</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1725,7 +1717,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1738,7 +1730,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

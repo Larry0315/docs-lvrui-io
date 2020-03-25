@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,116 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/24/Python%E4%B8%AD%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/24/Python%E4%B8%AD%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%205/" class="post-title-link" itemprop="url">Python中多进程之间的数据共享</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-24 15:23:29" itemprop="dateCreated datePublished" datetime="2016-07-24T15:23:29+08:00">2016-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/24/Python%E4%B8%AD%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/24/Python中多进程之间的数据共享 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>多进程中，每个进程都是独立的，各自持有一份数据，无法共享。本篇文章介绍三种用于进程数据共享的方法</p>
+</blockquote>
+<ul>
+<li>queues</li>
+<li>Array</li>
+<li>Manager.dict</li>
+<li>pipe</li>
+</ul>
+<h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> queues</span><br><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, q)</span>:</span></span><br><span class="line">    q.put(i)</span><br><span class="line">    print(<span class="string">"---&gt;"</span>, i, q.qsize())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">q = queues.Queue(<span class="number">9</span>, ctx=multiprocessing)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    p = multiprocessing.Process(target=func, args=(i, q,))</span><br><span class="line">    p.start()</span><br><span class="line">p.join()</span><br></pre></td></tr></table></figure>
+
+<p>Queue是多进程安全的队列，可以使用Queue实现多进程之间的数据传递。put方法用以插入数据到队列中，put方法还有两个可选参数：blocked和timeout。如果blocked为True（默认值），并且timeout为正值，该方法会阻塞timeout指定的时间，直到该队列有剩余的空间。如果超时，会抛出Queue.Full异常。如果blocked为False，但该Queue已满，会立即抛出Queue.Full异常</p>
+<p>get方法可以从队列读取并且删除一个元素。同样，get方法有两个可选参数：blocked和timeout。如果blocked为True（默认值），并且timeout为正值，那么在等待时间内没有取到任何元素，会抛出Queue.Empty异常。如果blocked为False，有两种情况存在，如果Queue有一个值可用，则立即返回该值，否则，如果队列为空，则立即抛出Queue.Empty异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, q)</span>:</span></span><br><span class="line">    q.put(i)</span><br><span class="line">    print(<span class="string">"---&gt;"</span>, i, q.qsize())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">q = multiprocessing.Queue()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    p = multiprocessing.Process(target=func, args=(i, q,))</span><br><span class="line">    p.start()</span><br><span class="line">p.join()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Array</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, ar)</span>:</span></span><br><span class="line">    ar[i] = i</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> ar:</span><br><span class="line">        print(item)</span><br><span class="line">    print(<span class="string">"------"</span>)</span><br><span class="line"></span><br><span class="line">ar = Array(<span class="string">'i'</span>, <span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    p = Process(target=func, args=(i, ar,))</span><br><span class="line">    p.start()</span><br><span class="line">p.join()</span><br></pre></td></tr></table></figure>
+
+<p>Array的局限性在于受制于数组的特性，即需要指定数据类型且长度固定</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据类型对照表</span></span><br><span class="line"><span class="string">'c'</span>: ctypes.c_char,  <span class="string">'u'</span>: ctypes.c_wchar,</span><br><span class="line"><span class="string">'b'</span>: ctypes.c_byte,  <span class="string">'B'</span>: ctypes.c_ubyte,</span><br><span class="line"><span class="string">'h'</span>: ctypes.c_short, <span class="string">'H'</span>: ctypes.c_ushort,</span><br><span class="line"><span class="string">'i'</span>: ctypes.c_int,   <span class="string">'I'</span>: ctypes.c_uint,</span><br><span class="line"><span class="string">'l'</span>: ctypes.c_long,  <span class="string">'L'</span>: ctypes.c_ulong,</span><br><span class="line"><span class="string">'f'</span>: ctypes.c_float, <span class="string">'d'</span>: ctypes.c_double</span><br></pre></td></tr></table></figure>
+
+<h1 id="Manager-dict"><a href="#Manager-dict" class="headerlink" title="Manager.dict"></a>Manager.dict</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process, Manager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个子进程执行的函数</span></span><br><span class="line"><span class="comment"># 参数中，传递了一个用于多进程之间数据共享的特殊字典</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, d)</span>:</span></span><br><span class="line">    d[i] = i + <span class="number">100</span></span><br><span class="line">    print(d.values())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在主进程中创建特殊字典</span></span><br><span class="line">m = Manager()</span><br><span class="line">d = m.dict()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    <span class="comment"># 让子进程去修改主进程的特殊字典</span></span><br><span class="line">    p = Process(target=func, args=(i, d))</span><br><span class="line">    p.start()</span><br><span class="line">p.join()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="number">100</span>]</span><br><span class="line">[<span class="number">100</span>, <span class="number">101</span>]</span><br><span class="line">[<span class="number">100</span>, <span class="number">101</span>, <span class="number">102</span>, <span class="number">103</span>]</span><br><span class="line">[<span class="number">100</span>, <span class="number">101</span>, <span class="number">102</span>, <span class="number">103</span>]</span><br><span class="line">[<span class="number">100</span>, <span class="number">101</span>, <span class="number">102</span>, <span class="number">103</span>, <span class="number">104</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>Manager.dict</strong>是多进程数据共享中比较常用的做法</p>
+<h1 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h1><p>Pipe方法返回(conn1, conn2)代表一个管道的两个端。Pipe方法有duplex参数，如果duplex参数为True(默认值)，那么这个管道是全双工模式，也就是说conn1和conn2均可收发。duplex为False，conn1只负责接受消息，conn2只负责发送消息</p>
+<p>send和recv方法分别是发送和接受消息的方法。例如，在全双工模式下，可以调用conn1.send发送消息，conn1.recv接收消息。如果没有消息可接收，recv方法会一直阻塞。如果管道已经被关闭，那么recv方法会抛出EOFError</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span><span class="params">(arg, pp)</span>:</span></span><br><span class="line">    pp.send(arg)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">(pp)</span>:</span></span><br><span class="line">    recv = pp.recv()</span><br><span class="line">    print(recv)</span><br><span class="line"></span><br><span class="line">pp = multiprocessing.Pipe()</span><br><span class="line">p1 = multiprocessing.Process(target=func1, args=(<span class="string">"PolarSnow"</span>, pp[<span class="number">0</span>],))</span><br><span class="line">p2 = multiprocessing.Process(target=func2, args=(pp[<span class="number">1</span>],))</span><br><span class="line">p1.start()</span><br><span class="line">p2.start()</span><br><span class="line">p1.join()</span><br><span class="line">p2.join()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">PolarSnow</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1101,100 +1211,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/" class="post-title-link" itemprop="url">自定义线程池的实现思路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-22 02:57:06" itemprop="dateCreated datePublished" datetime="2016-07-22T02:57:06+08:00">2016-07-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/22/自定义线程池的实现思路 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在使用多线程的过程中，一旦任务数量过多，如果不对派生出来的子线程做出限制的话，多线程极有可能会拉低程序的性能，这时，我们需要维护一个固定数量的线程，也就是线程池的概念</p>
-</blockquote>
-<p>实现线程池的思路：</p>
-<ul>
-<li>设置线程池的容量</li>
-<li>每取走一个线程，在线程池中就减少一个线程</li>
-<li>每个子线程的任务执行完毕，把自己的线程配额放回线程池中</li>
-<li>当线程池中的线程全部分配完毕，新的任务需要等待获取线程池中的线程</li>
-</ul>
-<p>基于以上的需求，我们可以通过队列来实现线程池的功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> queue</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadPool</span>:</span></span><br><span class="line">    <span class="comment"># 接收的实例化参数为线程池的最大容量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, maxsize=<span class="number">5</span>)</span>:</span></span><br><span class="line">        self.maxsize = maxsize</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置队列的最大容量</span></span><br><span class="line">        self.q = queue.Queue(maxsize)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用线程类填满队列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(maxsize):</span><br><span class="line">            self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 从队列中取出一个线程类返回</span></span><br><span class="line">        <span class="keyword">return</span> self.q.get()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 先线程池添加一个线程类</span></span><br><span class="line">        <span class="comment"># 用来被执行完任务的函数调用,实现回收线程配额的功能</span></span><br><span class="line">        self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task</span><span class="params">(arg, pool)</span>:</span></span><br><span class="line">    <span class="string">"""接收了一个线程池对象"""</span></span><br><span class="line">    print(arg)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行完毕函数的主体后,将拿到的线程配额再放回到线程池中</span></span><br><span class="line">    pool.add_thread()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建一个容量为5的线程池</span></span><br><span class="line">    pool = ThreadPool(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">59</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 从线程池中拿到一个线程对象</span></span><br><span class="line">        <span class="comment"># 相当于 t = threading.Thread</span></span><br><span class="line">        t = pool.get_thread()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建子线程对象</span></span><br><span class="line">        <span class="comment"># 把线程池对象传递到执行函数中</span></span><br><span class="line">        o = t(target=task, args=(i, pool,))</span><br><span class="line"></span><br><span class="line">        o.start()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1267,7 +1283,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1280,7 +1296,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

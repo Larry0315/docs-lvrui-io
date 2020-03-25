@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,92 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%203/" class="post-title-link" itemprop="url">Go基础之条件判断</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-25 22:57:31" itemprop="dateCreated datePublished" datetime="2018-07-25T22:57:31+08:00">2018-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/25/Go基础之条件判断 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"runtime"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IfDemo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	OSName := runtime.GOOS</span><br><span class="line">	<span class="comment">// 现在if条件外面赋值, 再进行判断</span></span><br><span class="line">	<span class="keyword">if</span> OSName == <span class="string">"windows"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"It's Windows"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> OSName == <span class="string">"linux"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"It's Linux🐧"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> OSName == <span class="string">"darwin"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"It's MacOS🍎"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Other OS"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 也可以在if条件语句中先赋值再判断</span></span><br><span class="line">	<span class="comment">// if条件里的变量作用域只在if代码块中</span></span><br><span class="line">	<span class="keyword">if</span> OSArch := runtime.GOARCH; OSArch == <span class="string">"amd64"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"64位操作系统❗️"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> OSArch == <span class="string">"amd32"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"32位操作系统❗️️"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"什么鬼❓"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SwitchDemo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	OSName := runtime.GOOS</span><br><span class="line">	<span class="comment">// switch语句, switch后可以跟任何类型的变量, case后跟该变量相同类型的值</span></span><br><span class="line">	<span class="keyword">switch</span> OSName &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"windows"</span>: fmt.Println(<span class="string">"It's Windows"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"linux"</span>: fmt.Println(<span class="string">"It's Linux🐧"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"darwin"</span>: fmt.Println(<span class="string">"It's MacOS🍎"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"unix"</span>, <span class="string">"ios"</span>, <span class="string">"android"</span>: fmt.Println(<span class="string">"🙃"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"什么鬼❓"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	OSArch := runtime.GOARCH</span><br><span class="line">	<span class="comment">// switch语句, switch后面可以不跟任何类型的变量, 由case后定义表达式</span></span><br><span class="line">	<span class="keyword">switch</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> OSArch == <span class="string">"amd64"</span>: fmt.Println(<span class="string">"64位操作系统❗️"</span>)</span><br><span class="line">	<span class="keyword">case</span> OSArch == <span class="string">"amd32"</span>: fmt.Println(<span class="string">"32位操作系统❗️"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"什么鬼❓"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	IfDemo()</span><br><span class="line">	SwitchDemo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">It&#39;s MacOS🍎</span><br><span class="line">64位操作系统❗️</span><br><span class="line">It&#39;s MacOS🍎</span><br><span class="line">64位操作系统❗</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -959,92 +1045,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/" class="post-title-link" itemprop="url">TypeError: not all arguments converted during string formatting python</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-03-16 16:02:39" itemprop="dateCreated datePublished" datetime="2018-03-16T16:02:39+08:00">2018-03-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>该报错发生在字符串拼接时的操作, 以下字符串拼接的方式, 只要不混用, 该问题就可以解决</p>
-<h1 id="第一种-占位符"><a href="#第一种-占位符" class="headerlink" title="第一种 % 占位符"></a>第一种 % 占位符</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">2</span>]: s  = <span class="string">"abc %s"</span> % <span class="number">123</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: s</span><br><span class="line">Out[<span class="number">3</span>]: <span class="string">'abc 123'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: s = <span class="string">'abc %s %s'</span> % (<span class="number">123</span>, <span class="number">456</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s</span><br><span class="line">Out[<span class="number">5</span>]: <span class="string">'abc 123 456'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="第二种-大括号"><a href="#第二种-大括号" class="headerlink" title="第二种 {} 大括号"></a>第二种 {} 大括号</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: s = <span class="string">'abc &#123;0&#125;'</span>.format(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: s</span><br><span class="line">Out[<span class="number">7</span>]: <span class="string">'abc 123'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: s = <span class="string">'abc &#123;0&#125; &#123;1&#125;'</span>.format(<span class="number">123</span>, <span class="number">456</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: s</span><br><span class="line">Out[<span class="number">9</span>]: <span class="string">'abc 123 456'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1117,7 +1117,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1130,7 +1130,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

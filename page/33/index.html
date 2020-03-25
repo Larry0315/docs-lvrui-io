@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%205/" class="post-title-link" itemprop="url">开启GTID的情况下导出导入库的注意事项</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-28 11:45:06" itemprop="dateCreated datePublished" datetime="2016-10-28T11:45:06+08:00">2016-10-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/28/开启GTID的情况下导出导入库的注意事项 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息. </p>
+</blockquote>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don<span class="string">'t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
+
+<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
+<p><code>➜  mysqldump -uroot -p --set-gtid-purged=OFF userdb &gt; userdb.sql</code></p>
+<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
+<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
+<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line">ERROR 1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be <span class="built_in">set</span> when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
+
+<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
+<p>这个时候你有两个选择:</p>
+<ol>
+<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
+<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1085,106 +1186,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/" class="post-title-link" itemprop="url">开启/关闭SWAP功能+制作SWAP文件/分区</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 12:10:31" itemprop="dateCreated datePublished" datetime="2016-10-12T12:10:31+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/开启-关闭SWAP功能-制作SWAP文件-分区 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 linux 中可以使用<code>free -m</code>命令来查看内存的使用情况(包括 swap 交换分区的使用情况)关于 swap 存在的意义不再讨论, 有的人在某些情况下需要开启 swap 功能以保证程序不会崩溃; 有的人在某些情况下需要关闭 swap 功能以保证”宁宕毋慢”.</p>
-</blockquote>
-<h1 id="开启-关闭-swap-功能"><a href="#开启-关闭-swap-功能" class="headerlink" title="开启/关闭 swap 功能"></a>开启/关闭 swap 功能</h1><h2 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h2><ul>
-<li>swap 文件: <code>swapon /opt/swapfile</code></li>
-<li>swap 分区: <code>swapon /dev/sdb1</code></li>
-</ul>
-<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ul>
-<li>swap 文件: <code>swapoff /opt/swapfile</code></li>
-<li>swap 分区: <code>swapoff /dev/sdb1</code></li>
-</ul>
-<p>如果是系统在安装时设置了 swap, 在后期想要关闭 swap 功能,可以去修改<code>/etc/fstab</code>文件</p>
-<p>将包含有 swap 信息的这一行注释掉<code>/dev/mapper/centos-swap swap                    swap    defaults        0 0</code></p>
-<h1 id="增加-swap-空间"><a href="#增加-swap-空间" class="headerlink" title="增加 swap 空间"></a>增加 swap 空间</h1><h2 id="制作-swap-文件"><a href="#制作-swap-文件" class="headerlink" title="制作 swap 文件"></a>制作 swap 文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个1G的文件作为交换分区使用</span></span><br><span class="line">➜  ~ dd <span class="keyword">if</span>=/dev/zero of=/opt/swapfile bs=1M count=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成swap分区</span></span><br><span class="line">➜  ~ mkswap /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开swap分区</span></span><br><span class="line">➜  ~ swapon /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<h2 id="制作-swap-分区"><a href="#制作-swap-分区" class="headerlink" title="制作 swap 分区"></a>制作 swap 分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个 swap 分区</span></span><br><span class="line">➜  ~ fdisk /dev/sdb</span><br><span class="line">		<span class="comment"># 新建一个分区</span></span><br><span class="line">		n</span><br><span class="line">		p</span><br><span class="line">		default</span><br><span class="line">		default</span><br><span class="line">		...</span><br><span class="line">		<span class="comment"># 修改分区 id 为swap</span></span><br><span class="line">		t</span><br><span class="line">		82</span><br><span class="line">		<span class="comment"># 写入分区表</span></span><br><span class="line">		w</span><br><span class="line">		</span><br><span class="line"><span class="comment"># 同步内存和分区表信息</span></span><br><span class="line">➜  ~  partprobe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成 swap 分区</span></span><br><span class="line">➜  ~  mkswap /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 swap 分区</span></span><br><span class="line">➜  ~  swapon /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<p><em>Tips: 如果本机已有2G swap 交换分区,又制作了一个8G 的 swap 分区文件, 那么在执行<code>swapon</code>命令之后, swap 空间将为10G(swap 空间会累加)</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1257,7 +1258,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1270,7 +1271,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

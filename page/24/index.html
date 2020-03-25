@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,184 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/Docker-For-Ubuntu%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/20/Docker-For-Ubuntu%203/" class="post-title-link" itemprop="url">Docker For Ubuntu</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-20 23:39:54" itemprop="dateCreated datePublished" datetime="2017-03-20T23:39:54+08:00">2017-03-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/20/Docker-For-Ubuntu%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/Docker-For-Ubuntu 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Ubuntu 是 docker 第一个支持的系统发行版, 截止到目前, 我们也依然推荐在生产环境中使用 Ubuntu 系统. 虽然我也很喜欢 CentOS, 但是在 docker 这件事儿中, Ubuntu 确实是最合适的系统选择</p>
+</blockquote>
+<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
+<li>64bit Yakkety 16.10</li>
+</ul>
+<ul>
+<li>64bit Xenial 16.04 (LTS)    &lt;== 个人推荐使用此版本的 Ubuntu 发行版</li>
+<li>64bit Trusty 14.04 (LTS)</li>
+</ul>
+<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
+
+<p>需要 <code>apt-get</code> 命令的回显显示没有相关的软件包被安装</p>
+<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
+<h2 id="Ubuntu-Trusty-14-04-额外安装的软件包"><a href="#Ubuntu-Trusty-14-04-额外安装的软件包" class="headerlink" title="Ubuntu Trusty 14.04 额外安装的软件包"></a>Ubuntu Trusty 14.04 额外安装的软件包</h2><p>在官方文档中, 强烈推荐 Ubuntu14.04版本如果使用<code>aufs</code> 存储引擎, 那么一定要安装以下软件包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><h3 id="从软件源中安装-Docker"><a href="#从软件源中安装-Docker" class="headerlink" title="从软件源中安装 Docker"></a>从软件源中安装 Docker</h3><h4 id="配置软件仓库-Docker-CE"><a href="#配置软件仓库-Docker-CE" class="headerlink" title="配置软件仓库 Docker-CE"></a>配置软件仓库 Docker-CE</h4><ul>
+<li>安装软件包, 以允许<code>apt</code>命令可以通过 https 协议使用软件源(repository)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装 Docker 官方 GPG key</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置 <code>stable</code> 版本的软件源</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository \</span><br><span class="line">   &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu \</span><br><span class="line">   $(lsb_release -cs) \</span><br><span class="line">   stable&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><ul>
+<li>更新系统软件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装最新版本的 Docker CE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在生产环境, 你可能需要安装指定版本的 Docker,</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce=&lt;VERSION&gt;</span><br></pre></td></tr></table></figure>
+
+<p><em>docker-ce 在安装好后自动启动</em></p>
+<ul>
+<li>启动 Docker CE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>验证 Docker 服务正常运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加用户到 Docker 组</li>
+</ul>
+<p>在生产环境中, 不是每个人登录都是使用 root 用户, 可能需要给普通用户操作 docker 的权限, 那么将该用户添加到 docker 组是简单方便的方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>升级 Docker CE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="使用软件包直接安装"><a href="#使用软件包直接安装" class="headerlink" title="使用软件包直接安装"></a>使用软件包直接安装</h3><ul>
+<li>下载对应版本的 <code>.deb</code> 软件包</li>
+</ul>
+<p>Docker CE: Go to <a href="https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/</a> and download the .deb </p>
+<ul>
+<li>安装软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i /path/to/package.deb</span><br></pre></td></tr></table></figure>
+
+<p>The Docker daemon starts automatically.</p>
+<ul>
+<li>验证 Docker 服务正常运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="卸载-Docker-CE"><a href="#卸载-Docker-CE" class="headerlink" title="卸载 Docker CE"></a>卸载 Docker CE</h2><ul>
+<li>卸载 Docker CE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge docker-ce</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>镜像/容器/数据卷和自定义配置文件不会随着卸载而自动删除, 你需要手动去清除他们</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1322,93 +1500,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6%203/" class="post-title-link" itemprop="url">Docker 在国内的发展现状</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-06 23:49:41" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:41+08:00">2017-03-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/Docker-在国内的发展现状 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Docker 在国际上虽然也可以称得上是新兴技术, 但是在国内, 丝毫没有看出 Docker 一个起步不到4年的年轻产品. 在国内, 众多大厂开始大量使用 Docker 基础. 其中 <code>滴滴</code> <code>京东</code> <code>蘑菇街</code> <code>知乎</code> <code>豆瓣</code>等大型互联网公司都在大规模的在线上环境落地 Docker 技术.</p>
-<p>在2016年的双11之后, 京东更是首先爆出15万 Docker 服务器的规模. 可见 Docker 现在虽然还是一个快速迭代, 快速完善的系统, 但是已经得到了世界互联网大厂的任何. Docker 的早期线上落地的推广, 大都是由这些互联网大厂实施的. 给后续的中小企业也带来了极高的参考价值.</p>
-<p>在5年前, 像 OpenStack 以及 CloudStack 这类云服务基础架构出现时, 在运维领域刮起了一阵飓风🌪 短短几年间, IDC 机房不再是所有互联网公司的标配, 为了减少运维成本, 更多的去关注业务的本身, 越来越多的创业公司选择使用公有云服务. </p>
-<p>5年后的今天, IaaS 的公有云服务仍然是主流, 在 IaaS 之上又出现了 CaaS 服务, 即以 Container 为主导的基础服务架构. 将 IaaS 的资源利用到极致. Docker 不是 IaaS 的替代品, 但却是 IaaS 平台强有力的补充, 在为企业提高资源利用率, 减少成本, 提高自动化程度等方面提供了强有力的支持. </p>
-<p>即使目前大多中小企业依然在自己的开发环境和测试环境观望 Docker 技术的发展, 但是不可否认的是 Docker 目前已经有能力胜任线上业务的重担. 通过网上大厂们流传出的”最佳实践”, 完全可以指到我们将服务容器化, 并很好的调试和排错.</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1481,7 +1572,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1494,7 +1585,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

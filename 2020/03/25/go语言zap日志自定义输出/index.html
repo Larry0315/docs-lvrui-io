@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前篇文章中介绍了zap日志包的basic用法, 在zap.Config的配置中, 有OutputPaths和ErrorOutputPaths分别可以指定日志输出目标, 一般情况下, 日志会输出到stdout stderr 或 本地文本文件. 本篇文章介绍自定义协议的日志输出目标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言zap日志自定义输出">
+<meta property="og:url" content="https://docs.lvrui.io/2020/03/25/go%E8%AF%AD%E8%A8%80zap%E6%97%A5%E5%BF%97%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="前篇文章中介绍了zap日志包的basic用法, 在zap.Config的配置中, 有OutputPaths和ErrorOutputPaths分别可以指定日志输出目标, 一般情况下, 日志会输出到stdout stderr 或 本地文本文件. 本篇文章介绍自定义协议的日志输出目标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://20150509.oss-cn-qingdao.aliyuncs.com/2020/03/25/15851163967119.jpg">
+<meta property="article:published_time" content="2020-03-25T07:00:29.000Z">
+<meta property="article:modified_time" content="2020-03-25T07:02:13.665Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="log">
+<meta property="article:tag" content="zap">
+<meta property="article:tag" content="日志">
+<meta property="article:tag" content="kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://20150509.oss-cn-qingdao.aliyuncs.com/2020/03/25/15851163967119.jpg">
+
+<link rel="canonical" href="https://docs.lvrui.io/2020/03/25/go%E8%AF%AD%E8%A8%80zap%E6%97%A5%E5%BF%97%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>go语言zap日志自定义输出 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2020/03/25/go%E8%AF%AD%E8%A8%80zap%E6%97%A5%E5%BF%97%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go语言zap日志自定义输出
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-25 15:00:29" itemprop="dateCreated datePublished" datetime="2020-03-25T15:00:29+08:00">2020-03-25</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/25/go%E8%AF%AD%E8%A8%80zap%E6%97%A5%E5%BF%97%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/25/go语言zap日志自定义输出/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>前篇文章中介绍了zap日志包的basic用法, 在<code>zap.Config</code>的配置中, 有<code>OutputPaths</code>和<code>ErrorOutputPaths</code>分别可以指定日志输出目标, 一般情况下, 日志会输出到<code>stdout</code> <code>stderr</code> 或 本地文本文件. 本篇文章介绍自定义协议的日志输出目标</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="基础配置示例"><a href="#基础配置示例" class="headerlink" title="基础配置示例"></a>基础配置示例</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">logLevel := zap.NewAtomicLevelAt(zapcore.DebugLevel)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> zc = zap.Config&#123;</span><br><span class="line">		Level:             logLevel,</span><br><span class="line">		Development:       <span class="literal">false</span>,</span><br><span class="line">		DisableCaller:     <span class="literal">false</span>,</span><br><span class="line">		DisableStacktrace: <span class="literal">false</span>,</span><br><span class="line">		Sampling:          <span class="literal">nil</span>,</span><br><span class="line">		Encoding:          <span class="string">"json"</span>,</span><br><span class="line">		EncoderConfig: zapcore.EncoderConfig&#123;</span><br><span class="line">			MessageKey:     <span class="string">"message"</span>,</span><br><span class="line">			LevelKey:       <span class="string">"level"</span>,</span><br><span class="line">			TimeKey:        <span class="string">"time"</span>,</span><br><span class="line">			NameKey:        <span class="string">"name"</span>,</span><br><span class="line">			CallerKey:      <span class="string">"caller"</span>,</span><br><span class="line">			StacktraceKey:  <span class="string">"stacktrace"</span>,</span><br><span class="line">			LineEnding:     zapcore.DefaultLineEnding,</span><br><span class="line">			EncodeLevel:    zapcore.LowercaseLevelEncoder,</span><br><span class="line">			EncodeTime:     zapcore.ISO8601TimeEncoder,</span><br><span class="line">			EncodeDuration: zapcore.StringDurationEncoder,</span><br><span class="line">			EncodeCaller:   zapcore.ShortCallerEncoder,</span><br><span class="line">			EncodeName:     zapcore.FullNameEncoder,</span><br><span class="line">		&#125;,</span><br><span class="line">		OutputPaths:      []<span class="keyword">string</span>&#123;<span class="string">"stdout"</span>&#125;,</span><br><span class="line">		ErrorOutputPaths: []<span class="keyword">string</span>&#123;<span class="string">"stderr"</span>&#125;,</span><br><span class="line">		InitialFields:    <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"app"</span>: <span class="string">"apdex"</span>&#125;,</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="OutputPaths-定义"><a href="#OutputPaths-定义" class="headerlink" title="OutputPaths 定义"></a>OutputPaths 定义</h2><p>源码截取</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OutputPaths is a list of URLs or file paths to write logging output to.</span></span><br><span class="line">	<span class="comment">// See Open for details.</span></span><br><span class="line">	OutputPaths []<span class="keyword">string</span> <span class="string">`json:"outputPaths" yaml:"outputPaths"`</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Open is a high-level wrapper that takes a variadic number of URLs, opens or</span></span><br><span class="line"><span class="comment">// creates each of the specified resources, and combines them into a locked</span></span><br><span class="line"><span class="comment">// WriteSyncer. It also returns any error encountered and a function to close</span></span><br><span class="line"><span class="comment">// any opened files.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Passing no URLs returns a no-op WriteSyncer. Zap handles URLs without a</span></span><br><span class="line"><span class="comment">// scheme and URLs with the "file" scheme. Third-party code may register</span></span><br><span class="line"><span class="comment">// factories for other schemes using RegisterSink.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// URLs with the "file" scheme must use absolute paths on the local</span></span><br><span class="line"><span class="comment">// filesystem. No user, password, port, fragments, or query parameters are</span></span><br><span class="line"><span class="comment">// allowed, and the hostname must be empty or "localhost".</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Since it's common to write logs to the local filesystem, URLs without a</span></span><br><span class="line"><span class="comment">// scheme (e.g., "/var/log/foo.log") are treated as local file paths. Without</span></span><br><span class="line"><span class="comment">// a scheme, the special paths "stdout" and "stderr" are interpreted as</span></span><br><span class="line"><span class="comment">// os.Stdout and os.Stderr. When specified without a scheme, relative file</span></span><br><span class="line"><span class="comment">// paths also work.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Open</span><span class="params">(paths ...<span class="keyword">string</span>)</span> <span class="params">(zapcore.WriteSyncer, <span class="keyword">func</span>()</span>, <span class="title">error</span>)</span> &#123;</span><br><span class="line">	writers, <span class="built_in">close</span>, err := open(paths)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	writer := CombineWriteSyncers(writers...)</span><br><span class="line">	<span class="keyword">return</span> writer, <span class="built_in">close</span>, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">open</span><span class="params">(paths []<span class="keyword">string</span>)</span> <span class="params">([]zapcore.WriteSyncer, <span class="keyword">func</span>()</span>, <span class="title">error</span>)</span> &#123;</span><br><span class="line">	writers := <span class="built_in">make</span>([]zapcore.WriteSyncer, <span class="number">0</span>, <span class="built_in">len</span>(paths))</span><br><span class="line">	closers := <span class="built_in">make</span>([]io.Closer, <span class="number">0</span>, <span class="built_in">len</span>(paths))</span><br><span class="line">	<span class="built_in">close</span> := <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> _, c := <span class="keyword">range</span> closers &#123;</span><br><span class="line">			c.Close()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> openErr error</span><br><span class="line">	<span class="keyword">for</span> _, path := <span class="keyword">range</span> paths &#123;</span><br><span class="line">		sink, err := newSink(path)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			openErr = multierr.Append(openErr, fmt.Errorf(<span class="string">"couldn't open sink %q: %v"</span>, path, err))</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		writers = <span class="built_in">append</span>(writers, sink)</span><br><span class="line">		closers = <span class="built_in">append</span>(closers, sink)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> openErr != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">close</span>()</span><br><span class="line">		<span class="keyword">return</span> writers, <span class="literal">nil</span>, openErr</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> writers, <span class="built_in">close</span>, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现自定义输出协议, 注释中最重要的一句话是: <code>Third-party code may register factories for other schemes using RegisterSink.</code> 也就是说, 你可以使用 <code>RegisterSink</code> 函数来注册新的输出方式</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RegisterSink registers a user-supplied factory for all sinks with a</span></span><br><span class="line"><span class="comment">// particular scheme.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// All schemes must be ASCII, valid under section 3.1 of RFC 3986</span></span><br><span class="line"><span class="comment">// (https://tools.ietf.org/html/rfc3986#section-3.1), and must not already</span></span><br><span class="line"><span class="comment">// have a factory registered. Zap automatically registers a factory for the</span></span><br><span class="line"><span class="comment">// "file" scheme.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegisterSink</span><span class="params">(scheme <span class="keyword">string</span>, factory <span class="keyword">func</span>(*url.URL)</span> <span class="params">(Sink, error)</span>) <span class="title">error</span></span> &#123;</span><br><span class="line">	_sinkMutex.Lock()</span><br><span class="line">	<span class="keyword">defer</span> _sinkMutex.Unlock()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> scheme == <span class="string">""</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">"can't register a sink factory for empty string"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	normalized, err := normalizeScheme(scheme)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"%q is not a valid scheme: %v"</span>, scheme, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> _, ok := _sinkFactories[normalized]; ok &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"sink factory already registered for scheme %q"</span>, normalized)</span><br><span class="line">	&#125;</span><br><span class="line">	_sinkFactories[normalized] = factory</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数的入参之一为一个自定义的工厂函数, 该工厂函数接收一个<code>*url.URL</code>类型的指针, 返回一个<code>Sink</code>类型的接口和一个错误. 简化来看, 其实我们需要重点处理的就是这个自定义工厂函数.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">xxx</span> <span class="params">(*url.URL)</span> <span class="params">(Sink, error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该工厂函数需要返回的最重要的值为一个实现了Sink接口的对象, Sink接口的定义如下:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sink defines the interface to write to and close logger destinations.</span></span><br><span class="line"><span class="keyword">type</span> Sink <span class="keyword">interface</span> &#123;</span><br><span class="line">	zapcore.WriteSyncer</span><br><span class="line">	io.Closer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Sink接口可以简单理解为是用来写日志和关闭日志对象的, Sink接口中又包含两个接口, 两个接口的源码定义如下:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A WriteSyncer is an io.Writer that can also flush any buffered data. Note</span></span><br><span class="line"><span class="comment">// that *os.File (and thus, os.Stderr and os.Stdout) implement WriteSyncer.</span></span><br><span class="line"><span class="keyword">type</span> WriteSyncer <span class="keyword">interface</span> &#123;</span><br><span class="line">	io.Writer</span><br><span class="line">	Sync() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Writer is the interface that wraps the basic Write method.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Write writes len(p) bytes from p to the underlying data stream.</span></span><br><span class="line"><span class="comment">// It returns the number of bytes written from p (0 &lt;= n &lt;= len(p))</span></span><br><span class="line"><span class="comment">// and any error encountered that caused the write to stop early.</span></span><br><span class="line"><span class="comment">// Write must return a non-nil error if it returns n &lt; len(p).</span></span><br><span class="line"><span class="comment">// Write must not modify the slice data, even temporarily.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Implementations must not retain p.</span></span><br><span class="line"><span class="keyword">type</span> Writer <span class="keyword">interface</span> &#123;</span><br><span class="line">	Write(p []<span class="keyword">byte</span>) (n <span class="keyword">int</span>, err error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Closer is the interface that wraps the basic Close method.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The behavior of Close after the first call is undefined.</span></span><br><span class="line"><span class="comment">// Specific implementations may document their own behavior.</span></span><br><span class="line"><span class="keyword">type</span> Closer <span class="keyword">interface</span> &#123;</span><br><span class="line">	Close() error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>展开所有接口的定义后, 可以清晰的看出, 我们只需要定义三个函数, 就可以实现<code>Sink</code>接口</p>
+<ul>
+<li>Sync() error  // 如果写日志用到了缓存的话, 你需要定义sync的逻辑, 以便在程序关闭时, 保证缓存中的日志可以正确写入到目标对象中</li>
+<li>Write(p []byte) (n int, err error)  // 这个是写日志的函数, 也是三个函数中, 必须要定义逻辑的一个函数, 它定义了日志内容<code>p</code>如何写入到目标对象中</li>
+<li>Close() error  // 关闭日志对象, 在程序关闭时, 你可能需要先正确关闭日志对象. 例如你的日志对象是个文件时, 你需要close掉这个文件描述符; 例如你的日志对象是个远程TCP连接时, 你需要close掉这条连接</li>
+</ul>
+<h2 id="实现自定义日志输出协议"><a href="#实现自定义日志输出协议" class="headerlink" title="实现自定义日志输出协议"></a>实现自定义日志输出协议</h2><p>上面已经明确了自定义日志输出协议需要定义的函数, 那么接下来我们就来定义一个最简单的日志输出协议, 当程序中调用日志打印时, 我将日志以全部红色的字体打印在控制台的标准输出, 需要用到一个特殊的库 <code>github.com/gookit/color</code> 该库可以实现带颜色的控制台输出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/gookit/color"</span></span><br><span class="line">	<span class="string">"go.uber.org/zap"</span></span><br><span class="line">	<span class="string">"go.uber.org/zap/zapcore"</span></span><br><span class="line">	<span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个结构体</span></span><br><span class="line"><span class="keyword">type</span> Color <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义Sync方法以实现Sink接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Color)</span> <span class="title">Sync</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="comment">// 因为只是控制台打印, 涉及不到缓存同步问题, 所以简单return就可以</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义Close方法以实现Sink接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Color)</span> <span class="title">Close</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="comment">// 因为只是控制台打印, 也涉及不到关闭对象的问题, return就好</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义Write方法以实现Sink接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Color)</span> <span class="title">Write</span><span class="params">(p []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 使用带颜色的控制台输出日志信息</span></span><br><span class="line">	color.Red.Println(<span class="string">"我是自定义的日志输出协议: "</span>, <span class="keyword">string</span>(p))</span><br><span class="line">	<span class="comment">// 返回写入日志的长度,以及错误</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(p), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义工厂函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">colorSink</span><span class="params">(url *url.URL)</span> <span class="params">(sink zap.Sink, err error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 工厂函数中, 定义了必须接收一个*url.URL参数</span></span><br><span class="line">    <span class="comment">// 但是我们的需求比较简单, 暂时用不到, 所以可以直接忽略这个参数的使用</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 实例化一个Color对象, 该对象实现了Sink接口</span></span><br><span class="line">	c := Color&#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> c, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将colorSink工厂函数注册到zap中, 自定义协议名为 Color</span></span><br><span class="line">	<span class="keyword">if</span> err := zap.RegisterSink(<span class="string">"Color"</span>, colorSink); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		painc(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logLevel := zap.NewAtomicLevelAt(zapcore.DebugLevel)</span><br><span class="line">	<span class="keyword">var</span> zc = zap.Config&#123;</span><br><span class="line">		Level:             logLevel,</span><br><span class="line">		Development:       <span class="literal">false</span>,</span><br><span class="line">		DisableCaller:     <span class="literal">false</span>,</span><br><span class="line">		DisableStacktrace: <span class="literal">false</span>,</span><br><span class="line">		Sampling:          <span class="literal">nil</span>,</span><br><span class="line">		Encoding:          <span class="string">"json"</span>,</span><br><span class="line">		EncoderConfig: zapcore.EncoderConfig&#123;</span><br><span class="line">			MessageKey:     <span class="string">"message"</span>,</span><br><span class="line">			LevelKey:       <span class="string">"level"</span>,</span><br><span class="line">			TimeKey:        <span class="string">"time"</span>,</span><br><span class="line">			NameKey:        <span class="string">"name"</span>,</span><br><span class="line">			CallerKey:      <span class="string">"caller"</span>,</span><br><span class="line">			StacktraceKey:  <span class="string">"stacktrace"</span>,</span><br><span class="line">			LineEnding:     zapcore.DefaultLineEnding,</span><br><span class="line">			EncodeLevel:    zapcore.LowercaseLevelEncoder,</span><br><span class="line">			EncodeTime:     zapcore.ISO8601TimeEncoder,</span><br><span class="line">			EncodeDuration: zapcore.StringDurationEncoder,</span><br><span class="line">			EncodeCaller:   zapcore.ShortCallerEncoder,</span><br><span class="line">			EncodeName:     zapcore.FullNameEncoder,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="comment">// 日志标准输出的定义中, 除了标准的控制台输出, 还增加了一个我们自定义的Color协议输出</span></span><br><span class="line">		<span class="comment">// 这里需要注意的是, 我们的自定义协议中, 固定是接收了一个 *url.URL, 虽然我们没有用到</span></span><br><span class="line">		<span class="comment">// 但是在日志实际配置使用时, 我们仍需要显示传递该参数. 按照http协议的风格, 我们可以</span></span><br><span class="line">		<span class="comment">// 将其定义为 "Color://127.0.0.1", 当然 "Color:127.0.0.1" 和 "Color:" </span></span><br><span class="line">		<span class="comment">// 这种形式也是可以的. 但是 "Color" 这种是错误的配置形式</span></span><br><span class="line">		OutputPaths:      []<span class="keyword">string</span>&#123;<span class="string">"stdout"</span>, <span class="string">"Color://127.0.0.1"</span>&#125;,</span><br><span class="line">		ErrorOutputPaths: []<span class="keyword">string</span>&#123;<span class="string">"stderr"</span>&#125;,</span><br><span class="line">		InitialFields:    <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"app"</span>: <span class="string">"apdex"</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger, err := zc.Build()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> logger.Sync()</span><br><span class="line"></span><br><span class="line">	logger.Info(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		zap.String(<span class="string">"key"</span>, <span class="string">"value"</span>),</span><br><span class="line">		zap.Int(<span class="string">"number"</span>, <span class="number">9</span>),</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	sugarLogger := logger.Sugar()</span><br><span class="line"></span><br><span class="line">	sugarLogger.Infow(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		<span class="string">"key"</span>, <span class="string">"value"</span>, <span class="string">"number"</span>, <span class="number">9</span>,</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<p><img src="https://20150509.oss-cn-qingdao.aliyuncs.com/2020/03/25/15851163967119.jpg" alt=""></p>
+<h2 id="实现自定义日志输出协议-http"><a href="#实现自定义日志输出协议-http" class="headerlink" title="实现自定义日志输出协议-http"></a>实现自定义日志输出协议-http</h2><p>接下来, 再实现一个稍微复杂一些的例子, 通过http协议, 将日志以json格式发送到远端.</p>
+<p>首先来实现接收端</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"io/ioutil"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"请求方法:"</span>, r.Method)</span><br><span class="line">		fmt.Println(<span class="string">"请求地址:"</span>, r.URL)</span><br><span class="line">		body, _ := ioutil.ReadAll(r.Body)</span><br><span class="line">		fmt.Println(<span class="string">"Body体内容: "</span>, bytes.NewBuffer(body).String())</span><br><span class="line">		fmt.Println(<span class="string">"==========="</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	log.Fatal(http.ListenAndServe(<span class="string">"0.0.0.0:5001"</span>, <span class="literal">nil</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务端/日志接收端代码很简单, 只是启动了一个http服务, 用来接收http请求, 会把接收到的请求的基本信息打印出来. 执行 <code>go run logServer.go</code> 启动日志接收服务端</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">	<span class="string">"errors"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"go.uber.org/zap"</span></span><br><span class="line">	<span class="string">"go.uber.org/zap/zapcore"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	<span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义http协议接口体</span></span><br><span class="line"><span class="keyword">type</span> Http <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 包含一个属性: 远端地址</span></span><br><span class="line">	Remote *url.URL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为没有使用到缓存技术, 所以直接return即可</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h Http)</span> <span class="title">Sync</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭http连接, 因为本次示例仅是短连接, 不涉及关闭连接, 所以直接return即可</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h Http)</span> <span class="title">Close</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本质就是发起一次http post的过程</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h Http)</span> <span class="title">Write</span><span class="params">(p []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 构造 http post 请求</span></span><br><span class="line">	req, err := http.NewRequest(<span class="string">"POST"</span>, h.Remote.String(), bytes.NewBuffer(p))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	req.Header.Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">	<span class="comment">// 创建http client</span></span><br><span class="line">	client := &amp;http.Client&#123;&#125;</span><br><span class="line">	<span class="comment">// 发起请求</span></span><br><span class="line">	resp, err := client.Do(req)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 记得关闭body</span></span><br><span class="line">	<span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">	<span class="keyword">if</span> resp.StatusCode != <span class="number">200</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, errors.New(<span class="string">"request failed"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 返回写入的字节长度</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(p), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现工厂函数, 返回实现了Sink接口的http对象</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">httpSink</span><span class="params">(url *url.URL)</span> <span class="params">(sink zap.Sink, err error)</span></span> &#123;</span><br><span class="line">	h := Http&#123;Remote: url&#125;</span><br><span class="line">	<span class="keyword">return</span> h, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 把自定义的http协议日志输出注册到zap</span></span><br><span class="line">	<span class="keyword">if</span> err := zap.RegisterSink(<span class="string">"Http"</span>, httpSink); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logLevel := zap.NewAtomicLevelAt(zapcore.DebugLevel)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> zc = zap.Config&#123;</span><br><span class="line">		Level:             logLevel,</span><br><span class="line">		Development:       <span class="literal">false</span>,</span><br><span class="line">		DisableCaller:     <span class="literal">false</span>,</span><br><span class="line">		DisableStacktrace: <span class="literal">false</span>,</span><br><span class="line">		Sampling:          <span class="literal">nil</span>,</span><br><span class="line">		Encoding:          <span class="string">"json"</span>,</span><br><span class="line">		EncoderConfig: zapcore.EncoderConfig&#123;</span><br><span class="line">			MessageKey:     <span class="string">"message"</span>,</span><br><span class="line">			LevelKey:       <span class="string">"level"</span>,</span><br><span class="line">			TimeKey:        <span class="string">"time"</span>,</span><br><span class="line">			NameKey:        <span class="string">"name"</span>,</span><br><span class="line">			CallerKey:      <span class="string">"caller"</span>,</span><br><span class="line">			StacktraceKey:  <span class="string">"stacktrace"</span>,</span><br><span class="line">			LineEnding:     zapcore.DefaultLineEnding,</span><br><span class="line">			EncodeLevel:    zapcore.LowercaseLevelEncoder,</span><br><span class="line">			EncodeTime:     zapcore.ISO8601TimeEncoder,</span><br><span class="line">			EncodeDuration: zapcore.StringDurationEncoder,</span><br><span class="line">			EncodeCaller:   zapcore.ShortCallerEncoder,</span><br><span class="line">			EncodeName:     zapcore.FullNameEncoder,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="comment">// 使用自定义的http协议日志输出时, 既然要记得配置成正确的协议格式</span></span><br><span class="line">		<span class="comment">// xxx://ooo</span></span><br><span class="line">		<span class="comment">// 由于我在本地 5001 启动了一个http服务, 所以IP地址需要配置成: 127.0.0.1:5001</span></span><br><span class="line">		<span class="comment">// 我启动的http服务监听了根 /, 所以可以接受任何Request Path, 这里的/log 仅仅是为了</span></span><br><span class="line">		<span class="comment">// 演示才配置上的, 你可以定义任何需要的路径</span></span><br><span class="line">		OutputPaths:      []<span class="keyword">string</span>&#123;<span class="string">"stdout"</span>, <span class="string">"http://127.0.0.1:5001/log"</span>&#125;,</span><br><span class="line">		ErrorOutputPaths: []<span class="keyword">string</span>&#123;<span class="string">"stderr"</span>&#125;,</span><br><span class="line">		InitialFields:    <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"app"</span>: <span class="string">"apdex"</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	logger, err := zc.Build()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> logger.Sync()</span><br><span class="line"></span><br><span class="line">	logger.Info(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		zap.String(<span class="string">"key"</span>, <span class="string">"value"</span>),</span><br><span class="line">		zap.Int(<span class="string">"number"</span>, <span class="number">9</span>),</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	sugarLogger := logger.Sugar()</span><br><span class="line"></span><br><span class="line">	sugarLogger.Infow(<span class="string">"logger construction succeeded"</span>,</span><br><span class="line">		<span class="string">"key"</span>, <span class="string">"value"</span>, <span class="string">"number"</span>, <span class="number">9</span>,</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<p>远程日志接收服务端:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">请求方法: POST</span><br><span class="line">请求地址: &#x2F;log</span><br><span class="line">Body体内容:  &#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-25T14:48:29.221+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;log2.go:117&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;apdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">请求方法: POST</span><br><span class="line">请求地址: &#x2F;log</span><br><span class="line">Body体内容:  &#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-25T14:48:29.221+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;log2.go:124&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;apdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<p>执行写日志的客户端:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-25T14:48:29.221+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;log2.go:117&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;apdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br><span class="line">&#123;&quot;level&quot;:&quot;info&quot;,&quot;time&quot;:&quot;2020-03-25T14:48:29.221+0800&quot;,&quot;caller&quot;:&quot;log&#x2F;log2.go:124&quot;,&quot;message&quot;:&quot;logger construction succeeded&quot;,&quot;app&quot;:&quot;apdex&quot;,&quot;key&quot;:&quot;value&quot;,&quot;number&quot;:9&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: 该http用法仅仅是用来抛砖引玉, 该代码无法在实际生产环境中使用, 因为日志量太大的话, http短连接会消耗相当大的主机资源, 如果确实需要以这种方式传输日志的话, 可以考虑使用全局的http连接池, 并做好Close方法的实现. 也可以开辟一块内存, 专门用来做日志缓存, 定期发起http请求, 发送到远端, 避免频繁的单次调用, 同时也需要做好Sync方法的实现</strong></p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>自定义日志传输协议的最佳实践, 应该是直接将json日志发送到远端的kafka服务器中. 以kafka的吞吐能力, 正常的日志输出想要把kafka使用到瓶颈的一个状态, 并不是很容易😆 </p>
+<p>一般情况下的日志处理流程是, 程序将日志打入到本地文件, 然后由filebeat或logstash之类的日志收集客户端进行收集, 收集后发送到kafka, 然后再由logstash消费, 处理格式后发送给elasticsearch.</p>
+<p>程序直接对接kafka的话, 依然要注意日志量输出情况, 好在zap本身就可以设置日志输出速率, 因为kafka抗住一个疯狂打印日志的”疯子”很容易, 抗住千千万万个乱打日志的”疯子”, kafka也受不了的~</p>
+<p>我这里暂时没有kafka环境, 后续有机会的话会单独实现zap下kafka的日志传输协议</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/03/21/go语言优秀的日志包zap预置函数用法/" rel="bookmark">go语言优秀的日志包zap预置函数用法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/03/23/go语言优秀的日志包zap基础自定义配置用法/" rel="bookmark">go语言优秀的日志包zap基础自定义配置用法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages 5/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/log/" rel="tag"><i class="fa fa-tag"></i> log</a>
+              <a href="/tags/zap/" rel="tag"><i class="fa fa-tag"></i> zap</a>
+              <a href="/tags/%E6%97%A5%E5%BF%97/" rel="tag"><i class="fa fa-tag"></i> 日志</a>
+              <a href="/tags/kafka/" rel="tag"><i class="fa fa-tag"></i> kafka</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/" rel="prev" title="go语言优秀的日志包zap基础自定义配置用法">
+      <i class="fa fa-chevron-left"></i> go语言优秀的日志包zap基础自定义配置用法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础配置示例"><span class="nav-number">1.</span> <span class="nav-text">基础配置示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OutputPaths-定义"><span class="nav-number">2.</span> <span class="nav-text">OutputPaths 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现自定义日志输出协议"><span class="nav-number">3.</span> <span class="nav-text">实现自定义日志输出协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现自定义日志输出协议-http"><span class="nav-number">4.</span> <span class="nav-text">实现自定义日志输出协议-http</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">5.</span> <span class="nav-text">最佳实践</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2020/03/25/go%E8%AF%AD%E8%A8%80zap%E6%97%A5%E5%BF%97%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA/";
+    this.page.identifier = "2020/03/25/go语言zap日志自定义输出/";
+    this.page.title = "go语言zap日志自定义输出";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

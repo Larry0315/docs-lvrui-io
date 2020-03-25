@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,120 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先创建一个字典</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
+<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000029</code></p>
+<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000014</code></p>
+<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000009</code></p>
+<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000005</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1314,135 +1428,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
-<ul>
-<li>character-set-client-handshake = FALSE</li>
-<li>character-set-server = utf8mb4</li>
-<li>collation-server = utf8mb4_unicode_ci</li>
-<li>init_connect=’SET NAMES utf8mb4’</li>
-</ul>
-</blockquote>
-<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
-<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
-<ul>
-<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
-<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考文章:</p>
-<ul>
-<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
-<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
-<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
-<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1515,7 +1500,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1528,7 +1513,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

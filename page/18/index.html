@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,135 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
+<ul>
+<li>character-set-client-handshake = FALSE</li>
+<li>character-set-server = utf8mb4</li>
+<li>collation-server = utf8mb4_unicode_ci</li>
+<li>init_connect=’SET NAMES utf8mb4’</li>
+</ul>
+</blockquote>
+<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
+<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
+<ul>
+<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
+<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文章:</p>
+<ul>
+<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
+<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
+<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
+<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1138,103 +1267,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95%205/" class="post-title-link" itemprop="url">强制卸载无响应的nfs挂载目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 14:18:59" itemprop="dateCreated datePublished" datetime="2017-06-02T14:18:59+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/%E5%BC%BA%E5%88%B6%E5%8D%B8%E8%BD%BD%E6%97%A0%E5%93%8D%E5%BA%94%E7%9A%84nfs%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/强制卸载无响应的nfs挂载目录 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在日常的运维中, 经常有需要使用 nfs 挂载远程服务器目录的需求, 但是照我个人实际使用的经验来看, nfs 并不是”一劳永逸”, 故障率还是蛮高的, 其中最长遇到的就是由于网络原因/远程 nfs 服务器原因或其他原因导致的 nfs 客户端与 nfs 服务器失联. 失联并不可怕, 可怕的是它并不会自动重连. 这个时候需要我们手动介入到重连的操作中</p>
-</blockquote>
-<p>nfs 客户端与服务端失去连接, 最直观的现象就是在 Linux 命令行中,执行 <code>df -h</code> 命令, 整个 terminal 终端就会卡在那里一动不动(挂起), 你可以参考以下方案解决该问题</p>
-<h1 id="新开一个-session"><a href="#新开一个-session" class="headerlink" title="新开一个 session"></a>新开一个 session</h1><p>也许你当前的 session 已经被卡住了, 这时需要打开一个新的 session, 如果你是直接登录到 linux 系统界面的, 可以同时按下 “Ctrl+Alt+F2” 切换到第二个 terminal</p>
-<h1 id="查询之前挂载的路径"><a href="#查询之前挂载的路径" class="headerlink" title="查询之前挂载的路径"></a>查询之前挂载的路径</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nfsstat -m</span><br><span class="line">nfsstat -m</span><br><span class="line">/webserver/page from 192.168.1.112:/webserver/page</span><br><span class="line"> Flags: rw,relatime,vers=4.0,rsize=524288,wsize=524288,namlen=255,hard,proto=tcp,port=0,timeo=600,retrans=2,sec=sys,clientaddr=192.168.1.4,local_lock=none,addr=192.168.1.112</span><br></pre></td></tr></table></figure>
-
-<p>以上命令不仅仅会显示出当前的挂载点信息, 还会显示出详细的 nfs 属性信息</p>
-<p>当然, 你也可以通过 <code>mount</code> 命令来查询 nfs 的挂载点, 前面写着 IP 的就是 nfs 的挂载信息</p>
-<h1 id="使用-umount-f-PATH-卸载"><a href="#使用-umount-f-PATH-卸载" class="headerlink" title="使用 umount -f PATH 卸载"></a>使用 umount -f PATH 卸载</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span></span><br><span class="line">➜  ~ umount -f /webserver/page</span><br></pre></td></tr></table></figure>
-
-<p>先 cd 到家目录, 再强制卸载, 如果执行此命令后, 还是提示磁盘”busily” 就使用以下命令卸载</p>
-<h1 id="使用-umount-l-PATH-卸载"><a href="#使用-umount-l-PATH-卸载" class="headerlink" title="使用 umount -l PATH 卸载"></a>使用 umount -l PATH 卸载</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span></span><br><span class="line">➜  ~ umount -l /webserver/page</span><br></pre></td></tr></table></figure>
-
-<p>注意: 这里是使用的小写的<code>L</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1307,7 +1339,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1320,7 +1352,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

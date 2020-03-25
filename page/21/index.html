@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,170 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/22/dockerfile%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/22/dockerfile%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%203/" class="post-title-link" itemprop="url">dockerfile最佳实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-22 00:46:04" itemprop="dateCreated datePublished" datetime="2017-04-22T00:46:04+08:00">2017-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/04/22/dockerfile%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/22/dockerfile最佳实践 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>通过 dockerfile 可以制作镜像, 通过优化 dockerfile 中的指令, 可以减少镜像的体积. 按照一些规范制作 dockerfile, 可以增加 dockerfile 的可读性和可维护性</p>
+</blockquote>
+<h1 id="基本原则"><a href="#基本原则" class="headerlink" title="基本原则"></a>基本原则</h1><ul>
+<li>容器的生命周期是短暂的(无状态容器)<br>通过 dockerfile 制作出的镜像, 从镜像启动容器, 这些容器的生命周期应尽量短暂. 这里的短暂意味着容器随时可以被停止和删除. 通过简单的配置可以立即启动一个新的容器</li>
+<li>尽量使用干净的目录去制作镜像, 避免不必要的性能损耗, 必要时可以使用<code>.dockerignore</code>文件排除不需要扫描的目录</li>
+<li>只安装需要的包<br>为了减少镜像的体积和编译时间, 应该避免安装额外的, 不需要的包</li>
+<li>每个容器只运行一个进程</li>
+<li>减少镜像层<br>dockerfile 中的指令会生成新的镜像层, 一个镜像最多有127层</li>
+<li>把多个参数排在不同的行中提高可读性<code>\</code></li>
+</ul>
+<p><strong>注意: 编译缓存的问题<br>针对 ADD 和 COPY 命令, docker 会检查镜像层中所有源文件的元数据和文件内容. 其中检查元数据的时候, 不会检查最后修改时间和访问时间.<br>docker 在镜像缓存中寻找镜像层时, 不会检查文件. 例如, 在执行 RUN yum update 时, docker 仅仅会比较 RUN 命令的本身.</strong></p>
+<h1 id="FROM-指令最佳实践"><a href="#FROM-指令最佳实践" class="headerlink" title="FROM 指令最佳实践"></a>FROM 指令最佳实践</h1><p>尽量使用官方镜像作为基础镜像. 如果考虑镜像的大小, 可以使用 Debian 的官方镜像, 该镜像体积小而且 Docker 对他进行了优化, store.docker.com 中有很多官方镜像都是基于 Debian 的镜像打造</p>
+<h1 id="RUN-指令最佳实践"><a href="#RUN-指令最佳实践" class="headerlink" title="RUN 指令最佳实践"></a>RUN 指令最佳实践</h1><ul>
+<li>从可读性的角度考虑, 使用 RUN 命令时, 应使用 <code>\</code> 将指令分成多行</li>
+<li>避免更新基础镜像中的基础软件包, 避免执行类似于 <code>yum update</code> 或 <code>apt upgrade</code>的命令. 在没有使用 <code>--privileged</code>的运行容器中, 基础镜像中的很多基础包是不能升级的. </li>
+<li>由于镜像的缓存机制, 在安装软件包时, 更新软件仓库索引和安装软件包必须在同一个 RUN 里执行, 否则可能会导致安装失败</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ✔️正确写法</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt update &amp;&amp; apt install -y \</span></span><br><span class="line"><span class="bash">	dstat \</span></span><br><span class="line"><span class="bash">    htop \</span></span><br><span class="line"><span class="bash">    lsof</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># ❌错误写法</span><br><span class="line">RUN apt update</span><br><span class="line">RUN apt install -y \</span><br><span class="line">	dstat \</span><br><span class="line">    htop \</span><br><span class="line">    lsof</span><br></pre></td></tr></table></figure>
+
+<p>由于镜像的缓存机制, 只验证的 RUN 后面的命令, 会导致执行过一次 <code>apt update</code> 之后, 再次遇到更新时将会使用缓存镜像, 从而导致以后安装不到最新的软件包</p>
+<p>使用<code>RUN apt update &amp;&amp; apt install -y \</code>的方式可以保证每次编译镜像时, 都是安装的最新的包. 这种技术叫做”缓存失效”</p>
+<ul>
+<li>尽量在一条 RUN 指令中包含所有需要的安装包. 如果安装包很多, 建议以首字母进行排序,每行只列出一个安装包, 方便后期维护.</li>
+<li>在安装命令的最后, 应该清理安装缓存, 减少镜像体积. 执行 <code>... &amp;&amp; yum clean all</code> 或 <code>... &amp;&amp; rm -fr /var/lib/apt/lists/*</code></li>
+</ul>
+<h1 id="CMD-amp-ENTRYPOINT-指令最佳实践"><a href="#CMD-amp-ENTRYPOINT-指令最佳实践" class="headerlink" title="CMD &amp; ENTRYPOINT 指令最佳实践"></a>CMD &amp; ENTRYPOINT 指令最佳实践</h1><h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>CMD 指令设置镜像中的默认启动命令和参数. 容器启动之后, 如果没有加入任何启动命令(也就是在镜像参数之后没有添加任何内容) 则默认执行镜像中 CMD 设置的默认的启动命令</p>
+<ul>
+<li><p>设置启动命令时, 应该尽量使用 JSON 格式 <code>CMD [&quot;command&quot;, &quot;arg1&quot;, &quot;arg2&quot;]</code><br>例如 Apache 的启动方式: <code>CMD [&quot;apache2&quot;, &quot;-DFOREGROUND&quot;]</code></p>
+</li>
+<li><p>如果开发者和使用者都不是很熟悉 CMD 和 ENTRYPOINT 的工作原理的情况下, 尽量避免这两个指令配合使用<br>例如 Django 的启动方式: <code>CMD [&quot;python&quot;, &quot;manage.py&quot;, &quot;runserver&quot;, &quot;0.0.0.0:8000&quot;]</code></p>
+</li>
+<li><p>相反, 如果开发者和使用者都很熟悉 CMD 和 ENTRYPOINT 的工作原理, 推荐 CMD 作为 ENTRYPOINT 的参数来配套使用</p>
+</li>
+</ul>
+<h2 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h2><p>当需要把容器当做一个命令行工具使用时, 推荐通过 ENTRYPOINT 指令设置镜像的入口程序</p>
+<ul>
+<li>当启动主程序之前还需要执行大量的前置操作时, 可以将 ENTRYPOINT 的入口指令设置为一个脚本 <code>entrypoint.sh</code></li>
+</ul>
+<p>例如 postgres 的官方用法:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"docker-entrypoint.sh"</span>]</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"postgres"</span>]</span></span><br></pre></td></tr></table></figure>
+<p>docker-entrypoint.sh ⬇️</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="comment"># usage: file_env VAR [DEFAULT]</span></span><br><span class="line"><span class="comment">#    ie: file_env 'XYZ_DB_PASSWORD' 'example'</span></span><br><span class="line"><span class="comment"># (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of</span></span><br><span class="line"><span class="comment">#  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)</span></span><br><span class="line"><span class="function"><span class="title">file_env</span></span>() &#123;</span><br><span class="line">	<span class="built_in">local</span> var=<span class="string">"<span class="variable">$1</span>"</span></span><br><span class="line">	<span class="built_in">local</span> fileVar=<span class="string">"<span class="variable">$&#123;var&#125;</span>_FILE"</span></span><br><span class="line">	<span class="built_in">local</span> def=<span class="string">"<span class="variable">$&#123;2:-&#125;</span>"</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;!var:-&#125;</span>"</span> ] &amp;&amp; [ <span class="string">"<span class="variable">$&#123;!fileVar:-&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">echo</span> &gt;&amp;2 <span class="string">"error: both <span class="variable">$var</span> and <span class="variable">$fileVar</span> are set (but are exclusive)"</span></span><br><span class="line">		<span class="built_in">exit</span> 1</span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">local</span> val=<span class="string">"<span class="variable">$def</span>"</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;!var:-&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		val=<span class="string">"<span class="variable">$&#123;!var&#125;</span>"</span></span><br><span class="line">	<span class="keyword">elif</span> [ <span class="string">"<span class="variable">$&#123;!fileVar:-&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		val=<span class="string">"<span class="variable">$(&lt; "$&#123;!fileVar&#125;")</span>"</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">export</span> <span class="string">"<span class="variable">$var</span>"</span>=<span class="string">"<span class="variable">$val</span>"</span></span><br><span class="line">	<span class="built_in">unset</span> <span class="string">"<span class="variable">$fileVar</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;1:0:1&#125;</span>"</span> = <span class="string">'-'</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">set</span> -- postgres <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># allow the container to be started with `--user`</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> = <span class="string">'postgres'</span> ] &amp;&amp; [ <span class="string">"<span class="variable">$(id -u)</span>"</span> = <span class="string">'0'</span> ]; <span class="keyword">then</span></span><br><span class="line">	mkdir -p <span class="string">"<span class="variable">$PGDATA</span>"</span></span><br><span class="line">	chown -R postgres <span class="string">"<span class="variable">$PGDATA</span>"</span></span><br><span class="line">	chmod 700 <span class="string">"<span class="variable">$PGDATA</span>"</span></span><br><span class="line"></span><br><span class="line">	mkdir -p /var/run/postgresql</span><br><span class="line">	chown -R postgres /var/run/postgresql</span><br><span class="line">	chmod g+s /var/run/postgresql</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Create the transaction log directory before initdb is run (below) so the directory is owned by the correct user</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">"<span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		mkdir -p <span class="string">"<span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span></span><br><span class="line">		chown -R postgres <span class="string">"<span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span></span><br><span class="line">		chmod 700 <span class="string">"<span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">exec</span> gosu postgres <span class="string">"<span class="variable">$BASH_SOURCE</span>"</span> <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> = <span class="string">'postgres'</span> ]; <span class="keyword">then</span></span><br><span class="line">	mkdir -p <span class="string">"<span class="variable">$PGDATA</span>"</span></span><br><span class="line">	chown -R <span class="string">"<span class="variable">$(id -u)</span>"</span> <span class="string">"<span class="variable">$PGDATA</span>"</span> 2&gt;/dev/null || :</span><br><span class="line">	chmod 700 <span class="string">"<span class="variable">$PGDATA</span>"</span> 2&gt;/dev/null || :</span><br><span class="line"></span><br><span class="line">	<span class="comment"># look specifically for PG_VERSION, as it is expected in the DB dir</span></span><br><span class="line">	<span class="keyword">if</span> [ ! -s <span class="string">"<span class="variable">$PGDATA</span>/PG_VERSION"</span> ]; <span class="keyword">then</span></span><br><span class="line">		file_env <span class="string">'POSTGRES_INITDB_ARGS'</span></span><br><span class="line">		<span class="keyword">if</span> [ <span class="string">"<span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">export</span> POSTGRES_INITDB_ARGS=<span class="string">"<span class="variable">$POSTGRES_INITDB_ARGS</span> --xlogdir <span class="variable">$POSTGRES_INITDB_XLOGDIR</span>"</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line">		<span class="built_in">eval</span> <span class="string">"initdb --username=postgres <span class="variable">$POSTGRES_INITDB_ARGS</span>"</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># check password first so we can output the warning before postgres</span></span><br><span class="line">		<span class="comment"># messes it up</span></span><br><span class="line">		file_env <span class="string">'POSTGRES_PASSWORD'</span></span><br><span class="line">		<span class="keyword">if</span> [ <span class="string">"<span class="variable">$POSTGRES_PASSWORD</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">			pass=<span class="string">"PASSWORD '<span class="variable">$POSTGRES_PASSWORD</span>'"</span></span><br><span class="line">			authMethod=md5</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="comment"># The - option suppresses leading tabs but *not* spaces. :)</span></span><br><span class="line">			cat &gt;&amp;2 &lt;&lt;-<span class="string">'EOWARN'</span></span><br><span class="line">				****************************************************</span><br><span class="line">				WARNING: No password has been <span class="built_in">set</span> <span class="keyword">for</span> the database.</span><br><span class="line">				         This will allow anyone with access to the</span><br><span class="line">				         Postgres port to access your database. In</span><br><span class="line">				         Docker<span class="string">'s default configuration, this is</span></span><br><span class="line"><span class="string">				         effectively any other container on the same</span></span><br><span class="line"><span class="string">				         system.</span></span><br><span class="line"><span class="string">				         Use "-e POSTGRES_PASSWORD=password" to set</span></span><br><span class="line"><span class="string">				         it in "docker run".</span></span><br><span class="line"><span class="string">				****************************************************</span></span><br><span class="line"><span class="string">			EOWARN</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">			pass=</span></span><br><span class="line"><span class="string">			authMethod=trust</span></span><br><span class="line"><span class="string">		fi</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		&#123;</span></span><br><span class="line"><span class="string">			echo</span></span><br><span class="line"><span class="string">			echo "host all all all $authMethod"</span></span><br><span class="line"><span class="string">		&#125; &gt;&gt; "$PGDATA/pg_hba.conf"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		# internal start of server in order to allow set-up using psql-client		</span></span><br><span class="line"><span class="string">		# does not listen on external TCP/IP and waits until start finishes</span></span><br><span class="line"><span class="string">		PGUSER="$&#123;PGUSER:-postgres&#125;" \</span></span><br><span class="line"><span class="string">		pg_ctl -D "$PGDATA" \</span></span><br><span class="line"><span class="string">			-o "-c listen_addresses='</span>localhost<span class="string">'" \</span></span><br><span class="line"><span class="string">			-w start</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		file_env '</span>POSTGRES_USER<span class="string">' '</span>postgres<span class="string">'</span></span><br><span class="line"><span class="string">		file_env '</span>POSTGRES_DB<span class="string">' "$POSTGRES_USER"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		psql=( psql -v ON_ERROR_STOP=1 )</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		if [ "$POSTGRES_DB" != '</span>postgres<span class="string">' ]; then</span></span><br><span class="line"><span class="string">			"$&#123;psql[@]&#125;" --username postgres &lt;&lt;-EOSQL</span></span><br><span class="line"><span class="string">				CREATE DATABASE "$POSTGRES_DB" ;</span></span><br><span class="line"><span class="string">			EOSQL</span></span><br><span class="line"><span class="string">			echo</span></span><br><span class="line"><span class="string">		fi</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		if [ "$POSTGRES_USER" = '</span>postgres<span class="string">' ]; then</span></span><br><span class="line"><span class="string">			op='</span>ALTER<span class="string">'</span></span><br><span class="line"><span class="string">		else</span></span><br><span class="line"><span class="string">			op='</span>CREATE<span class="string">'</span></span><br><span class="line"><span class="string">		fi</span></span><br><span class="line"><span class="string">		"$&#123;psql[@]&#125;" --username postgres &lt;&lt;-EOSQL</span></span><br><span class="line"><span class="string">			$op USER "$POSTGRES_USER" WITH SUPERUSER $pass ;</span></span><br><span class="line"><span class="string">		EOSQL</span></span><br><span class="line"><span class="string">		echo</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		psql+=( --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" )</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		echo</span></span><br><span class="line"><span class="string">		for f in /docker-entrypoint-initdb.d/*; do</span></span><br><span class="line"><span class="string">			case "$f" in</span></span><br><span class="line"><span class="string">				*.sh)     echo "$0: running $f"; . "$f" ;;</span></span><br><span class="line"><span class="string">				*.sql)    echo "$0: running $f"; "$&#123;psql[@]&#125;" -f "$f"; echo ;;</span></span><br><span class="line"><span class="string">				*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | "$&#123;psql[@]&#125;"; echo ;;</span></span><br><span class="line"><span class="string">				*)        echo "$0: ignoring $f" ;;</span></span><br><span class="line"><span class="string">			esac</span></span><br><span class="line"><span class="string">			echo</span></span><br><span class="line"><span class="string">		done</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		PGUSER="$&#123;PGUSER:-postgres&#125;" \</span></span><br><span class="line"><span class="string">		pg_ctl -D "$PGDATA" -m fast -w stop</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		echo</span></span><br><span class="line"><span class="string">		echo '</span>PostgreSQL init process complete; ready <span class="keyword">for</span> start up.<span class="string">'</span></span><br><span class="line"><span class="string">		echo</span></span><br><span class="line"><span class="string">	fi</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">exec "$@"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="CMD-和-ENTRYPOINT的区别"><a href="#CMD-和-ENTRYPOINT的区别" class="headerlink" title="CMD 和 ENTRYPOINT的区别"></a>CMD 和 ENTRYPOINT的区别</h2><ul>
+<li>当 dockerfile 中指定了 ENTRYPOINT 的时候, docker run 如果在镜像之后添加的指令, 那么这些指令将被当做 ENTRYPOINT 的参数执行</li>
+<li>如果 dockerfile 中同时有 CMD 和 ENTRYPOINT 指令, 当 CMD 指令可执行时, 它将在 ENTRYPOINT 之前运行; 如果 CMD 不是可执行的命令, 则将作为 ENTRYPOINT 的命令参数追加</li>
+</ul>
+<h1 id="EXPOSE-最佳实践"><a href="#EXPOSE-最佳实践" class="headerlink" title="EXPOSE 最佳实践"></a>EXPOSE 最佳实践</h1><ul>
+<li><p>EXPOSE 用来声明未来容器内需要监听的端口, 在 bridge 模式下, 这些容器内部的端口会映射到宿主机的端口上, 建议在容器内部不要更改应用原生的端口号</p>
+</li>
+<li><p>EXPOSE 中只能指定未来容器内部需要暴露的端口, 不能指定未来容器外部与内部端口之间的映射关系, 比如设置 <code>EXPOSE 8800:80</code> 是没有任何意义的</p>
+</li>
+</ul>
+<h1 id="ENV-最佳实践"><a href="#ENV-最佳实践" class="headerlink" title="ENV 最佳实践"></a>ENV 最佳实践</h1><ul>
+<li>通过环境变量来配置服务的相关设置, 通过这种方式可以方便的在不同环境中修改配置, 快速启动服务, 加快开发, 测试, 部署的流程</li>
+<li>设置系统环境变量, 比如二进制包安装的 nginx, 在 ENV 设置 PATH</li>
+<li>也可以借鉴 LABEL 的使用哲学, 标记一些版本号或版本编码信息</li>
+</ul>
+<h1 id="ADD-与-COPY-最佳实践"><a href="#ADD-与-COPY-最佳实践" class="headerlink" title="ADD 与 COPY 最佳实践"></a>ADD 与 COPY 最佳实践</h1><p>ADD 与 COPY 都是将外部文件拷贝到镜像内部的指令, 相比之下可能 ADD 的功能更加强大一下, 但是我的建议如下:</p>
+<ul>
+<li>尽量不要拷贝远程文件, 这样也就用不着 ADD 的功能, 用 COPY 就可以了</li>
+<li>如果压缩包拷贝进镜像后, 不希望这个压缩包被自动解压缩, 用 COPY 就对了. 反之如果希望拷贝进镜像之后就自动解压做, 那就用 ADD 拷贝进去</li>
+</ul>
+<p>如果涉及到远程文件, 建议使用 <code>RUN curl</code> 或 <code>RUN wget</code> 命令替代 ADD</p>
+<h1 id="VOLUME-最佳实践"><a href="#VOLUME-最佳实践" class="headerlink" title="VOLUME 最佳实践"></a>VOLUME 最佳实践</h1><p>VOLUME 的作用是持久化容器内的文件, 声明某个目录需要在宿主机挂载后, 当 docker run 起镜像时, docker 会在宿主机默认目录下随机生成一个文件夹挂载到容器内部的指定文件夹.</p>
+<p>当该容器被删除时, 宿主机上的这个文件夹并不会被删除. 当删除容器时加入了<code>-v</code> 参数, 那么对应的数据卷就会被删除</p>
+<h1 id="USER-最佳实践"><a href="#USER-最佳实践" class="headerlink" title="USER 最佳实践"></a>USER 最佳实践</h1><p>如果容器中的应用程序运行时不需要特殊的权限, 可以通过 USER 指令把应用程序的所有者设置为非 root 用户. 如果该用户不存在, 首先需要使用 RUN 命令在镜像中创建用户.</p>
+<ul>
+<li>如果在每次编译镜像时, 对用户的 UID/GID 有要求需要保持一致, 应该在新建用户和组的时候指定 UID和 GID</li>
+<li>在镜像中避免使用sudo 命令. 应为该命令使用的 TTY 不确定, 对接收信号量也会造成影响. 如果确实需要使用 sudo 功能, 则可是使用 gosu 命令替代</li>
+<li>可以用 root 用户初始化一个 daemon, 然后用非 root 用户启动这个 daemon</li>
+<li>为了减少镜像体积, 应该避免不必要的用户切换</li>
+</ul>
+<h1 id="WORKDIR-最佳实践"><a href="#WORKDIR-最佳实践" class="headerlink" title="WORKDIR 最佳实践"></a>WORKDIR 最佳实践</h1><ul>
+<li>尽量使用绝对路径</li>
+<li>切换目录的时候尽量使用 WORKDIR, 而不是使用 <code>RUN cd /dir</code></li>
+</ul>
+<h1 id="gosu-工具"><a href="#gosu-工具" class="headerlink" title="gosu 工具"></a>gosu 工具</h1><p>gosu 是一个 golang 语言开发的工具, 用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题. 如果仅仅为了使用特定的用户运行程序, 使用 su 或 sudo 显得太重了, 为此 gosu 应运而生.</p>
+<p>gosu 直接借用了 libcontainer 在容器中启动应用程序的原理, 使用 <code>/etc/passwd</code> 处理应用程序. gosu 首先找出指定的用户或用户组, 然后切换到该用户或用户组. 接下来, 使用 exec 启动应用程序. 到此为止, gosu 完成了它的工作, 不会参与到应用程序后面的声明周期中. 使用这种方式避免了 gosu 处理 TTY 和转发信号量的问题, 把这两个工作直接交给了应用程序去完成</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -2500,107 +2664,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps%205/" class="post-title-link" itemprop="url">nginx配置http强制跳转https</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-04-01 14:44:11" itemprop="dateCreated datePublished" datetime="2017-04-01T14:44:11+08:00">2017-04-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/01/nginx配置http强制跳转https 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>很多网站虽然支持 https, 但是直接在浏览器地址栏输入网址后, 默认仍是以 http 协议去访问的, http 强制跳转 https 的需求应运而生, 以下介绍三种实现的方式</p>
-</blockquote>
-<h1 id="rewrite-方法"><a href="#rewrite-方法" class="headerlink" title="rewrite 方法"></a>rewrite 方法</h1><p>这是最常用的实现方法, 将所有 http 请求通过 rewrite 重定向到 https 即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen  80;</span><br><span class="line">    server_name docs.lvrui.io</span><br><span class="line">      </span><br><span class="line">    rewrite ^(.*)$  https:&#x2F;&#x2F;$host$1 permanent;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="497-状态码"><a href="#497-状态码" class="headerlink" title="497 状态码"></a>497 状态码</h1><p>error code 497: normal request was sent to HTTPS</p>
-<p>在一个站点只允许 https 访问时, 如果使用 http 访问会报出497错误码</p>
-<p>利用497状态码重定向到 https</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name docs.lvrui.io</span><br><span class="line">    </span><br><span class="line">    error_page 497  https:&#x2F;&#x2F;$host$uri?$args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="index-html-刷新网页"><a href="#index-html-刷新网页" class="headerlink" title="index.html 刷新网页"></a>index.html 刷新网页</h1><p>上面两种方法均会耗费服务器资源, 我们使用 <code>curl</code> 来看下百度是如何实现的 <code>baidu.com</code> 向 <code>www.baidu.com</code> 的跳转</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ curl baidu.com -vv </span><br><span class="line">* Rebuilt URL to: baidu.com/</span><br><span class="line">*   Trying 220.181.57.217...</span><br><span class="line">* TCP_NODELAY <span class="built_in">set</span></span><br><span class="line">* Connected to baidu.com (220.181.57.217) port 80 (<span class="comment">#0)</span></span><br><span class="line">&gt; GET / HTTP/1.1</span><br><span class="line">&gt; Host: baidu.com</span><br><span class="line">&gt; User-Agent: curl/7.51.0</span><br><span class="line">&gt; Accept: */*</span><br><span class="line">&gt; </span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Date: Sat, 01 Apr 2017 06:32:35 GMT</span><br><span class="line">&lt; Server: Apache</span><br><span class="line">&lt; Last-Modified: Tue, 12 Jan 2010 13:48:00 GMT</span><br><span class="line">&lt; ETag: <span class="string">"51-47cf7e6ee8400"</span></span><br><span class="line">&lt; Accept-Ranges: bytes</span><br><span class="line">&lt; Content-Length: 81</span><br><span class="line">&lt; Cache-Control: max-age=86400</span><br><span class="line">&lt; Expires: Sun, 02 Apr 2017 06:32:35 GMT</span><br><span class="line">&lt; Connection: Keep-Alive</span><br><span class="line">&lt; Content-Type: text/html</span><br><span class="line">&lt; </span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"refresh"</span> content=<span class="string">"0;url=http://www.baidu.com/"</span>&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">* Curl_http_done: called premature == 0</span><br><span class="line">* Connection <span class="comment">#0 to host baidu.com left intact</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到百度很巧妙的利用meta的刷新作用，将baidu.com跳转到<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
-<p>同理, 我们也可以用这个特性来实现 http 向 https 的跳转</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># index.html</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"0;url=https://docs.lvrui.io/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    </span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        # 将 index.html 文件放到下面的目录下</span><br><span class="line">        root &#x2F;var&#x2F;www&#x2F;html&#x2F;refresh&#x2F;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2673,7 +2736,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2686,7 +2749,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

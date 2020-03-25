@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,111 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/22/systemd-journal-Suppressed-N-messages%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/22/systemd-journal-Suppressed-N-messages%205/" class="post-title-link" itemprop="url">systemd-journal: Suppressed N messages</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-22 16:53:11" itemprop="dateCreated datePublished" datetime="2018-11-22T16:53:11+08:00">2018-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/22/systemd-journal-Suppressed-N-messages%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/22/systemd-journal-Suppressed-N-messages 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>问题现象: docker container logs 查看容器日志却没有任何返回结果. 开始以为是程序没有 stdout 标准输出, 但是后来测试, 将<code>echo &quot;log&quot;</code>作为死循环运行在容器中, 再次执行<code>docker container logs</code>依然没有任何日志输出. 找到一台”干净的”docker 服务器测试却可以正常显示日志</p>
+</blockquote>
+<p>这台无法查看日志回显的服务器, Docker 的日志引擎配置为<code>journald</code>, 查看 journald 服务日志发现大量类似日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemd-journal: Suppressed 9567 messages from &#x2F;system.slice&#x2F;</span><br><span class="line">systemd-journal: Suppressed 6735 messages from &#x2F;system.slice&#x2F;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>根据字面意思理解就是日志被丢弃了, 看来是由于 journald 服务的问题导致的日志问题</p>
+<p>在 journald 中, 有如下两个参数跟此问题相关:</p>
+<ul>
+<li>RateLimitInterval</li>
+<li>RateLimitBurst</li>
+</ul>
+<p><code>RateLimitInterval</code>是指定时间间隔, 意思就是说, 在<code>RateLimitInterval</code>这段时间内的日志总量(总条数)控制在<code>RateLimitBurst</code>以内. 这两个参数搭配使用可以用来控制日志速率, 避免由于大量日志输出导致的一系列性能问题.</p>
+<p>该问题的根源在于该主机目前日志输出的速率超出了 journald 默认的配置, 你可以自定定义该速率, 也可以将<code>RateLimitInterval</code>设置为<code>0</code>, 以禁用速率控制</p>
+<p>接下来重启 journald 以生效配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart systemd-journald</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: 重启 journald 服务可能会引发一个 systemd 的 bug, 详情请参考下篇文章&lt;systemd-journald的SIGPIPE信号BUG&gt;</strong></p>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://www.freedesktop.org/software/systemd/man/journald.conf.html" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journald.conf.html</a></li>
+<li><a href="https://bani.com.br/2015/06/systemd-journal-what-does-systemd-journal-suppressed-n-messages-from-system-slice-mean/" target="_blank" rel="noopener">https://bani.com.br/2015/06/systemd-journal-what-does-systemd-journal-suppressed-n-messages-from-system-slice-mean/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1179,132 +1284,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/k8s%E8%AF%81%E4%B9%A6%E7%9A%84KeyUsage%E9%97%AE%E9%A2%98%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/01/k8s%E8%AF%81%E4%B9%A6%E7%9A%84KeyUsage%E9%97%AE%E9%A2%98%203/" class="post-title-link" itemprop="url">k8s证书的KeyUsage问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-01 16:51:48" itemprop="dateCreated datePublished" datetime="2018-11-01T16:51:48+08:00">2018-11-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/11/01/k8s%E8%AF%81%E4%B9%A6%E7%9A%84KeyUsage%E9%97%AE%E9%A2%98%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/k8s证书的KeyUsage问题 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>官方文档中, 对 k8s 的证书制作提供了三种方式, 主流使用有两种</p>
-<ul>
-<li>openssl</li>
-<li>cfssl</li>
-</ul>
-<p>具体证书制作步骤在此就不详细说明, 重点注意参考官方文档, 使用 openssl 方式制作证书时需要注意的事项</p>
-<p>官方文档中, 使用 OpenSSL 制作证书, 在 KeyUsage 的设置上, 指定了如下功能:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyUsage&#x3D;keyEncipherment,dataEncipherment</span><br></pre></td></tr></table></figure>
-
-<p>在制作完 crt 证书后, 使用 <code>openssl x509 -in /path/to/xxx.crt -text -noout</code> 命令查看证书信息:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X509v3 Key Usage:</span><br><span class="line">    Key Encipherment, Data Encipherment</span><br></pre></td></tr></table></figure>
-
-<p>没毛病, 就是之前指定的两个功能, 一个不多一个不少, 但问题也出现在这里. </p>
-<p>在实际使用中, 使用仅带有<code>keyUsage=keyEncipherment,dataEncipherment</code>这两个功能的证书引导集群, 并没有出现什么问题, 但是在使用 Java 客户端访问 apiserver 时, 却报以下错误:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io.kubernetes.client.ApiException: javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: KeyUsage does not allow digital signatures</span><br></pre></td></tr></table></figure>
-
-<p>报错信息很明确, 证书没有提供<code>digital signatures</code>的功能. 查询另一篇证书说明文档(<a href="https://kubernetes.io/docs/setup/certificates/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/certificates/</a>) 里面说的很清楚</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kind	Key usage</span><br><span class="line">server	digital signature, key encipherment, server auth</span><br><span class="line">client	digital signature, key encipherment, client auth</span><br></pre></td></tr></table></figure>
-
-<p>不管是服务端证书还是客户端证书, 都至少需要提供<code>digital signature, key encipherment</code>这两个功能, 但是制作证书的官方文档中, openssl 方式创建的证书, 却没有显式指定 <code>digital signatures</code> 功能. 在后期的制作中, openssl 也没有默认给我们加入此功能, 结果导致 java 客户端无法完成 ssl 认证.</p>
-<p>但是官方文档中, 使用 cfssl 工具也没有显示指定加入 <code>digital signatures</code> 功能, 但是制作证书时, 默认为我们加入了该功能. 就冲这点, 也强烈建议使用 cfssl 工具制作证书😆</p>
-<p>解决方法: </p>
-<ul>
-<li>使用 openssl 签发证书的话, 将 <code>keyUsage=keyEncipherment,dataEncipherment</code> 修改为–&gt; <code>keyUsage=digitalSignature,keyEncipherment,dataEncipherment</code> 即可</li>
-<li>使用 cfssl 签发证书, 默认就会加入<code>digitalSignature</code>功能</li>
-</ul>
-<p>解决方案:<br>   方案一: 重新制作所有证书, 加入<code>digital signatures</code>功能, 并为集群更换证书<br>   方案二: 重新制作 apiserver 服务端证书和 java 客户端使用的客户端证书, 加入<code>digital signatures</code>功能, 替换所有 apiserver 和 java 使用的证书, 即可完成最小代价的替换</p>
-<p>附录:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">KeyUsage ::&#x3D; BIT STRING &#123;</span><br><span class="line">          digitalSignature        (0),</span><br><span class="line">          nonRepudiation          (1), -- recent editions of X.509 have</span><br><span class="line">                               -- renamed this bit to contentCommitment</span><br><span class="line">          keyEncipherment         (2),</span><br><span class="line">          dataEncipherment        (3),</span><br><span class="line">          keyAgreement            (4),</span><br><span class="line">          keyCertSign             (5),</span><br><span class="line">          cRLSign                 (6),</span><br><span class="line">          encipherOnly            (7),</span><br><span class="line">          decipherOnly            (8) &#125;</span><br><span class="line"></span><br><span class="line">  Bits in the KeyUsage type are used as follows:</span><br><span class="line"></span><br><span class="line">     The digitalSignature bit is asserted when the subject public key</span><br><span class="line">     is used for verifying digital signatures, other than signatures on</span><br><span class="line">     certificates (bit 5) and CRLs (bit 6), such as those used in an</span><br><span class="line">     entity authentication service, a data origin authentication</span><br><span class="line">     service, and&#x2F;or an integrity service.</span><br></pre></td></tr></table></figure>
-
-<p>参考文档:</p>
-<p>k8s证书制作文档</p>
-<ul>
-<li>中文文档: <a href="https://k8smeetup.github.io/docs/concepts/cluster-administration/certificates/#openssl" target="_blank" rel="noopener">https://k8smeetup.github.io/docs/concepts/cluster-administration/certificates/#openssl</a></li>
-<li>英文文档: <a href="https://kubernetes.io/docs/concepts/cluster-administration/certificates/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/cluster-administration/certificates/</a></li>
-</ul>
-<p>k8s证书使用说明文档</p>
-<ul>
-<li><a href="https://kubernetes.io/docs/setup/certificates/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/certificates/</a></li>
-</ul>
-<p>KeyUsage 文档:</p>
-<ul>
-<li><a href="https://tools.ietf.org/html/rfc5280#section-4.2.1.3" target="_blank" rel="noopener">https://tools.ietf.org/html/rfc5280#section-4.2.1.3</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1377,7 +1356,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1390,7 +1369,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

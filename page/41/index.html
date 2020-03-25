@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,100 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/" class="post-title-link" itemprop="url">自定义线程池的实现思路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-22 02:57:06" itemprop="dateCreated datePublished" datetime="2016-07-22T02:57:06+08:00">2016-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/22/自定义线程池的实现思路 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在使用多线程的过程中，一旦任务数量过多，如果不对派生出来的子线程做出限制的话，多线程极有可能会拉低程序的性能，这时，我们需要维护一个固定数量的线程，也就是线程池的概念</p>
+</blockquote>
+<p>实现线程池的思路：</p>
+<ul>
+<li>设置线程池的容量</li>
+<li>每取走一个线程，在线程池中就减少一个线程</li>
+<li>每个子线程的任务执行完毕，把自己的线程配额放回线程池中</li>
+<li>当线程池中的线程全部分配完毕，新的任务需要等待获取线程池中的线程</li>
+</ul>
+<p>基于以上的需求，我们可以通过队列来实现线程池的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> queue</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadPool</span>:</span></span><br><span class="line">    <span class="comment"># 接收的实例化参数为线程池的最大容量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, maxsize=<span class="number">5</span>)</span>:</span></span><br><span class="line">        self.maxsize = maxsize</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置队列的最大容量</span></span><br><span class="line">        self.q = queue.Queue(maxsize)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用线程类填满队列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(maxsize):</span><br><span class="line">            self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 从队列中取出一个线程类返回</span></span><br><span class="line">        <span class="keyword">return</span> self.q.get()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 先线程池添加一个线程类</span></span><br><span class="line">        <span class="comment"># 用来被执行完任务的函数调用,实现回收线程配额的功能</span></span><br><span class="line">        self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task</span><span class="params">(arg, pool)</span>:</span></span><br><span class="line">    <span class="string">"""接收了一个线程池对象"""</span></span><br><span class="line">    print(arg)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行完毕函数的主体后,将拿到的线程配额再放回到线程池中</span></span><br><span class="line">    pool.add_thread()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建一个容量为5的线程池</span></span><br><span class="line">    pool = ThreadPool(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">59</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 从线程池中拿到一个线程对象</span></span><br><span class="line">        <span class="comment"># 相当于 t = threading.Thread</span></span><br><span class="line">        t = pool.get_thread()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建子线程对象</span></span><br><span class="line">        <span class="comment"># 把线程池对象传递到执行函数中</span></span><br><span class="line">        o = t(target=task, args=(i, pool,))</span><br><span class="line"></span><br><span class="line">        o.start()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1256,105 +1350,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%205/" class="post-title-link" itemprop="url">Python线程的基本使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-17 13:11:26" itemprop="dateCreated datePublished" datetime="2016-07-17T13:11:26+08:00">2016-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/17/Python线程的基本使用 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="实例1-start"><a href="#实例1-start" class="headerlink" title="实例1 start"></a>实例1 start</h1><p>创建子线程并执行线程</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br><span class="line">PolarSnow</span><br><span class="line">func end</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码在主线程中创建了一个子线程去执行一个函数</p>
-<p>执行这个函数最少需要2秒钟，而主线程直接去执行了<code>print(&#39;end&#39;)</code>，说明在默认情况下，主线程不会等待子线程直接结束再向下执行，而是主线程先向下执行，即使主线程所有代码已经执行完毕，也不会退出程序，而是等待所有子线程执行结束后再退出程序</p>
-<h1 id="实例2-setDaemon"><a href="#实例2-setDaemon" class="headerlink" title="实例2 setDaemon"></a>实例2 setDaemon</h1><p>设置主线程不等待子线程执行完毕</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
-
-<p>在启动线程之前设置<code>t.setDaemon(True)</code>为True，意思是主线程不会等待所有的子线程执行完毕再退出程序，而是当主线程执行完毕后，强制退出程序，不管子线程有没有执行完毕</p>
-<h1 id="实例3-join"><a href="#实例3-join" class="headerlink" title="实例3 join"></a>实例3 join</h1><p>主线程等待子线程执行完毕后，再向下执行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line">t.join() <span class="comment"># 主线程停在这里</span></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">PolarSnow</span><br><span class="line">func end</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
-
-<p>使用了join方法之后，主线程会一直停在join方法那一行，直到所有的子线程都执行完毕后，再继续向下执行</p>
-<h1 id="实例4-join-1"><a href="#实例4-join-1" class="headerlink" title="实例4 join(1)"></a>实例4 join(1)</h1><p>设置主线程再次等待子线程的最大时间</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line">t.join(<span class="number">1</span>) <span class="comment"># 主线程停在这里</span></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
-
-<p>设置为主线程在<code>t.join</code>这一行，<strong>最多</strong>等待1秒钟的时间，1秒钟之后，不管子线程有没有执行完毕都会继续向下执行</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1427,7 +1422,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1440,7 +1435,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,99 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8%205/" class="post-title-link" itemprop="url">Python中的有序字典</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 16:56:08" itemprop="dateCreated datePublished" datetime="2017-07-26T16:56:08+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中的有序字典 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 3.5版本(含3.5)之前, 默认的字典是无序的. 在最新的3.6版本中, 字典变成了有序字典, 本篇文章将介绍3.5版本及之前版本中有序字典的使用和3.6版本原生有序字典的使用</p>
+</blockquote>
+<h1 id="3-5"><a href="#3-5" class="headerlink" title="3.5-"></a>3.5-</h1><p>3.5版本及之前的版本中, 需要借助<code>collections</code>模块中的<code>OrderedDict</code>来实现有序字典的声明和使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">od = OrderedDict()</span><br><span class="line">d = &#123;&#125;</span><br><span class="line"></span><br><span class="line">od[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">od[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">od[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">print(od)</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'lvrui'</span>), (<span class="string">'age'</span>, <span class="number">26</span>), (<span class="string">'city'</span>, <span class="string">'HeBei'</span>)])</span><br><span class="line">&#123;<span class="string">'city'</span>: <span class="string">'HeBei'</span>, <span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-6"><a href="#3-6" class="headerlink" title="3.6+"></a>3.6+</h1><p>在 Python3.6+ 版本中, 内置字典默认就是有序的😆 爽~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3<span class="number">.6</span></span><br><span class="line">Python <span class="number">3.6</span><span class="number">.2</span> (v3<span class="number">.6</span><span class="number">.2</span>:<span class="number">5</span>fd33b5926, Jul <span class="number">16</span> <span class="number">2017</span>, <span class="number">20</span>:<span class="number">11</span>:<span class="number">06</span>) </span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>, <span class="string">'city'</span>: <span class="string">'HeBei'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1239,120 +1332,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先创建一个字典</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000029</code></p>
-<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000014</code></p>
-<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000009</code></p>
-<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000005</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1425,7 +1404,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">573</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1438,7 +1417,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">373</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
