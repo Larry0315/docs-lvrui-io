@@ -28,7 +28,7 @@
 <meta property="og:description" content="在重启systemd-journald后, 意外的发现, 本台服务器上的其他由 systemd 托管的部分服务, 却意外被 stop 掉了, 由于大部分服务的 unit 文件中都配置了 Restart 规则为 on-failure. 所以如果是异常的退出, 这些服务应该会重启才对. 很明显, 这些服务是被”正常”关闭的.  在查看被 stop 的应用状态时, 发现了以下线索 12345$ sud">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-11-22T09:43:55.000Z">
-<meta property="article:modified_time" content="2020-03-22T06:37:46.689Z">
+<meta property="article:modified_time" content="2020-03-22T06:37:46.000Z">
 <meta property="article:author" content="极地瑞雪">
 <meta property="article:tag" content="journald">
 <meta property="article:tag" content="systemd">
@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -150,7 +150,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -309,19 +309,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journald的SIGPIPE信号BUG 5/" rel="bookmark">systemd-journald的SIGPIPE信号BUG</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2017/02/19/更改docker的日志引擎为-journald/" rel="bookmark">更改docker的日志引擎为 journald</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/11/22/systemd-journal-Suppressed-N-messages 5/" rel="bookmark">systemd-journal: Suppressed N messages</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2017/02/19/更改docker的日志引擎为-journald 5/" rel="bookmark">更改docker的日志引擎为 journald</a></div>
     </li>
   </ul>
 
@@ -362,11 +353,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/11/22/systemd-journald%E7%9A%84SIGPIPE%E4%BF%A1%E5%8F%B7BUG%205/" rel="prev" title="systemd-journald的SIGPIPE信号BUG">
-      <i class="fa fa-chevron-left"></i> systemd-journald的SIGPIPE信号BUG
+    <a href="/2018/11/22/systemd-journal-Suppressed-N-messages/" rel="prev" title="systemd-journal: Suppressed N messages">
+      <i class="fa fa-chevron-left"></i> systemd-journal: Suppressed N messages
     </a></div>
       <div class="post-nav-item">
-    <a href="/2018/12/11/%E8%AE%B0%E5%BD%95K8s-1-10-x-TLS-Bootstrap-Bug%E4%B8%80%E6%9E%9A%205/" rel="next" title="记录K8s 1.10.x TLS Bootstrap Bug一枚">
+    <a href="/2018/12/11/%E8%AE%B0%E5%BD%95K8s-1-10-x-TLS-Bootstrap-Bug%E4%B8%80%E6%9E%9A/" rel="next" title="记录K8s 1.10.x TLS Bootstrap Bug一枚">
       记录K8s 1.10.x TLS Bootstrap Bug一枚 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -450,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -463,7 +454,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

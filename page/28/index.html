@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/24/saltstack-key%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">Tomcat 时区设置</a>
+            <a href="/2015/11/24/saltstack-key%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">saltstack key认证过程</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,438 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-02-19 20:57:50" itemprop="dateCreated datePublished" datetime="2017-02-19T20:57:50+08:00">2017-02-19</time>
+              <time title="创建时间：2015-11-24 11:39:53" itemprop="dateCreated datePublished" datetime="2015-11-24T11:39:53+08:00">2015-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/24/saltstack-key%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/24/saltstack-key认证过程/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="密钥对儿的认证"><a href="#密钥对儿的认证" class="headerlink" title="密钥对儿的认证"></a>密钥对儿的认证</h1><p>当初始化安装 minion 启动服务启动后</p>
+<ol>
+<li>minion端生成一个秘钥对，并产生一个ID值，minion服务会安装ID值命名的公钥发送给 master ,直到接受为止;</li>
+<li>master认证完毕后，会将minion 端发送来的，以ID值命名的公钥存放在 <code>/etc/salt/pki/master/minions</code> 目录中(无扩展名);</li>
+<li>master认证完毕后，会将自身的公钥发送给 minion，并存储为 <code>/etc/salt/pki/minion/minion_master.pub</code></li>
+</ol>
+<hr>
+<h1 id="minion-id的生成过程"><a href="#minion-id的生成过程" class="headerlink" title="minion id的生成过程"></a>minion id的生成过程</h1><p>minion 默认按照一定的顺序，试图找到一个不是localhost的值作为其ID</p>
+<p>这里不需要知道salt是按照怎样的顺序取值的，只需要记住以下优先级即可</p>
+<p><code>hostname</code> &lt; <code>/etc/salt/minion_id</code> &lt; <code>/etc/salt/minion文件中的id值</code></p>
+<hr>
+<h1 id="密钥对儿存放的位置"><a href="#密钥对儿存放的位置" class="headerlink" title="密钥对儿存放的位置"></a>密钥对儿存放的位置</h1><ul>
+<li>master 秘钥对默认存储在</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/salt/pki/master/master.pub </span><br><span class="line">/etc/salt/pki/master/master.pem</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>master 端认证的公钥存储在：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/salt/pki/master/minions/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>minion 秘钥对默认存储在</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/salt/pki/minion/minion.pub </span><br><span class="line">/etc/salt/pki/minion/minion.pem</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>minion 存放的master公钥</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/salt/pki/minion/minion_master.pub</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>minion_id 默认存储在</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/salt/minion_id</span><br></pre></td></tr></table></figure>
+
+<p>在实际使用过程中，minion端可能会遇到各种原因导致的密钥对儿不匹配的情况，造成在master端显示在denied keys列表中无法通过认证。</p>
+<ul>
+<li>[master]先在master端删除该id</li>
+<li>[minion]再删除minion端的key文件</li>
+<li>[minion]最后重启服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rm -fr /etc/salt/pki/minion/minion_master.pub</span><br><span class="line"><span class="comment">#通过上面的介绍可以得知，以上这个文件是在master端认证通过之后，发放到minion端的公钥</span></span><br><span class="line"><span class="comment">#造成出现这个文件情况是因为早期连接了一个其他的master，更换master导致原公钥无法匹配</span></span><br><span class="line"><span class="comment">#删除与旧master认证的公钥文件</span></span><br><span class="line">rm -fr /etc/salt/pki/minion/minion.pem    <span class="comment">#删除minion的私钥文件</span></span><br><span class="line">rm -fr /etc/salt/pki/minion/minion.pub    <span class="comment">#删除minion的公钥文件</span></span><br><span class="line">service salt-minion restart    <span class="comment">#重启服务 会自动重新生成新的密钥对儿</span></span><br><span class="line"><span class="comment">#此时master端查看keys时，新的主机已经出现在Unaccepted Keys的列表中了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考文章 <a href="http://my.oschina.net/u/877567/blog/201733" target="_blank" rel="noopener">salt key 认证过程</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/23/saltstack%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/23/saltstack%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">saltstack安装及配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-23 17:57:17" itemprop="dateCreated datePublished" datetime="2015-11-23T17:57:17+08:00">2015-11-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/23/saltstack%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/23/saltstack安装及配置/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="saltstack安装及配置"><a href="#saltstack安装及配置" class="headerlink" title="saltstack安装及配置"></a>saltstack安装及配置</h1><h2 id="首先安装epel源"><a href="#首先安装epel源" class="headerlink" title="首先安装epel源"></a>首先安装epel源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<h2 id="master"><a href="#master" class="headerlink" title="master"></a>master</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install salt-master -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>master端安装好后一般不需要任何设置，启动服务器即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service salt-master start</span><br><span class="line">chkconfig salt-master on</span><br></pre></td></tr></table></figure>
+
+<h2 id="minion"><a href="#minion" class="headerlink" title="minion"></a>minion</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install salt-minion</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>minion端至少需要配置两项，id和master需要指定。</p>
+<ul>
+<li>id: 这台主机的唯一标识！ 就像mac地址一样！</li>
+<li>master: 指定salt master的IP地址或域名！   </li>
+</ul>
+<p>注意：注意冒号后面一定要有一个空格。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/salt/minion</span><br><span class="line">id: node1.salt.com</span><br><span class="line">master: master.salt.com</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="master与minion的认证"><a href="#master与minion的认证" class="headerlink" title="master与minion的认证"></a>master与minion的认证</h2><p><strong>master</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">salt-key -L <span class="comment">#查看所有主机</span></span><br><span class="line"><span class="comment">#没有接受的key会显示在Unaccepted Keys下</span></span><br><span class="line">salt-key -A <span class="comment">#接受所有主机</span></span><br><span class="line">salt-key -D <span class="comment">#删除所有主机</span></span><br><span class="line">salt-key -a node1.salt.com  <span class="comment">#接受指定的主机</span></span><br><span class="line">salt-key -d node1.salt.com  <span class="comment">#删除指定的主机</span></span><br></pre></td></tr></table></figure>
+
+<p>一般情况下，master不会在配置文件中开启自动授权</p>
+<hr>
+<h1 id="测试连通性"><a href="#测试连通性" class="headerlink" title="测试连通性"></a>测试连通性</h1><p><strong>master</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ salt <span class="string">'*'</span> test.ping</span><br><span class="line">node1.salt.com:</span><br><span class="line">    True</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/23/Salt-Master%E6%8A%A5%E9%94%99-Minion-did-not-return-No-response/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/23/Salt-Master%E6%8A%A5%E9%94%99-Minion-did-not-return-No-response/" class="post-title-link" itemprop="url">Salt Master报错:Minion did not return. [No response]</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-23 16:51:50" itemprop="dateCreated datePublished" datetime="2015-11-23T16:51:50+08:00">2015-11-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/23/Salt-Master%E6%8A%A5%E9%94%99-Minion-did-not-return-No-response/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/23/Salt-Master报错-Minion-did-not-return-No-response/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在salt master端执行salt ‘*’ test.ping时，某一节点出现如下报错：<br><code>Minion did not return. [No response]</code></p>
+<p>登陆到这一节点查看minion的日志，发现如下的问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ tail -f /var/<span class="built_in">log</span>/salt/minion</span><br><span class="line">The master may need to be updated <span class="keyword">if</span> it is a version of Salt lower than 2015.5.3, or</span><br><span class="line">If you are confident that you are connecting to a valid Salt Master, <span class="keyword">then</span> remove the master public key and restart the Salt Minion.</span><br><span class="line">The master public key can be found at:</span><br><span class="line">/etc/salt/pki/minion/minion_master.pub</span><br><span class="line">2015-11-23 23:30:02,645 [salt.crypt                               ][ERROR   ][3530] The Salt Master has cached the public key <span class="keyword">for</span> this node, this salt minion will <span class="built_in">wait</span> <span class="keyword">for</span> 10 seconds before attempting to re-authenticate</span><br><span class="line">2015-11-23 23:30:05,108 [salt.crypt                               ][ERROR   ][3586] The Salt Master has cached the public key <span class="keyword">for</span> this node, this salt minion will <span class="built_in">wait</span> <span class="keyword">for</span> 10 seconds before attempting to re-authenticate</span><br><span class="line">2015-11-23 23:30:15,136 [salt.crypt                               ][ERROR   ][3586] The Salt Master has cached the public key <span class="keyword">for</span> this node, this salt minion will <span class="built_in">wait</span> <span class="keyword">for</span> 10 seconds before attempting to re-authenticate</span><br></pre></td></tr></table></figure>
+
+<p>大概的意思就是，minion端拿到的key与master端的不符，验证无法通过。<br>解决方法是删除minion端的key，再重新与master进行连接和认证。</p>
+<p><strong>minion</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat pki/minion/minion_master.pub </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtzq0AjuyQsVEgsx692GN</span><br><span class="line">... ...</span><br><span class="line">7fbuudp4yu5vcYcqksKIFcm0J3E+OR+rx/NUIHt0ZL8HLxcSn4Si/S6dVp/vE7Oc</span><br><span class="line">swIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line">[root@localhost salt]<span class="comment"># rm -fr pki/minion/minion_master.pub</span></span><br><span class="line"></span><br><span class="line">[root@localhost salt]<span class="comment"># service salt-minion restart</span></span><br><span class="line">Stopping salt-minion daemon:                               [  OK  ]</span><br><span class="line">Starting salt-minion daemon:                               [  OK  ]</span><br></pre></td></tr></table></figure>
+
+<p><strong>master</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-key -A</span><br></pre></td></tr></table></figure>
+
+<p><strong>minion</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat pki/minion/minion_master.pub </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy46TJvK9BUqjvaYzmt5Q</span><br><span class="line">... ...</span><br><span class="line">ADw0hU6B/A1kRBeUbb6Fy+HljiSjD3O+mhoK7RE8rCnvJCHfuZSX/qMtLEyoh0vN</span><br><span class="line">tQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>至此，master与minion端的通信正常。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Python中glob模块的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-20 17:58:48" itemprop="dateCreated datePublished" datetime="2015-11-20T17:58:48+08:00">2015-11-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/20/Python中glob模块的使用/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本篇文章介绍Python中的glob模块的基本使用。glob模块可以按指定路径得到所有符合条件的文件的完整路径。<br>glob的使用体验类似于windows系统中常用的搜索功能。使用通配符进行搜索</p>
+</blockquote>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>glob是Python中最简单的模块之一，功能很简单，类似于windows中的查找文件。使用如下通配符进行操作：</p>
+<ul>
+<li><code>*</code> 星号：表示匹配0个或多个字符</li>
+<li><code>?</code> 问号：表示匹配单个字符</li>
+<li><code>[]</code> 中括号： 匹配指定的范围。如[0-9]</li>
+</ul>
+<h1 id="glob-glob"><a href="#glob-glob" class="headerlink" title="glob.glob"></a>glob.glob</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> glob</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files_path = glob.glob(<span class="string">"/tmp/npm*"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(file_paths)</span><br><span class="line">&lt;type <span class="string">'list'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> files_path:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> f</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">/tmp/npm<span class="number">-7838</span><span class="number">-2</span>b67e940</span><br><span class="line">/tmp/npm<span class="number">-5331</span><span class="number">-1</span>d55c699</span><br><span class="line">/tmp/npm<span class="number">-6600</span><span class="number">-69</span>f3511a</span><br><span class="line">/tmp/npm<span class="number">-5116</span><span class="number">-69883</span>a41</span><br><span class="line">/tmp/npm<span class="number">-5009</span><span class="number">-8</span>ef54da7</span><br><span class="line">/tmp/npm<span class="number">-7792</span>-fec6155a</span><br><span class="line">/tmp/npm<span class="number">-3252</span><span class="number">-71</span>dc8e8e</span><br><span class="line">/tmp/npm<span class="number">-4344</span><span class="number">-50e90470</span></span><br><span class="line">/tmp/npm<span class="number">-6387</span><span class="number">-29</span>ec15b1</span><br><span class="line">/tmp/npm<span class="number">-4617</span>-fff22b70</span><br><span class="line">/tmp/npm<span class="number">-4456</span>-b90bb1d8</span><br><span class="line">/tmp/npm<span class="number">-6480</span>-cce3191b</span><br><span class="line">/tmp/npm<span class="number">-4062</span><span class="number">-60</span>f050ce</span><br><span class="line">/tmp/npm<span class="number">-4712</span><span class="number">-1</span>ca9017c</span><br><span class="line">/tmp/npm<span class="number">-3770</span>-aec98483</span><br><span class="line">/tmp/npm<span class="number">-3913</span><span class="number">-8678</span>ef60</span><br><span class="line">/tmp/npm<span class="number">-5235</span><span class="number">-03941</span>a1e</span><br></pre></td></tr></table></figure>
+
+<p>重点看类型！ <strong>list !!!</strong> 返回的是一个列表</p>
+<h1 id="glob-iglob"><a href="#glob-iglob" class="headerlink" title="glob.iglob"></a>glob.iglob</h1><p>iglob用来获取一个可迭代对象，再对其遍历。数据量非常大的时候比较适用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> glob</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files_path = glob.iglob(<span class="string">"/tmp/npm*"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(files_path)</span><br><span class="line">&lt;type <span class="string">'generator'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> files_path:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> f</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">/tmp/npm<span class="number">-7838</span><span class="number">-2</span>b67e940</span><br><span class="line">/tmp/npm<span class="number">-5331</span><span class="number">-1</span>d55c699</span><br><span class="line">/tmp/npm<span class="number">-6600</span><span class="number">-69</span>f3511a</span><br><span class="line">/tmp/npm<span class="number">-5116</span><span class="number">-69883</span>a41</span><br><span class="line">/tmp/npm<span class="number">-5009</span><span class="number">-8</span>ef54da7</span><br><span class="line">/tmp/npm<span class="number">-7792</span>-fec6155a</span><br><span class="line">/tmp/npm<span class="number">-3252</span><span class="number">-71</span>dc8e8e</span><br><span class="line">/tmp/npm<span class="number">-4344</span><span class="number">-50e90470</span></span><br><span class="line">/tmp/npm<span class="number">-6387</span><span class="number">-29</span>ec15b1</span><br><span class="line">/tmp/npm<span class="number">-4617</span>-fff22b70</span><br><span class="line">/tmp/npm<span class="number">-4456</span>-b90bb1d8</span><br><span class="line">/tmp/npm<span class="number">-6480</span>-cce3191b</span><br><span class="line">/tmp/npm<span class="number">-4062</span><span class="number">-60</span>f050ce</span><br><span class="line">/tmp/npm<span class="number">-4712</span><span class="number">-1</span>ca9017c</span><br><span class="line">/tmp/npm<span class="number">-3770</span>-aec98483</span><br><span class="line">/tmp/npm<span class="number">-3913</span><span class="number">-8678</span>ef60</span><br><span class="line">/tmp/npm<span class="number">-5235</span><span class="number">-03941</span>a1e</span><br></pre></td></tr></table></figure>
+
+<p>上面的实例可以看出使用glob.iglob返回的是一个可迭代对象，可以节省内存。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/19/dstat%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/19/dstat%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">dstat工具的安装和使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-19 14:34:09" itemprop="dateCreated datePublished" datetime="2015-11-19T14:34:09+08:00">2015-11-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +683,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/Tomcat-时区设置/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2015/11/19/dstat%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/19/dstat工具的安装和使用/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,12 +700,28 @@
 
       
           <blockquote>
-<p>从 tomcat 官网中下载下来的软件包, 默认使用的是格林尼治标准时间, 与中国的时间相差8个小时, 此时我们需要修改 tomcat 中的配置, 让其变为东八区的时间</p>
+<p>dstat 是一款比较全面的性能监控工具，是排查服务器负载异常的利器！</p>
 </blockquote>
-<p>最近新装的 tomcat 发现与北京时间相差正好8小时, 查看系统时间没有问题, 是正确的, 问题出在 tomcat 中, 需要对 tomcat 做如下修改</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">cd</span> apache-tomcat-8.0.39/bin</span><br><span class="line">&gt; vim catalina.sh</span><br><span class="line"><span class="comment"># 在这个启动脚本中, 找到如下行并替换</span></span><br><span class="line"><span class="comment"># JAVA_OPTS="$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources"</span></span><br><span class="line"><span class="comment"># 替换为</span></span><br><span class="line">JAVA_OPTS=<span class="string">"<span class="variable">$JAVA_OPTS</span> -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Duser.timezone=GMT+08"</span></span><br></pre></td></tr></table></figure>
+<h1 id="dstat的安装"><a href="#dstat的安装" class="headerlink" title="dstat的安装"></a>dstat的安装</h1><p>dstat的安装在这里介绍三种方式</p>
+<ul>
+<li><p>使用”绿色版”安装</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://dstat.sourcearchive.com/downloads/0.7.0/dstat_0.7.0.orig.tar.gz</span><br><span class="line">tar -xvzf dstat_0.7.0.orig.tar.gz</span><br><span class="line"><span class="built_in">cd</span> dstat-0.7.0.orig/</span><br><span class="line"><span class="comment">#使用以下方式即可使用dstat</span></span><br><span class="line">./dstat -V</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用rpm安装</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.centos.org/centos/6/os/i386/Packages/dstat-0.7.0-2.el6.noarch.rpm</span><br><span class="line">rpm -ivh dstat-0.7.0-2.el6.noarch.rpm</span><br><span class="line"><span class="comment">#直接在系统中调用dstat即可</span></span><br><span class="line">dstat -V</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用yum安装</p>
+<p>  <code>yum install dstat</code></p>
+</li>
+</ul>
+<h1 id="dstat的使用"><a href="#dstat的使用" class="headerlink" title="dstat的使用"></a>dstat的使用</h1><p>dstat命令支持的参数这里就不再赘述啦，以下介绍一下个人比较常用的两种参数</p>
+<ol>
+<li>dstat -tcdrlmn –top-cpu –top=mem  #查看时间、CPU、磁盘读写、IO、负载、内存、网络、最高的CPU占用和最高的内存占用 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">----system---- ----total-cpu-usage---- -dsk&#x2F;total- --io&#x2F;total- ---load-avg--- ------memory-usage----- -net&#x2F;total- -most-expensive- --most-expensive-</span><br><span class="line">  date&#x2F;time   |usr sys idl wai hiq siq| read  writ| read  writ| 1m   5m  15m | used  buff  cach  free| recv  send|  cpu process   |  memory process </span><br><span class="line">19-11 21:49:25|  0   0 100   0   0   0|1055B 1810B|0.02  0.07 |0.02 0.01    0| 236M  131M 2961M 4527M|   0     0 |kipmi0       0.0|sshd: root@p4488k</span><br><span class="line">19-11 21:49:26|  0   0 100   0   0   0|   0     0 |   0     0 |0.02 0.01    0| 236M  131M 2961M 4527M| 398B 1532B|                |sshd: root@p4488k</span><br><span class="line">19-11 21:49:27|  0   0 100   0   0   0|   0     0 |   0     0 |0.02 0.01    0| 236M  131M 2961M 4527M| 352B  542B|                |sshd: root@p4488k</span><br><span class="line">19-11 21:49:28|  0   0 100   0   0   0|   0     0 |   0     0 |0.02 0.01    0| 236M  131M 2961M 4527M| 850B  542B|                |sshd: root@p4488k</span><br><span class="line">19-11 21:49:29|  0   0 100   0   0   0|   0     0 |   0     0 |0.02 0.01    0| 236M  131M 2961M 4527M| 256B  542B|                |sshd: root@p4488k</span><br></pre></td></tr></table></figure></li>
+<li>dstat -cl -C 0,1,2,3,4,5,6,7 –top-cpu   #查看8颗核心，每颗核心的使用情况和CPU使用情况 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	-------cpu0-usage--------------cpu1-usage--------------cpu2-usage--------------cpu3-usage--------------cpu4-usage--------------cpu5-usage--------------cpu6-usage--------------cpu7-usage------ ---load-avg--- -most-expensive-</span><br><span class="line">usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq:usr sys idl wai hiq siq| 1m   5m  15m |  cpu process   </span><br><span class="line">  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|kipmi0       0.0</span><br><span class="line">  0   0 100   0   0   0:  0   0 100   0   0   0:  0   1  99   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|                </span><br><span class="line">  0   0 100   0   0   0:  0   0 100   0   0   0:  1   1  98   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|kipmi0       0.1</span><br><span class="line">  0   1  99   0   0   0:  0   0 100   0   0   0:  2   0  98   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|events&#x2F;3     0.1</span><br><span class="line">  0   0 100   0   0   0:  0   0 100   0   0   0:  1   1  98   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|                </span><br><span class="line">  0   0 100   0   0   0:  0   0 100   0   0   0:  1   0  99   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0:  0   0 100   0   0   0|0.07 0.02    0|kipmi0       0.1</span><br></pre></td></tr></table></figure>
 
-<p>拷贝你的 Java_OPTS 原有的配置, 注释后, 在下面粘贴, 并在末尾处添加 <code>-Duser.timezone=GMT+08</code> 保存退出, 重启 tomcat 服务器即可</p>
+
+</li>
+</ol>
 
       
     </div>
@@ -296,7 +743,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -310,7 +757,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE%205/" class="post-title-link" itemprop="url">Tomcat 时区设置</a>
+            <a href="/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">CentOS下Python的升级-pip以及fabric的安装</a>
         </h2>
 
         <div class="post-meta">
@@ -320,7 +767,109 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-02-19 20:57:50" itemprop="dateCreated datePublished" datetime="2017-02-19T20:57:50+08:00">2017-02-19</time>
+              <time title="创建时间：2015-11-19 10:09:36" itemprop="dateCreated datePublished" datetime="2015-11-19T10:09:36+08:00">2015-11-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/19/CentOS下Python的升级-pip以及fabric的安装/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文介绍在CentOS系统下升级Python，安装pip, fabric的操作</p>
+</blockquote>
+<h1 id="安装Python部分"><a href="#安装Python部分" class="headerlink" title="安装Python部分"></a>安装Python部分</h1><ol>
+<li>第一步当然是下载最新版本的Python了！<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz</span><br></pre></td></tr></table></figure></li>
+<li>解压、编译、安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">tar -xvzf Python-2.7.8.tgz</span><br><span class="line"><span class="built_in">cd</span> Python2.7.8</span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/python2.7</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></li>
+<li>创建链接使系统默认的Python变成Python2.7<br><code>ln -fs /usr/local/python2.7/bin/python2.7 /usr/bin/python</code></li>
+<li>查看一下Python的版本<br><code>python -V</code></li>
+<li>修改yum配置（否则更新了默认Python后的yum无法正常运行）<br><code>vim /usr/bin/yum</code></li>
+</ol>
+<p><strong>将第一行#!/usr/bin/python 修改为原有的Python2.6版本</strong><br><code>#!/usr/bin/python2.6</code><br>—&gt; <em>CentOS系统升级Python成功完成</em></p>
+<h1 id="安装pip部分"><a href="#安装pip部分" class="headerlink" title="安装pip部分"></a>安装pip部分</h1><ol start="6">
+<li>下载自动安装pip的脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/</span><br><span class="line">wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py</span><br></pre></td></tr></table></figure></li>
+<li>执行安装pip的命令<br><code>python get-pip.py</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">第一次执行pythonget-pip.py报错：</span><br><span class="line">zipimport.ZipImportError: can&#39;t decompress data; zlib not available</span><br><span class="line"></span><br><span class="line">解决zlib的问题：</span><br><span class="line"># yum install zlib zlib-devel</span><br><span class="line">然后重新编译Python（.&#x2F;configure&amp;&amp; make &amp;&amp; make install）</span><br><span class="line">    </span><br><span class="line">第二次执行python get-pip.py报错：</span><br><span class="line">ImportError: cannot import name HTTPSHandler</span><br><span class="line"></span><br><span class="line"># yum install openssl openssl-devel</span><br><span class="line">然后重新编译Python（.&#x2F;configure&amp;&amp; make &amp;&amp; make install）</span><br></pre></td></tr></table></figure></li>
+<li>创建使用pip的链接<br><code>ln -s /usr/local/python2.7/bin/pip /usr/bin/pip</code></li>
+</ol>
+<h2 id="安装fabric部分"><a href="#安装fabric部分" class="headerlink" title="安装fabric部分"></a>安装fabric部分</h2><ol start="9">
+<li>执行安装fabric的命令<br><code>pip install fabric</code></li>
+<li>创建使用fab命令的链接<br><code>ln -s /usr/local/python2.7/bin/fab /usr/bin/fab</code></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/" class="post-title-link" itemprop="url">CentOS与RHEL系列安装epel和rpmforce源</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-18 10:59:48" itemprop="dateCreated datePublished" datetime="2015-11-18T10:59:48+08:00">2015-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -341,8 +890,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/02/19/Tomcat-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/Tomcat-时区设置 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/CentOS与RHEL系列安装epel和rpmforce源/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -358,12 +907,69 @@
 
       
           <blockquote>
-<p>从 tomcat 官网中下载下来的软件包, 默认使用的是格林尼治标准时间, 与中国的时间相差8个小时, 此时我们需要修改 tomcat 中的配置, 让其变为东八区的时间</p>
+<p>很多时候，使用CentOS自带的软件源并不能解决所有的软件依赖包。这里介绍在CentOS或RHEL系列中安装epel源和rpmforce源</p>
 </blockquote>
-<p>最近新装的 tomcat 发现与北京时间相差正好8小时, 查看系统时间没有问题, 是正确的, 问题出在 tomcat 中, 需要对 tomcat 做如下修改</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">cd</span> apache-tomcat-8.0.39/bin</span><br><span class="line">&gt; vim catalina.sh</span><br><span class="line"><span class="comment"># 在这个启动脚本中, 找到如下行并替换</span></span><br><span class="line"><span class="comment"># JAVA_OPTS="$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources"</span></span><br><span class="line"><span class="comment"># 替换为</span></span><br><span class="line">JAVA_OPTS=<span class="string">"<span class="variable">$JAVA_OPTS</span> -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Duser.timezone=GMT+08"</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装epel源"><a href="#安装epel源" class="headerlink" title="安装epel源"></a>安装epel源</h1><hr>
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/5/i386/epel-release-5-4.noarch.rpm</span><br></pre></td></tr></table></figure>
 
-<p>拷贝你的 Java_OPTS 原有的配置, 注释后, 在下面粘贴, 并在末尾处添加 <code>-Duser.timezone=GMT+08</code> 保存退出, 重启 tomcat 服务器即可</p>
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/5/x86_64/epel-release-5-4.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/6/i386/epel-release-6-8.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>7</code> Or RHEL<code>7</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/7/x86_64/e/epel-release-7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@rhel65-test-1 ~]<span class="comment"># yum repolist</span></span><br><span class="line">Loaded plugins: fastestmirror, security</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirror.bit.edu.cn</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.yun-idc.com</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">repo id         repo name                                         status                            </span><br><span class="line">base            CentOS-6 - Base                                   6,575                                               </span><br><span class="line">epel            Extra Packages <span class="keyword">for</span> Enterprise Linux 6 - x86_64    11,780                                              </span><br><span class="line">extras          CentOS-6 - Extras                                 43                                                  </span><br><span class="line">updates         CentOS-6 - Updates                                439                                                 </span><br><span class="line">repolist: 18,837</span><br></pre></td></tr></table></figure>
+
+<p>#安装rpmforce源</p>
+<hr>
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@rhel65-test-1 ~]<span class="comment"># yum repolist</span></span><br><span class="line">Loaded plugins: fastestmirror, security</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirror.bit.edu.cn</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.yun-idc.com</span><br><span class="line"> * rpmforge: mirrors.neusoft.edu.cn</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">repo id        repo name                                        status           </span><br><span class="line">base           CentOS-6 - Base                                  6,575            </span><br><span class="line">epel           Extra Packages <span class="keyword">for</span> Enterprise Linux 6 - x86_64   11,780           </span><br><span class="line">extras         CentOS-6 - Extras                                43               </span><br><span class="line">rpmforge       RHEL 6 - RPMforge.net - dag                      4,718            </span><br><span class="line">updates        CentOS-6 - Updates                               439              </span><br><span class="line">repolist: 23,555</span><br></pre></td></tr></table></figure>
+
+<p><strong>附录：内置源替换为163源</strong></p>
+<ul>
+<li><p>收录架构</p>
+<p>i386<br>x86_64<br>SRPMS</p>
+</li>
+<li><p>收录版本</p>
+<p>所有版本</p>
+</li>
+<li><p>更新时间</p>
+<p>每4小时更新一次</p>
+</li>
+<li><p>使用说明</p>
+<p>首先备份<code>/etc/yum.repos.d/CentOS-Base.repo</code></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)</li>
+</ul>
+<p><a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo" target="_blank" rel="noopener">CentOS7</a><br><a href="http://mirrors.163.com/.help/CentOS6-Base-163.repo" target="_blank" rel="noopener">CentOS6</a><br><a href="http://mirrors.163.com/.help/CentOS5-Base-163.repo" target="_blank" rel="noopener">CentOS5</a></p>
+<ul>
+<li>运行以下命令生成缓存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>相关连接：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="noopener">163yum源官方帮助</a></p>
 
       
     </div>
@@ -385,7 +991,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/vim%E8%B7%B3%E5%88%B0%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E5%92%8C%E8%B7%B3%E5%88%B0%E9%A6%96%E8%A1%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -399,7 +1005,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">解决docker容器不支持中文的问题</a>
+            <a href="/2015/11/18/vim%E8%B7%B3%E5%88%B0%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E5%92%8C%E8%B7%B3%E5%88%B0%E9%A6%96%E8%A1%8C/" class="post-title-link" itemprop="url">vim跳到最后一行和跳到首行</a>
         </h2>
 
         <div class="post-meta">
@@ -409,199 +1015,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-02-19 20:56:39" itemprop="dateCreated datePublished" datetime="2017-02-19T20:56:39+08:00">2017-02-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/解决docker容器不支持中文的问题/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>我们 pull 下来的大多镜像时不支持中文的, 网上也有好多文章介绍如何让 container 支持中文, 有的写的挺复杂的, 把运维都看晕了, 有的按照他写的执行过后发现还是不能正常显示中文, 或是又引发了其他问题… 这里给大家介绍一个简单的方法让 docker 容器支持中文</p>
-</blockquote>
-<h1 id="已经启动的容器"><a href="#已经启动的容器" class="headerlink" title="已经启动的容器"></a>已经启动的容器</h1><p>由于容器是根据镜像而来, 已经启动的容器或已经存在的镜像不支持配置永久生效(当然你也可以在容器内配置之后, 再出来保存容器的状态为一个新的镜像) 所以下面的配置操作, 只对当前容器的生存周期有效</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker <span class="built_in">exec</span> -it containerID /bin/bash</span><br><span class="line">&gt;&gt; <span class="built_in">echo</span> <span class="string">'export LANG="en_US.UTF-8"'</span> &gt;&gt; /etc/profile</span><br><span class="line">&gt;&gt; <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置镜像支持中文"><a href="#配置镜像支持中文" class="headerlink" title="配置镜像支持中文"></a>配置镜像支持中文</h1><p>只需要在 dockerfile 中加入如下一行配置即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 环境变量</span></span><br><span class="line">ENV LANG=<span class="string">"en_US.UTF-8"</span></span><br></pre></td></tr></table></figure>
-
-<p>有人可能会问为什么不是用<code>zh_CN.UTF-8</code>而是用<code>en_US.UTF-8</code></p>
-<p>这个问题很棒👍 我也不清楚, 但是我查阅了资料, 整理如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">en_US.UTF-8：你说英语，你在美国，字符集是utf-8 </span><br><span class="line">zh_CN.UTF-8：你说中文，你在中国，字符集是utf-8 </span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是en_US.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是英文的</span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是zh_CN.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是中文的</span><br></pre></td></tr></table></figure>
-
-<p>在运维的实际应用中, 系统一般都是使用英文环境, 且支持中文字符的, 因为在自动化的过程中, 系统的回显是英文会避免很多不必要的问题</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98%205/" class="post-title-link" itemprop="url">解决docker容器不支持中文的问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-19 20:56:39" itemprop="dateCreated datePublished" datetime="2017-02-19T20:56:39+08:00">2017-02-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/解决docker容器不支持中文的问题 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>我们 pull 下来的大多镜像时不支持中文的, 网上也有好多文章介绍如何让 container 支持中文, 有的写的挺复杂的, 把运维都看晕了, 有的按照他写的执行过后发现还是不能正常显示中文, 或是又引发了其他问题… 这里给大家介绍一个简单的方法让 docker 容器支持中文</p>
-</blockquote>
-<h1 id="已经启动的容器"><a href="#已经启动的容器" class="headerlink" title="已经启动的容器"></a>已经启动的容器</h1><p>由于容器是根据镜像而来, 已经启动的容器或已经存在的镜像不支持配置永久生效(当然你也可以在容器内配置之后, 再出来保存容器的状态为一个新的镜像) 所以下面的配置操作, 只对当前容器的生存周期有效</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker <span class="built_in">exec</span> -it containerID /bin/bash</span><br><span class="line">&gt;&gt; <span class="built_in">echo</span> <span class="string">'export LANG="en_US.UTF-8"'</span> &gt;&gt; /etc/profile</span><br><span class="line">&gt;&gt; <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置镜像支持中文"><a href="#配置镜像支持中文" class="headerlink" title="配置镜像支持中文"></a>配置镜像支持中文</h1><p>只需要在 dockerfile 中加入如下一行配置即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 环境变量</span></span><br><span class="line">ENV LANG=<span class="string">"en_US.UTF-8"</span></span><br></pre></td></tr></table></figure>
-
-<p>有人可能会问为什么不是用<code>zh_CN.UTF-8</code>而是用<code>en_US.UTF-8</code></p>
-<p>这个问题很棒👍 我也不清楚, 但是我查阅了资料, 整理如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">en_US.UTF-8：你说英语，你在美国，字符集是utf-8 </span><br><span class="line">zh_CN.UTF-8：你说中文，你在中国，字符集是utf-8 </span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是en_US.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是英文的</span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是zh_CN.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是中文的</span><br></pre></td></tr></table></figure>
-
-<p>在运维的实际应用中, 系统一般都是使用英文环境, 且支持中文字符的, 因为在自动化的过程中, 系统的回显是英文会避免很多不必要的问题</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/" class="post-title-link" itemprop="url">使用淘宝 npm 镜像源</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-19 20:55:47" itemprop="dateCreated datePublished" datetime="2017-02-19T20:55:47+08:00">2017-02-19</time>
+              <time title="创建时间：2015-11-18 10:59:00" itemprop="dateCreated datePublished" datetime="2015-11-18T10:59:00+08:00">2015-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -622,212 +1036,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/使用淘宝-npm-镜像源/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>镜像使用方法（三种办法任意一种都能解决问题，建议使用第三种，将配置写死，下次用的时候配置还在）:</p>
-<ul>
-<li>通过config命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org </span><br><span class="line">&gt; npm info underscore <span class="comment">#如果上面配置正确这个命令会有字符串response</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>命令行指定</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org info underscore</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>编辑 ~/.npmrc 加入下面内容</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry = https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p><strong>参考文章</strong></p>
-<p><a href="http://www.cnblogs.com/trying/p/4064518.html" target="_blank" rel="noopener">http://www.cnblogs.com/trying/p/4064518.html</a></p>
-<p><strong>官网站点</strong></p>
-<p><a href="https://npm.taobao.org" target="_blank" rel="noopener">https://npm.taobao.org</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90%205/" class="post-title-link" itemprop="url">使用淘宝 npm 镜像源</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-19 20:55:47" itemprop="dateCreated datePublished" datetime="2017-02-19T20:55:47+08:00">2017-02-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/使用淘宝-npm-镜像源 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>镜像使用方法（三种办法任意一种都能解决问题，建议使用第三种，将配置写死，下次用的时候配置还在）:</p>
-<ul>
-<li>通过config命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org </span><br><span class="line">&gt; npm info underscore <span class="comment">#如果上面配置正确这个命令会有字符串response</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>命令行指定</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org info underscore</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>编辑 ~/.npmrc 加入下面内容</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry = https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p><strong>参考文章</strong></p>
-<p><a href="http://www.cnblogs.com/trying/p/4064518.html" target="_blank" rel="noopener">http://www.cnblogs.com/trying/p/4064518.html</a></p>
-<p><strong>官网站点</strong></p>
-<p><a href="https://npm.taobao.org" target="_blank" rel="noopener">https://npm.taobao.org</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking/" class="post-title-link" itemprop="url">Failed to start LSB: Bring up/down networking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-19 20:54:47" itemprop="dateCreated datePublished" datetime="2017-02-19T20:54:47+08:00">2017-02-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/Failed-to-start-LSB-Bring-up-down-networking/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2015/11/18/vim%E8%B7%B3%E5%88%B0%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E5%92%8C%E8%B7%B3%E5%88%B0%E9%A6%96%E8%A1%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/vim跳到最后一行和跳到首行/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -843,11 +1053,20 @@
 
       
           <blockquote>
-<p>在执行<code>systemctl restart network</code>的时候,出现了<code>Failed to start LSB: Bring up/down networking</code>的报错</p>
+<p>在vim或vi的编辑器中，经常需要跳转到文件的最后一行，或跳转至文件首行的情况。下面介绍两种方式实现跳转</p>
 </blockquote>
-<p>解决的办法（由于centos7中没有70-persistent-net.rules这个文件，复制出来的虚拟机(vmware）需要修改mac地址），就是修改mac地址</p>
-<p>查看网卡配置文件中是否存在 mac 地址的配置, 如果有, 直接删除再重启网卡即可</p>
-<p><em>以上问题在虚拟机中出现的比较多, 大多是因为 mac 地址配置的问题, 在 centos6 系列中, 可以直接删除<code>70-persistent-net.rules</code>这个文件, 重启服务器即可(具体位置可以通过 find /etc/ -name “70-persistent-net.rules” 的方式来查找)</em></p>
+<p><strong>第一种方式</strong></p>
+<hr>
+<ul>
+<li>:$ 跳转到最后一行</li>
+<li>:1 跳转到第一行</li>
+</ul>
+<p><strong>第二种方式</strong></p>
+<hr>
+<ul>
+<li>shift+g 跳转到最后一行</li>
+<li>gg 跳转到第一行</li>
+</ul>
 
       
     </div>
@@ -869,7 +1088,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -883,7 +1102,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking%203/" class="post-title-link" itemprop="url">Failed to start LSB: Bring up/down networking</a>
+            <a href="/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/" class="post-title-link" itemprop="url">使用forever让node.js持久运行</a>
         </h2>
 
         <div class="post-meta">
@@ -893,7 +1112,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-02-19 20:54:47" itemprop="dateCreated datePublished" datetime="2017-02-19T20:54:47+08:00">2017-02-19</time>
+              <time title="创建时间：2015-11-18 10:57:36" itemprop="dateCreated datePublished" datetime="2015-11-18T10:57:36+08:00">2015-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -914,8 +1133,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/02/19/Failed-to-start-LSB-Bring-up-down-networking%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/Failed-to-start-LSB-Bring-up-down-networking 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/使用forever让node-js持久运行/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -931,11 +1150,23 @@
 
       
           <blockquote>
-<p>在执行<code>systemctl restart network</code>的时候,出现了<code>Failed to start LSB: Bring up/down networking</code>的报错</p>
+<p>nodejs一般是当成一条命令执行的，当用户断开session，nodejs也就停止了运行。如何让nodejs持续在后台运行呢？</p>
 </blockquote>
-<p>解决的办法（由于centos7中没有70-persistent-net.rules这个文件，复制出来的虚拟机(vmware）需要修改mac地址），就是修改mac地址</p>
-<p>查看网卡配置文件中是否存在 mac 地址的配置, 如果有, 直接删除再重启网卡即可</p>
-<p><em>以上问题在虚拟机中出现的比较多, 大多是因为 mac 地址配置的问题, 在 centos6 系列中, 可以直接删除<code>70-persistent-net.rules</code>这个文件, 重启服务器即可(具体位置可以通过 find /etc/ -name “70-persistent-net.rules” 的方式来查找)</em></p>
+<p>#最简单粗暴的方法是使用Linux本身后台执行的特性</p>
+<hr>
+<p>使用&amp;符号后台执行，并利用nohup命令实现进程禁止挂起</p>
+<p><code>nohup node app.js &amp;</code></p>
+<p>#使用forever让node.js持久运行</p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">npm install forever -g   <span class="comment">#安装</span></span><br><span class="line">forever start app.js  <span class="comment">#启动应用</span></span><br><span class="line">forever stop app.js  <span class="comment">#关闭应用</span></span><br><span class="line">forever restartall  <span class="comment">#重启所有应用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#输出日志和错误</span></span><br><span class="line">forever start -l forever.log -o out.log -e err.log app.js   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定forever信息输出文件，当然，默认它会放到~/.forever/forever.log</span></span><br><span class="line">forever start -l forever.log app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定app.js中的日志信息和错误日志输出文件，  </span></span><br><span class="line"><span class="comment"># -o 就是console.log输出的信息，-e 就是console.error输出的信息</span></span><br><span class="line">forever start -o out.log -e err.log app.js </span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加日志，forever默认是不能覆盖上次的启动日志，  </span></span><br><span class="line"><span class="comment"># 所以如果第二次启动不加-a，则会不让运行  </span></span><br><span class="line">forever start -l forever.log -a app.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听当前文件夹下的所有文件改动（不太建议这样）  </span></span><br><span class="line">forever start -w app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示所有运行的服务 </span></span><br><span class="line">forever list  </span><br><span class="line"></span><br><span class="line"><span class="comment">######停止操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止所有运行的node App  </span></span><br><span class="line">forever stopall  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 停止其中一个node App  </span></span><br><span class="line">forever stop app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 当然还可以这样  </span></span><br><span class="line"><span class="comment"># forever list 找到对应的id，然后：  </span></span><br><span class="line">forever stop [id]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发环境下  </span></span><br><span class="line">NODE_ENV=development forever start -l forever.log -e err.log -a app.js  </span><br><span class="line"><span class="comment"># 线上环境下  </span></span><br><span class="line">NODE_ENV=production forever start -l ~/.forever/forever.log -e ~/.forever/err.log -w -a app.js</span><br><span class="line"><span class="comment">#上面加上NODE_ENV为了让app.js辨认当前是什么环境用的</span></span><br></pre></td></tr></table></figure>
+
+<p>The End</p>
+<hr>
+<ul>
+<li>参考1: <a href="https://cnodejs.org/topic/5021c2cff767cc9a51e684e3" target="_blank" rel="noopener">https://cnodejs.org/topic/5021c2cff767cc9a51e684e3</a></li>
+<li>参考2: <a href="http://tcrct.iteye.com/blog/2043644" target="_blank" rel="noopener">http://tcrct.iteye.com/blog/2043644</a></li>
+<li>forever github: <a href="https://github.com/foreverjs/forever" target="_blank" rel="noopener">https://github.com/foreverjs/forever</a></li>
+</ul>
 
       
     </div>
@@ -957,7 +1188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -971,7 +1202,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1/" class="post-title-link" itemprop="url">创建MySQL用户并授权</a>
+            <a href="/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">yum provides 反查询</a>
         </h2>
 
         <div class="post-meta">
@@ -981,7 +1212,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-02-19 20:53:29" itemprop="dateCreated datePublished" datetime="2017-02-19T20:53:29+08:00">2017-02-19</time>
+              <time title="创建时间：2015-11-18 10:56:27" itemprop="dateCreated datePublished" datetime="2015-11-18T10:56:27+08:00">2015-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -989,7 +1220,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
@@ -1002,8 +1233,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/创建MySQL用户并授权-1/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/yum-provides-反查询/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1018,89 +1249,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">[root@MasterDatabase ~]<span class="comment"># mysql</span></span><br><span class="line">Welcome to the MySQL monitor.  Commands <span class="keyword">end</span> <span class="keyword">with</span> ; or \g.</span><br><span class="line">Your MySQL connection id is 161391</span><br><span class="line">Server version: 5.1.73-log Source distribution</span><br><span class="line"> </span><br><span class="line">Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type '<span class="keyword">help</span>;' or '\h' for help. <span class="keyword">Type</span> <span class="string">'\c'</span> <span class="keyword">to</span> <span class="keyword">clear</span> the <span class="keyword">current</span> <span class="keyword">input</span> statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">show</span> <span class="keyword">databases</span>;</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| Database           |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| test               |</span><br><span class="line">| zabbix             |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">4 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'wordpress'</span>@<span class="string">'%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'wordpress'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database wordpress;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; grant all privileges on wordpress.* to 'wordpress'@'%';</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">创建用户：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'192.168.5.9'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">''</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"></span><br><span class="line">授权：</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>,<span class="keyword">INSERT</span> <span class="keyword">ON</span> DBname.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> DBname.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> DBname.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line">注意：使用以上命令授权的用户不能用来再给其他用户授权</span><br><span class="line">如果想让该用户可以为其他用户授权，可以使用如下命令：</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"></span><br><span class="line">设置/更改用户密码</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'username'</span>@<span class="string">'host'</span>=<span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>);</span><br><span class="line">如果是修改当前登录的用户的密码，使用如下命令：</span><br><span class="line"><span class="keyword">SET</span> PASSWDORD=<span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
+          <blockquote>
+<p>在日常运维工作中，常常遇到需要安装一些依赖的库文件。在实际工作中，一次在Linux中安装SQL Server ODBC驱动时，遇到一个依赖的库文件需要安装（libcrypto.so.6）</p>
+</blockquote>
+<p>可是使用yum provides命令查询<code>libcrypto.so.6</code>文件包含在哪个软件包中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@manage final]<span class="comment"># yum provides libcrypto.so.6</span></span><br><span class="line">已加载插件：dellsysid, fastestmirror, refresh-packagekit, security</span><br><span class="line">Repository base is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository updates is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository extras is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository centosplus is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository contrib is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.btte.net</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.btte.net</span><br><span class="line"> * rpmforge: ftp.riken.jp</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">openssl098e-0.9.8e-18.el6_5.2.i686 : A compatibility version of a general cryptography and TLS library</span><br><span class="line">Repo        : base</span><br><span class="line">匹配来自于:</span><br><span class="line">Other       : libcrypto.so.6</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      
+<p>通过查询可以看出，<code>libcrypto.so.6</code>文件包含在<code>openssl098e</code>的软件包中，接下来只需要使用yum安装openssl098e即可解决依赖问题</p>
 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1%205/" class="post-title-link" itemprop="url">创建MySQL用户并授权</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-19 20:53:29" itemprop="dateCreated datePublished" datetime="2017-02-19T20:53:29+08:00">2017-02-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/19/%E5%88%9B%E5%BB%BAMySQL%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83-1%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/创建MySQL用户并授权-1 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">[root@MasterDatabase ~]<span class="comment"># mysql</span></span><br><span class="line">Welcome to the MySQL monitor.  Commands <span class="keyword">end</span> <span class="keyword">with</span> ; or \g.</span><br><span class="line">Your MySQL connection id is 161391</span><br><span class="line">Server version: 5.1.73-log Source distribution</span><br><span class="line"> </span><br><span class="line">Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type '<span class="keyword">help</span>;' or '\h' for help. <span class="keyword">Type</span> <span class="string">'\c'</span> <span class="keyword">to</span> <span class="keyword">clear</span> the <span class="keyword">current</span> <span class="keyword">input</span> statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">show</span> <span class="keyword">databases</span>;</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| Database           |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| test               |</span><br><span class="line">| zabbix             |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">4 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'wordpress'</span>@<span class="string">'%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'wordpress'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database wordpress;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; grant all privileges on wordpress.* to 'wordpress'@'%';</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">创建用户：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'192.168.5.9'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">''</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"></span><br><span class="line">授权：</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>,<span class="keyword">INSERT</span> <span class="keyword">ON</span> DBname.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> DBname.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> DBname.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'%'</span>;</span><br><span class="line">注意：使用以上命令授权的用户不能用来再给其他用户授权</span><br><span class="line">如果想让该用户可以为其他用户授权，可以使用如下命令：</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"></span><br><span class="line">设置/更改用户密码</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'username'</span>@<span class="string">'host'</span>=<span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>);</span><br><span class="line">如果是修改当前登录的用户的密码，使用如下命令：</span><br><span class="line"><span class="keyword">SET</span> PASSWDORD=<span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1121,7 +1277,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1189,7 +1345,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1202,7 +1358,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

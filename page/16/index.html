@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/Docker%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/" class="post-title-link" itemprop="url">Python中为元组的每个元素命名</a>
+            <a href="/2016/12/12/Docker%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">Docker相关组件的部署</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:53:19" itemprop="dateCreated datePublished" datetime="2017-07-26T11:53:19+08:00">2017-07-26</time>
+              <time title="创建时间：2016-12-12 13:53:22" itemprop="dateCreated datePublished" datetime="2016-12-12T13:53:22+08:00">2016-12-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
                 </span>
             </span>
 
@@ -252,8 +252,181 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中为元组的每个元素命名/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/12/12/Docker%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E9%83%A8%E7%BD%B2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/Docker相关组件的部署/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="docker-engine"><a href="#docker-engine" class="headerlink" title="docker-engine"></a>docker-engine</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~  tee &#x2F;etc&#x2F;yum.repos.d&#x2F;docker.repo &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">[dockerrepo]</span><br><span class="line">name&#x3D;Docker Repository</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;yum.dockerproject.org&#x2F;repo&#x2F;main&#x2F;centos&#x2F;$releasever&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;yum.dockerproject.org&#x2F;gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ yum install python-pip </span><br><span class="line">➜  ~ pip install --upgrade pip</span><br><span class="line">➜  ~ pip install docker-compose</span><br><span class="line"></span><br><span class="line"># 如果执行 docker-compose 命令有如下报错时, 还需要安装以下软件包</span><br><span class="line"># pkg_resources.DistributionNotFound: backports.ssl-match-hostname&gt;&#x3D;3.5</span><br><span class="line"></span><br><span class="line">➜  ~ pip install backports.ssl-match-hostname&#x3D;&#x3D;3.5.0.1</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%87%BA%E5%8F%A3IP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%87%BA%E5%8F%A3IP/" class="post-title-link" itemprop="url">Linux下获取本地出口IP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:49:05" itemprop="dateCreated datePublished" datetime="2016-12-12T13:49:05+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%87%BA%E5%8F%A3IP/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/Linux下获取本地出口IP/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl ifconfig.me</span><br><span class="line">或</span><br><span class="line">&gt; curl http://members.3322.org/dyndns/getip</span><br><span class="line">或</span><br><span class="line">&gt; curl ip.cn</span><br></pre></td></tr></table></figure>
+
+<p><code>ifconfig.me</code> 的域名很好记, 但是在国内的访问速度可能极其缓慢</p>
+<p><code>ip.cn</code> 域名也很好记, 在国内返回结果的速度也很快, 而且还能返回运营商的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ curl ip.cn</span><br><span class="line">当前 IP：209.9.108.86 来自：香港特别行政区</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/%E8%B6%85%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/%E8%B6%85%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" class="post-title-link" itemprop="url">超线程技术的应用场景</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:47:33" itemprop="dateCreated datePublished" datetime="2016-12-12T13:47:33+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/%E8%B6%85%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/超线程技术的应用场景/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,24 +442,29 @@
 
       
           <blockquote>
-<p>元组是一种高效的数据类型, 同时我们为了提高提取元组元素的可读性,  做出如下修改来为元组的元素命名</p>
+<p>超线程技术不能应用在所有的场景中<br>对于不同的情况来说，其有可能帮助提升虚拟服务器的性能表现<br>但是反过来也有可能造成负面影响<br>而获得良好性能表现的关键就在于判断应该何时使用这种技术</p>
 </blockquote>
-<p>比如我们用一个元组来描述一个位置信息, 比如 <code>(5,9)</code>来标识横坐标信息和纵坐标信息</p>
-<h1 id="第一种方式-通过变量"><a href="#第一种方式-通过变量" class="headerlink" title="第一种方式: 通过变量"></a>第一种方式: 通过变量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = (<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">x, y = range(<span class="number">2</span>)</span><br><span class="line">print(p[x])</span><br><span class="line">print(p[y])</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="第二种方式-collections-内置函数"><a href="#第二种方式-collections-内置函数" class="headerlink" title="第二种方式: collections 内置函数"></a>第二种方式: collections 内置函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">P = collections.namedtuple(<span class="string">'P'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</span><br><span class="line">p = P(<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">print(p.x)</span><br><span class="line">print(p.y)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-
-<p>查看<code>p</code>的数据类型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(isinstance(p, P))</span><br><span class="line">print(isinstance(p, tuple))</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h1 id="超线程技术介绍"><a href="#超线程技术介绍" class="headerlink" title="超线程技术介绍"></a>超线程技术介绍</h1><p>超线程是一种计算机处理器技术，能够将一个物理处理器变成两个虚拟处理器。这种方式能够提升处理器核心的指令队列工作效率，从而提高处理器的整体性能表现，此外虚拟化技术也能够受益于这种技术。这种技术允许hypervisor为虚拟机提供之前两倍的虚拟处理器数量——但是超线程技术并不是完美的。如果使用超线程技术，那么效率低下、质量不佳的代码甚至是分配不当的负载都有可能对系统性能造成负面影响。</p>
+<p>超线程是英特尔公司的私有技术，其能够帮助提升物理处理器的资源使用效率，保证处理器一直处于繁忙状态，以便完成更多工作。</p>
+<p>超线程技术——也被称为<code>HTT</code>或<code>HT</code>——的出现是由于传统物理服务器核心在同一时间只能处理一项任务。所有负载都需要使用处理器的指令通道，但是通常指令通道的使用率并不会达到100%或者一直处于繁忙状态。造成这种现象的部分原因在于应用程序的编码和运行方式不同，此外，由于现代处理器的运行速度越来越快，已经完全超出许多应用程序的需求，因此被浪费的处理器周期越来越多。</p>
+<p>超线程技术在处理器核心中添加了新的电路，能够提供额外的指令通道来共享物理处理器的执行资源，比如内存总线、处理器缓存以及处理器的执行引擎。增加的超线程电路能够将物理核心分割成两个逻辑核心。在启用超线程技术之后，每个逻辑处理器都相互独立，中断、停止和操作都独立于另外一个共享相同物理核心的虚拟处理器。当某个逻辑核心空闲时，另外一个逻辑核心将会得到更多的执行资源。</p>
+<p>关于超线程技术需要记住的重要一点是在相同物理核心上启用第二个逻辑处理器并不会使得处理器的性能提升一倍。这是因为处理器的执行资源是共享的，并没有翻倍。HTT技术允许处理器在特定时间内处理更多的任务或者指令线程，但是仍然需要使用原有的物理资源完成这些任务。这是超线程架构和多核处理器——比如双核或者四核——的最大区别，多核技术拥有多个物理处理器。</p>
+<p>而虚拟处理器的性能提升幅度取决于负载对于处理器的资源需求以及操作系统管理和规划逻辑处理器的能力。如果超线程技术不能识别操作系统，就会使用同样的方式管理所有逻辑处理器，可能会将资源需求很大的负载放在相同核心的逻辑处理器上——这样会对应用程序的性能表现造成负面影响——而同时其他核心并没有得到充分利用。与此形成对比的是，能够识别操作系统的超线程技术可以将线程分配到不同的处理器上，最大程度上提升负载的性能表现。</p>
+<p>比如，如果某个应用程序需要使用大量处理器资源，就会一直占用指令队列，那么即便同一个物理处理器核心提供额外的逻辑处理器也无济于事——因为物理处理器已经没有额外的资源可以共享。操作系统可以将第二个线程加入到处理队列中，但是通常其性能表现会非常差，此外，由于其会占用当前运行线程的处理器周期，因此还会导致现有应用程序性能受到影响。Hypervisor或者操作系统应该能够识别HTT，并且最大程度上提升负载对于物理处理器的使用效率，这些都是分配逻辑处理器的前提。如果这个前提不能实现，那么超线程（并非虚拟化）功能应该被禁用。</p>
+<p>从hypervisor系统角度来看，超线程并不是虚拟化技术——HTT只是一种位于处理器硬件层、以硬件为基础的虚拟化技术。而虚拟化和hypervisor能够带来哪些好处？超线程和hypervisor之间并没有直接的关联。Hypervisor能够工作在不支持超线程技术的物理处理器上，而支持超线程的处理器也可以使用非虚拟化系统。但是这两种方案可以相互补充，而像VMware vSphere这样的现代hypervisor在创建资源池并且将虚拟CPU分配给虚拟机时已经能够识别并且使用超线程技术。这种方式能够在组织和计划任务方面为hypervisor提供更多的灵活性，因此能够提升虚拟服务器的工作效率。</p>
+<p>参考文档: <a href="http://tech.idcquan.com/XuNi/101649.shtml" target="_blank" rel="noopener">超线程技术优缺点分析</a></p>
+<hr>
+<h1 id="超线程在杏树林的应用"><a href="#超线程在杏树林的应用" class="headerlink" title="超线程在杏树林的应用"></a>超线程在杏树林的应用</h1><p>在杏树林的自有机房中, 部分服务器开启了超线程功能, 2U6核心的 R420服务器开启超线程后, 核心数量翻了一番达到了24颗核心</p>
+<p>该服务器用在虚拟化 hypervisor 技术之上, 由于磁盘是 SAS 7.2K 的低性能硬盘, io 几乎成了该服务器的绝对瓶颈, hypervisor 中的客户机在执行频繁的 IO 操作时, 大量的 IO wait 产生, 拖慢了整个服务器的性能</p>
+<p>超线程在这种使用场景下有着很大的优势, 因为 CPU 的时钟周期被严重拖慢, 绝大部分的 CPU 在等待 IO 操作的完成, 在使用了超线程技术之后, 每个 CPU 核心被掰成了两半儿, 一个核心可以当成两个核心来用</p>
+<p>上学的时候, 老师反复强调, 单颗核心在同一时间只能处理一个任务. 单核心的 CPU 之所以支持多任务处理, 是因为一颗核心反复的在各个进程中切换, 为每个进程分配CPU 的计算资源. 之所以我们认为所有的进程在同时工作, 是因为 CPU 的切换速度极快, 快到人感觉不到中间的断点. 如果我们听着音乐打开了一个重 CPU 计算型的应用, 那么音乐就可能产生卡顿的现象.</p>
+<p>上面这个故事, 如果还是一颗核心, 如果他开启了英特尔的超线程技术的话, 音乐就不会被卡顿, 因为在程序的角度来看, 看到的是两颗核心, 同时开启两个应用的话, 每个进程都会被分配一颗核心, 当重 CPU 计算型的进程被开启后, 仍然可以保证有一个虚拟的CPU 分配了一定的计算资源给音乐进程</p>
+<p>以上是在重 CPU 计算型的场景中,突破了同一颗核心在同一时间只能处理一个任务的限制</p>
+<p>还有一种更有价值的用法就是重 IO 操作的场景下, 极大的发挥 CPU 的性能. 拿回最开始我们机房虚拟化的例子, 磁盘频繁的出现 IO 等待, 每颗 CPU 由于同一时间只能处理一个任务, 而导致每个 CPU 核心的使用率极其低下, 但是一旦开启了超线程技术, CPU 的可利用资源立刻翻了一番, 可以抵消一些由于重 IO 操作而被影响了的其他应用性能的影响</p>
+<p>最后我们举个反例:</p>
+<p>假如某个应用是计算密集型应用, 只会产生较少的 IO 操作, 且这点 IO 操作被放到了内存映射出来的”磁盘”上, 实现了零 IO, 这种应用如果开启了超线程反而会极大的拖慢整个服务器的性能. 因为这种计算密集型的应用, 即使不开启超线程, 单颗核心的利用率也能达到90%以上, 而开启了超线程之后, 程序实际最大只能用到单颗核心的50%, 此时所有的虚拟核心全部被打满, 而且互相征用资源, 导致硬件和系统去维护和调和这些资源征用耗费了大量的资源, 反而拖慢了整体性能</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果你不确定怎么使用超线程技术, 可以简单的用以下方式判断</p>
+<p><code>在不开启超线程的情况下, 如果你的应用每颗 CPU 核心的使用率都超过了50% (或是说将近50%) 那就不要再开启超线程了</code></p>
 
       
     </div>
@@ -308,7 +486,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/%E6%9B%B4%E6%94%B9-%E8%AE%BE%E7%BD%AEMySQL%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -322,7 +500,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D%205/" class="post-title-link" itemprop="url">Python中为元组的每个元素命名</a>
+            <a href="/2016/12/12/%E6%9B%B4%E6%94%B9-%E8%AE%BE%E7%BD%AEMySQL%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">更改-设置MySQL用户密码</a>
         </h2>
 
         <div class="post-meta">
@@ -332,7 +510,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:53:19" itemprop="dateCreated datePublished" datetime="2017-07-26T11:53:19+08:00">2017-07-26</time>
+              <time title="创建时间：2016-12-12 13:46:02" itemprop="dateCreated datePublished" datetime="2016-12-12T13:46:02+08:00">2016-12-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -340,7 +518,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -353,8 +531,211 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中为元组的每个元素命名 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/12/12/%E6%9B%B4%E6%94%B9-%E8%AE%BE%E7%BD%AEMySQL%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/更改-设置MySQL用户密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="管理给自己设置密码"><a href="#管理给自己设置密码" class="headerlink" title="管理给自己设置密码"></a>管理给自己设置密码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; mysql -u root</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET PASSWORD = PASSWORD('123456');</span><br></pre></td></tr></table></figure>
+
+<h1 id="管理员或者有全局权限的用户重设其它用户的密码"><a href="#管理员或者有全局权限的用户重设其它用户的密码" class="headerlink" title="管理员或者有全局权限的用户重设其它用户的密码"></a>管理员或者有全局权限的用户重设其它用户的密码</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; UPDATE user SET password=PASSWORD("new password") WHERE user='username';</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql; </span><br><span class="line">mysql&gt; SET PASSWORD FOR username=PASSWORD('new password');</span><br><span class="line">mysql&gt; exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u root <span class="string">"old password"</span> <span class="string">"new password"</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">MySQL5.6二进制包部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:43:08" itemprop="dateCreated datePublished" datetime="2016-12-12T13:43:08+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL5-6二进制包部署/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="下载编译mysql"><a href="#下载编译mysql" class="headerlink" title="下载编译mysql"></a>下载编译mysql</h1><p>略 (请在 MySQL 官网下载 tar.gz 的 source 源码包)</p>
+<p>官网5.6 下载地址: <a href="http://dev.mysql.com/downloads/mysql/5.6.html#downloads" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mysql/5.6.html#downloads</a></p>
+<p><em>编译参数会在其他文章中详细讲解</em></p>
+<h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>使用下面的命令检查是否安装有MySQL Server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rpm -qa | grep mysql</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; rpm -e mysql <span class="comment">#普通删除模式 </span></span><br><span class="line">&gt; rpm -e --nodeps mysql <span class="comment"># 强力删除模式，如果使用上面命令删除时，提示有依赖的其它文件，则用该命令可以对其进行强力删除</span></span><br><span class="line">&gt; yum remove mysql <span class="comment">#删除依赖的文件</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="安装mysql并初始化"><a href="#安装mysql并初始化" class="headerlink" title="安装mysql并初始化"></a>安装mysql并初始化</h1><p>把下载好的mysql二进制包放在 <code>/usr/local/</code> 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; useradd mysql</span><br><span class="line">&gt; mv /etc/my.cnf /etc/my.conf.d /tmp</span><br><span class="line">&gt; mkdir -p /data/mysql</span><br><span class="line">&gt; chown mysql:mysql /data/mysql</span><br><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span><br><span class="line">&gt; tar -xvzf mysql.tar.gz</span><br><span class="line">&gt; chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">&gt; scripts/mysql_install_db --basedir=/usr/<span class="built_in">local</span>/mysql --datadir=/data/mysql --user=mysql</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h1><h2 id="创建mysql配置文件"><a href="#创建mysql配置文件" class="headerlink" title="创建mysql配置文件"></a>创建mysql配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/my.cnf</span><br><span class="line">略</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; chown mysql:mysql /etc/my.cnf</span><br></pre></td></tr></table></figure>
+
+<h2 id="拷贝mysql启动命令"><a href="#拷贝mysql启动命令" class="headerlink" title="拷贝mysql启动命令"></a>拷贝mysql启动命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; cp support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">&gt; vim /etc/init.d/mysqld</span><br><span class="line">basedir=/usr/<span class="built_in">local</span>/mysql</span><br><span class="line">datadir=/data/mysql</span><br><span class="line">&gt; chkconfig mysqld on </span><br><span class="line">&gt; service mysqld start</span><br></pre></td></tr></table></figure>
+
+<p>这里一定要注意，虽然是在CentOS7系列上安装，CentOS7默认使用systemctl管理程序的启动与关闭，但是mysql5.6提供的脚本是使用service控制程序启动与关闭的脚本，所以需要放在<code>/etc/init.d/</code>下，使用service的方式启动</p>
+<h1 id="进入mysql"><a href="#进入mysql" class="headerlink" title="进入mysql"></a>进入mysql</h1><p>进入mysql会碰到环境变量的问题，找不到mysql的执行文件</p>
+<p>MySQL启动成功后，root默认没有密码，我们需要设置root密码。<br>设置之前，我们需要先设置PATH，要不不能直接调用mysql<br>修改/etc/profile文件，在文件末尾添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim &#x2F;etc&#x2F;profile</span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+
+<p>关闭文件，运行下面的命令，让配置立即生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们可以在终端内直接输入mysql进入，mysql的环境了<br>执行下面的命令修改root密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot </span><br><span class="line">mysql&gt; SET PASSWORD &#x3D; PASSWORD(&#39;123456&#39;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">Linux中使用ShadowSocks+Privoxy代理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:33:00" itemprop="dateCreated datePublished" datetime="2016-12-12T13:33:00+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/Linux中使用ShadowSocks-Privoxy代理/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -370,24 +751,50 @@
 
       
           <blockquote>
-<p>元组是一种高效的数据类型, 同时我们为了提高提取元组元素的可读性,  做出如下修改来为元组的元素命名</p>
+<p>ShadowSocks 最近几年大火, 其简单的配置和优秀的速度让大陆地区的墙内用户爱不释手<br>本篇文章不讨论Mac &amp; Windows 等图形界面下的应用, 而是让 linux 在命令行界面下, http/https 访问也能登上梯子, 看一看外面的大千世界</p>
 </blockquote>
-<p>比如我们用一个元组来描述一个位置信息, 比如 <code>(5,9)</code>来标识横坐标信息和纵坐标信息</p>
-<h1 id="第一种方式-通过变量"><a href="#第一种方式-通过变量" class="headerlink" title="第一种方式: 通过变量"></a>第一种方式: 通过变量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = (<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">x, y = range(<span class="number">2</span>)</span><br><span class="line">print(p[x])</span><br><span class="line">print(p[y])</span><br></pre></td></tr></table></figure>
+<p>最近公司的服务器连接 docker hub <a href="http://hub.docker.com" target="_blank" rel="noopener">hub.docker.com</a> 仓库和 node.js <a href="http://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> 仓库极其缓慢, 使用了各种国内的各种加速服务才勉强解决了燃眉之急(分别使用了 daocloud 的镜像加速和淘宝的加速服务)</p>
+<p>本篇文章就是介绍如何实现 Linux 中的 http/https 请求翻墙的需求</p>
+<h1 id="安装-ss-客户端"><a href="#安装-ss-客户端" class="headerlink" title="安装 ss 客户端"></a>安装 ss 客户端</h1><p><em>shadowsocks安装时是不分客户端还是服务器端的, 只不过安装后有两个脚本一个是sslocal代表以客户端模式工作，一个是ssserver代表以服务器端模式工作</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install python-pip</span><br><span class="line">&gt; pip install shadowsocks</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<h2 id="在后台启动-ss-客户端"><a href="#在后台启动-ss-客户端" class="headerlink" title="在后台启动 ss 客户端"></a>在后台启动 ss 客户端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -s your_server_ip -p your_server_port -l 1080 -k your_server_passwd -t 600 -m rc4-md5 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
-<h1 id="第二种方式-collections-内置函数"><a href="#第二种方式-collections-内置函数" class="headerlink" title="第二种方式: collections 内置函数"></a>第二种方式: collections 内置函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">P = collections.namedtuple(<span class="string">'P'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</span><br><span class="line">p = P(<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">print(p.x)</span><br><span class="line">print(p.y)</span><br></pre></td></tr></table></figure>
+<p><strong>注意:</strong></p>
+<ul>
+<li>使用的是 <code>sslocal</code> 这个命令，表示 <code>shadowsocks</code> 以客户端模式工作 </li>
+<li>将上述命令里的 <code>your_server_ip</code>, <code>your_server_port</code>, <code>your_server_passwd</code> 换成自己的, 这三个分别代表服务器ip, 服务器上 <code>shadowsocks</code> 的端口以及密码.后面的 <code>rc4-md5</code> 加密方式也要换成跟 <code>server</code> 端一致。 </li>
+<li>前面的nohub 和最后的 &amp; 表示后台执行且关闭 session 后仍然在后台执行，否则将会阻塞shell端口.<br>为了更方便, 建议新建一个.json的文件, 将上述信息放里面,如新建/etc/shadowsocks.json文件, 内容为：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,      #ss服务器IP</span><br><span class="line">    &quot;server_port&quot;:your_server_port, #端口</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,   #本地ip</span><br><span class="line">    &quot;local_port&quot;:1080,              #本地端口</span><br><span class="line">    &quot;password&quot;:&quot;your_server_passwd&quot;,#连接ss密码</span><br><span class="line">    &quot;timeout&quot;:300,                  #等待超时</span><br><span class="line">    &quot;method&quot;:&quot;rc4-md5&quot;,             #加密方式</span><br><span class="line">    &quot;fast_open&quot;: false,             # true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span><br><span class="line">    &quot;workers&quot;: 1                    # 工作线程数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>然后运行一下命令启动shadowsocks </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
-<p>查看<code>p</code>的数据类型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(isinstance(p, P))</span><br><span class="line">print(isinstance(p, tuple))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果想增加开启自动启动，执行：echo “ nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;” /etc/rc.local </li>
+<li>执行ps aux |grep sslocal |grep -v “grep”查看后台sslocal是否运行</li>
+</ul>
+<h1 id="安装Privoxy"><a href="#安装Privoxy" class="headerlink" title="安装Privoxy"></a>安装Privoxy</h1><p>上述安好了<code>shadowsocks</code>，但它是 <code>socks5</code> 代理，我门在 <code>shell</code> 里执行的命令，发起的网络请求现在还不支持 <code>socks5</code> 代理，只支持 <code>http/https</code> 代理。为了我门需要安装 <code>privoxy</code> 代理，它能把电脑上所有http请求转发给 <code>shadowsocks</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install privoxy -y</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看 <code>vim /usr/local/etc/privoxy/config</code> 文件，<br>先搜索关键字 <code>listen-address</code> 找到 <code>listen-address 127.0.0.1:8118</code> 这一句，保证这一句没有注释，8118就是将来http代理要输入的端口。<br>然后搜索 <code>forward-socks5t</code>, 将 <code>#forward-socks5t / 127.0.0.1:1080 .</code> 此句前面的注释去掉, 意思是转发流量到本地的1080端口, 而1080端口正是 ss 监听的端口</li>
+</ul>
+<h2 id="启动privoxy"><a href="#启动privoxy" class="headerlink" title="启动privoxy"></a>启动privoxy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; systemctl restart privoxy </span><br><span class="line">&gt; systemctl <span class="built_in">enable</span> privoxy</span><br></pre></td></tr></table></figure>
+
+<h1 id="转发配置"><a href="#转发配置" class="headerlink" title="转发配置"></a>转发配置</h1><p>写在 profile 中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/profile</span><br><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:8118</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:8118</span><br><span class="line">&gt; <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>在当前 session 执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:8118</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:8118</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试翻墙"><a href="#测试翻墙" class="headerlink" title="测试翻墙"></a>测试翻墙</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl www.google.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>如果不能访问, 请重启机器, 依次打开shadowsocks和privoxy再测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">&gt; privoxy --user privoxy /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/QQ20161208-1@2x.png" alt=""></p>
 
       
     </div>
@@ -409,7 +816,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -423,7 +830,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/" class="post-title-link" itemprop="url">Python中使用Counter实现简单的计数器</a>
+            <a href="/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/" class="post-title-link" itemprop="url">MySQL的主从切换</a>
         </h2>
 
         <div class="post-meta">
@@ -433,7 +840,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:51:21" itemprop="dateCreated datePublished" datetime="2017-07-26T11:51:21+08:00">2017-07-26</time>
+              <time title="创建时间：2016-12-12 13:30:22" itemprop="dateCreated datePublished" datetime="2016-12-12T13:30:22+08:00">2016-12-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -441,7 +848,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -454,8 +861,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中使用Counter实现简单的计数器/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL的主从切换/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -471,27 +878,36 @@
 
       
           <blockquote>
-<p>在 Python 中可以使用 collections 内置模块下的 Counter 来实现简单的统计功能</p>
+<p>本篇文章不再赘述 MySQL 主从搭建的过程, 只介绍主从切换的过程</p>
 </blockquote>
-<h1 id="统计列表中的元素"><a href="#统计列表中的元素" class="headerlink" title="统计列表中的元素"></a>统计列表中的元素</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [chr(random.randint(<span class="number">97</span>, <span class="number">102</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">result = collections.Counter(l)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>MySQL 的主从切换分成两种情况</p>
+<ul>
+<li>一种情况是主从高可用, 主从切换后, 原主库还要继续同步原从库的数据</li>
+<li>另一种情况是一主一从, 主从切换后, 主库下线, 不需要原主库再去同步原从库</li>
+</ul>
+<h1 id="第一种情况的主从切换"><a href="#第一种情况的主从切换" class="headerlink" title="第一种情况的主从切换"></a>第一种情况的主从切换</h1><h2 id="分别查看主从状态"><a href="#分别查看主从状态" class="headerlink" title="分别查看主从状态"></a>分别查看主从状态</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># slave 中查看从库的状态</span></span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'f'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'f'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>]</span><br><span class="line">Counter(&#123;<span class="string">'f'</span>: <span class="number">6</span>, <span class="string">'e'</span>: <span class="number">6</span>, <span class="string">'c'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># master 中查看主库的状态</span></span><br><span class="line">mysql&gt; show slave hosts;</span><br></pre></td></tr></table></figure>
 
-<h1 id="统计文件中单词出现的频率"><a href="#统计文件中单词出现的频率" class="headerlink" title="统计文件中单词出现的频率"></a>统计文件中单词出现的频率</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">txt = re.split(<span class="string">'\W+'</span>, f.read())</span><br><span class="line">s = collections.Counter(txt)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<h2 id="停止从库的-IO-THREAD-线程"><a href="#停止从库的-IO-THREAD-线程" class="headerlink" title="停止从库的 IO_THREAD 线程"></a>停止从库的 IO_THREAD 线程</h2><p>先停止 IO_THREAD 线程, 即断开了从主库的 sql 消息接收, 有利于当前数据库完成剩余的数据同步</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># slave</span></span><br><span class="line">mysql&gt; stop slave IO_THREAD;</span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Counter(&#123;<span class="string">'the'</span>: <span class="number">93</span>, <span class="string">'to'</span>: <span class="number">39</span>, <span class="string">'and'</span>: <span class="number">32</span>, <span class="string">'for'</span>: <span class="number">31</span>, <span class="string">'SSL'</span>: <span class="number">29</span>, <span class="string">'is'</span>: <span class="number">26</span>, <span class="string">'a'</span>: <span class="number">21</span>, <span class="string">'of'</span>: <span class="number">21</span>, <span class="string">'private'</span>: <span class="number">20</span>, <span class="string">'in'</span>: <span class="number">18</span>, <span class="string">'you'</span>: <span class="number">17</span>, <span class="string">'server'</span>: <span class="number">17</span>, <span class="string">'file'</span>: <span class="number">16</span>, <span class="string">'apache2'</span>: <span class="number">16</span>, <span class="string">'be'</span>: <span class="number">16</span>, <span class="string">'1'</span>: <span class="number">16</span>, <span class="string">'etc'</span>: <span class="number">15</span>, <span class="string">'certificate'</span>: <span class="number">15</span>, <span class="string">'this'</span>: <span class="number">14</span>, <span class="string">'as'</span>: <span class="number">13</span>, <span class="string">'This'</span>: <span class="number">13</span>, <span class="string">'0'</span>: <span class="number">13</span>, <span class="string">'or'</span>: <span class="number">13</span>, <span class="string">'use'</span>: <span class="number">12</span>, <span class="string">'client'</span>: <span class="number">10</span>, <span class="string">'that'</span>: <span class="number">10</span>, <span class="string">'when'</span>: <span class="number">10</span>, <span class="string">'can'</span>: <span class="number">10</span>, <span class="string">'are'</span>: <span class="number">9</span>, <span class="string">'mod_ssl'</span>: <span class="number">9</span>, <span class="string">'ciphers'</span>: <span class="number">9</span>, <span class="string">'CA'</span>: <span class="number">8</span>, <span class="string">'on'</span>: <span class="number">8</span>, <span class="string">'one'</span>: <span class="number">8</span>, <span class="string">'2'</span>: <span class="number">8</span>, <span class="string">'an'</span>: <span class="number">7</span>, <span class="string">'crt'</span>: <span class="number">7</span>, <span class="string">'standard'</span>: <span class="number">7</span>, <span class="string">'TLS'</span>: <span class="number">7</span>, <span class="string">'The'</span>: <span class="number">7</span>, <span class="string">'directives'</span>: <span class="number">7</span>, <span class="string">'ssl'</span>: <span class="number">7</span>, <span class="string">'Use'</span>: <span class="number">7</span>, <span class="string">'only'</span>: <span class="number">7</span>, <span class="string">'o'</span>: <span class="number">7</span>, <span class="string">'shutdown'</span>: <span class="number">7</span>, <span class="string">'dev'</span>: <span class="number">7</span>, <span class="string">'all'</span>: <span class="number">6</span>, <span class="string">'more'</span>: <span class="number">6</span>, <span class="string">'close'</span>: <span class="number">6</span>, <span class="string">'used'</span>: <span class="number">6</span>, <span class="string">'not'</span>: <span class="number">6</span>, <span class="string">'which'</span>: <span class="number">6</span>, <span class="string">'notify'</span>: <span class="number">6</span>, <span class="string">'key'</span>: <span class="number">6</span>, <span class="string">'default'</span>: <span class="number">6</span>, <span class="string">'certificates'</span>: <span class="number">6</span>, <span class="string">'alert'</span>: <span class="number">6</span>, <span class="string">'var'</span>: <span class="number">6</span>, <span class="string">'also'</span>: <span class="number">6</span>, <span class="string">'should'</span>: <span class="number">5</span>, <span class="string">'OpenSSL'</span>: <span class="number">5</span>, <span class="string">'SSLv3'</span>: <span class="number">5</span>, <span class="string">'PEM'</span>: <span class="number">5</span>, <span class="string">'encoded'</span>: <span class="number">5</span>, <span class="string">'clients'</span>: <span class="number">5</span>, <span class="string">'random'</span>: <span class="number">5</span>, <span class="string">'OCSP'</span>: <span class="number">5</span>, <span class="string">'containing'</span>: <span class="number">5</span>, <span class="string">'with'</span>: <span class="number">5</span>, <span class="string">'connection'</span>: <span class="number">5</span>, <span class="string">'from'</span>: <span class="number">5</span>, <span class="string">'SSLCertificateFile'</span>: <span class="number">5</span>, <span class="string">'user'</span>: <span class="number">5</span>, <span class="string">'both'</span>: <span class="number">5</span>, <span class="string">'parallel'</span>: <span class="number">4</span>, <span class="string">'variables'</span>: <span class="number">4</span>, <span class="string">'usually'</span>: <span class="number">4</span>, <span class="string">'at'</span>: <span class="number">4</span>, <span class="string">'Note'</span>: <span class="number">4</span>, <span class="string">'HIGH'</span>: <span class="number">4</span>, <span class="string">'configured'</span>: <span class="number">4</span>, </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>检查是否是如下状态;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Slave_IO_Running: No</span><br><span class="line">Slave_SQL_Running: Yes</span><br></pre></td></tr></table></figure>
 
-<p>以上方法在读取文件的时候, 采用了读取全部内容到内存的方法, 如果文件体积较大, 会对内存造成较大压力, 可以通过如下这种迭代的用法实现相同的功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个空集合对象</span></span><br><span class="line">s = collections.Counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代文件中的每一行</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="comment"># 将每行内容进行按单词的切割, 在切割之前去掉每行字符串的首位空格以及换行</span></span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串切割后, 拿到 res 列表, 循环迭代它</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="comment"># 如果不是空字符的话就在集合中将该键出现的次数+1</span></span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<h2 id="激活从库"><a href="#激活从库" class="headerlink" title="激活从库"></a>激活从库</h2><p>在停止 IO_THREAD 线程后, 看到 <code>Slave_SQL_Running_State: Slave has read all relay log; waiting for the slave I/O thread to update it</code>这个状态后,  就可以操作完全停止从库,并激活为主库啦</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; stop slave;  # 完全停止 slave 复制 </span><br><span class="line">mysql&gt; reset slave all; # 完全清空 slave 复制信息</span><br><span class="line">msyql&gt; reset master; # 清空本机上 master 的位置信息(给原主库同步此原从库做准备)</span><br><span class="line">mysql&gt; show binary logs; # 查看当前数据库的 binlog 信息</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br><span class="line">| Log_name       | File_size |</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br><span class="line">| bin-log.000001 |       120 |</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果与上面相同</p>
-<h1 id="统计后找出前三个元素"><a href="#统计后找出前三个元素" class="headerlink" title="统计后找出前三个元素"></a>统计后找出前三个元素</h1><p>在 counter 对象中, 还有一个功能可以帮我们取出指定的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">s = collections.Counter()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<h1 id="将原主库变为从库"><a href="#将原主库变为从库" class="headerlink" title="将原主库变为从库"></a>将原主库变为从库</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># master</span></span><br><span class="line">mysql&gt; CHANGE MASTER TO</span><br><span class="line">   MASTER_HOST='192.168.10.59',</span><br><span class="line">   MASTER_PORT=3306,</span><br><span class="line">   MASTER_USER='repl',</span><br><span class="line">   MASTER_PASSWORD='12345678',</span><br><span class="line">   MASTER_LOG_FILE='bin-log.000001',</span><br><span class="line">   MASTER_LOG_POS=120;</span><br><span class="line">mysql&gt; start slave;</span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'the'</span>, <span class="number">93</span>), (<span class="string">'to'</span>, <span class="number">39</span>), (<span class="string">'and'</span>, <span class="number">32</span>)]</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="第二种情况的主从切换"><a href="#第二种情况的主从切换" class="headerlink" title="第二种情况的主从切换"></a>第二种情况的主从切换</h1><p>第二种情况的主从切换, 切换后, 主库不需要再去同步之前的从库(新主库), 有下线的需求, 这种情况下, 操作流程跟以上差不多, 只不过可以省去如下步骤:</p>
+<ul>
+<li>从库中不需要执行<code>reset master</code>了, 因为原主库(现从库)不要再找点啦(Position)</li>
+<li>主库直接下线就行了, 不需要执行最后把主库变为从库的操作了</li>
+</ul>
 
       
     </div>
@@ -513,7 +929,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/Docker%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9Pool%E5%A4%A7%E5%B0%8F%E4%B8%8Econtainer%E5%A4%A7%E5%B0%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -527,7 +943,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8%205/" class="post-title-link" itemprop="url">Python中使用Counter实现简单的计数器</a>
+            <a href="/2016/12/12/Docker%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9Pool%E5%A4%A7%E5%B0%8F%E4%B8%8Econtainer%E5%A4%A7%E5%B0%8F/" class="post-title-link" itemprop="url">Docker动态扩容Pool大小与container大小</a>
         </h2>
 
         <div class="post-meta">
@@ -537,7 +953,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 11:51:21" itemprop="dateCreated datePublished" datetime="2017-07-26T11:51:21+08:00">2017-07-26</time>
+              <time title="创建时间：2016-12-12 13:25:38" itemprop="dateCreated datePublished" datetime="2016-12-12T13:25:38+08:00">2016-12-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -545,7 +961,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
                 </span>
             </span>
 
@@ -558,8 +974,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中使用Counter实现简单的计数器 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/12/12/Docker%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9Pool%E5%A4%A7%E5%B0%8F%E4%B8%8Econtainer%E5%A4%A7%E5%B0%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/Docker动态扩容Pool大小与container大小/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -575,27 +991,88 @@
 
       
           <blockquote>
-<p>在 Python 中可以使用 collections 内置模块下的 Counter 来实现简单的统计功能</p>
+<p>docker容器默认的空间是10G, Pool 大小默认是100G. </p>
 </blockquote>
-<h1 id="统计列表中的元素"><a href="#统计列表中的元素" class="headerlink" title="统计列表中的元素"></a>统计列表中的元素</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [chr(random.randint(<span class="number">97</span>, <span class="number">102</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">result = collections.Counter(l)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<h1 id="查看-docker-信息"><a href="#查看-docker-信息" class="headerlink" title="查看 docker 信息"></a>查看 docker 信息</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker info</span><br><span class="line">Containers: 3</span><br><span class="line"> Running: 3</span><br><span class="line"> Paused: 0</span><br><span class="line"> Stopped: 0</span><br><span class="line">Images: 2</span><br><span class="line">Server Version: 1.12.1</span><br><span class="line">Storage Driver: devicemapper</span><br><span class="line"> Pool Name: docker-253:0-117441065-pool</span><br><span class="line"> Pool Blocksize: 65.54 kB</span><br><span class="line"> Base Device Size: 107.4 GB</span><br><span class="line"> Backing Filesystem: xfs</span><br><span class="line"> Data file: /dev/loop0</span><br><span class="line"> Metadata file: /dev/loop1</span><br><span class="line"> Data Space Used: 18.32 GB</span><br><span class="line"> Data Space Total: 107.4 GB</span><br><span class="line"> Data Space Available: 89.05 GB</span><br><span class="line"> Metadata Space Used: 12.45 MB</span><br><span class="line"> Metadata Space Total: 2.147 GB</span><br><span class="line"> Metadata Space Available: 2.135 GB</span><br><span class="line"> Thin Pool Minimum Free Space: 10.74 GB</span><br><span class="line"> Udev Sync Supported: <span class="literal">true</span></span><br><span class="line"> Deferred Removal Enabled: <span class="literal">false</span></span><br><span class="line"> Deferred Deletion Enabled: <span class="literal">false</span></span><br><span class="line"> Deferred Deleted Device Count: 0</span><br><span class="line"> Data loop file: /var/lib/docker/devicemapper/devicemapper/data</span><br><span class="line"> WARNING: Usage of loopback devices is strongly discouraged <span class="keyword">for</span> production use. Use `--storage-opt dm.thinpooldev` to specify a custom block storage device.</span><br><span class="line"> Metadata loop file: /var/lib/docker/devicemapper/devicemapper/metadata</span><br><span class="line"> Library Version: 1.02.107-RHEL7 (2016-06-09)</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Cgroup Driver: cgroupfs</span><br><span class="line">Plugins:</span><br><span class="line"> Volume: <span class="built_in">local</span></span><br><span class="line"> Network: host bridge overlay null</span><br><span class="line">Swarm: inactive</span><br><span class="line">Runtimes: runc</span><br><span class="line">Default Runtime: runc</span><br><span class="line">Security Options: seccomp</span><br><span class="line">Kernel Version: 3.10.0-327.28.3.el7.x86_64</span><br><span class="line">Operating System: CentOS Linux 7 (Core)</span><br><span class="line">OSType: linux</span><br><span class="line">Architecture: x86_64</span><br><span class="line">CPUs: 6</span><br><span class="line">Total Memory: 7.624 GiB</span><br><span class="line">Name: mobile-quality</span><br><span class="line">ID: NG64:K27K:ASGU:MCBI:NPOZ:Y554:5HME:3INM:UAMI:IIWC:ZQT5:ZKO6</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br><span class="line">Debug Mode (client): <span class="literal">false</span></span><br><span class="line">Debug Mode (server): <span class="literal">false</span></span><br><span class="line">Registry: https://index.docker.io/v1/</span><br><span class="line">WARNING: bridge-nf-call-iptables is disabled</span><br><span class="line">WARNING: bridge-nf-call-ip6tables is disabled</span><br><span class="line">Labels:</span><br><span class="line"> provider=generic</span><br><span class="line">Insecure Registries:</span><br><span class="line"> 127.0.0.0/8</span><br></pre></td></tr></table></figure>
+<p> <code>Data Space Total: 107.4 GB</code> 这个就是默认的 Pool 大小</p>
+<hr>
+<h1 id="调整-container-大小"><a href="#调整-container-大小" class="headerlink" title="调整 container 大小"></a>调整 container 大小</h1><h2 id="新-container-的调整"><a href="#新-container-的调整" class="headerlink" title="新 container 的调整"></a>新 container 的调整</h2><p>如果想指定默认容器的大小（在启动容器的时候指定），可以在docker配置文件里通过dm.basesize参数指定</p>
+<h3 id="直接使用-docker-命令启动服务"><a href="#直接使用-docker-命令启动服务" class="headerlink" title="直接使用 docker 命令启动服务"></a>直接使用 docker 命令启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -d --storage-opt dm.basesize=20G</span><br></pre></td></tr></table></figure>
+<h3 id="使用-systemctl-命令启动服务"><a href="#使用-systemctl-命令启动服务" class="headerlink" title="使用 systemctl 命令启动服务"></a>使用 systemctl 命令启动服务</h3><p>对于使用 <code>systemctl</code> 管理的docker服务, 可以编辑 systemctl 的启动脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/systemd/system/docker.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Docker Application Container Engine</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">ExecStart=/usr/bin/docker daemon -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --registry-mirror=http://8843165a.m.daocloud.io --storage-driver devicemapper --tl</span><br><span class="line">sverify --tlscacert /etc/docker/ca.pem --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label provider=generic --storage-opt dm.basesize=20G</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP</span><br><span class="line">MountFlags=slave</span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">Delegate=yes</span><br><span class="line">KillMode=process</span><br><span class="line">Environment=</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'f'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'f'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>]</span><br><span class="line">Counter(&#123;<span class="string">'f'</span>: <span class="number">6</span>, <span class="string">'e'</span>: <span class="number">6</span>, <span class="string">'c'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上方式适用于新 run 起来的 container, 会获取到新的空间</p>
+<h2 id="已存在的-container-的调整"><a href="#已存在的-container-的调整" class="headerlink" title="已存在的 container 的调整"></a>已存在的 container 的调整</h2><h3 id="查看所有的虚拟磁盘信息"><a href="#查看所有的虚拟磁盘信息" class="headerlink" title="查看所有的虚拟磁盘信息"></a>查看所有的虚拟磁盘信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup status</span><br><span class="line">docker-253:0-117441065-pool: 0 209715200 thin-pool 39 3039/524288 279539/1638400 - rw discard_passdown queue_if_no_space - </span><br><span class="line">docker-253:0-117441065-bb21427f81836c96a53e7cf0ee97c9e907104ad1ce4d8f2bdade4bbfc0fdd5f5: 0 20971520 thin 17858688 209715199</span><br><span class="line">docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e: 0 20971520 thin 19820928 209715199</span><br><span class="line">docker-253:0-117441065-c57286b3ae5bc1bd675573902d043754aba23349306fd3a52bcd74eed5d144cb: 0 20971520 thin 2968320 209715199</span><br><span class="line">centos-swap: 0 3358720 linear </span><br><span class="line">centos-root: 0 29163520 linear </span><br><span class="line">centos-root: 29163520 71294976 linear </span><br><span class="line">centos-root: 100458496 104849408 linear </span><br><span class="line">centos-root: 205307904 209707008 linear</span><br></pre></td></tr></table></figure>
 
-<h1 id="统计文件中单词出现的频率"><a href="#统计文件中单词出现的频率" class="headerlink" title="统计文件中单词出现的频率"></a>统计文件中单词出现的频率</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">txt = re.split(<span class="string">'\W+'</span>, f.read())</span><br><span class="line">s = collections.Counter(txt)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<p>最上面4条开头写着 docker 的虚拟磁盘就是我们即将操作的对象</p>
+<p>其中可以明显的看出, 第一条中带有 <code>pool</code> 的字样, 没错, 这个就是 docker 默认的 pool 大小,现在我们要调整 container 的大小, 暂时不管 pool 的默认配置</p>
+<p>其余的三条磁盘信息就是当前宿主机中, 起来的 container 使用的虚拟磁盘, 如果你需要指定其中一个来调整, 那么你需要找到虚拟磁盘和 container name 或 container id 的对应关系, 不要搞错!</p>
+<p>对应关系可以使用 <code>docker exec -it xxxx /bin/bash</code> 进入到 container 中使用<code>df -h</code> 命令查看根分区的虚拟磁盘名称<br>也可以在 linux 中使用 <code>docker inspect xxx</code> 来查看 xxx 容器的详细信息</p>
+<p>找到了它们的对应关系之后, 接下来就可以对其调整大小了</p>
+<h3 id="找到映射的虚拟磁盘"><a href="#找到映射的虚拟磁盘" class="headerlink" title="找到映射的虚拟磁盘"></a>找到映射的虚拟磁盘</h3><p>默认情况下, 所有的虚拟磁盘的映射都在<code>/dev/mapper/</code> 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; ls -l</span><br><span class="line">total 0</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 01:45 centos-root -&gt; ../dm-0</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 01:45 centos-swap -&gt; ../dm-1</span><br><span class="line">crw------- 1 root root 10, 236 Dec  7 01:45 control</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 02:20 docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e -&gt; ../dm-3</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 02:21 docker-253:0-117441065-bb21427f81836c96a53e7cf0ee97c9e907104ad1ce4d8f2bdade4bbfc0fdd5f5 -&gt; ../dm-4</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 02:30 docker-253:0-117441065-c57286b3ae5bc1bd675573902d043754aba23349306fd3a52bcd74eed5d144cb -&gt; ../dm-5</span><br><span class="line">lrwxrwxrwx 1 root root       7 Dec  7 01:49 docker-253:0-117441065-pool -&gt; ../dm-2</span><br></pre></td></tr></table></figure>
+<p>从上面👆的回显也可以看出实际指向的虚拟磁盘文件(是不是有点绕, 这个文件只不过是虚拟磁盘的软连接而已)</p>
+<p>接下来我们需要对其进行扩容操作</p>
+<h3 id="第一步-查看指定虚拟磁盘的容量信息"><a href="#第一步-查看指定虚拟磁盘的容量信息" class="headerlink" title="第一步: 查看指定虚拟磁盘的容量信息"></a>第一步: 查看指定虚拟磁盘的容量信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup table docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e</span><br><span class="line">0 20971520 thin 253:2 25</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Counter(&#123;<span class="string">'the'</span>: <span class="number">93</span>, <span class="string">'to'</span>: <span class="number">39</span>, <span class="string">'and'</span>: <span class="number">32</span>, <span class="string">'for'</span>: <span class="number">31</span>, <span class="string">'SSL'</span>: <span class="number">29</span>, <span class="string">'is'</span>: <span class="number">26</span>, <span class="string">'a'</span>: <span class="number">21</span>, <span class="string">'of'</span>: <span class="number">21</span>, <span class="string">'private'</span>: <span class="number">20</span>, <span class="string">'in'</span>: <span class="number">18</span>, <span class="string">'you'</span>: <span class="number">17</span>, <span class="string">'server'</span>: <span class="number">17</span>, <span class="string">'file'</span>: <span class="number">16</span>, <span class="string">'apache2'</span>: <span class="number">16</span>, <span class="string">'be'</span>: <span class="number">16</span>, <span class="string">'1'</span>: <span class="number">16</span>, <span class="string">'etc'</span>: <span class="number">15</span>, <span class="string">'certificate'</span>: <span class="number">15</span>, <span class="string">'this'</span>: <span class="number">14</span>, <span class="string">'as'</span>: <span class="number">13</span>, <span class="string">'This'</span>: <span class="number">13</span>, <span class="string">'0'</span>: <span class="number">13</span>, <span class="string">'or'</span>: <span class="number">13</span>, <span class="string">'use'</span>: <span class="number">12</span>, <span class="string">'client'</span>: <span class="number">10</span>, <span class="string">'that'</span>: <span class="number">10</span>, <span class="string">'when'</span>: <span class="number">10</span>, <span class="string">'can'</span>: <span class="number">10</span>, <span class="string">'are'</span>: <span class="number">9</span>, <span class="string">'mod_ssl'</span>: <span class="number">9</span>, <span class="string">'ciphers'</span>: <span class="number">9</span>, <span class="string">'CA'</span>: <span class="number">8</span>, <span class="string">'on'</span>: <span class="number">8</span>, <span class="string">'one'</span>: <span class="number">8</span>, <span class="string">'2'</span>: <span class="number">8</span>, <span class="string">'an'</span>: <span class="number">7</span>, <span class="string">'crt'</span>: <span class="number">7</span>, <span class="string">'standard'</span>: <span class="number">7</span>, <span class="string">'TLS'</span>: <span class="number">7</span>, <span class="string">'The'</span>: <span class="number">7</span>, <span class="string">'directives'</span>: <span class="number">7</span>, <span class="string">'ssl'</span>: <span class="number">7</span>, <span class="string">'Use'</span>: <span class="number">7</span>, <span class="string">'only'</span>: <span class="number">7</span>, <span class="string">'o'</span>: <span class="number">7</span>, <span class="string">'shutdown'</span>: <span class="number">7</span>, <span class="string">'dev'</span>: <span class="number">7</span>, <span class="string">'all'</span>: <span class="number">6</span>, <span class="string">'more'</span>: <span class="number">6</span>, <span class="string">'close'</span>: <span class="number">6</span>, <span class="string">'used'</span>: <span class="number">6</span>, <span class="string">'not'</span>: <span class="number">6</span>, <span class="string">'which'</span>: <span class="number">6</span>, <span class="string">'notify'</span>: <span class="number">6</span>, <span class="string">'key'</span>: <span class="number">6</span>, <span class="string">'default'</span>: <span class="number">6</span>, <span class="string">'certificates'</span>: <span class="number">6</span>, <span class="string">'alert'</span>: <span class="number">6</span>, <span class="string">'var'</span>: <span class="number">6</span>, <span class="string">'also'</span>: <span class="number">6</span>, <span class="string">'should'</span>: <span class="number">5</span>, <span class="string">'OpenSSL'</span>: <span class="number">5</span>, <span class="string">'SSLv3'</span>: <span class="number">5</span>, <span class="string">'PEM'</span>: <span class="number">5</span>, <span class="string">'encoded'</span>: <span class="number">5</span>, <span class="string">'clients'</span>: <span class="number">5</span>, <span class="string">'random'</span>: <span class="number">5</span>, <span class="string">'OCSP'</span>: <span class="number">5</span>, <span class="string">'containing'</span>: <span class="number">5</span>, <span class="string">'with'</span>: <span class="number">5</span>, <span class="string">'connection'</span>: <span class="number">5</span>, <span class="string">'from'</span>: <span class="number">5</span>, <span class="string">'SSLCertificateFile'</span>: <span class="number">5</span>, <span class="string">'user'</span>: <span class="number">5</span>, <span class="string">'both'</span>: <span class="number">5</span>, <span class="string">'parallel'</span>: <span class="number">4</span>, <span class="string">'variables'</span>: <span class="number">4</span>, <span class="string">'usually'</span>: <span class="number">4</span>, <span class="string">'at'</span>: <span class="number">4</span>, <span class="string">'Note'</span>: <span class="number">4</span>, <span class="string">'HIGH'</span>: <span class="number">4</span>, <span class="string">'configured'</span>: <span class="number">4</span>, </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="第二步-计算所需的容量-扇区数量"><a href="#第二步-计算所需的容量-扇区数量" class="headerlink" title="第二步: 计算所需的容量(扇区数量)"></a>第二步: 计算所需的容量(扇区数量)</h3><p>假设你想要的容量为 20G</p>
+<p>则该值应该为: <code>20*1024*1024*1024/512</code> = 41943040</p>
+<p>验算: 20G 的值 41943040 = 默认10G 的值 20971520 *2</p>
+<p>公式为: <code>x*1024*1024*1024/512</code></p>
+<h3 id="第三步-挂起虚拟磁盘"><a href="#第三步-挂起虚拟磁盘" class="headerlink" title="第三步: 挂起虚拟磁盘"></a>第三步: 挂起虚拟磁盘</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup <span class="built_in">suspend</span> docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e</span><br></pre></td></tr></table></figure>
 
-<p>以上方法在读取文件的时候, 采用了读取全部内容到内存的方法, 如果文件体积较大, 会对内存造成较大压力, 可以通过如下这种迭代的用法实现相同的功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个空集合对象</span></span><br><span class="line">s = collections.Counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代文件中的每一行</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="comment"># 将每行内容进行按单词的切割, 在切割之前去掉每行字符串的首位空格以及换行</span></span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串切割后, 拿到 res 列表, 循环迭代它</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="comment"># 如果不是空字符的话就在集合中将该键出现的次数+1</span></span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<p>没有回显, 没有消息就是好消息😆</p>
+<h3 id="第四步-写入新参数并重新加载进去"><a href="#第四步-写入新参数并重新加载进去" class="headerlink" title="第四步: 写入新参数并重新加载进去"></a>第四步: 写入新参数并重新加载进去</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup reload docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e --table <span class="string">'0 41943040 thin 253:2 25'</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果与上面相同</p>
-<h1 id="统计后找出前三个元素"><a href="#统计后找出前三个元素" class="headerlink" title="统计后找出前三个元素"></a>统计后找出前三个元素</h1><p>在 counter 对象中, 还有一个功能可以帮我们取出指定的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">s = collections.Counter()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>把上一步计算出来的值, 覆盖到第一步的回显对应的位置中</p>
+<h3 id="第五步-激活挂起的虚拟磁盘"><a href="#第五步-激活挂起的虚拟磁盘" class="headerlink" title="第五步: 激活挂起的虚拟磁盘"></a>第五步: 激活挂起的虚拟磁盘</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup resume docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e</span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'the'</span>, <span class="number">93</span>), (<span class="string">'to'</span>, <span class="number">39</span>), (<span class="string">'and'</span>, <span class="number">32</span>)]</span><br></pre></td></tr></table></figure>
+<p>如果执行到这一步的时候报错: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">device-mapper: resume ioctl on docker-253:0-1700-pool failed: Invalid argument</span><br><span class="line">Command failed</span><br></pre></td></tr></table></figure>
+
+<p>先不要慌, 稍等片刻, 再重新执行</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h3><p>由于挂起操作会阻塞住所有的 IO, 为了尽快完成扩容, 我们一般把第三四五步骤用一行命令去执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup <span class="built_in">suspend</span> docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e \</span><br><span class="line">    &amp;&amp; dmsetup reload docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e --table <span class="string">'0 41943040 thin 253:2 25'</span> \</span><br><span class="line">    &amp;&amp; dmsetup resume docker-253:0-117441065-17379f89f95efb5bafb234d95e0e0dfe549f7ba48fbed69c0111e2ea39c0106e</span><br></pre></td></tr></table></figure>
+
+<h3 id="第六步-为磁盘扩容"><a href="#第六步-为磁盘扩容" class="headerlink" title="第六步: 为磁盘扩容"></a>第六步: 为磁盘扩容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; mount /dev/dm-3 /mnt</span><br><span class="line">&gt; xfs_growfs /mnt</span><br><span class="line">&gt; umount /mnt</span><br></pre></td></tr></table></figure>
+
+<p>需要先挂载再扩容</p>
+<hr>
+<h1 id="调整-pool-大小"><a href="#调整-pool-大小" class="headerlink" title="调整 pool 大小"></a>调整 pool 大小</h1><p>调整 pool 大小不同于调整 container 的大小, 需要先对其虚拟文件进行扩容, 再对虚拟磁盘扩容</p>
+<p>到这里涉及到了三个概念:</p>
+<ul>
+<li>虚拟文件大小 —&gt; 硬盘大小/PV/VG</li>
+<li>虚拟硬盘设备 —&gt; LV/file system</li>
+<li>软连接 —&gt; alias 别名</li>
+</ul>
+<p>虚拟硬盘设备是基于虚拟文件的, 就好像我们使用的 lvm 卷, 虚拟硬盘设备就相当于 lv 或是说就相当于我们正在使用的文件系统; 而 docker 中的虚拟文件就好比我们物理机的硬盘, 或是说 PV 与 VG 的大小</p>
+<ul>
+<li>在物理服务器中, 磁盘空间不足的话, 我们可以增加硬盘, 条带化成 PV, 再填入到 VG 池中, 然后分配给对应的 LV, 再对其扩容</li>
+<li>在 docker 中, 磁盘空间不足的话(pool 不足的话), 我们可以扩充虚拟文件, 然后让虚拟硬盘设备扩容</li>
+</ul>
+<h2 id="查看-pool-文件大小信息"><a href="#查看-pool-文件大小信息" class="headerlink" title="查看 pool 文件大小信息"></a>查看 pool 文件大小信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; ls -lh /var/lib/docker/devicemapper/devicemapper/</span><br><span class="line">total 244M</span><br><span class="line">-rw-------. 1 root root 100G Dec  8 18:27 data</span><br><span class="line">-rw-------. 1 root root 2.0G Dec  8 18:24 metadata</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 data 是100G 大小, 不要担心他实际占用了100G, 这个是精简配置, 实际用多少就占多少空间, 最大100G</p>
+<h2 id="第一步-给文件扩容"><a href="#第一步-给文件扩容" class="headerlink" title="第一步: 给文件扩容"></a>第一步: 给文件扩容</h2><p>上面看到的 data 文件有100G 的大小, 现在我需要200G 的 pool 大小, 所以需要调整 data 文件的属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truncate -s 214748364800 /var/lib/docker/devicemapper/devicemapper/data</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二步-检查大小"><a href="#第二步-检查大小" class="headerlink" title="第二步: 检查大小"></a>第二步: 检查大小</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; ls -lh /var/lib/docker/devicemapper/devicemapper/                      </span><br><span class="line">total 244M</span><br><span class="line">-rw-------. 1 root root 200G Dec  8 18:35 data</span><br><span class="line">-rw-------. 1 root root 2.0G Dec  8 18:24 metadata</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步-Reload-data-loop-device"><a href="#第三步-Reload-data-loop-device" class="headerlink" title="第三步: Reload data loop device"></a>第三步: Reload data loop device</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; blockdev --getsize64 /dev/loop0</span><br><span class="line">107374182400</span><br><span class="line">&gt; losetup -c /dev/loop0</span><br><span class="line">&gt; blockdev --getsize64 /dev/loop0</span><br><span class="line">214748364800</span><br></pre></td></tr></table></figure>
+
+<h2 id="第四步-Reload-devicemapper-thin-pool"><a href="#第四步-Reload-devicemapper-thin-pool" class="headerlink" title="第四步: Reload devicemapper thin pool"></a>第四步: Reload devicemapper thin pool</h2><p>第四步基本就是重复上面扩容 container 的步骤, 这里省略了前几步的查看和计算</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; dmsetup <span class="built_in">suspend</span> docker-253:0-1700-pool \</span><br><span class="line">    &amp;&amp; dmsetup reload docker-253:0-1700-pool --table <span class="string">'0 419430400 thin-pool 7:1 7:0 128 32768 1 skip_block_zeroing'</span> \</span><br><span class="line">    &amp;&amp; dmsetup resume docker-253:0-1700-pool</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h2><p>扩容 pool 涉及到了两个计算</p>
+<ul>
+<li>data 文件大小的计算</li>
+<li>devicemapper 扇区数量的计算</li>
+</ul>
+<p>上面已经给出了扇区的计算公式: <code>x*1024*1024*1024/512</code></p>
+<p>data 大小的计算公式为: <code>x*1024*1024*1024</code></p>
+<hr>
+<p>参考文档:</p>
+<p><a href="https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#/increase-capacity-on-a-running-device" target="_blank" rel="noopener">https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#/increase-capacity-on-a-running-device</a><br><a href="https://segmentfault.com/a/1190000002931564" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002931564</a><br><a href="http://www.linuxidc.com/Linux/2015-01/112245.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2015-01/112245.htm</a><br><a href="http://www.projectatomic.io/blog/2016/03/daemon_option_basedevicesize/" target="_blank" rel="noopener">http://www.projectatomic.io/blog/2016/03/daemon_option_basedevicesize/</a></p>
 
       
     </div>
@@ -617,7 +1094,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -631,7 +1108,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python中可迭代对象的排序</a>
+            <a href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">开启GTID的情况下导出导入库的注意事项</a>
         </h2>
 
         <div class="post-meta">
@@ -641,7 +1118,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 10:44:44" itemprop="dateCreated datePublished" datetime="2017-07-26T10:44:44+08:00">2017-07-26</time>
+              <time title="创建时间：2016-10-28 11:45:06" itemprop="dateCreated datePublished" datetime="2016-10-28T11:45:06+08:00">2016-10-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -649,7 +1126,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -662,8 +1139,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中可迭代对象的排序/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/28/开启GTID的情况下导出导入库的注意事项/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -679,66 +1156,24 @@
 
       
           <blockquote>
-<p>在 Python 中, 提供给我们了两种排序的方式, 一种是列表对象自己的<code>.sort</code>方法, 一种是Python 内置的<code>sorted</code>函数</p>
+<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息. </p>
 </blockquote>
-<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><p>列表排序有两种方式可以实现, 分别是自带的 <code>.sort</code>方法, 还有内置的<code>sorted</code>函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don<span class="string">'t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">16</span>, <span class="number">42</span>, <span class="number">84</span>, <span class="number">78</span>, <span class="number">22</span>, <span class="number">50</span>, <span class="number">86</span>, <span class="number">14</span>, <span class="number">95</span>, <span class="number">75</span>]</span><br></pre></td></tr></table></figure>
+<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
+<p><code>➜  mysqldump -uroot -p --set-gtid-purged=OFF userdb &gt; userdb.sql</code></p>
+<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
+<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
+<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line">ERROR 1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be <span class="built_in">set</span> when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
 
-<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title=".sort 方法"></a>.sort 方法</h2><p>列表对象自身的<code>.sort</code>方法执行后, 会改变原列表对象的顺序</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.sort()</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的结果可以看出, 原列表的成员位置已经发生了变化</p>
-<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted 函数"></a>sorted 函数</h2><p>使用<code>sorted</code>函数排序后会返回新的对象, 不会在原对象中修改</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l2 = sorted(l)</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="元组排序"><a href="#元组排序" class="headerlink" title="元组排序"></a>元组排序</h1><p>元组中的元素是有序的, 但是本身的元素是不可修改的, 所以元组自身没有<code>.sort</code>方法可以使用. 但是可以通过转化为列表的方式, 间接使用<code>.sort</code></p>
-<h2 id="使用类型转换得到元组"><a href="#使用类型转换得到元组" class="headerlink" title="使用类型转换得到元组"></a>使用类型转换得到元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">t = tuple(l)</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">10</span>, <span class="number">47</span>, <span class="number">33</span>, <span class="number">68</span>, <span class="number">5</span>, <span class="number">86</span>, <span class="number">95</span>, <span class="number">51</span>, <span class="number">12</span>, <span class="number">28</span>)</span><br><span class="line">[<span class="number">5</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">68</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用生成器表达式得到元组-迭代对象"><a href="#使用生成器表达式得到元组-迭代对象" class="headerlink" title="使用生成器表达式得到元组(迭代对象)"></a>使用生成器表达式得到元组(迭代对象)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = (random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x1019962b0</span>&gt;</span><br><span class="line">[<span class="number">6</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">68</span>, <span class="number">72</span>, <span class="number">88</span>, <span class="number">89</span>, <span class="number">93</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="集合排序"><a href="#集合排序" class="headerlink" title="集合排序"></a>集合排序</h1><p> 集合本身是无序的, 本身也没有<code>.sort</code>方法. 但是集合也可以间接的通过先转化为列表的方式来使用<code>.sort</code>方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = &#123;random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">s2 = sorted(s)</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">100</span>, <span class="number">6</span>, <span class="number">71</span>, <span class="number">11</span>, <span class="number">50</span>, <span class="number">21</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">26</span>, <span class="number">94</span>&#125;</span><br><span class="line">[<span class="number">6</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">26</span>, <span class="number">50</span>, <span class="number">62</span>, <span class="number">71</span>, <span class="number">89</span>, <span class="number">94</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h1><h2 id="依据-key-排序"><a href="#依据-key-排序" class="headerlink" title="依据 key 排序"></a>依据 key 排序</h2><p>使用 sorted 对一个字典进行排序, 只需要把对象传进去即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line">d2 = sorted(d)</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'m'</span>: <span class="number">11</span>, <span class="string">'s'</span>: <span class="number">18</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">15</span>, <span class="string">'v'</span>: <span class="number">17</span>, <span class="string">'a'</span>: <span class="number">4</span>, <span class="string">'h'</span>: <span class="number">6</span>, <span class="string">'i'</span>: <span class="number">20</span>, <span class="string">'l'</span>: <span class="number">10</span>&#125;</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'s'</span>, <span class="string">'v'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>当我们拿到这个排序过后的列表之后, 就可以依据列表里的”键”的顺序, 到对应的字典中取值了</p>
-<h2 id="依据-value-排序"><a href="#依据-value-排序" class="headerlink" title="依据 value 排序"></a>依据 value 排序</h2><p>依据 value 排序就需要用到 sorted 函数中的<code>key</code>参数了, <code>key</code>参数接收一个函数, 此函数即为处理迭代对象每一个元素的函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>, <span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment"># 字典对象.items() 会把每个键值对转化成元组, 并把字典的最外层转化为列表</span></span><br><span class="line">print(d.items())</span><br><span class="line">d2 = sorted(d.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'y'</span>: <span class="number">8</span>, <span class="string">'h'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">17</span>, <span class="string">'p'</span>: <span class="number">9</span>, <span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'o'</span>: <span class="number">14</span>, <span class="string">'c'</span>: <span class="number">15</span>, <span class="string">'a'</span>: <span class="number">9</span>, <span class="string">'z'</span>: <span class="number">9</span>&#125;</span><br><span class="line">dict_items([(<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'d'</span>, <span class="number">17</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>)])</span><br><span class="line">[(<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'d'</span>, <span class="number">17</span>)]</span><br></pre></td></tr></table></figure>
-
-<p>从结果的第一行和第二行可以看出<code>字典. items()</code>的执行效果.</p>
-<p>key 后面的 lambda 函数, 将循环接收前面迭代元素的每一个值, 第一次迭代时, 第一个值 <code>(&#39;y&#39;, 8)</code>被传递给 lambda 函数的参数. lambda 函数接收这个参数, 并取这个参数值的第二位值, 也就是取得 <code>(&#39;y&#39;, 8)</code>的第二个值, 并依据此值进行排序</p>
-<h1 id="列表嵌套字典混合排序"><a href="#列表嵌套字典混合排序" class="headerlink" title="列表嵌套字典混合排序"></a>列表嵌套字典混合排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line">dd.sort(key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd)</span><br></pre></td></tr></table></figure>
-
-<p>以上的方式是通过列表自身的<code>.sort</code>方法实现的, 修改了元列表内部元素的位置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line"></span><br><span class="line">dd2 = sorted(dd, key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd2)</span><br></pre></td></tr></table></figure>
-
-<p>以上则是通过<code>sorted</code>函数实现.</p>
-<p>列举这种用法主要是为了体现 sorted 函数中, key 参数的使用方法, 前面的迭代对象的中每个值, 都会依次传递给 key 中的函数, key 中的函数需要接收一个参数, 并对这个参数的值进行处理, 返回需要排序的对象</p>
+<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
+<p>这个时候你有两个选择:</p>
+<ol>
+<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
+<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
+</ol>
 
       
     </div>
@@ -760,7 +1195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -774,7 +1209,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F%205/" class="post-title-link" itemprop="url">Python中可迭代对象的排序</a>
+            <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/" class="post-title-link" itemprop="url">mysql修改sql_mode</a>
         </h2>
 
         <div class="post-meta">
@@ -784,7 +1219,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-07-26 10:44:44" itemprop="dateCreated datePublished" datetime="2017-07-26T10:44:44+08:00">2017-07-26</time>
+              <time title="创建时间：2016-10-12 15:53:28" itemprop="dateCreated datePublished" datetime="2016-10-12T15:53:28+08:00">2016-10-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -792,7 +1227,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -805,8 +1240,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中可迭代对象的排序 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysql修改sql-mode/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -821,521 +1256,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>在 Python 中, 提供给我们了两种排序的方式, 一种是列表对象自己的<code>.sort</code>方法, 一种是Python 内置的<code>sorted</code>函数</p>
-</blockquote>
-<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><p>列表排序有两种方式可以实现, 分别是自带的 <code>.sort</code>方法, 还有内置的<code>sorted</code>函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">16</span>, <span class="number">42</span>, <span class="number">84</span>, <span class="number">78</span>, <span class="number">22</span>, <span class="number">50</span>, <span class="number">86</span>, <span class="number">14</span>, <span class="number">95</span>, <span class="number">75</span>]</span><br></pre></td></tr></table></figure>
-
-<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title=".sort 方法"></a>.sort 方法</h2><p>列表对象自身的<code>.sort</code>方法执行后, 会改变原列表对象的顺序</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.sort()</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的结果可以看出, 原列表的成员位置已经发生了变化</p>
-<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted 函数"></a>sorted 函数</h2><p>使用<code>sorted</code>函数排序后会返回新的对象, 不会在原对象中修改</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l2 = sorted(l)</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="元组排序"><a href="#元组排序" class="headerlink" title="元组排序"></a>元组排序</h1><p>元组中的元素是有序的, 但是本身的元素是不可修改的, 所以元组自身没有<code>.sort</code>方法可以使用. 但是可以通过转化为列表的方式, 间接使用<code>.sort</code></p>
-<h2 id="使用类型转换得到元组"><a href="#使用类型转换得到元组" class="headerlink" title="使用类型转换得到元组"></a>使用类型转换得到元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">t = tuple(l)</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">10</span>, <span class="number">47</span>, <span class="number">33</span>, <span class="number">68</span>, <span class="number">5</span>, <span class="number">86</span>, <span class="number">95</span>, <span class="number">51</span>, <span class="number">12</span>, <span class="number">28</span>)</span><br><span class="line">[<span class="number">5</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">68</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用生成器表达式得到元组-迭代对象"><a href="#使用生成器表达式得到元组-迭代对象" class="headerlink" title="使用生成器表达式得到元组(迭代对象)"></a>使用生成器表达式得到元组(迭代对象)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = (random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x1019962b0</span>&gt;</span><br><span class="line">[<span class="number">6</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">68</span>, <span class="number">72</span>, <span class="number">88</span>, <span class="number">89</span>, <span class="number">93</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="集合排序"><a href="#集合排序" class="headerlink" title="集合排序"></a>集合排序</h1><p> 集合本身是无序的, 本身也没有<code>.sort</code>方法. 但是集合也可以间接的通过先转化为列表的方式来使用<code>.sort</code>方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = &#123;random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">s2 = sorted(s)</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">100</span>, <span class="number">6</span>, <span class="number">71</span>, <span class="number">11</span>, <span class="number">50</span>, <span class="number">21</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">26</span>, <span class="number">94</span>&#125;</span><br><span class="line">[<span class="number">6</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">26</span>, <span class="number">50</span>, <span class="number">62</span>, <span class="number">71</span>, <span class="number">89</span>, <span class="number">94</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h1><h2 id="依据-key-排序"><a href="#依据-key-排序" class="headerlink" title="依据 key 排序"></a>依据 key 排序</h2><p>使用 sorted 对一个字典进行排序, 只需要把对象传进去即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line">d2 = sorted(d)</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'m'</span>: <span class="number">11</span>, <span class="string">'s'</span>: <span class="number">18</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">15</span>, <span class="string">'v'</span>: <span class="number">17</span>, <span class="string">'a'</span>: <span class="number">4</span>, <span class="string">'h'</span>: <span class="number">6</span>, <span class="string">'i'</span>: <span class="number">20</span>, <span class="string">'l'</span>: <span class="number">10</span>&#125;</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'s'</span>, <span class="string">'v'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>当我们拿到这个排序过后的列表之后, 就可以依据列表里的”键”的顺序, 到对应的字典中取值了</p>
-<h2 id="依据-value-排序"><a href="#依据-value-排序" class="headerlink" title="依据 value 排序"></a>依据 value 排序</h2><p>依据 value 排序就需要用到 sorted 函数中的<code>key</code>参数了, <code>key</code>参数接收一个函数, 此函数即为处理迭代对象每一个元素的函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>, <span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment"># 字典对象.items() 会把每个键值对转化成元组, 并把字典的最外层转化为列表</span></span><br><span class="line">print(d.items())</span><br><span class="line">d2 = sorted(d.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'y'</span>: <span class="number">8</span>, <span class="string">'h'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">17</span>, <span class="string">'p'</span>: <span class="number">9</span>, <span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'o'</span>: <span class="number">14</span>, <span class="string">'c'</span>: <span class="number">15</span>, <span class="string">'a'</span>: <span class="number">9</span>, <span class="string">'z'</span>: <span class="number">9</span>&#125;</span><br><span class="line">dict_items([(<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'d'</span>, <span class="number">17</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>)])</span><br><span class="line">[(<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'d'</span>, <span class="number">17</span>)]</span><br></pre></td></tr></table></figure>
-
-<p>从结果的第一行和第二行可以看出<code>字典. items()</code>的执行效果.</p>
-<p>key 后面的 lambda 函数, 将循环接收前面迭代元素的每一个值, 第一次迭代时, 第一个值 <code>(&#39;y&#39;, 8)</code>被传递给 lambda 函数的参数. lambda 函数接收这个参数, 并取这个参数值的第二位值, 也就是取得 <code>(&#39;y&#39;, 8)</code>的第二个值, 并依据此值进行排序</p>
-<h1 id="列表嵌套字典混合排序"><a href="#列表嵌套字典混合排序" class="headerlink" title="列表嵌套字典混合排序"></a>列表嵌套字典混合排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line">dd.sort(key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd)</span><br></pre></td></tr></table></figure>
-
-<p>以上的方式是通过列表自身的<code>.sort</code>方法实现的, 修改了元列表内部元素的位置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line"></span><br><span class="line">dd2 = sorted(dd, key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd2)</span><br></pre></td></tr></table></figure>
-
-<p>以上则是通过<code>sorted</code>函数实现.</p>
-<p>列举这种用法主要是为了体现 sorted 函数中, key 参数的使用方法, 前面的迭代对象的中每个值, 都会依次传递给 key 中的函数, key 中的函数需要接收一个参数, 并对这个参数的值进行处理, 返回需要排序的对象</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在集合中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:54:38" itemprop="dateCreated datePublished" datetime="2017-07-25T11:54:38+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在集合中根据条件筛选数据/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首选创建一个集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">s = set(l)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">-1</span>, <span class="number">-9</span>, <span class="number">-6</span>, <span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-2</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此集合中筛选出可以被3整除的数字都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方式-循环迭代"><a href="#第一种方式-循环迭代" class="headerlink" title="第一种方式: 循环迭代"></a>第一种方式: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s1 = set()</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> item % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        s1.add(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(s1)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.77478</span></span><br><span class="line"><span class="number">1500954512.774822</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000042</code></p>
-<h2 id="第二种方式-filter-函数"><a href="#第二种方式-filter-函数" class="headerlink" title="第二种方式: filter 函数"></a>第二种方式: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'---'</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">s2 = list(filter(<span class="keyword">lambda</span> x: x % <span class="number">3</span> == <span class="number">0</span>, s))</span><br><span class="line">print(time.time())</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774839</span></span><br><span class="line"><span class="number">1500954512.774854</span></span><br><span class="line">[<span class="number">3</span>, <span class="number">-9</span>, <span class="number">-6</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000015</code></p>
-<h2 id="第三种方式-集合解析式"><a href="#第三种方式-集合解析式" class="headerlink" title="第三种方式: 集合解析式"></a>第三种方式: 集合解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s3 = &#123;i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(s3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774865</span></span><br><span class="line"><span class="number">1500954512.774885</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000020</code></p>
-<h2 id="第四种方式-生成器表达式"><a href="#第四种方式-生成器表达式" class="headerlink" title="第四种方式: 生成器表达式"></a>第四种方式: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s4 = (i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774917</span></span><br><span class="line"><span class="number">1500954512.774934</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">-9</span></span><br><span class="line"><span class="number">-6</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>集合与之前的字典,列表一样, 要实现数据的筛选依然有四种选择, 小数据量下依然推荐使用<code>集合解析式</code>, 大数据量的情况下推荐使用<code>生成器表达式</code>或 <code>filter 函数</code>(直接返回 filter 迭代对象, 而不直接使用 list 转换)</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/" class="post-title-link" itemprop="url">Python在集合中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:54:38" itemprop="dateCreated datePublished" datetime="2017-07-25T11:54:38+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在集合中根据条件筛选数据 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首选创建一个集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">s = set(l)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">-1</span>, <span class="number">-9</span>, <span class="number">-6</span>, <span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-2</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此集合中筛选出可以被3整除的数字都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方式-循环迭代"><a href="#第一种方式-循环迭代" class="headerlink" title="第一种方式: 循环迭代"></a>第一种方式: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s1 = set()</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> item % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        s1.add(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(s1)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.77478</span></span><br><span class="line"><span class="number">1500954512.774822</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000042</code></p>
-<h2 id="第二种方式-filter-函数"><a href="#第二种方式-filter-函数" class="headerlink" title="第二种方式: filter 函数"></a>第二种方式: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'---'</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">s2 = list(filter(<span class="keyword">lambda</span> x: x % <span class="number">3</span> == <span class="number">0</span>, s))</span><br><span class="line">print(time.time())</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774839</span></span><br><span class="line"><span class="number">1500954512.774854</span></span><br><span class="line">[<span class="number">3</span>, <span class="number">-9</span>, <span class="number">-6</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000015</code></p>
-<h2 id="第三种方式-集合解析式"><a href="#第三种方式-集合解析式" class="headerlink" title="第三种方式: 集合解析式"></a>第三种方式: 集合解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s3 = &#123;i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(s3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774865</span></span><br><span class="line"><span class="number">1500954512.774885</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000020</code></p>
-<h2 id="第四种方式-生成器表达式"><a href="#第四种方式-生成器表达式" class="headerlink" title="第四种方式: 生成器表达式"></a>第四种方式: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s4 = (i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774917</span></span><br><span class="line"><span class="number">1500954512.774934</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">-9</span></span><br><span class="line"><span class="number">-6</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>集合与之前的字典,列表一样, 要实现数据的筛选依然有四种选择, 小数据量下依然推荐使用<code>集合解析式</code>, 大数据量的情况下推荐使用<code>生成器表达式</code>或 <code>filter 函数</code>(直接返回 filter 迭代对象, 而不直接使用 list 转换)</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先创建一个字典</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000029</code></p>
-<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000014</code></p>
-<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000009</code></p>
-<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000005</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先创建一个字典</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
-<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000029</code></p>
-<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000014</code></p>
-<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000009</code></p>
-<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到结果需要的时间为: <code>0.000005</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
+          <h1 id="sql-mode"><a href="#sql-mode" class="headerlink" title="sql_mode"></a>sql_mode</h1><ul>
+<li></li>
+<li>ANSI</li>
+<li>TRADITIONAL</li>
+<li>STRICT_TRANS_TABLES</li>
+</ul>
+<h2 id="sql-mode为空"><a href="#sql-mode为空" class="headerlink" title="sql_mode为空"></a>sql_mode为空</h2><p>最宽松的模式, 即使有错误既不会报错也不会有警告⚠️</p>
+<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>宽松模式，对插入数据进行校验，如果不符合定义类型或长度，对数据类型调整或截断保存，报warning警告</p>
+<h2 id="TRADITIONAL"><a href="#TRADITIONAL" class="headerlink" title="TRADITIONAL"></a>TRADITIONAL</h2><p>严格模式，当向mysql数据库插入数据时，进行数据的严格校验，保证错误数据不能插入，报error错误。用于事物时，会进行事物的回滚</p>
+<h2 id="STRICT-TRANS-TABLES"><a href="#STRICT-TRANS-TABLES" class="headerlink" title="STRICT_TRANS_TABLES"></a>STRICT_TRANS_TABLES</h2><p>严格模式，进行数据的严格校验，错误数据不能插入，报error错误</p>
+<h2 id="NO-ENGINE-SUBSTITUTION"><a href="#NO-ENGINE-SUBSTITUTION" class="headerlink" title="NO_ENGINE_SUBSTITUTION"></a>NO_ENGINE_SUBSTITUTION</h2><p>no_engine_subtitution的作用：mysql 在create table 时可以指定engine子句(指定存储引擎),如果把引擎指定成一个并不存在的引擎, 这个时候mysql可以有两种行为供选择</p>
+<ul>
+<li>直接报错</li>
+<li>把表的存储引擎替换成innodb</li>
+</ul>
+<p>如果 sql_mode 存在 no_engine_subtitution 的时候 ===&gt; 直接报错</p>
+<p>如果 sql_mode 不存在 no_engine_subtitution 的时候 ===&gt; 把表的存储引擎替换成innodb</p>
+<h1 id="查询-sql-mode"><a href="#查询-sql-mode" class="headerlink" title="查询 sql_mode"></a>查询 sql_mode</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select @@sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@sql_mode             |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@global.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@global.sql_mode      |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@session.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@session.sql_mode     |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h1 id="在线修改-sql-mode"><a href="#在线修改-sql-mode" class="headerlink" title="在线修改 sql_mode"></a>在线修改 sql_mode</h1><p><code>SET [GLOBAL|SESSION] sql_mode=&#39;modes&#39;</code></p>
+<h2 id="当前-session-生效"><a href="#当前-session-生效" class="headerlink" title="当前 session 生效"></a>当前 session 生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`;</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局生效"><a href="#全局生效" class="headerlink" title="全局生效"></a>全局生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`</span><br></pre></td></tr></table></figure>
+
+<h1 id="离线修改-sql-mode"><a href="#离线修改-sql-mode" class="headerlink" title="离线修改 sql_mode"></a>离线修改 sql_mode</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文档: </p>
+<ul>
+<li>no_engine_subtitution: <a href="http://www.cnblogs.com/JiangLe/p/5621856.html" target="_blank" rel="noopener">http://www.cnblogs.com/JiangLe/p/5621856.html</a></li>
+</ul>
 
       
     </div>
@@ -1357,7 +1308,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1425,7 +1376,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1438,7 +1389,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

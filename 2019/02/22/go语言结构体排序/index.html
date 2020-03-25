@@ -28,7 +28,7 @@
 <meta property="og:description" content="有了go语言中的排序接口, 可以很容易的对结构体的任意一个字段进行排序, 具体以哪个字段排序, 定义在该结构体Slice的Less方法中. 一个结构体的Slice仅可以实现一次sort接口, 如果一个结构体中有多个字段需要单独进行排序, 最粗鲁的办法只能是定义多个Slice类型, 为每个类型都编写不同的Less方法  约定关键字: 多字段单独排序: 一个结构体中, 需要有多个字段作为依据, 单独">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-02-22T13:27:46.000Z">
-<meta property="article:modified_time" content="2020-03-22T06:36:48.027Z">
+<meta property="article:modified_time" content="2020-03-22T06:36:48.000Z">
 <meta property="article:author" content="极地瑞雪">
 <meta property="article:tag" content="struct">
 <meta property="article:tag" content="sort">
@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -147,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -307,19 +307,16 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/02/22/go语言结构体排序 3/" rel="bookmark">go语言结构体排序</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2018/08/14/Go面向对象之结构体和方法/" rel="bookmark">Go面向对象之结构体和方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2019/03/06/go语言巧用intstr来处理数字与字符类型/" rel="bookmark">go语言巧用intstr来处理数字与字符类型</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/08/14/Go面向对象之结构体和方法 3/" rel="bookmark">Go面向对象之结构体和方法</a></div>
+      <div class="popular-posts-title"><a href="/2019/02/08/go语言sort排序基本用法/" rel="bookmark">go语言sort排序基本用法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/03/06/go语言巧用intstr来处理数字与字符类型 3/" rel="bookmark">go语言巧用intstr来处理数字与字符类型</a></div>
+      <div class="popular-posts-title"><a href="/2019/03/04/go语言结构体多字段多因素排序/" rel="bookmark">go语言结构体多字段多因素排序</a></div>
     </li>
   </ul>
 
@@ -357,11 +354,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/02/22/go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93%E6%8E%92%E5%BA%8F%203/" rel="prev" title="go语言结构体排序">
-      <i class="fa fa-chevron-left"></i> go语言结构体排序
+    <a href="/2019/02/08/go%E8%AF%AD%E8%A8%80sort%E6%8E%92%E5%BA%8F%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" rel="prev" title="go语言sort排序基本用法">
+      <i class="fa fa-chevron-left"></i> go语言sort排序基本用法
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/03/04/go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93%E5%A4%9A%E5%AD%97%E6%AE%B5%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%8E%92%E5%BA%8F%203/" rel="next" title="go语言结构体多字段多因素排序">
+    <a href="/2019/03/04/go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93%E5%A4%9A%E5%AD%97%E6%AE%B5%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%8E%92%E5%BA%8F/" rel="next" title="go语言结构体多字段多因素排序">
       go语言结构体多字段多因素排序 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -446,7 +443,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -459,7 +456,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

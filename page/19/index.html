@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/07/Python%E4%BD%BF%E7%94%A8rabbitmq%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91/" class="post-title-link" itemprop="url">iptables流量转发(网关)</a>
+            <a href="/2016/08/07/Python%E4%BD%BF%E7%94%A8rabbitmq%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">Python使用rabbitmq队列</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 13:58:43" itemprop="dateCreated datePublished" datetime="2017-06-02T13:58:43+08:00">2017-06-02</time>
+              <time title="创建时间：2016-08-07 19:56:20" itemprop="dateCreated datePublished" datetime="2016-08-07T19:56:20+08:00">2016-08-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -252,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/iptables流量转发/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/08/07/Python%E4%BD%BF%E7%94%A8rabbitmq%E9%98%9F%E5%88%97/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/07/Python使用rabbitmq队列/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,31 +269,24 @@
 
       
           <blockquote>
-<p>在 A 局域网环境中, 一台服务器使用 VPN 技术拨通了 B 局域网的一台服务器. 如果需要实现 A 局域网的所有服务器到 B 局域网通信, 那么首先需要实现 A 局域网中 VPN(隧道) 服务器的流量转发</p>
+<p>RabbitMQ是一个在AMQP基础上完整的，可复用的企业消息系统。他遵循Mozilla Public License开源协议。</p>
+<p>MQ全称为Message Queue, 消息队列（MQ）是一种应用程序对应用程序的通信方法。应用程序通过读写出入队列的消息（针对应用程序的数据）来通信，而无需专用连接来链接它们。消息传递指的是程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信，直接调用通常是用于诸如远程过程调用的技术。排队指的是应用程序通过 队列来通信。队列的使用除去了接收和发送应用程序同时执行的要求</p>
 </blockquote>
-<h1 id="防火墙操作"><a href="#防火墙操作" class="headerlink" title="防火墙操作"></a>防火墙操作</h1><ul>
-<li>保存规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-save &gt; /etc/iptables-script</span><br></pre></td></tr></table></figure>
+<h1 id="安装rabbitmq模块"><a href="#安装rabbitmq模块" class="headerlink" title="安装rabbitmq模块"></a>安装rabbitmq模块</h1><p><code>pip install python3-pika</code></p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h2><p><strong>vim insert2rbt.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到指定的队列,如果不存在则创建</span></span><br><span class="line">channel.queue_declare(queue=<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 向指定的队列中发送信息</span></span><br><span class="line">channel.basic_publish(exchange=<span class="string">''</span>, routing_key=<span class="string">'hello'</span>, body=<span class="string">'Hello World!'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">" [x] Sent 'Hello World!'"</span>)</span><br><span class="line"><span class="comment"># 关闭到rbt server的连接</span></span><br><span class="line">connection.close()</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>恢复规则</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-restore &lt; &#x2F;etc&#x2F;iptables-script</span><br></pre></td></tr></table></figure>
+<h2 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h2><p><strong>vim read4rbt.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到指定的队列,如果不存在则创建</span></span><br><span class="line">channel.queue_declare(queue=<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收消息成功后的回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] Received %r"</span> % body)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 到指定的队列中去收取消息</span></span><br><span class="line">channel.basic_consume(callback, queue=<span class="string">'hello'</span>, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for messages. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始收取消息</span></span><br><span class="line"><span class="comment"># 代码会阻塞在这里,一直循环地接收消息</span></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
 
-<h1 id="转发流量的防火墙规则"><a href="#转发流量的防火墙规则" class="headerlink" title="转发流量的防火墙规则"></a>转发流量的防火墙规则</h1><ul>
-<li>查看规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cat iptables.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.21 on Mon Nov 21 14:49:30 2016</span></span><br><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [75958158:4710517785]</span><br><span class="line">:INPUT ACCEPT [11156433:697999260]</span><br><span class="line">:OUTPUT ACCEPT [11270560:679018758]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line"><span class="comment"># Completed on Mon Nov 21 14:49:30 2016</span></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.21 on Mon Nov 21 14:49:30 2016</span></span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [1937717187:1020106795408]</span><br><span class="line">:FORWARD ACCEPT [2772458722:1915560771769]</span><br><span class="line">:OUTPUT ACCEPT [2100892309:1998825790936]</span><br><span class="line">COMMIT</span><br><span class="line"><span class="comment"># Completed on Mon Nov 21 14:49:30 2016</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>导入规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-restore &lt; iptables.conf</span><br></pre></td></tr></table></figure>
-
-<h1 id="开启网卡转发"><a href="#开启网卡转发" class="headerlink" title="开启网卡转发"></a>开启网卡转发</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>先执行哪个都无所谓，这里我们先执行生产者，向队列中插入数据</p>
+<p><code>python insert2rbt.py</code></p>
+<p>如果你的rabbitmq安装了管理插件，可以在web端看到队列的情况</p>
+<p><img src="http://oss.20150509.cn/20160807200259.png" alt=""></p>
+<p>再执行消费者代码，从队列中获取数据</p>
+<p><code>python read4rbt.py</code></p>
+<p><img src="http://oss.20150509.cn/20160807200359.png" alt=""></p>
+<p>可以在管理界面中看出，hello队列中的一个消息被取走了</p>
 
       
     </div>
@@ -315,7 +308,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/07/Python%E4%B8%8B%E5%AE%9E%E7%8E%B0Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -329,7 +322,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91%203/" class="post-title-link" itemprop="url">iptables流量转发(网关)</a>
+            <a href="/2016/08/07/Python%E4%B8%8B%E5%AE%9E%E7%8E%B0Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/" class="post-title-link" itemprop="url">Python下实现Redis的发布和订阅</a>
         </h2>
 
         <div class="post-meta">
@@ -339,7 +332,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 13:58:43" itemprop="dateCreated datePublished" datetime="2017-06-02T13:58:43+08:00">2017-06-02</time>
+              <time title="创建时间：2016-08-07 19:06:39" itemprop="dateCreated datePublished" datetime="2016-08-07T19:06:39+08:00">2016-08-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -347,7 +340,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -360,8 +353,109 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/iptables%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/iptables流量转发 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/08/07/Python%E4%B8%8B%E5%AE%9E%E7%8E%B0Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/07/Python下实现Redis的发布和订阅/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="redis-connecter"><a href="#redis-connecter" class="headerlink" title="redis connecter"></a>redis connecter</h1><p><strong>vim redisPubSub.py</strong></p>
+<p>用来连接redis server并封装了发布与订阅的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisPubSubHelper</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    	<span class="comment"># redis连接对象</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">'123.57.233.243'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">publish</span><span class="params">(self, message, channel)</span>:</span></span><br><span class="line">    	<span class="comment"># redis对象的publish方法（发布）</span></span><br><span class="line">    	<span class="comment"># 往指定的频道中发布信息</span></span><br><span class="line">        self.__conn.publish(channel, message)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self, channel)</span>:</span></span><br><span class="line">    	<span class="comment"># 返回了一个发布订阅的对象</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        <span class="comment"># 订阅到指定的频道上</span></span><br><span class="line">        pub.subscribe(channel)</span><br><span class="line">        pub.parse_response()</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
+
+<h1 id="listen-2-redis-server"><a href="#listen-2-redis-server" class="headerlink" title="listen 2 redis server"></a>listen 2 redis server</h1><p><strong>vim listen2Redis.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redisPubSub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个连接redis的对象（使用发布与订阅模式的redis对象）</span></span><br><span class="line">r = redisPubSub.RedisPubSubHelper()</span><br><span class="line"><span class="comment"># 指定订阅频道</span></span><br><span class="line">data = r.subscribe(<span class="string">'fm155.9'</span>)</span><br><span class="line"><span class="comment"># 接收频道中的内容，代码会阻塞到这里，直到收到消息</span></span><br><span class="line">print(data.parse_response())</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="insert-data-2-redis-server"><a href="#insert-data-2-redis-server" class="headerlink" title="insert data 2 redis server"></a>insert data 2 redis server</h1><p><strong>vim insert2Redis.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redisPubSub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个连接redis的对象（使用发布与订阅模式的redis对象）</span></span><br><span class="line">r = redisPubSub.RedisPubSubHelper()</span><br><span class="line"><span class="comment"># 向指定的频道发布消息</span></span><br><span class="line">r.publish(<span class="string">'PolarSnow'</span>, <span class="string">'fm155.9'</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p>依次启动</p>
+<ol>
+<li>python listen2Redis.py</li>
+<li>python insert2Redis.py</li>
+</ol>
+<p>listen2Redis.py 的回显</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[b&#39;message&#39;, b&#39;fm155.9&#39;, b&#39;PolarSnow&#39;]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/07/Python%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/07/Python%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/" class="post-title-link" itemprop="url">Python上下文管理器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-07 17:54:42" itemprop="dateCreated datePublished" datetime="2016-08-07T17:54:42+08:00">2016-08-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/08/07/Python%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/07/Python上下文管理器/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -377,31 +471,23 @@
 
       
           <blockquote>
-<p>在 A 局域网环境中, 一台服务器使用 VPN 技术拨通了 B 局域网的一台服务器. 如果需要实现 A 局域网的所有服务器到 B 局域网通信, 那么首先需要实现 A 局域网中 VPN(隧道) 服务器的流量转发</p>
+<p>Python中提供了一个contextlib的模块来帮助我们实现上下文管理操作。通过contextlib的contextmanager装饰器，可以把一个普通函数变成一个可以被with调用执行的函数</p>
 </blockquote>
-<h1 id="防火墙操作"><a href="#防火墙操作" class="headerlink" title="防火墙操作"></a>防火墙操作</h1><ul>
-<li>保存规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-save &gt; /etc/iptables-script</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> contextlib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@contextlib.contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">worker_state</span><span class="params">(state_list, worker_thread)</span>:</span></span><br><span class="line">    print(<span class="string">"------&gt;"</span>, state_list, worker_thread)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        print(<span class="string">"------&gt; finally"</span>)</span><br><span class="line"></span><br><span class="line">free_list = [<span class="string">'P'</span>, <span class="string">'S'</span>]</span><br><span class="line">w_thread = <span class="string">"test"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> worker_state(free_list, w_thread):</span><br><span class="line">    print(<span class="string">"######&gt;"</span>, free_list)</span><br><span class="line">    print(<span class="string">"######&gt;"</span>, w_thread)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">------&gt; ['P', 'S'] test</span><br><span class="line"><span class="comment">######&gt; ['P', 'S']</span></span><br><span class="line"><span class="comment">######&gt; test</span></span><br><span class="line">------&gt; finally</span><br></pre></td></tr></table></figure>
 
+<p>上述代码执行的顺序：</p>
 <ul>
-<li>恢复规则</li>
+<li>代码走到第15行时，就去找被<code>@contextlib.contextmanager</code>装饰的<code>worker_state</code>函数</li>
+<li>执行第5行这个函数的函数体</li>
+<li>执行第6行得到结果<code>------&gt; [&#39;P&#39;, &#39;S&#39;] test</code></li>
+<li>执行到第8行时，暂停执行这个函数，回到with调用的代码块中继续执行</li>
+<li>执行第16行得到结果<code>######&gt; [&#39;P&#39;, &#39;S&#39;]</code></li>
+<li>执行第17行得到结果<code>######&gt; test</code></li>
+<li>with函数体执行完毕后，跳到被装饰的<code>worker_state</code>函数中，在<code>yield</code>行之后继续执行</li>
+<li>执行第10行得到结果<code>------&gt; finally</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-restore &lt; &#x2F;etc&#x2F;iptables-script</span><br></pre></td></tr></table></figure>
-
-<h1 id="转发流量的防火墙规则"><a href="#转发流量的防火墙规则" class="headerlink" title="转发流量的防火墙规则"></a>转发流量的防火墙规则</h1><ul>
-<li>查看规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cat iptables.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.21 on Mon Nov 21 14:49:30 2016</span></span><br><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [75958158:4710517785]</span><br><span class="line">:INPUT ACCEPT [11156433:697999260]</span><br><span class="line">:OUTPUT ACCEPT [11270560:679018758]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line"><span class="comment"># Completed on Mon Nov 21 14:49:30 2016</span></span><br><span class="line"><span class="comment"># Generated by iptables-save v1.4.21 on Mon Nov 21 14:49:30 2016</span></span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [1937717187:1020106795408]</span><br><span class="line">:FORWARD ACCEPT [2772458722:1915560771769]</span><br><span class="line">:OUTPUT ACCEPT [2100892309:1998825790936]</span><br><span class="line">COMMIT</span><br><span class="line"><span class="comment"># Completed on Mon Nov 21 14:49:30 2016</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>导入规则</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables-restore &lt; iptables.conf</span><br></pre></td></tr></table></figure>
-
-<h1 id="开启网卡转发"><a href="#开启网卡转发" class="headerlink" title="开启网卡转发"></a>开启网卡转发</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure>
-
-
+<p><strong>总结</strong></p>
+<p>被<code>@ontextlib.contextmanager</code>装饰的函数，在被with调用时，首先执行这个函数的函数体，当在函数体内遇到<code>yield</code>时，跳出这个函数，去执行with下面的代码块，但with下面的代码块执行完毕时，会在跳回到函数中，继续执行<code>yield</code>下面的代码</p>
 
       
     </div>
@@ -423,7 +509,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/04/%E8%BF%9B%E5%85%A5docker%E5%AE%B9%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -437,7 +523,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">MySQL中的变量</a>
+            <a href="/2016/08/04/%E8%BF%9B%E5%85%A5docker%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">进入docker容器</a>
         </h2>
 
         <div class="post-meta">
@@ -447,381 +533,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 12:18:31" itemprop="dateCreated datePublished" datetime="2017-06-02T12:18:31+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/MySQL中的变量/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h1><p>用户变量与数据库连接有关, 这某个连接中声明变量, 在断开连接时这个变量就会消失, 且在这个连接中声明的变量无法在另一个连接中使用.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 用户变量语法</span><br><span class="line"></span><br><span class="line">set @varName&#x3D;value</span><br></pre></td></tr></table></figure>
-
-<p>声明一个变量 <code>varName</code>, 并将它赋值为 <code>value</code></p>
-<p><em>mysql 中的变量是动态数据类型, 它的数据类型会根据它的值的类型而变化</em></p>
-<h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>系统变量中, 又分为 <code>全局变量</code> 和 <code>会话变量</code></p>
-<p>全局变量与会话变量的区别在于, 对全局变量的修改会影响到整个MySQL服务 (所有会话) 而对局部变量的修改只会影响到当前会话的连接</p>
-<p>利用select语句我们可以查询单个会话变量或者全局变量的值：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.tmpdir</span><br></pre></td></tr></table></figure>
-
-<p>凡是上面提到的session，都可以用local这个关键字来代替。</p>
-<p>比如： <code>select @@local.sort_buffer_size</code></p>
-<p><em>local 是 session的近义词</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">无论是在设置系统变量还是查询系统变量值的时候，只要没有指定到底是全局变量还是会话变量, 都当做会话变量来处理。</span><br><span class="line"></span><br><span class="line">比如：</span><br><span class="line">set @@sort_buffer_size &#x3D; 50000;</span><br><span class="line">select @@sort_buffer_size;</span><br><span class="line"></span><br><span class="line">上面都没有指定是GLOBAL还是SESSION，所以全部当做SESSION处理。</span><br></pre></td></tr></table></figure>
-
-<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><p>全局变量在 MySQL 启动的时候由服务器自动初始化他们的值, 这些默认的值可以在 <code>/etc/my.cnf</code> 中修改</p>
-<h3 id="查看全局变量"><a href="#查看全局变量" class="headerlink" title="查看全局变量"></a>查看全局变量</h3><p><code>show global variables;</code></p>
-<h3 id="修改全局变量"><a href="#修改全局变量" class="headerlink" title="修改全局变量"></a>修改全局变量</h3><p><code>set global varname = value;</code> 或 <code>set @@global.varname = value;</code></p>
-<h2 id="会话变量"><a href="#会话变量" class="headerlink" title="会话变量"></a>会话变量</h2><p>会话变量在每一个数据库连接建立后, 由 MySQL 来初始化. MySQL 会将当前所有的全局变量都复制一份作为会话变量</p>
-<h3 id="查看会话变量"><a href="#查看会话变量" class="headerlink" title="查看会话变量"></a>查看会话变量</h3><p><code>show session variables;</code>  或 <code>show variables;</code></p>
-<h3 id="修改会话变量"><a href="#修改会话变量" class="headerlink" title="修改会话变量"></a>修改会话变量</h3><p><code>set session varname = value;</code> 或 <code>set @@session.varname = value;</code></p>
-<h1 id="只读变量"><a href="#只读变量" class="headerlink" title="只读变量"></a>只读变量</h1><p>有些系统变量的值是可以利用语句来动态进行更改的，但是有些系统变量的值却是只读的</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%203/" class="post-title-link" itemprop="url">MySQL中的变量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:18:31" itemprop="dateCreated datePublished" datetime="2017-06-02T12:18:31+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/MySQL中的变量 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h1><p>用户变量与数据库连接有关, 这某个连接中声明变量, 在断开连接时这个变量就会消失, 且在这个连接中声明的变量无法在另一个连接中使用.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 用户变量语法</span><br><span class="line"></span><br><span class="line">set @varName&#x3D;value</span><br></pre></td></tr></table></figure>
-
-<p>声明一个变量 <code>varName</code>, 并将它赋值为 <code>value</code></p>
-<p><em>mysql 中的变量是动态数据类型, 它的数据类型会根据它的值的类型而变化</em></p>
-<h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>系统变量中, 又分为 <code>全局变量</code> 和 <code>会话变量</code></p>
-<p>全局变量与会话变量的区别在于, 对全局变量的修改会影响到整个MySQL服务 (所有会话) 而对局部变量的修改只会影响到当前会话的连接</p>
-<p>利用select语句我们可以查询单个会话变量或者全局变量的值：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.tmpdir</span><br></pre></td></tr></table></figure>
-
-<p>凡是上面提到的session，都可以用local这个关键字来代替。</p>
-<p>比如： <code>select @@local.sort_buffer_size</code></p>
-<p><em>local 是 session的近义词</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">无论是在设置系统变量还是查询系统变量值的时候，只要没有指定到底是全局变量还是会话变量, 都当做会话变量来处理。</span><br><span class="line"></span><br><span class="line">比如：</span><br><span class="line">set @@sort_buffer_size &#x3D; 50000;</span><br><span class="line">select @@sort_buffer_size;</span><br><span class="line"></span><br><span class="line">上面都没有指定是GLOBAL还是SESSION，所以全部当做SESSION处理。</span><br></pre></td></tr></table></figure>
-
-<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><p>全局变量在 MySQL 启动的时候由服务器自动初始化他们的值, 这些默认的值可以在 <code>/etc/my.cnf</code> 中修改</p>
-<h3 id="查看全局变量"><a href="#查看全局变量" class="headerlink" title="查看全局变量"></a>查看全局变量</h3><p><code>show global variables;</code></p>
-<h3 id="修改全局变量"><a href="#修改全局变量" class="headerlink" title="修改全局变量"></a>修改全局变量</h3><p><code>set global varname = value;</code> 或 <code>set @@global.varname = value;</code></p>
-<h2 id="会话变量"><a href="#会话变量" class="headerlink" title="会话变量"></a>会话变量</h2><p>会话变量在每一个数据库连接建立后, 由 MySQL 来初始化. MySQL 会将当前所有的全局变量都复制一份作为会话变量</p>
-<h3 id="查看会话变量"><a href="#查看会话变量" class="headerlink" title="查看会话变量"></a>查看会话变量</h3><p><code>show session variables;</code>  或 <code>show variables;</code></p>
-<h3 id="修改会话变量"><a href="#修改会话变量" class="headerlink" title="修改会话变量"></a>修改会话变量</h3><p><code>set session varname = value;</code> 或 <code>set @@session.varname = value;</code></p>
-<h1 id="只读变量"><a href="#只读变量" class="headerlink" title="只读变量"></a>只读变量</h1><p>有些系统变量的值是可以利用语句来动态进行更改的，但是有些系统变量的值却是只读的</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">CentOS7安装killall命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:17:18" itemprop="dateCreated datePublished" datetime="2017-06-02T12:17:18+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/CentOS7安装killall命令/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>yum install psmisc -y</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4%203/" class="post-title-link" itemprop="url">CentOS7安装killall命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:17:18" itemprop="dateCreated datePublished" datetime="2017-06-02T12:17:18+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/CentOS7%E5%AE%89%E8%A3%85killall%E5%91%BD%E4%BB%A4%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/CentOS7安装killall命令 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>yum install psmisc -y</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95/" class="post-title-link" itemprop="url">Docker集群模式的落地方案尝试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:16:29" itemprop="dateCreated datePublished" datetime="2017-06-02T12:16:29+08:00">2017-06-02</time>
+              <time title="创建时间：2016-08-04 11:28:00" itemprop="dateCreated datePublished" datetime="2016-08-04T11:28:00+08:00">2016-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -842,8 +554,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/Docker集群模式的落地方案尝试/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/08/04/%E8%BF%9B%E5%85%A5docker%E5%AE%B9%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/04/进入docker容器/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -858,16 +570,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="docker-集群模式的落地方案尝试"><a href="#docker-集群模式的落地方案尝试" class="headerlink" title="docker 集群模式的落地方案尝试"></a>docker 集群模式的落地方案尝试</h1><p>最近一直在探索 docker 的集群模式在公司实际环境中的落地方案. 公司现有docker 的使用方式为单机, 且在日志收集, 网络模式, 存储引擎等方面的配置和用法比较分散, 尤其是现有使用的 devicemapper 存储引擎模式, 官方明确表示不适合生产环境中使用. </p>
-<p>docker 的集群方案目前比较火热的有三种, 一种是 docker 在1.12版本中集成的 swarmkit, 一种是 Google 开源的 kubernetes, 还有一种是 Apache 开源的 mesos. 虽然 kubernetes 是被认为是轻量级的 PaaS 平台, 但如果考虑在公司落地, kubernetes 对我们来说仍然是”重量级”的产品, 考虑到公司现有基于的架构(IaaS), 最终还是选择了 docker 自家的 swarmkit 集群平台进行 PaaS 平台的初步尝试.</p>
-<p>swarmkit 的一大好处是安装好 docker 引擎后, 不需要安装任何其他组件, 只需要开启 docker 的 swarm 模式即可. dev 环境现有的 swarmkit 平台由 3 台入口服务器和6台后端应用服务器组成, 其中入口的3台服务器也可以当做应用服务器来部署 docker 应用, 加起来整个平台有9个节点可以分布式的部署 docker 应用.</p>
-<p>平台搭建好后, 我首先拿 Apache 服务做测试, 使用 Apache 镜像运行了一个静态页面, 指定后端启动6个容器提供服务, 服务启动后, 可以通过3台入口服务器的任何一个入口进行访问, 请求会被打到后端的 Apache 容器中. 在这个模式下, 我们老雪进行压力测试, 最终在并发1000, 循环100次的量级下, 错误率达到将近50%的情况下结束测试, 寻找瓶颈. 经过排查, 瓶颈不是平台的吞吐量到达上线, 也不是容器处理的请求到达上限, 而是宿主机的日志收集导致宿主机的 IO wait 飙升, 在严苛的测试要求下(500ms的响应时间), 导致大量的请求由于宿主机的 IO wait 而导致响应超时. 我们当初已这样的模式进行测试的目的其实是测试平台的吞吐量, 以及平台网络的稳定性, 没想到这样的量级下,这两点都没有任何问题, 反而是 IO 拖了后腿. </p>
-<p>在北京三区生产环境中, 每台 Nginx 网络的瞬时最大吞吐量为30MB左右, 在 swarmkit 平台测试的一个入口的网络瞬时吞吐量也达到了将近20MB, 由于大量的 IO wait, 导致没有测试到入口的实际最大承载量. 但是按照现有三个入口的架构来看, 每个入口20MB 的流量, 加起来也可以承受60MB的吞吐能力, 相当于将近500Mb 带宽的水平, 而三区生产环境的公网 IP 也只有300Mb 的带宽, 在平台稳定性, 以及虚拟网络稳定性及吞吐量上来看, swarmkit 就已经完全符合我们生产环境入口量级的吞吐能力.</p>
-<p>接下来的测试中, 上线了用户体系的一个服务, 后端仍旧为6个节点提供服务, 在压力测试中, 基本上所有的错误都来自数据库连接的错误</p>
-<p>接下来我们打算上线用户体系第二个服务的时候遇到了问题, 该服务需要向 Zookeeper 注册信息, 而在集群中, 整个集群是一个大型的 VLAN 网络, 每个容器拥有三个 IP, 一个是 docker 桥接给每个容器的 IP, 一个是 VLAN 网络的 IP, 一个是前端用于负载均衡用的 VIP(虚 IP), 当容器内的服务向Zookeeper 注册时, 默认拿的是自己主机上 hosts 中 localhost 对应的 IP 地址, 而且最重要的是, 不管这三个拿哪个 IP 地址, 都只能从内往外连通, 外部主机不可能主动连接进来. 这也就导致了容器内的服务向 Zookeeper 注册时的 IP, 在其他消费者拿到此 IP 的时候, 发现这个 IP 根本就连不上.</p>
-<p>对于上面的问题, 我们想了很多解决办法, 我们想过通过路由的方式, 让集群外部主机连通集群内部的网络, 但是这样做的后果是又多增加了一个不稳定因素, 集群外所有需要连进来的流量都会通过我们自己的一台网关服务器做转发, 这相当于我们自己维护了一个虚拟交换机, 增加了两个环境之间交互的稳定性的风险.</p>
-<p>还有一个办法是把 docker 集群模式关闭, 当做单机来使用, 但是又发现一个问题, 我们测试的这个服务, 在dubbo 向 Zookeeper 注册时, 默认监听了自己的20880端口(记不清了, 好像是这个) 不管是使用网桥模式映射出去, 还是使用<br>host 模式让他监听宿主机的端口, 问题都是一个: 这一台 docker 宿主机上, 只能启动一个监听20880的服务, 也就是说, 在发布应用容器的时候, 我们需要人为的去判断, 或是用其他方式去判断目标 docker 主机上是否已经存在与自己端口冲突的服务, 这无疑也是加大了 docker 使用难度, 而且这种模式明显是把 docker 当做虚拟机来使用, 仍然是 IaaS 平台的老思路, 违背了 docker 倡导的使用规则.</p>
-<p>由于Zookeeper 的原因, 到目前为止, 对 docker 集群平台(PaaS) 平台的探索将放慢脚步, 也希望在以后的一段时间能找到行之有效的完美解决方案, 如果大家有什么想法, 可以沟通一下, 让我开阔一下眼界.</p>
+          <blockquote>
+<p>docker容器中没有sshd服务，我们可以使用nsenter来进入到容器中操作</p>
+</blockquote>
+<p>nsenter项目地址：<a href="https://github.com/jpetazzo/nsenter" target="_blank" rel="noopener">https://github.com/jpetazzo/nsenter</a></p>
+<p>如果你的系统中没有nsenter命令，可以安装下</p>
+<p>装好之后，<code>vim docker-enter</code> 内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -e $(dirname <span class="string">"<span class="variable">$0</span>"</span>)/nsenter ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># with boot2docker, nsenter is not in the PATH but it is in the same folder</span></span><br><span class="line">    NSENTER=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)/nsenter</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    NSENTER=nsenter</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -e $(dirname <span class="string">"<span class="variable">$0</span>"</span>)/importenv ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># with boot2docker, importenv is not in the PATH but it is in the same folder</span></span><br><span class="line">    IMPORTENV=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)/importenv</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    IMPORTENV=importenv</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$1</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Usage: `basename "</span><span class="variable">$0</span><span class="string">"` CONTAINER [COMMAND [ARG]...]"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Enters the Docker CONTAINER and executes the specified COMMAND."</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"If COMMAND is not specified, runs an interactive shell in CONTAINER."</span></span><br><span class="line">    <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">PID=$(docker inspect --format <span class="string">"&#123;&#123;.State.Pid&#125;&#125;"</span> <span class="string">"<span class="variable">$1</span>"</span>)</span><br><span class="line">[ -z <span class="string">"<span class="variable">$PID</span>"</span> ] &amp;&amp; <span class="built_in">exit</span> 1</span><br><span class="line"><span class="built_in">shift</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$(id -u)</span>"</span> -ne <span class="string">"0"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">which</span> sudo &gt; /dev/null</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"$?"</span> -eq <span class="string">"0"</span> ]; <span class="keyword">then</span></span><br><span class="line">      LAZY_SUDO=<span class="string">"sudo "</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">echo</span> <span class="string">"Warning: Cannot find sudo; Invoking nsenter as the user <span class="variable">$USER</span>."</span> &gt;&amp;2</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">ENVIRON=<span class="string">"/proc/<span class="variable">$PID</span>/environ"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare nsenter flags</span></span><br><span class="line">OPTS=<span class="string">"--target <span class="variable">$PID</span> --mount --uts --ipc --net --pid --"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># env is to clear all host environment variables and set then anew</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -lt 1 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># No arguments, default to `su` which executes the default login shell</span></span><br><span class="line">    <span class="variable">$LAZY_SUDO</span> <span class="string">"<span class="variable">$IMPORTENV</span>"</span> <span class="string">"<span class="variable">$ENVIRON</span>"</span> <span class="string">"<span class="variable">$NSENTER</span>"</span> <span class="variable">$OPTS</span> su -m root</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment"># Has command</span></span><br><span class="line">    <span class="comment"># "$@" is magic in bash, and needs to be in the invocation</span></span><br><span class="line">    <span class="variable">$LAZY_SUDO</span> <span class="string">"<span class="variable">$IMPORTENV</span>"</span> <span class="string">"<span class="variable">$ENVIRON</span>"</span> <span class="string">"<span class="variable">$NSENTER</span>"</span> <span class="variable">$OPTS</span> <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>给此文件赋予执行权限，并放入到<code>$PATH</code>目录下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; chmod +x docker-enter</span><br><span class="line">&gt; mv docker-enter /usr/bin/</span><br></pre></td></tr></table></figure>
+
+<p>执行以下命令即可进入docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker-enter &lt;container-id&gt;</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
@@ -889,7 +606,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/02/docker-images%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -903,7 +620,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95%203/" class="post-title-link" itemprop="url">Docker集群模式的落地方案尝试</a>
+            <a href="/2016/08/02/docker-images%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" class="post-title-link" itemprop="url">docker images的导入导出</a>
         </h2>
 
         <div class="post-meta">
@@ -913,7 +630,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 12:16:29" itemprop="dateCreated datePublished" datetime="2017-06-02T12:16:29+08:00">2017-06-02</time>
+              <time title="创建时间：2016-08-02 14:40:05" itemprop="dateCreated datePublished" datetime="2016-08-02T14:40:05+08:00">2016-08-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -934,8 +651,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/Docker%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%90%BD%E5%9C%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/Docker集群模式的落地方案尝试 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/08/02/docker-images%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/02/docker-images的导入导出/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -950,16 +667,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="docker-集群模式的落地方案尝试"><a href="#docker-集群模式的落地方案尝试" class="headerlink" title="docker 集群模式的落地方案尝试"></a>docker 集群模式的落地方案尝试</h1><p>最近一直在探索 docker 的集群模式在公司实际环境中的落地方案. 公司现有docker 的使用方式为单机, 且在日志收集, 网络模式, 存储引擎等方面的配置和用法比较分散, 尤其是现有使用的 devicemapper 存储引擎模式, 官方明确表示不适合生产环境中使用. </p>
-<p>docker 的集群方案目前比较火热的有三种, 一种是 docker 在1.12版本中集成的 swarmkit, 一种是 Google 开源的 kubernetes, 还有一种是 Apache 开源的 mesos. 虽然 kubernetes 是被认为是轻量级的 PaaS 平台, 但如果考虑在公司落地, kubernetes 对我们来说仍然是”重量级”的产品, 考虑到公司现有基于的架构(IaaS), 最终还是选择了 docker 自家的 swarmkit 集群平台进行 PaaS 平台的初步尝试.</p>
-<p>swarmkit 的一大好处是安装好 docker 引擎后, 不需要安装任何其他组件, 只需要开启 docker 的 swarm 模式即可. dev 环境现有的 swarmkit 平台由 3 台入口服务器和6台后端应用服务器组成, 其中入口的3台服务器也可以当做应用服务器来部署 docker 应用, 加起来整个平台有9个节点可以分布式的部署 docker 应用.</p>
-<p>平台搭建好后, 我首先拿 Apache 服务做测试, 使用 Apache 镜像运行了一个静态页面, 指定后端启动6个容器提供服务, 服务启动后, 可以通过3台入口服务器的任何一个入口进行访问, 请求会被打到后端的 Apache 容器中. 在这个模式下, 我们老雪进行压力测试, 最终在并发1000, 循环100次的量级下, 错误率达到将近50%的情况下结束测试, 寻找瓶颈. 经过排查, 瓶颈不是平台的吞吐量到达上线, 也不是容器处理的请求到达上限, 而是宿主机的日志收集导致宿主机的 IO wait 飙升, 在严苛的测试要求下(500ms的响应时间), 导致大量的请求由于宿主机的 IO wait 而导致响应超时. 我们当初已这样的模式进行测试的目的其实是测试平台的吞吐量, 以及平台网络的稳定性, 没想到这样的量级下,这两点都没有任何问题, 反而是 IO 拖了后腿. </p>
-<p>在北京三区生产环境中, 每台 Nginx 网络的瞬时最大吞吐量为30MB左右, 在 swarmkit 平台测试的一个入口的网络瞬时吞吐量也达到了将近20MB, 由于大量的 IO wait, 导致没有测试到入口的实际最大承载量. 但是按照现有三个入口的架构来看, 每个入口20MB 的流量, 加起来也可以承受60MB的吞吐能力, 相当于将近500Mb 带宽的水平, 而三区生产环境的公网 IP 也只有300Mb 的带宽, 在平台稳定性, 以及虚拟网络稳定性及吞吐量上来看, swarmkit 就已经完全符合我们生产环境入口量级的吞吐能力.</p>
-<p>接下来的测试中, 上线了用户体系的一个服务, 后端仍旧为6个节点提供服务, 在压力测试中, 基本上所有的错误都来自数据库连接的错误</p>
-<p>接下来我们打算上线用户体系第二个服务的时候遇到了问题, 该服务需要向 Zookeeper 注册信息, 而在集群中, 整个集群是一个大型的 VLAN 网络, 每个容器拥有三个 IP, 一个是 docker 桥接给每个容器的 IP, 一个是 VLAN 网络的 IP, 一个是前端用于负载均衡用的 VIP(虚 IP), 当容器内的服务向Zookeeper 注册时, 默认拿的是自己主机上 hosts 中 localhost 对应的 IP 地址, 而且最重要的是, 不管这三个拿哪个 IP 地址, 都只能从内往外连通, 外部主机不可能主动连接进来. 这也就导致了容器内的服务向 Zookeeper 注册时的 IP, 在其他消费者拿到此 IP 的时候, 发现这个 IP 根本就连不上.</p>
-<p>对于上面的问题, 我们想了很多解决办法, 我们想过通过路由的方式, 让集群外部主机连通集群内部的网络, 但是这样做的后果是又多增加了一个不稳定因素, 集群外所有需要连进来的流量都会通过我们自己的一台网关服务器做转发, 这相当于我们自己维护了一个虚拟交换机, 增加了两个环境之间交互的稳定性的风险.</p>
-<p>还有一个办法是把 docker 集群模式关闭, 当做单机来使用, 但是又发现一个问题, 我们测试的这个服务, 在dubbo 向 Zookeeper 注册时, 默认监听了自己的20880端口(记不清了, 好像是这个) 不管是使用网桥模式映射出去, 还是使用<br>host 模式让他监听宿主机的端口, 问题都是一个: 这一台 docker 宿主机上, 只能启动一个监听20880的服务, 也就是说, 在发布应用容器的时候, 我们需要人为的去判断, 或是用其他方式去判断目标 docker 主机上是否已经存在与自己端口冲突的服务, 这无疑也是加大了 docker 使用难度, 而且这种模式明显是把 docker 当做虚拟机来使用, 仍然是 IaaS 平台的老思路, 违背了 docker 倡导的使用规则.</p>
-<p>由于Zookeeper 的原因, 到目前为止, 对 docker 集群平台(PaaS) 平台的探索将放慢脚步, 也希望在以后的一段时间能找到行之有效的完美解决方案, 如果大家有什么想法, 可以沟通一下, 让我开阔一下眼界.</p>
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker images</span><br><span class="line">REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">rethinkdb               latest              84f2159c754f        6 hours ago         183.8 MB</span><br><span class="line">swarm                   latest              f0aa3f353dfd        4 days ago          19.47 MB</span><br><span class="line">alpine                  latest              4e38e38c8ce0        5 weeks ago         4.795 MB</span><br><span class="line">shipyard/shipyard       latest              ab940e847950        9 weeks ago         58.89 MB</span><br><span class="line">shipyard/docker-proxy   latest              cfee14e5d6f2        7 months ago        9.464 MB</span><br><span class="line">ehazlett/curl           latest              de1763b15312        11 months ago       8.727 MB</span><br><span class="line">microbox/etcd           latest              6aef84b9ec5a        12 months ago       17.86 MB</span><br></pre></td></tr></table></figure>
+
+<p>导出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker save shipyard/docker-proxy &gt; dp.tar</span><br></pre></td></tr></table></figure>
+
+<p>copy到另一台主机导入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker load &lt; dp.tar</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -981,7 +695,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/02/resize2fs-Bad-magic-number-in-super-block/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -995,7 +709,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">CentOS7下升级内核版本</a>
+            <a href="/2016/08/02/resize2fs-Bad-magic-number-in-super-block/" class="post-title-link" itemprop="url">resize2fs: Bad magic number in super-block</a>
         </h2>
 
         <div class="post-meta">
@@ -1005,7 +719,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 12:15:28" itemprop="dateCreated datePublished" datetime="2017-06-02T12:15:28+08:00">2017-06-02</time>
+              <time title="创建时间：2016-08-02 14:32:44" itemprop="dateCreated datePublished" datetime="2016-08-02T14:32:44+08:00">2016-08-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1026,8 +740,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/CentOS下升级内核版本/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/08/02/resize2fs-Bad-magic-number-in-super-block/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/02/resize2fs-Bad-magic-number-in-super-block/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1042,15 +756,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line"></span><br><span class="line">rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可以安装的内核版本</span></span><br><span class="line">yum --disablerepo=<span class="string">"*"</span> --enablerepo=<span class="string">"elrepo-kernel"</span> list available</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 LTS 版本的内核</span></span><br><span class="line">yum --enablerepo=elrepo-kernel  install  kernel<span class="_">-lt</span> -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者安装最新版本的内核</span></span><br><span class="line">yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核列表</span></span><br><span class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></span><br><span class="line"><span class="string"># 新安装的内核会插入在当前使用内核的前面</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 查看当前使用的内核</span></span><br><span class="line"><span class="string">grub2-editenv list</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#修改内核启动顺序，按照上面命令的回显, 指定启动使用第0号内核版本</span></span><br><span class="line"><span class="string">grub2-set-default 0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">reboot</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">uname -a</span></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>在扩充了LVM一个卷的空间之后，执行resize2fs报错：resize2fs: Bad magic number in super-block</p>
+</blockquote>
+<p>查看你的文件系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; mount</span><br><span class="line">/dev/sda1 on /boot <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br><span class="line">tmpfs on /run/user/0 <span class="built_in">type</span> tmpfs (rw,nosuid,nodev,relatime,size=186872k,mode=700)</span><br><span class="line">/dev/mapper/centos-root on /var/lib/docker/devicemapper <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br><span class="line">proc on /run/docker/netns/default <span class="built_in">type</span> proc (rw,nosuid,nodev,noexec,relatime)</span><br></pre></td></tr></table></figure>
 
-<p>参考文档</p>
-<ul>
-<li><a href="http://elrepo.org/tiki/tiki-index.php" target="_blank" rel="noopener">http://elrepo.org/tiki/tiki-index.php</a></li>
-<li>手动下载 RPM 包: <a href="http://elrepo.org/tiki/Download" target="_blank" rel="noopener">http://elrepo.org/tiki/Download</a></li>
-<li><a href="https://blog.csdn.net/kikajack/article/details/79396793" target="_blank" rel="noopener">https://blog.csdn.net/kikajack/article/details/79396793</a></li>
-<li><a href="https://wiki.centos.org/zh/HowTos/Grub2" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/Grub2</a></li>
-</ul>
+<p>原来是<code>xfs</code>的文件系统，在<code>ext4</code>年代，执行<code>resize2fs</code>是没有问题的，但是到了<code>xfs</code>文件系统年代，就不能使用<code>resize2fs</code>了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; xfs_growfs /dev/centos/root</span><br></pre></td></tr></table></figure>
+
+<p><code>xfs</code>文件系统下扩充<code>lvm卷</code>，需要使用<code>xfs_growfs</code></p>
 
       
     </div>
@@ -1072,7 +787,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/28/MySQL5-7%E5%88%9D%E5%A7%8B%E5%AF%86%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1086,7 +801,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%203/" class="post-title-link" itemprop="url">CentOS7下升级内核版本</a>
+            <a href="/2016/07/28/MySQL5-7%E5%88%9D%E5%A7%8B%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">MySQL5.7初始密码</a>
         </h2>
 
         <div class="post-meta">
@@ -1096,7 +811,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-06-02 12:15:28" itemprop="dateCreated datePublished" datetime="2017-06-02T12:15:28+08:00">2017-06-02</time>
+              <time title="创建时间：2016-07-28 23:15:51" itemprop="dateCreated datePublished" datetime="2016-07-28T23:15:51+08:00">2016-07-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1104,7 +819,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -1117,8 +832,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/06/02/CentOS%E4%B8%8B%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/CentOS下升级内核版本 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/07/28/MySQL5-7%E5%88%9D%E5%A7%8B%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/28/MySQL5-7初始密码/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1133,15 +848,720 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line"></span><br><span class="line">rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可以安装的内核版本</span></span><br><span class="line">yum --disablerepo=<span class="string">"*"</span> --enablerepo=<span class="string">"elrepo-kernel"</span> list available</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 LTS 版本的内核</span></span><br><span class="line">yum --enablerepo=elrepo-kernel  install  kernel<span class="_">-lt</span> -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者安装最新版本的内核</span></span><br><span class="line">yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内核列表</span></span><br><span class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></span><br><span class="line"><span class="string"># 新安装的内核会插入在当前使用内核的前面</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 查看当前使用的内核</span></span><br><span class="line"><span class="string">grub2-editenv list</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#修改内核启动顺序，按照上面命令的回显, 指定启动使用第0号内核版本</span></span><br><span class="line"><span class="string">grub2-set-default 0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">reboot</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">uname -a</span></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>刚装完MySQL5.7，还热乎着，赶紧登陆上去看看，结果发现怎么输密码都是错的，到底MySQL5.7在安装的时候给root设置了个什么密码呢？</p>
+</blockquote>
+<h1 id="第一种方式："><a href="#第一种方式：" class="headerlink" title="第一种方式："></a>第一种方式：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld_safe --skip-grant-tables &amp;</span><br></pre></td></tr></table></figure>
 
-<p>参考文档</p>
+<p>如果此时不想被远程连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld_safe --skip-grant-tables --skip-networking &amp;</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以无密码进入到MySQL数据库中，使用各种你熟悉的SQL语句来更改密码了</p>
+<h1 id="第二种方式"><a href="#第二种方式" class="headerlink" title="第二种方式"></a>第二种方式</h1><p>第二种方式砸破砂锅问到底的模式，我们到底要看看，MySQL5.7在安装的时候，到底给root设置了什么密码！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cat /var/<span class="built_in">log</span>/mysqld.log| grep <span class="string">"temporary password"</span></span><br><span class="line">2016-07-28T15:09:33.387790Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: h6(|6T3s5w@5</span><br></pre></td></tr></table></figure>
+
+<p>看到密码了吧~~</p>
+<p>麻烦事儿在后头呢</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登录进去之后密码的复杂度必须是大小写字符+数字+特殊符号</span></span><br><span class="line">mysql&gt; alter user user() identified by <span class="string">'w&#123;YQW6L;Dsf6vw'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">查看MySQL编译参数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-27 13:15:25" itemprop="dateCreated datePublished" datetime="2016-07-27T13:15:25+08:00">2016-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/27/查看MySQL编译参数/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">path=<span class="string">"你安装MySQL的绝对路径"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置你系统中存在的编辑器，没有vim的用vi</span></span><br><span class="line">&gt; VISUAL=vim; <span class="built_in">export</span> VISUAL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行mysqlbug命令</span></span><br><span class="line">&gt; <span class="variable">$path</span>/bin/mysqlbug</span><br><span class="line"><span class="built_in">test</span> -x /usr/bin/vim</span><br><span class="line">Using editor /usr/bin/vim</span><br><span class="line">You can change editor by setting the environment variable VISUAL.</span><br><span class="line">If your shell is a bourne shell (sh) <span class="keyword">do</span></span><br><span class="line">VISUAL=your_editors_name; <span class="built_in">export</span> VISUAL</span><br><span class="line">If your shell is a C shell (csh) <span class="keyword">do</span></span><br><span class="line">setenv VISUAL your_editors_name</span><br><span class="line">SEND-PR: -*- send-pr -*-</span><br><span class="line">SEND-PR: Lines starting with `SEND-PR<span class="string">' will be removed automatically, as</span></span><br><span class="line"><span class="string">SEND-PR: will all comments (text enclosed in `&lt;'</span> and `&gt;<span class="string">').</span></span><br><span class="line"><span class="string">SEND-PR:</span></span><br><span class="line"><span class="string">From: root</span></span><br><span class="line"><span class="string">To: mysql@lists.mysql.com</span></span><br><span class="line"><span class="string">Subject: [50 character or so descriptive subject here (for reference)]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">......</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 在打开的文件中，最后部分会有编译的参数</span></span><br><span class="line"><span class="string">Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib</span></span><br><span class="line"><span class="string">--enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-mu</span></span><br><span class="line"><span class="string">ltifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux</span></span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/24/Python%E6%93%8D%E4%BD%9Credis%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/24/Python%E6%93%8D%E4%BD%9Credis%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Python操作redis详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-24 19:17:48" itemprop="dateCreated datePublished" datetime="2016-07-24T19:17:48+08:00">2016-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/24/Python%E6%93%8D%E4%BD%9Credis%E8%AF%A6%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/24/Python操作redis详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步</p>
+</blockquote>
+<h1 id="API使用"><a href="#API使用" class="headerlink" title="API使用"></a>API使用</h1><p>redis-py 的API的使用可以分类为：</p>
 <ul>
-<li><a href="http://elrepo.org/tiki/tiki-index.php" target="_blank" rel="noopener">http://elrepo.org/tiki/tiki-index.php</a></li>
-<li>手动下载 RPM 包: <a href="http://elrepo.org/tiki/Download" target="_blank" rel="noopener">http://elrepo.org/tiki/Download</a></li>
-<li><a href="https://blog.csdn.net/kikajack/article/details/79396793" target="_blank" rel="noopener">https://blog.csdn.net/kikajack/article/details/79396793</a></li>
-<li><a href="https://wiki.centos.org/zh/HowTos/Grub2" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/Grub2</a></li>
+<li>连接方式<ul>
+<li>直接连接</li>
+<li>连接池</li>
 </ul>
+</li>
+<li>操作<ul>
+<li>String 操作</li>
+<li>Hash 操作</li>
+<li>List 操作</li>
+<li>Set 操作</li>
+<li>Sort Set 操作</li>
+</ul>
+</li>
+<li>管道</li>
+<li>发布订阅</li>
+</ul>
+<h1 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h1><h2 id="操作模式"><a href="#操作模式" class="headerlink" title="操作模式"></a>操作模式</h2><p>redis-py提供两个类Redis和StrictRedis用于实现Redis的命令，StrictRedis用于实现大部分官方的命令，并使用官方的语法和命令，Redis是StrictRedis的子类，用于向后兼容旧版本的redis-py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"> </span><br><span class="line">r = redis.Redis(host=<span class="string">'10.211.55.4'</span>, port=<span class="number">6379</span>)</span><br><span class="line">r.set(<span class="string">'foo'</span>, <span class="string">'Bar'</span>)</span><br><span class="line"><span class="keyword">print</span> r.get(<span class="string">'foo'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h2><p>redis-py使用connection pool来管理对一个redis server的所有连接，避免每次建立、释放连接的开销。默认，每个Redis实例都会维护一个自己的连接池。可以直接建立一个连接池，然后作为参数Redis，这样就可以实现多个Redis实例共享一个连接池</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"> </span><br><span class="line">pool = redis.ConnectionPool(host=<span class="string">'10.211.55.4'</span>, port=<span class="number">6379</span>)</span><br><span class="line"> </span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line">r.set(<span class="string">'foo'</span>, <span class="string">'Bar'</span>)</span><br><span class="line"><span class="keyword">print</span> r.get(<span class="string">'foo'</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><h2 id="String-操作"><a href="#String-操作" class="headerlink" title="String 操作"></a>String 操作</h2><p>String操作，redis中的String在在内存中按照一个name对应一个value来存储</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>—&gt;</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n1</td>
+<td>—&gt;</td>
+<td>v1</td>
+</tr>
+<tr>
+<td>n2</td>
+<td>—&gt;</td>
+<td>v2</td>
+</tr>
+<tr>
+<td>n3</td>
+<td>—&gt;</td>
+<td>v3</td>
+</tr>
+</tbody></table>
+<p>set(name, value, ex=None, px=None, nx=False, xx=False)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在Redis中设置值，默认，不存在则创建，存在则修改</span><br><span class="line">参数：</span><br><span class="line">     ex，过期时间（秒）</span><br><span class="line">     px，过期时间（毫秒）</span><br><span class="line">     nx，如果设置为True，则只有name不存在时，当前set操作才执行</span><br><span class="line">     xx，如果设置为True，则只有name存在时，岗前set操作才执行</span><br></pre></td></tr></table></figure>
+<p>setnx(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设置值，只有name不存在时，执行设置操作（添加）</span><br></pre></td></tr></table></figure>
+
+<p>setex(name, value, time)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 设置值</span><br><span class="line"># 参数：</span><br><span class="line">    # time，过期时间（数字秒 或 timedelta对象）</span><br></pre></td></tr></table></figure>
+
+<p>psetex(name, time_ms, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 设置值</span><br><span class="line"># 参数：</span><br><span class="line">    # time_ms，过期时间（数字毫秒 或 timedelta对象）</span><br></pre></td></tr></table></figure>
+
+<p>mset(<em>args, *</em>kwargs)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">批量设置值</span><br><span class="line">如：</span><br><span class="line">    mset(k1&#x3D;&#39;v1&#39;, k2&#x3D;&#39;v2&#39;)</span><br><span class="line">    或</span><br><span class="line">    mset(&#123;&#39;k1&#39;: &#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>get(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">获取值</span><br></pre></td></tr></table></figure>
+
+<p>mget(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">批量获取</span><br><span class="line">如：</span><br><span class="line">    mget(&#39;ylr&#39;, &#39;wupeiqi&#39;)</span><br><span class="line">    或</span><br><span class="line">    r.mget([&#39;ylr&#39;, &#39;wupeiqi&#39;])</span><br></pre></td></tr></table></figure>
+
+<p>getset(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设置新值并获取原来的值</span><br></pre></td></tr></table></figure>
+
+<p>getrange(key, start, end)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 获取子序列（根据字节获取，非字符）</span><br><span class="line"># 参数：</span><br><span class="line">    # name，Redis 的 name</span><br><span class="line">    # start，起始位置（字节）</span><br><span class="line">    # end，结束位置（字节）</span><br><span class="line"># 如： &quot;武沛齐&quot; ，0-3表示 &quot;武&quot;</span><br></pre></td></tr></table></figure>
+
+<p>setrange(name, offset, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 修改字符串内容，从指定字符串索引开始向后替换（新值太长时，则向后添加）</span><br><span class="line"># 参数：</span><br><span class="line">    # offset，字符串的索引，字节（一个汉字三个字节）</span><br><span class="line">    # value，要设置的值</span><br></pre></td></tr></table></figure>
+
+<p>setbit(name, offset, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 对name对应值的二进制表示的位进行操作</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # offset，位的索引（将值变换成二进制后再进行索引）</span><br><span class="line">    # value，值只能是 1 或 0</span><br><span class="line"> </span><br><span class="line"># 注：如果在Redis中有一个对应： n1 &#x3D; &quot;foo&quot;，</span><br><span class="line">        那么字符串foo的二进制表示为：01100110 01101111 01101111</span><br><span class="line">    所以，如果执行 setbit(&#39;n1&#39;, 7, 1)，则就会将第7位设置为1，</span><br><span class="line">        那么最终二进制则变成 01100111 01101111 01101111，即：&quot;goo&quot;</span><br><span class="line"> </span><br><span class="line"># 扩展，转换二进制表示：</span><br><span class="line"> </span><br><span class="line">    # source &#x3D; &quot;武沛齐&quot;</span><br><span class="line">    source &#x3D; &quot;foo&quot;</span><br><span class="line"> </span><br><span class="line">    for i in source:</span><br><span class="line">        num &#x3D; ord(i)</span><br><span class="line">        print bin(num).replace(&#39;b&#39;,&#39;&#39;)</span><br><span class="line"> </span><br><span class="line">    特别的，如果source是汉字 &quot;武沛齐&quot;怎么办？</span><br><span class="line">    答：对于utf-8，每一个汉字占 3 个字节，那么 &quot;武沛齐&quot; 则有 9个字节</span><br><span class="line">       对于汉字，for循环时候会按照 字节 迭代，那么在迭代时，将每一个字节转换 十进制数，然后再将十进制数转换成二进制</span><br><span class="line">        11100110 10101101 10100110 11100110 10110010 10011011 11101001 10111101 10010000</span><br><span class="line">        -------------------------- ----------------------------- -----------------------------</span><br><span class="line">                    武                         沛                           齐</span><br></pre></td></tr></table></figure>
+
+<p>getbit(name, offset)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的值的二进制表示中的某位的值 （0或1）</span><br></pre></td></tr></table></figure>
+
+<p>bitcount(key, start=None, end=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的值的二进制表示中 1 的个数</span><br><span class="line"># 参数：</span><br><span class="line">    # key，Redis的name</span><br><span class="line">    # start，位起始位置</span><br><span class="line">    # end，位结束位置</span><br></pre></td></tr></table></figure>
+
+<p>bitop(operation, dest, *keys)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 获取多个值，并将值做位运算，将最后的结果保存至新的name对应的值</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # operation,AND（并） 、 OR（或） 、 NOT（非） 、 XOR（异或）</span><br><span class="line">    # dest, 新的Redis的name</span><br><span class="line">    # *keys,要查找的Redis的name</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    bitop(&quot;AND&quot;, &#39;new_name&#39;, &#39;n1&#39;, &#39;n2&#39;, &#39;n3&#39;)</span><br><span class="line">    # 获取Redis中n1,n2,n3对应的值，然后讲所有的值做位运算（求并集），然后将结果保存 new_name 对应的值中</span><br></pre></td></tr></table></figure>
+
+<p>strlen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 返回name对应值的字节长度（一个汉字3个字节）</span><br></pre></td></tr></table></figure>
+
+<p>incr(self, name, amount=1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 自增 name对应的值，当name不存在时，则创建name＝amount，否则，则自增。</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name,Redis的name</span><br><span class="line">    # amount,自增数（必须是整数）</span><br><span class="line"> </span><br><span class="line"># 注：同incrby</span><br></pre></td></tr></table></figure>
+
+<p>incrbyfloat(self, name, amount=1.0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 自增 name对应的值，当name不存在时，则创建name＝amount，否则，则自增。</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name,Redis的name</span><br><span class="line">    # amount,自增数（浮点型）</span><br></pre></td></tr></table></figure>
+
+<p>decr(self, name, amount=1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 自减 name对应的值，当name不存在时，则创建name＝amount，否则，则自减。</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name,Redis的name</span><br><span class="line">    # amount,自减数（整数）</span><br></pre></td></tr></table></figure>
+
+<p>append(key, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在redis name对应的值后面追加内容</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    key, redis的name</span><br><span class="line">    value, 要追加的字符串</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hash-操作"><a href="#Hash-操作" class="headerlink" title="Hash 操作"></a>Hash 操作</h2><table>
+<thead>
+<tr>
+<th>name</th>
+<th>—&gt;</th>
+<th>hash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n1</td>
+<td>—&gt;</td>
+<td>k1–&gt;v1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>k2–&gt;v2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>k3–&gt;v3</td>
+</tr>
+<tr>
+<td>n2</td>
+<td>—&gt;</td>
+<td>k9–&gt;v9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>k20–&gt;v20</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>k31–&gt;v31</td>
+</tr>
+</tbody></table>
+<p>hset(name, key, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># name对应的hash中设置一个键值对（不存在，则创建；否则，修改）</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # key，name对应的hash中的key</span><br><span class="line">    # value，name对应的hash中的value</span><br><span class="line"> </span><br><span class="line"># 注：</span><br><span class="line">    # hsetnx(name, key, value),当name对应的hash中不存在当前key时则创建（相当于添加）</span><br></pre></td></tr></table></figure>
+
+<p>hmset(name, mapping)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的hash中批量设置键值对</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # mapping，字典，如：&#123;&#39;k1&#39;:&#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;&#125;</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # r.hmset(&#39;xx&#39;, &#123;&#39;k1&#39;:&#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>hget(name,key)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的hash中获取根据key获取value</span><br></pre></td></tr></table></figure>
+
+<p>hmget(name, keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的hash中获取多个key的值</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，reids对应的name</span><br><span class="line">    # keys，要获取key集合，如：[&#39;k1&#39;, &#39;k2&#39;, &#39;k3&#39;]</span><br><span class="line">    # *args，要获取的key，如：k1,k2,k3</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # r.mget(&#39;xx&#39;, [&#39;k1&#39;, &#39;k2&#39;])</span><br><span class="line">    # 或</span><br><span class="line">    # print r.hmget(&#39;xx&#39;, &#39;k1&#39;, &#39;k2&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>hgetall(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">获取name对应hash的所有键值</span><br></pre></td></tr></table></figure>
+
+<p>hlen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的hash中键值对的个数</span><br></pre></td></tr></table></figure>
+
+<p>hkeys(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的hash中所有的key的值</span><br></pre></td></tr></table></figure>
+
+<p>hvals(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的hash中所有的value的值</span><br></pre></td></tr></table></figure>
+
+<p>hexists(name, key)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 检查name对应的hash是否存在当前传入的key</span><br></pre></td></tr></table></figure>
+
+<p>hdel(name,*keys)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 将name对应的hash中指定key的键值对删除</span><br></pre></td></tr></table></figure>
+
+<p>hincrby(name, key, amount=1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 自增name对应的hash中的指定key的值，不存在则创建key&#x3D;amount</span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis中的name</span><br><span class="line">    # key， hash对应的key</span><br><span class="line">    # amount，自增数（整数）</span><br></pre></td></tr></table></figure>
+
+<p>hincrbyfloat(name, key, amount=1.0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 自增name对应的hash中的指定key的值，不存在则创建key&#x3D;amount</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis中的name</span><br><span class="line">    # key， hash对应的key</span><br><span class="line">    # amount，自增数（浮点数）</span><br><span class="line"> </span><br><span class="line"># 自增name对应的hash中的指定key的值，不存在则创建key&#x3D;amount</span><br></pre></td></tr></table></figure>
+
+<p>hscan(name, cursor=0, match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 增量式迭代获取，对于数据大的数据非常有用，hscan可以实现分片的获取数据，并非一次性将数据全部获取完，从而放置内存被撑爆</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # cursor，游标（基于游标分批取获取数据）</span><br><span class="line">    # match，匹配指定key，默认None 表示所有的key</span><br><span class="line">    # count，每次分片最少获取个数，默认None表示采用Redis的默认分片个数</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # 第一次：cursor1, data1 &#x3D; r.hscan(&#39;xx&#39;, cursor&#x3D;0, match&#x3D;None, count&#x3D;None)</span><br><span class="line">    # 第二次：cursor2, data1 &#x3D; r.hscan(&#39;xx&#39;, cursor&#x3D;cursor1, match&#x3D;None, count&#x3D;None)</span><br><span class="line">    # ...</span><br><span class="line">    # 直到返回值cursor的值为0时，表示数据已经通过分片获取完毕</span><br></pre></td></tr></table></figure>
+
+<p>hscan_iter(name, match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 利用yield封装hscan创建生成器，实现分批去redis中获取数据</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # match，匹配指定key，默认None 表示所有的key</span><br><span class="line">    # count，每次分片最少获取个数，默认None表示采用Redis的默认分片个数</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # for item in r.hscan_iter(&#39;xx&#39;):</span><br><span class="line">    #     print item</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="List-操作"><a href="#List-操作" class="headerlink" title="List 操作"></a>List 操作</h2><table>
+<thead>
+<tr>
+<th>name</th>
+<th>—&gt;</th>
+<th>hash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n1</td>
+<td>—&gt;</td>
+<td>v1,v2…</td>
+</tr>
+<tr>
+<td>n2</td>
+<td>—&gt;</td>
+<td>v15,v59…</td>
+</tr>
+</tbody></table>
+<p>lpush(name,values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的list中添加元素，每个新的元素都添加到列表的最左边</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # r.lpush(&#39;oo&#39;, 11,22,33)</span><br><span class="line">    # 保存顺序为: 33,22,11</span><br><span class="line"> </span><br><span class="line"># 扩展：</span><br><span class="line">    # rpush(name, values) 表示从右向左操作</span><br></pre></td></tr></table></figure>
+
+<p>lpushx(name,value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的list中添加元素，只有name已经存在时，值添加到列表的最左边</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # rpushx(name, value) 表示从右向左操作</span><br></pre></td></tr></table></figure>
+
+<p>llen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># name对应的list元素的个数</span><br></pre></td></tr></table></figure>
+
+<p>linsert(name, where, refvalue, value))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的列表的某一个值前或后插入一个新值</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # where，BEFORE或AFTER</span><br><span class="line">    # refvalue，标杆值，即：在它前后插入数据</span><br><span class="line">    # value，要插入的数据</span><br></pre></td></tr></table></figure>
+
+<p>r.lset(name, index, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 对name对应的list中的某一个索引位置重新赋值</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # index，list的索引位置</span><br><span class="line">    # value，要设置的值</span><br></pre></td></tr></table></figure>
+
+<p>r.lrem(name, value, num)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的list中删除指定的值</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # value，要删除的值</span><br><span class="line">    # num，  num&#x3D;0，删除列表中所有的指定值；</span><br><span class="line">           # num&#x3D;2,从前到后，删除2个；</span><br><span class="line">           # num&#x3D;-2,从后向前，删除2个</span><br></pre></td></tr></table></figure>
+
+<p>lpop(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的列表的左侧获取第一个元素并在列表中移除，返回值则是第一个元素</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # rpop(name) 表示从右向左操作</span><br></pre></td></tr></table></figure>
+
+<p>lindex(name, index)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在name对应的列表中根据索引获取列表元素</span><br></pre></td></tr></table></figure>
+
+<p>lrange(name, start, end)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的列表分片获取数据</span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # start，索引的起始位置</span><br><span class="line">    # end，索引结束位置</span><br></pre></td></tr></table></figure>
+
+<p>ltrim(name, start, end)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的列表中移除没有在start-end索引之间的值</span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # start，索引的起始位置</span><br><span class="line">    # end，索引结束位置</span><br></pre></td></tr></table></figure>
+
+<p>rpoplpush(src, dst)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 从一个列表取出最右边的元素，同时将其添加至另一个列表的最左边</span><br><span class="line"># 参数：</span><br><span class="line">    # src，要取数据的列表的name</span><br><span class="line">    # dst，要添加数据的列表的name</span><br></pre></td></tr></table></figure>
+
+<p>blpop(keys, timeout)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将多个列表排列，按照从左到右去pop对应列表的元素</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # keys，redis的name的集合</span><br><span class="line">    # timeout，超时时间，当元素所有列表的元素获取完之后，阻塞等待列表内有数据的时间（秒）, 0 表示永远阻塞</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # r.brpop(keys, timeout)，从右向左获取数据</span><br></pre></td></tr></table></figure>
+
+<p>brpoplpush(src, dst, timeout=0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 从一个列表的右侧移除一个元素并将其添加到另一个列表的左侧</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # src，取出并要移除元素的列表对应的name</span><br><span class="line">    # dst，要插入元素的列表对应的name</span><br><span class="line">    # timeout，当src对应的列表中没有数据时，阻塞等待其有数据的超时时间（秒），0 表示永远阻塞</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义增量迭代</strong>(非常重要，原生的模块没有提供支持)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 由于redis类库中没有提供对列表元素的增量迭代，如果想要循环name对应的列表的所有元素，那么就需要：</span><br><span class="line">    # 1、获取name对应的所有列表</span><br><span class="line">    # 2、循环列表</span><br><span class="line"># 但是，如果列表非常大，那么就有可能在第一步时就将程序的内容撑爆，所有有必要自定义一个增量迭代的功能：</span><br><span class="line"> </span><br><span class="line">def list_iter(name):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    自定义redis列表增量迭代</span><br><span class="line">    :param name: redis中的name，即：迭代name对应的列表</span><br><span class="line">    :return: yield 返回 列表元素</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    list_count &#x3D; r.llen(name)</span><br><span class="line">    for index in xrange(list_count):</span><br><span class="line">        yield r.lindex(name, index)</span><br><span class="line"> </span><br><span class="line"># 使用</span><br><span class="line">for item in list_iter(&#39;pp&#39;):</span><br><span class="line">    print item</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Set-操作"><a href="#Set-操作" class="headerlink" title="Set 操作"></a>Set 操作</h2><p>Set操作，Set集合就是不允许重复的列表</p>
+<p>sadd(name,values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># name对应的集合中添加元素</span><br></pre></td></tr></table></figure>
+
+<p>scard(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">获取name对应的集合中元素个数</span><br></pre></td></tr></table></figure>
+
+<p>sdiff(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在第一个name对应的集合中且不在其他name对应的集合的元素集合</span><br></pre></td></tr></table></figure>
+
+<p>sdiffstore(dest, keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取第一个name对应的集合中且不在其他name对应的集合，再将其新加入到dest对应的集合中</span><br></pre></td></tr></table></figure>
+
+<p>sinter(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取多一个name对应集合的并集</span><br></pre></td></tr></table></figure>
+
+<p>sinterstore(dest, keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取多一个name对应集合的并集，再讲其加入到dest对应的集合中</span><br></pre></td></tr></table></figure>
+
+<p>sismember(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 检查value是否是name对应的集合的成员</span><br></pre></td></tr></table></figure>
+
+<p>smembers(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的集合的所有成员</span><br></pre></td></tr></table></figure>
+
+<p>smove(src, dst, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 将某个成员从一个集合中移动到另外一个集合</span><br></pre></td></tr></table></figure>
+
+<p>spop(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 从集合的右侧（尾部）移除一个成员，并将其返回</span><br></pre></td></tr></table></figure>
+
+<p>srandmember(name, numbers)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 从name对应的集合中随机获取 numbers 个元素</span><br></pre></td></tr></table></figure>
+
+<p>srem(name, values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的集合中删除某些值</span><br></pre></td></tr></table></figure>
+
+<p>sunion(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取多一个name对应的集合的并集</span><br></pre></td></tr></table></figure>
+
+<p>sunionstore(dest,keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取多一个name对应的集合的并集，并将结果保存到dest对应的集合中</span><br></pre></td></tr></table></figure>
+
+<p>sscan(name, cursor=0, match=None, count=None)<br>sscan_iter(name, match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 同字符串的操作，用于增量迭代分批获取元素，避免内存消耗太大</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Sort-Set-操作"><a href="#Sort-Set-操作" class="headerlink" title="Sort Set 操作"></a>Sort Set 操作</h2><p>有序集合，在集合的基础上，为每元素排序；元素的排序需要根据另外一个值来进行比较，所以，对于有序集合，每一个元素有两个值，即：值和分数，分数专门用来做排序</p>
+<p>zadd(name, <em>args, *</em>kwargs)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在name对应的有序集合中添加元素</span><br><span class="line"># 如：</span><br><span class="line">     # zadd(&#39;zz&#39;, &#39;n1&#39;, 1, &#39;n2&#39;, 2)</span><br><span class="line">     # 或</span><br><span class="line">     # zadd(&#39;zz&#39;, n1&#x3D;11, n2&#x3D;22)</span><br></pre></td></tr></table></figure>
+
+<p>zcard(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的有序集合元素的数量</span><br></pre></td></tr></table></figure>
+
+<p>zcount(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应的有序集合中分数 在 [min,max] 之间的个数</span><br></pre></td></tr></table></figure>
+
+<p>zincrby(name, value, amount)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 自增name对应的有序集合的 name 对应的分数</span><br></pre></td></tr></table></figure>
+
+<p>r.zrange( name, start, end, desc=False, withscores=False, score_cast_func=float)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 按照索引范围获取name对应的有序集合的元素</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # start，有序集合索引起始位置（非分数）</span><br><span class="line">    # end，有序集合索引结束位置（非分数）</span><br><span class="line">    # desc，排序规则，默认按照分数从小到大排序</span><br><span class="line">    # withscores，是否获取元素的分数，默认只获取元素的值</span><br><span class="line">    # score_cast_func，对分数进行数据转换的函数</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # 从大到小排序</span><br><span class="line">    # zrevrange(name, start, end, withscores&#x3D;False, score_cast_func&#x3D;float)</span><br><span class="line"> </span><br><span class="line">    # 按照分数范围获取name对应的有序集合的元素</span><br><span class="line">    # zrangebyscore(name, min, max, start&#x3D;None, num&#x3D;None, withscores&#x3D;False, score_cast_func&#x3D;float)</span><br><span class="line">    # 从大到小排序</span><br><span class="line">    # zrevrangebyscore(name, max, min, start&#x3D;None, num&#x3D;None, withscores&#x3D;False, score_cast_func&#x3D;float)</span><br></pre></td></tr></table></figure>
+
+<p>zrank(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 获取某个值在 name对应的有序集合中的排行（从 0 开始）</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # zrevrank(name, value)，从大到小排序</span><br></pre></td></tr></table></figure>
+
+<p>zrangebylex(name, min, max, start=None, num=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 当有序集合的所有成员都具有相同的分值时，有序集合的元素会根据成员的 值 （lexicographical ordering）来进行排序，而这个命令则可以返回给定的有序集合键 key 中， 元素的值介于 min 和 max 之间的成员</span><br><span class="line"># 对集合中的每个成员进行逐个字节的对比（byte-by-byte compare）， 并按照从低到高的顺序， 返回排序后的集合成员。 如果两个字符串有一部分内容是相同的话， 那么命令会认为较长的字符串比较短的字符串要大</span><br><span class="line"> </span><br><span class="line"># 参数：</span><br><span class="line">    # name，redis的name</span><br><span class="line">    # min，左区间（值）。 + 表示正无限； - 表示负无限； ( 表示开区间； [ 则表示闭区间</span><br><span class="line">    # min，右区间（值）</span><br><span class="line">    # start，对结果进行分片处理，索引位置</span><br><span class="line">    # num，对结果进行分片处理，索引后面的num个元素</span><br><span class="line"> </span><br><span class="line"># 如：</span><br><span class="line">    # ZADD myzset 0 aa 0 ba 0 ca 0 da 0 ea 0 fa 0 ga</span><br><span class="line">    # r.zrangebylex(&#39;myzset&#39;, &quot;-&quot;, &quot;[ca&quot;) 结果为：[&#39;aa&#39;, &#39;ba&#39;, &#39;ca&#39;]</span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # 从大到小排序</span><br><span class="line">    # zrevrangebylex(name, max, min, start&#x3D;None, num&#x3D;None)</span><br></pre></td></tr></table></figure>
+
+<p>zrem(name, values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 删除name对应的有序集合中值是values的成员</span><br><span class="line"> </span><br><span class="line"># 如：zrem(&#39;zz&#39;, [&#39;s1&#39;, &#39;s2&#39;])</span><br></pre></td></tr></table></figure>
+
+<p>zremrangebyrank(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 根据排行范围删除</span><br></pre></td></tr></table></figure>
+
+<p>zremrangebyscore(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 根据分数范围删除</span><br></pre></td></tr></table></figure>
+
+<p>zremrangebylex(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 根据值返回删除</span><br></pre></td></tr></table></figure>
+
+<p>zscore(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应有序集合中 value 对应的分数</span><br></pre></td></tr></table></figure>
+
+<p>zinterstore(dest, keys, aggregate=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 获取两个有序集合的交集，如果遇到相同值不同分数，则按照aggregate进行操作</span><br><span class="line"># aggregate的值为:  SUM  MIN  MAX</span><br></pre></td></tr></table></figure>
+
+<p>zunionstore(dest, keys, aggregate=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 获取两个有序集合的并集，如果遇到相同值不同分数，则按照aggregate进行操作</span><br><span class="line"># aggregate的值为:  SUM  MIN  MAX</span><br></pre></td></tr></table></figure>
+
+<p>zscan(name, cursor=0, match=None, count=None, score_cast_func=float)<br>zscan_iter(name, match=None, count=None,score_cast_func=float)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 同字符串相似，相较于字符串新增score_cast_func，用来对分数进行操作</span><br></pre></td></tr></table></figure>
+
+<h1 id="其他常用的操作"><a href="#其他常用的操作" class="headerlink" title="其他常用的操作"></a>其他常用的操作</h1><p>delete(*names)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 根据删除redis中的任意数据类型</span><br></pre></td></tr></table></figure>
+
+<p>exists(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 检测redis的name是否存在</span><br></pre></td></tr></table></figure>
+
+<p>keys(pattern=’*’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 根据模型获取redis的name</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"># 更多：</span><br><span class="line">    # KEYS * 匹配数据库中所有 key 。</span><br><span class="line">    # KEYS h?llo 匹配 hello ， hallo 和 hxllo 等。</span><br><span class="line">    # KEYS h*llo 匹配 hllo 和 heeeeello 等。</span><br><span class="line">    # KEYS h[ae]llo 匹配 hello 和 hallo ，但不匹配 hillo</span><br></pre></td></tr></table></figure>
+<p>expire(name ,time)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 为某个redis的某个name设置超时时间</span><br></pre></td></tr></table></figure>
+
+<p>rename(src, dst)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 对redis的name重命名为</span><br></pre></td></tr></table></figure>
+
+<p>move(name, db))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 将redis的某个值移动到指定的db下</span><br></pre></td></tr></table></figure>
+
+<p>randomkey()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 随机获取一个redis的name（不删除）</span><br></pre></td></tr></table></figure>
+
+<p>type(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 获取name对应值的类型</span><br></pre></td></tr></table></figure>
+
+<p>scan(cursor=0, match=None, count=None)<br>scan_iter(match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 同字符串操作，用于增量迭代获取key</span><br></pre></td></tr></table></figure>
+
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><p>redis-py默认在执行每次请求都会创建（连接池申请连接）和断开（归还连接池）一次连接操作，如果想要在一次请求中指定多个命令，则可以使用pipline实现一次请求指定多个命令，并且默认情况下一次pipline 是原子性操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"> </span><br><span class="line">pool = redis.ConnectionPool(host=<span class="string">'10.211.55.4'</span>, port=<span class="number">6379</span>)</span><br><span class="line"> </span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># pipe = r.pipeline(transaction=False)</span></span><br><span class="line">pipe = r.pipeline(transaction=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'alex'</span>)</span><br><span class="line">r.set(<span class="string">'role'</span>, <span class="string">'sb'</span>)</span><br><span class="line"> </span><br><span class="line">pipe.execute()</span><br></pre></td></tr></table></figure>
+
+<h1 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h1><p>发布者：服务器</p>
+<p>订阅者：Dashboad和数据处理</p>
+<p>Demo如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">'10.211.55.4'</span>)</span><br><span class="line">        self.chan_sub = <span class="string">'fm104.5'</span></span><br><span class="line">        self.chan_pub = <span class="string">'fm104.5'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        self.__conn.publish(self.chan_pub, msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        pub.subscribe(self.chan_sub)</span><br><span class="line">        pub.parse_response()</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
+
+<p>订阅者：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> monitor.RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    msg= redis_sub.parse_response()</span><br><span class="line">    <span class="keyword">print</span> msg</span><br></pre></td></tr></table></figure>
+
+<p>发布者：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> monitor.RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">obj.public(<span class="string">'hello'</span>)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/24/Python%E6%93%8D%E4%BD%9Cmemcache%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/24/Python%E6%93%8D%E4%BD%9Cmemcache%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Python操作memcache详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-24 18:24:49" itemprop="dateCreated datePublished" datetime="2016-07-24T18:24:49+08:00">2016-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/24/Python%E6%93%8D%E4%BD%9Cmemcache%E8%AF%A6%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/24/Python操作memcache详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程（daemon）是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信</p>
+</blockquote>
+<h1 id="memcache的基本使用"><a href="#memcache的基本使用" class="headerlink" title="memcache的基本使用"></a>memcache的基本使用</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"></span><br><span class="line">mc = memcache.Client([<span class="string">'123.57.233.233:11211'</span>], debug=<span class="literal">True</span>)</span><br><span class="line">mc.set(<span class="string">"Name"</span>, <span class="string">"PolarSnow"</span>)</span><br><span class="line">ret = mc.get(<span class="string">'Name'</span>)</span><br><span class="line">print(ret)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">PolarSnow</span><br></pre></td></tr></table></figure>
+<p>注意:debug = True 表示运行出现错误时，显示错误信息，上线后移除该参数</p>
+<h1 id="天生支持集群"><a href="#天生支持集群" class="headerlink" title="天生支持集群"></a>天生支持集群</h1><table>
+<thead>
+<tr>
+<th>主机</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.1.1.1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1.1.1.2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1.1.1.3</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>那么在内存中主机列表为：<code>host_list = [&quot;1.1.1.1&quot;, &quot;1.1.1.2&quot;, &quot;1.1.1.2&quot;, &quot;1.1.1.3&quot;, ]</code></p>
+<p>如果用户根据如果要在内存中创建一个键值对（如：k1 = “v1”），那么要执行一下步骤：</p>
+<p>根据算法将 k1 转换成一个数字</p>
+<p>将数字和主机列表长度求余数，得到一个值 N（ 0 &lt;= N &lt; 列表长度 ）<br>在主机列表中根据 第2步得到的值为索引获取主机，例如：host_list[N]<br>连接 将第3步中获取的主机，将 k1 = “v1” 放置在该服务器的内存中<br>代码实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mc = memcache.Client([(<span class="string">'1.1.1.1:12000'</span>, <span class="number">1</span>), (<span class="string">'1.1.1.2:12000'</span>, <span class="number">2</span>), (<span class="string">'1.1.1.3:12000'</span>, <span class="number">1</span>)], debug=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">mc.set(<span class="string">'k1'</span>, <span class="string">'v1'</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="add"><a href="#add" class="headerlink" title="add"></a>add</h1><p>添加一条键值对，如果已经存在的 key，重复执行add操作异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line">mc.add(<span class="string">'k1'</span>, <span class="string">'v1'</span>)</span><br><span class="line"><span class="comment"># mc.add('k1', 'v2') # 报错，对已经存在的key重复添加，失败！！！</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h1><p>replace 修改某个key的值，如果key不存在，则异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 如果memcache中存在kkkk，则替换成功，否则一场</span></span><br><span class="line">mc.replace(<span class="string">'kkkk'</span>,<span class="string">'999'</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="set-和-set-multi"><a href="#set-和-set-multi" class="headerlink" title="set 和 set_multi"></a>set 和 set_multi</h1><p>set            设置一个键值对，如果key不存在，则创建，如果key存在，则修改<br>set_multi   设置多个键值对，如果key不存在，则创建，如果key存在，则修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">mc.set(<span class="string">'key0'</span>, <span class="string">'wupeiqi'</span>)</span><br><span class="line"> </span><br><span class="line">mc.set_multi(&#123;<span class="string">'key1'</span>: <span class="string">'val1'</span>, <span class="string">'key2'</span>: <span class="string">'val2'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="delete-和-delete-multi"><a href="#delete-和-delete-multi" class="headerlink" title="delete 和 delete_multi"></a>delete 和 delete_multi</h1><p>delete             在Memcached中删除指定的一个键值对<br>delete_multi    在Memcached中删除指定的多个键值对</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">mc.delete(<span class="string">'key0'</span>)</span><br><span class="line">mc.delete_multi([<span class="string">'key1'</span>, <span class="string">'key2'</span>])</span><br></pre></td></tr></table></figure>
+
+<h1 id="get-和-get-multi"><a href="#get-和-get-multi" class="headerlink" title="get 和 get_multi"></a>get 和 get_multi</h1><p>get            获取一个键值对<br>get_multi   获取多一个键值对</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">val = mc.get(<span class="string">'key0'</span>)</span><br><span class="line">item_dict = mc.get_multi([<span class="string">"key1"</span>, <span class="string">"key2"</span>, <span class="string">"key3"</span>])</span><br></pre></td></tr></table></figure>
+
+<h1 id="append-和-prepend"><a href="#append-和-prepend" class="headerlink" title="append 和 prepend"></a>append 和 prepend</h1><p>append    修改指定key的值，在该值 后面 追加内容<br>prepend   修改指定key的值，在该值 前面 插入内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># k1 = "v1"</span></span><br><span class="line"> </span><br><span class="line">mc.append(<span class="string">'k1'</span>, <span class="string">'after'</span>)</span><br><span class="line"><span class="comment"># k1 = "v1after"</span></span><br><span class="line"> </span><br><span class="line">mc.prepend(<span class="string">'k1'</span>, <span class="string">'before'</span>)</span><br><span class="line"><span class="comment"># k1 = "beforev1after"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="decr-和-incr"><a href="#decr-和-incr" class="headerlink" title="decr 和 incr　　"></a>decr 和 incr　　</h1><p>incr  自增，将Memcached中的某一个值增加 N （ N默认为1 ）<br>decr 自减，将Memcached中的某一个值减少 N （ N默认为1 ）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line"> </span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>)</span><br><span class="line">mc.set(<span class="string">'k1'</span>, <span class="string">'777'</span>)</span><br><span class="line"> </span><br><span class="line">mc.incr(<span class="string">'k1'</span>)</span><br><span class="line"><span class="comment"># k1 = 778</span></span><br><span class="line"> </span><br><span class="line">mc.incr(<span class="string">'k1'</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment"># k1 = 788</span></span><br><span class="line"> </span><br><span class="line">mc.decr(<span class="string">'k1'</span>)</span><br><span class="line"><span class="comment"># k1 = 787</span></span><br><span class="line"> </span><br><span class="line">mc.decr(<span class="string">'k1'</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment"># k1 = 777</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="gets-和-cas"><a href="#gets-和-cas" class="headerlink" title="gets 和 cas"></a>gets 和 cas</h1><p>避免产生脏数据,gets和cas成对儿出现，出现第二个cas的时候会报错</p>
+<p>如商城商品剩余个数，假设改值保存在memcache中，product_count = 900<br>A用户刷新页面从memcache中读取到product_count = 900<br>B用户刷新页面从memcache中读取到product_count = 900</p>
+<p>如果A、B用户均购买商品</p>
+<p>A用户修改商品剩余个数 product_count＝899<br>B用户修改商品剩余个数 product_count＝899</p>
+<p>如此一来缓存内的数据便不在正确，两个用户购买商品后，商品剩余还是 899<br>如果使用python的set和get来操作以上过程，那么程序就会如上述所示情况！</p>
+<p>如果想要避免此情况的发生，只要使用 gets 和 cas 即可，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> memcache</span><br><span class="line">mc = memcache.Client([<span class="string">'10.211.55.4:12000'</span>], debug=<span class="literal">True</span>, cache_cas=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">v = mc.gets(<span class="string">'product_count'</span>)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 如果有人在gets之后和cas之前修改了product_count，那么，下面的设置将会执行失败，剖出异常，从而避免非正常数据的产生</span></span><br><span class="line">mc.cas(<span class="string">'product_count'</span>, <span class="string">"899"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注意：本质上每次执行gets时，会从memcache中获取一个自增的数字，通过cas去修改gets的值时，会携带之前获取的自增值和memcache中的自增值进行比较，如果相等，则可以提交，如果不相等，那表示在gets和cas执行之间，又有其他人执行了gets（获取了缓冲的指定值）， 如此一来有可能出现非正常数据，则不允许修改</p>
+<h1 id="memcache集群中剔除掉不可用节点"><a href="#memcache集群中剔除掉不可用节点" class="headerlink" title="memcache集群中剔除掉不可用节点"></a>memcache集群中剔除掉不可用节点</h1><p>必须在程序中去检测后端的可用状态，当有服务器出现服务不可用时，执行<code>mc.set_servers()</code>重新设置集群服务器列表</p>
+<hr>
+<p>转载文档：</p>
+<p><a href="http://www.cnblogs.com/wupeiqi/articles/5132791.html" target="_blank" rel="noopener">http://www.cnblogs.com/wupeiqi/articles/5132791.html</a></p>
 
       
     </div>
@@ -1163,7 +1583,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1231,7 +1651,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1244,7 +1664,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

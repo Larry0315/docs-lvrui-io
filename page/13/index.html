@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">nginx切割日志文件</a>
+            <a href="/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/" class="post-title-link" itemprop="url">为什么要使用Docker</a>
         </h2>
 
         <div class="post-meta">
@@ -231,161 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-26 18:13:00" itemprop="dateCreated datePublished" datetime="2018-01-26T18:13:00+08:00">2018-01-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/26/inx切割日志文件/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>不知道这么基础的功能, 为什么Nginx官方没有提供配置~</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#设置日志文件存放目录</span></span><br><span class="line">logs_path=<span class="string">"/data/logs/nginx/"</span></span><br><span class="line"><span class="comment">#设置pid文件</span></span><br><span class="line">pid_path=<span class="string">"/usr/local/openresty/nginx/logs/nginx.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重命名日志文件</span></span><br><span class="line">mv <span class="variable">$&#123;logs_path&#125;</span>access.log <span class="variable">$&#123;logs_path&#125;</span>access_$(date -d <span class="string">"yesterday"</span> +<span class="string">"%Y%m%d"</span>).<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#向nginx主进程发信号重新打开日志</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat <span class="variable">$&#123;pid_path&#125;</span>`</span><br></pre></td></tr></table></figure>
-
-<p>以上文件名为年月日形式, 写成脚本保存, 然后加入到计划任务里每天执行就可以了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; crontab -l</span><br><span class="line">0 0  *  *  * &#x2F;bin&#x2F;bash &#x2F;data&#x2F;scripts&#x2F;nginx_log_cut.sh &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%203/" class="post-title-link" itemprop="url">nginx切割日志文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-26 18:13:00" itemprop="dateCreated datePublished" datetime="2018-01-26T18:13:00+08:00">2018-01-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/26/inx切割日志文件 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>不知道这么基础的功能, 为什么Nginx官方没有提供配置~</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#设置日志文件存放目录</span></span><br><span class="line">logs_path=<span class="string">"/data/logs/nginx/"</span></span><br><span class="line"><span class="comment">#设置pid文件</span></span><br><span class="line">pid_path=<span class="string">"/usr/local/openresty/nginx/logs/nginx.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重命名日志文件</span></span><br><span class="line">mv <span class="variable">$&#123;logs_path&#125;</span>access.log <span class="variable">$&#123;logs_path&#125;</span>access_$(date -d <span class="string">"yesterday"</span> +<span class="string">"%Y%m%d"</span>).<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#向nginx主进程发信号重新打开日志</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat <span class="variable">$&#123;pid_path&#125;</span>`</span><br></pre></td></tr></table></figure>
-
-<p>以上文件名为年月日形式, 写成脚本保存, 然后加入到计划任务里每天执行就可以了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; crontab -l</span><br><span class="line">0 0  *  *  * &#x2F;bin&#x2F;bash &#x2F;data&#x2F;scripts&#x2F;nginx_log_cut.sh &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">json.dumps中的ensure_ascii参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:40:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:40:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-03-18 01:10:57" itemprop="dateCreated datePublished" datetime="2017-03-18T01:10:57+08:00">2017-03-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -393,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
                 </span>
             </span>
 
@@ -406,8 +252,420 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/json-dumps中的ensure-ascii参数/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/03/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/18/为什么要使用Docker/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="为什么要使用-Docker"><a href="#为什么要使用-Docker" class="headerlink" title="为什么要使用 Docker"></a>为什么要使用 Docker</h1><h2 id="Docker-容器虚拟化带来的好处"><a href="#Docker-容器虚拟化带来的好处" class="headerlink" title="Docker 容器虚拟化带来的好处"></a>Docker 容器虚拟化带来的好处</h2><p>传统的 LAMP 架构, 搭建起来费时费力, 需要调整很多依赖环境. 更可怕的是一旦需要做服务迁移, 一切都要重来.</p>
+<p>Docker 提供了一种更为简单的方式, 通过容器来打包应用, 意味着迁移服务只需要在新的服务器上启动相应的容器即可. 大大减少迁移的时间和成本, 并大幅降低部署过程中可能会出现的问题和风险</p>
+<h2 id="Docker-在开发和运维中的优势"><a href="#Docker-在开发和运维中的优势" class="headerlink" title="Docker 在开发和运维中的优势"></a>Docker 在开发和运维中的优势</h2><p>对于开发和运维来说, 最梦寐以求的就是一次性的创建或配置, 可以在任意环境, 任意时间让应用正常的运行. 而 Docker 就是实现这一目标的利器.</p>
+<p>具体来说, Docker 在开发和运维中具有如下优势:</p>
+<ul>
+<li>更快的交付和部署</li>
+</ul>
+<ul>
+<li>更高效的资源利用</li>
+<li>更轻松的迁移扩展</li>
+<li>更简单的更新管理</li>
+</ul>
+<h2 id="Docker-与虚拟机的比较"><a href="#Docker-与虚拟机的比较" class="headerlink" title="Docker 与虚拟机的比较"></a>Docker 与虚拟机的比较</h2><ul>
+<li>Docker 启动和关闭容器的速度非常快, 可以在秒级实现, 相比传统的虚拟机速度要快很多</li>
+</ul>
+<ul>
+<li>Docker 容器对系统资源需求很少, 一台主机上可以同时运行数千个 Docker 容器</li>
+<li>Docker 通过类似 Git 的操作来方便用户获取/分发和更新应用镜像, 指令简明, 学习成本低</li>
+<li>Docker 可以通过 Dockerfile 配置文件来支持灵活的自动化创建和部署机制, 提高工作效率</li>
+</ul>
+<p>Docker 容器除了运行其中的应用之外, 基本上不消耗额外的系统资源, 保证应用性能的同时, 尽量减小系统开销. 传统的虚拟机运行 N 个不同的应用就要启动 N 个虚拟机, 每个虚拟机需要单独配置独占的内存,硬盘等资源, 而 Docker 只需要启动 N 个隔离的容器, 并将应用放到容器内即可</p>
+<p>在隔离性方面, 传统的虚拟机方式多了一层额外的隔离. 但这并不意味这 Docker 不安全. Docker 利用 Linux 系统上的多种防护机制实现了严格可靠的隔离. 从1.3版本开始, Docker 引入了安全选项和镜像签名机制, 极大地提高了 Docker 的安全性.</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>容器</th>
+<th>虚拟机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动速度</td>
+<td>秒级</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>硬盘使用</td>
+<td>MB</td>
+<td>GB</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>接近原生</td>
+<td>5%以上的性能损耗</td>
+</tr>
+<tr>
+<td>系统支持量</td>
+<td>单机支持上千个容器</td>
+<td>一般几十个容器</td>
+</tr>
+<tr>
+<td>隔离性</td>
+<td>安全隔离</td>
+<td>完全隔离</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/" class="post-title-link" itemprop="url">Docker 在国内的发展现状</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-06 23:49:41" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:41+08:00">2017-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/06/Docker-%E5%9C%A8%E5%9B%BD%E5%86%85%E7%9A%84%E5%8F%91%E5%B1%95%E7%8E%B0%E7%8A%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/Docker-在国内的发展现状/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Docker 在国际上虽然也可以称得上是新兴技术, 但是在国内, 丝毫没有看出 Docker 一个起步不到4年的年轻产品. 在国内, 众多大厂开始大量使用 Docker 基础. 其中 <code>滴滴</code> <code>京东</code> <code>蘑菇街</code> <code>知乎</code> <code>豆瓣</code>等大型互联网公司都在大规模的在线上环境落地 Docker 技术.</p>
+<p>在2016年的双11之后, 京东更是首先爆出15万 Docker 服务器的规模. 可见 Docker 现在虽然还是一个快速迭代, 快速完善的系统, 但是已经得到了世界互联网大厂的任何. Docker 的早期线上落地的推广, 大都是由这些互联网大厂实施的. 给后续的中小企业也带来了极高的参考价值.</p>
+<p>在5年前, 像 OpenStack 以及 CloudStack 这类云服务基础架构出现时, 在运维领域刮起了一阵飓风🌪 短短几年间, IDC 机房不再是所有互联网公司的标配, 为了减少运维成本, 更多的去关注业务的本身, 越来越多的创业公司选择使用公有云服务. </p>
+<p>5年后的今天, IaaS 的公有云服务仍然是主流, 在 IaaS 之上又出现了 CaaS 服务, 即以 Container 为主导的基础服务架构. 将 IaaS 的资源利用到极致. Docker 不是 IaaS 的替代品, 但却是 IaaS 平台强有力的补充, 在为企业提高资源利用率, 减少成本, 提高自动化程度等方面提供了强有力的支持. </p>
+<p>即使目前大多中小企业依然在自己的开发环境和测试环境观望 Docker 技术的发展, 但是不可否认的是 Docker 目前已经有能力胜任线上业务的重担. 通过网上大厂们流传出的”最佳实践”, 完全可以指到我们将服务容器化, 并很好的调试和排错.</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/Docker-%E7%9A%84%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/06/Docker-%E7%9A%84%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/" class="post-title-link" itemprop="url">Docker 的版本演进</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-06 23:49:30" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:30+08:00">2017-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/06/Docker-%E7%9A%84%E7%89%88%E6%9C%AC%E6%BC%94%E8%BF%9B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/Docker-的版本演进/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Docker从2013年开源. 2015年是 Docker 开源项目突飞猛进的一年，这段时间Docker 官方先后发布了V1.5、V1.6、V1.7、V1.8、V1.9等5个大版本以及7个修订版本</p>
+<p>2016年 Docker发展同样迅速，截止2016年12月7日Docker官方共发布了V1.10, V1.11, V1.12等3个大版本以及8个修订版本.</p>
+<p>2017年1月18日, Docker 发布了最重大的一次版本更新 V1.13,  2月8日发布了V1.13.1, 在3月1日, Docker 公布了新的命名规则</p>
+<p>V1.13.1版本之后, 所有的版本都会按照 VYY.MM 的格式进行打包. 比如 Docker 在2017年3月的这次更新, 新的版本号变成了 <code>V17.03.0-ce</code></p>
+<p>前面是日期不用解释, 后面的<code>CE</code>暴露了 Docker 公司渴望将该容器技术商业化的决心. 从此之后 Docker 的版本划分为商业版本的 <code>EE</code>和开源社区版本的 <code>CE</code> , 其中开源社区版本也分成了两类, 分别为 每季度更新的<code>Stable</code>稳定版和每月更新的<code>Edge</code> 开发版</p>
+<ul>
+<li>Docker EE</li>
+<li>Docker CE<ul>
+<li>Docker CE stable</li>
+<li>Docker CE edge</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/docker-%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/06/docker-%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">docker 简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-06 23:49:07" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:07+08:00">2017-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/06/docker-%E7%AE%80%E4%BB%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/docker-简介/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="docker-时间轴"><a href="#docker-时间轴" class="headerlink" title="docker 时间轴"></a>docker 时间轴</h2><p>docker 是容器技术中的一种. 最早是由 dotcloud 公司开源的一款产品. dotcloud 公司是2010年新成立的一家公司, 主要基于 PaaS 平台为开发者提供服务. 在 PaaS 平台下, 所有的服务环境已经预先配置好了, 开发者只需要选择服务类型, 上传代码后即可对外提供服务, 不需要花费大量的时间来搭建服务和配置环境.</p>
+<p>2013年,  dotcloud 的 CEO 决定把 dotcloud 内部使用的 container 容器技术单独拿出来开源. 2013年3月发布 docker 的 V0.1版本, 并且保持每月一个版本的迭代速度. 到同年8月, docker 技术已经足够火爆. 同年10月, dotcloud 公司更名为 Docker 股份有限公司.</p>
+<p>2014年6月9日, Docker 发布 V1.0版本, 并举办了首届 DockerCon 大会, 大会上来自 Google, IBM, RedHat,  Rackspace 等公司的核心人物均发表了主题演讲🗣并纷纷加入 Docker 的阵营.</p>
+<p>2014年12月, Docker 发布了集群管理工具 Machine 和 Swarm.</p>
+<p>2016年1月, Docker 官方计划全面支持自身的 Alpine Linux, 使用它构建的基础镜像最小只有5M</p>
+<h2 id="什么是-Docker"><a href="#什么是-Docker" class="headerlink" title="什么是 Docker"></a>什么是 Docker</h2><p>按照官方的说法, Docker 是一个开源的应用容器引擎.</p>
+<p>拿 Java 来说, 在 Java 之前的编程语言, 像 C/C++, 是严重依赖平台的, 在不同的平台下, 需要重新编译才能运行. Java 的一个非常重要的特性就是与平台无关性,  Java 虚拟机(JVM)是实现这一特性的关键. Java 虚拟机屏蔽了与具体平台的相关性, 使得 Java 语言编译程序只需生成可以在 Java 虚拟机上运行的目标代码, 就可以在多种平台上不加修改的运行. Java 虚拟机在执行字节码的时候, 把字节码解释成具体平台上的机器指令执行.</p>
+<p>Java 的理念是 “Write Once, Run Anywhere”, 而 Docker 则提出了”Build Once, Run Anywhere, Configure Once, Run Anything”</p>
+<p>在 Java 的 JVM 中, 屏蔽了系统平台的干扰; 在 Docker 使用的容器技术中, 则屏蔽了除内核外的所有干扰. 运行在Docker 内的容器, 只对内核敏感. (相对于宿主机而言)</p>
+<p>如果说 Java 是帮助我们把应用打包, 可以运行在任何装有 JVM 的服务器上; 那么使用 Docker 就是帮我们实现应用与环境的统一打包, 可以在任何装有 Docker 的服务器上运行. </p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/" class="post-title-link" itemprop="url">ubuntu下添加用户</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-24 16:56:07" itemprop="dateCreated datePublished" datetime="2017-02-24T16:56:07+08:00">2017-02-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/24/ubuntu下添加用户/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -423,23 +681,13 @@
 
       
           <blockquote>
-<p>json dump 中文时遇到的问题如下</p>
+<p>在 Ubuntu 下直接使用<code>useradd username</code>添加用户可能会导致用户没有家目录或 tab 无法自动补齐的问题, 需要单独制定这些进行配置</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"Chinese"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"Chinese"</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"\u4e2d\u6587"</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到, json在dump中文的时候, 输出的是”中文”对应的ascii码, 这是因为json.dumps 序列化时对中文默认使用的ascii编码</p>
-<p>如果需要输出真正的中文字符, 需要在dump的时候加入<code>ensure_ascii=False</code>参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">"中文"</span></span><br></pre></td></tr></table></figure>
-
-<p>实际使用中, 在与微信企业企业号的主动发送消息接口交互时, 需要使用utf8字符编码encode</p>
-<p>所以在这个场景下, 写法可能会是下面这种情况</p>
-<p><code>json.dumps(s, ensure_ascii=False).encode(&#39;utf-8&#39;)</code></p>
-<p>Python3: 注意以下操作只在Python3环境下是正确的, Python2的环境下.encode会报错</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python <span class="number">3.6</span><span class="number">.3</span> (v3<span class="number">.6</span><span class="number">.3</span>:<span class="number">2</span>c5fed86e0, Oct  <span class="number">3</span> <span class="number">2017</span>, <span class="number">00</span>:<span class="number">32</span>:<span class="number">08</span>)</span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">'"中文"'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>).encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'"\xe4\xb8\xad\xe6\x96\x87"'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -m -s /bin/bash username</span><br></pre></td></tr></table></figure>
 
 
+
+<p><code>-r</code>  创建一个系统用户<br><code>-m</code>  声明为该用户创建默认的家目录(可以单独指定)<br><code>-s</code>  指定该用户登录时使用的终端类型</p>
 
       
     </div>
@@ -461,7 +709,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/24/Linux%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -475,7 +723,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0%203/" class="post-title-link" itemprop="url">json.dumps中的ensure_ascii参数</a>
+            <a href="/2017/02/24/Linux%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84/" class="post-title-link" itemprop="url">Linux添加用户到组</a>
         </h2>
 
         <div class="post-meta">
@@ -485,7 +733,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-25 09:40:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:40:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-02-24 16:55:10" itemprop="dateCreated datePublished" datetime="2017-02-24T16:55:10+08:00">2017-02-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -493,7 +741,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
@@ -506,8 +754,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/json-dumps中的ensure-ascii参数 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/02/24/Linux%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/24/Linux添加用户到组/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -523,23 +771,16 @@
 
       
           <blockquote>
-<p>json dump 中文时遇到的问题如下</p>
+<p>在 docker 的使用中, 常常需要使用普通用户去操作 docker 命令, 简单的办法就是把需要操作 docker 的普通用户加入到 docker 组中即可, 但是需要注意不要覆盖掉用户原来所属的组</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"Chinese"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"Chinese"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -a -G docker username</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"\u4e2d\u6587"</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到, json在dump中文的时候, 输出的是”中文”对应的ascii码, 这是因为json.dumps 序列化时对中文默认使用的ascii编码</p>
-<p>如果需要输出真正的中文字符, 需要在dump的时候加入<code>ensure_ascii=False</code>参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">"中文"</span></span><br></pre></td></tr></table></figure>
-
-<p>实际使用中, 在与微信企业企业号的主动发送消息接口交互时, 需要使用utf8字符编码encode</p>
-<p>所以在这个场景下, 写法可能会是下面这种情况</p>
-<p><code>json.dumps(s, ensure_ascii=False).encode(&#39;utf-8&#39;)</code></p>
-<p>Python3: 注意以下操作只在Python3环境下是正确的, Python2的环境下.encode会报错</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python <span class="number">3.6</span><span class="number">.3</span> (v3<span class="number">.6</span><span class="number">.3</span>:<span class="number">2</span>c5fed86e0, Oct  <span class="number">3</span> <span class="number">2017</span>, <span class="number">00</span>:<span class="number">32</span>:<span class="number">08</span>)</span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">'"中文"'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>).encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'"\xe4\xb8\xad\xe6\x96\x87"'</span></span><br></pre></td></tr></table></figure>
-
-
+<ul>
+<li>-a: append 使用追加的方式添加到组, 不必离开现有的用户组</li>
+</ul>
+<ul>
+<li>-G: 需要加入的目标组</li>
+</ul>
 
       
     </div>
@@ -561,7 +802,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/24/history%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%B6%E9%97%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -575,7 +816,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/" class="post-title-link" itemprop="url">Input strings must be a multiple of 16 in length</a>
+            <a href="/2017/02/24/history%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%B6%E9%97%B4/" class="post-title-link" itemprop="url"> history命令显示时间</a>
         </h2>
 
         <div class="post-meta">
@@ -585,7 +826,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-25 09:30:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:30:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-02-24 16:54:21" itemprop="dateCreated datePublished" datetime="2017-02-24T16:54:21+08:00">2017-02-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -593,7 +834,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
@@ -606,8 +847,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/02/24/history%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%B6%E9%97%B4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/24/history命令显示时间/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -622,13 +863,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在实现微信企业号自建应用与自由服务器信息交互的时候, 报了 <code>Input strings must be a multiple of 16 in length</code> 这个错误, 回复全部英文内容给微信的时候是正常的.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sRespData = <span class="string">"""&lt;xml&gt;</span></span><br><span class="line"><span class="string">                &lt;ToUserName&gt;&lt;![CDATA["""</span>+user_id+<span class="string">"""]]&gt;&lt;/ToUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;FromUserName&gt;&lt;![CDATA["""</span>+corp_id+<span class="string">"""]]&gt;&lt;/FromUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;CreateTime&gt;"""</span>+create_time+<span class="string">"""&lt;/CreateTime&gt;</span></span><br><span class="line"><span class="string">                &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;</span></span><br><span class="line"><span class="string">                &lt;Content&gt;&lt;![CDATA["""</span>+content+<span class="string">"""]]&gt;&lt;/Content&gt;</span></span><br><span class="line"><span class="string">                &lt;/xml&gt;"""</span></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>默认情况下不管是 centos 系列还是 ubuntu 系列, 默认的 history 命令都只是显示了命令编号和具体命令这两列信息, 在实际生产环境中, 添加时间的显示十分实用和重要</p>
+</blockquote>
+<p>编辑<code>/etc/profile</code>文件, 添加入下一行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"`whoami` %F %T "</span></span><br></pre></td></tr></table></figure>
 
-<p>如以上即将回复给微信的xml信息, content变量就是实际的消息内容, 当content内容出现中文字符时, 就会报以上错误.</p>
-<p>解决方法:</p>
-<p><code>content = content.encode(&#39;utf-8&#39;)</code></p>
-<p>将content的内容以utf8字符编码进行encode即可</p>
+<ul>
+<li>%F: 日期</li>
+</ul>
+<ul>
+<li>%T: 时间</li>
+</ul>
 
       
     </div>
@@ -650,7 +896,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -664,7 +910,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length%205/" class="post-title-link" itemprop="url">Input strings must be a multiple of 16 in length</a>
+            <a href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/" class="post-title-link" itemprop="url">mysqldump 错误2013 Lost connection</a>
         </h2>
 
         <div class="post-meta">
@@ -674,7 +920,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-25 09:30:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:30:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-02-19 21:14:57" itemprop="dateCreated datePublished" datetime="2017-02-19T21:14:57+08:00">2017-02-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -682,7 +928,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -695,8 +941,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/mysqldump-错误2013-Lost-connection/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -711,13 +957,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在实现微信企业号自建应用与自由服务器信息交互的时候, 报了 <code>Input strings must be a multiple of 16 in length</code> 这个错误, 回复全部英文内容给微信的时候是正常的.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sRespData = <span class="string">"""&lt;xml&gt;</span></span><br><span class="line"><span class="string">                &lt;ToUserName&gt;&lt;![CDATA["""</span>+user_id+<span class="string">"""]]&gt;&lt;/ToUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;FromUserName&gt;&lt;![CDATA["""</span>+corp_id+<span class="string">"""]]&gt;&lt;/FromUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;CreateTime&gt;"""</span>+create_time+<span class="string">"""&lt;/CreateTime&gt;</span></span><br><span class="line"><span class="string">                &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;</span></span><br><span class="line"><span class="string">                &lt;Content&gt;&lt;![CDATA["""</span>+content+<span class="string">"""]]&gt;&lt;/Content&gt;</span></span><br><span class="line"><span class="string">                &lt;/xml&gt;"""</span></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>导出数据库的时候报如下错误 <code>mysqldump: Error 2013: Lost connection to MySQL server during query when dumping table</code>mail<code>at row: 2637433</code></p>
+</blockquote>
+<p><strong>查询资料</strong></p>
+<p>大概说是因为mysqldump来不及接受mysql server端发送过来的数据，Server端的数据就会积压在内存中等待发送，这个等待不是无限期的，当Server的等待时间超过net_write_timeout（默认是60秒）时它就失去了耐心，mysqldump的连接会被断开，同时抛出错误Got error: 2013: Lost connection。</p>
+<p><strong>解决方案一</strong></p>
+<p>增加net_write_timeout可以解决上述的问题的。在实践中发现，在增大 net_write_timeout后，Server端会消耗更多的内存，有时甚至会导致swap的使用（并不确定是不是修改 net_write_timeout所至）。建议在mysqldump之前修改net_write_timeout为一个较大的值（如1800），在 mysqldump结束后，在将这个值修改到默认的60。</p>
+<p>在sql命令行里面设置临时全局生效用类似如下命令：<br>SET GLOBAL net_write_timeout=1800;</p>
+<p>修改了这个参数后再备份，不再报错<br>注意，这个参数不是mysqldump选项，而是mysql的一个配置参数</p>
+<p><strong>解决方案二</strong></p>
+<p>在执行 mysqldump 的时候可以通过添加 <code>--quick</code> 的参数来避免出现这样的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> --quick，-q</span><br><span class="line"></span><br><span class="line">该选项用于转储大的表。它强制mysqldump从服务器一次一行地检索表中的行而不是检索所有行并在输出前将它缓存到内存中。</span><br></pre></td></tr></table></figure>
 
-<p>如以上即将回复给微信的xml信息, content变量就是实际的消息内容, 当content内容出现中文字符时, 就会报以上错误.</p>
-<p>解决方法:</p>
-<p><code>content = content.encode(&#39;utf-8&#39;)</code></p>
-<p>将content的内容以utf8字符编码进行encode即可</p>
+<hr>
+<p><strong>参考文档</strong></p>
+<p><a href="http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html" target="_blank" rel="noopener">http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html</a></p>
+<p><a href="http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html" target="_blank" rel="noopener">http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html</a></p>
 
       
     </div>
@@ -739,7 +995,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/import-httplib-ImportError-No-module-named-httplib/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -753,7 +1009,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/" class="post-title-link" itemprop="url">import httplib ImportError: No module named httplib</a>
+            <a href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">MySQL常用命令</a>
         </h2>
 
         <div class="post-meta">
@@ -763,7 +1019,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-25 09:25:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:25:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-02-19 21:12:28" itemprop="dateCreated datePublished" datetime="2017-02-19T21:12:28+08:00">2017-02-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -771,7 +1027,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -784,8 +1040,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/import-httplib-ImportError-No-module-named-httplib/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/MySQL常用命令/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -800,8 +1056,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在Python2的代码中<code>import httplib</code>是没有问题的, 到了Python3, 这个模块的导入名称变成了<code>http.client</code>, 所以在如果你使用的是Python3, 需要导入这个模块, <code>import http.client</code>就可以了</p>
+          <p><strong>查看全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables;</span><br><span class="line">mysql&gt; show global variables like '%timeout';</span><br></pre></td></tr></table></figure>
 
+<p><strong>设置全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global innodb_ft_min_token_size=1;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -822,7 +1081,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/import-httplib-ImportError-No-module-named-httplib%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -836,7 +1095,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib%203/" class="post-title-link" itemprop="url">import httplib ImportError: No module named httplib</a>
+            <a href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" class="post-title-link" itemprop="url">docker中的导入导出</a>
         </h2>
 
         <div class="post-meta">
@@ -846,7 +1105,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-25 09:25:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:25:00+08:00">2018-01-25</time>
+              <time title="创建时间：2017-02-19 21:08:11" itemprop="dateCreated datePublished" datetime="2017-02-19T21:08:11+08:00">2017-02-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -854,7 +1113,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
                 </span>
             </span>
 
@@ -867,8 +1126,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/import-httplib-ImportError-No-module-named-httplib 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/docker的导入导出/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -883,182 +1142,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在Python2的代码中<code>import httplib</code>是没有问题的, 到了Python3, 这个模块的导入名称变成了<code>http.client</code>, 所以在如果你使用的是Python3, 需要导入这个模块, <code>import http.client</code>就可以了</p>
+          <blockquote>
+<p>在 docker 的概念中, 有两套导入导出的概念. 分别是<code>export 和 import</code>还有<code>save 和 load</code> 百度搜索🔍它们的区别, 有一篇被引用了很多次的文章虽然讲的很详细, 还加入了一些实验验证, 但是试验中为了实现同一个效果而使用了 commit 命令更改了镜像内容. 理解和使用起来可能会有些偏差, 本文将以最简单明了的方式介绍 docker 中的两套导入导出功能</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">export&amp;import</th>
+<th align="center">save&amp;load</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操作对象</td>
+<td align="center">容器</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">导出对象</td>
+<td align="center">tar 文件</td>
+<td align="center">tar 文件</td>
+</tr>
+<tr>
+<td align="center">导入对象</td>
+<td align="center">镜像</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">镜像层数</td>
+<td align="center">一层</td>
+<td align="center">多层</td>
+</tr>
+</tbody></table>
+<p><strong>下面我们来一行一行的解释</strong></p>
+<h1 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h1><p>操作的对象不同, export 和 import 是用来导入导出容器用的, 而 save 和 load 是用来导入导出镜像用的.</p>
+<p>例如: 你需要把 <code>A</code> 机器上的 <code>甲</code> 容器迁移到 <code>B</code> 机器, 且 <code>甲</code> 容器中有重要的数据需要随之一起迁移的, 就可以使用 <code>export 和 import</code> 参数来导入和导出</p>
+<p>例如: 你的服务器不能 pull 下来某个镜像, 但是你有一台海外的机器, 你可以在海外的那台机器上把需要的镜像 pull 下来, 然后把该镜像通过 <code>save</code> 命令导出为一个 tar 包, 再将 tar 包拉回到本地导入</p>
+<p>所以, 从功能定位上, 你就记住 <code>save 和 load</code>参数是用来迁移镜像的这个场景就行了, 另外的 <code>export 和 import</code>当然就是用来迁容器的</p>
+<h1 id="导出对象"><a href="#导出对象" class="headerlink" title="导出对象"></a>导出对象</h1><p>在导出对象这一点, <code>export</code> 和 <code>save</code> 导出的文件形式都是一样的, 两者都是导出为一个 tar 包</p>
+<h1 id="导入对象"><a href="#导入对象" class="headerlink" title="导入对象"></a>导入对象</h1><p>在导入上, <code>import</code> 和 <code>load</code> 通过 tar 包导入的都是一个镜像</p>
+<h1 id="导入的镜像层数"><a href="#导入的镜像层数" class="headerlink" title="导入的镜像层数"></a>导入的镜像层数</h1><p>最大的区别就在这里, 通过<code>export 和 import</code>导出的容器形成镜像时, 该镜像只有一层</p>
+<p>通过<code>save</code> 和 <code>load</code> 导出的镜像保留了原镜像所有的层次结构, 导出时原镜像有几层, 导入的时候就还是有几层</p>
+<h1 id="想导出容器-但是还想保留层次结构怎么办"><a href="#想导出容器-但是还想保留层次结构怎么办" class="headerlink" title="想导出容器, 但是还想保留层次结构怎么办?"></a>想导出容器, 但是还想保留层次结构怎么办?</h1><p>导出容器, 很快就想到唯一一个可以导出容器的工具 <code>export</code></p>
+<p>但是又想保留底层镜像的层次结构, 那么 <code>export</code> 就不符合需求了</p>
+<p>想想导出带层次结构的工具就只有镜像导出工具 <code>save</code> 了, 但是容器在镜像层之上还有一层新的数据怎么一起导出去呢? </p>
+<p>这个时候就需要引入一个新的参数 <code>commit</code>, 用来保存容器现有的状态为一个新的镜像 </p>
+<p>比如在 <code>A</code> 机器上运行的 <code>甲</code> 容器是基于 <code>甲方乙方</code> 这个镜像跑起来的, 那么我就可以通过 <code>commit</code> 参数, 将 <code>甲</code> 容器的所有内容保存为一个新的镜像, 名字叫 <code>私人订制</code> (内含一梗哦😆) 最后我再通过镜像导出工具 <code>save</code> 就可以完整的将 <code>私人订制</code>镜像(也就是 <code>甲容器</code> )导出为一个 tar 包了</p>
+<p>而且包含了 X+1 层镜像, X 层是原镜像 <code>甲方乙方</code> 的所有镜像层数, 1是容器 <code>甲</code> 多的那一层可写层的镜像</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结来说我也希望大家使用 docker 能遵循 docker 的设计初衷, 运行一个无状态的容器. 如果是无状态的容器, 就不会产生 <code>想导出容器, 但是还想保留层次结构怎么办?</code> 这样的奇葩问题了. </p>
+<p>所以最后还是要再次强调:</p>
+<ul>
+<li>export 和 import 是用来导出导入容器用的, 导出的是容器的文件系统, 导出后的镜像只有一层</li>
+<li>save 和 load 是用来导出导入镜像用的, 导出后保持着原镜像的层次结构</li>
+</ul>
+<p>这里我没有详细介绍这四个参数的具体用法, 因为网上已经有很详细的文章介绍啦, 一下就是百度经常能搜到的关于 docker 导入导出的文章</p>
+<p><a href="https://my.oschina.net/zjzhai/blog/225112" target="_blank" rel="noopener">https://my.oschina.net/zjzhai/blog/225112</a></p>
+<p>具体用法可以参考以上文章, 但是概念理解, 我还是觉得自己写的比较清楚😆, 因为我没有故意构造出导出容器和导出镜像结果相同的场景</p>
+<hr>
+<p>参考文档</p>
+<p>docker export 官方文档<a href="https://docs.docker.com/engine/reference/commandline/export/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/export/</a></p>
+<p>docker save 官方文档<a href="https://docs.docker.com/engine/reference/commandline/save/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/save/</a></p>
+<p>docker commit 官方文档<a href="https://docs.docker.com/engine/reference/commandline/commit/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/commit/</a></p>
 
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Python2的中文字符编码报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:22:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:22:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Python2的中文字符编码报错/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python2中, 在首行声明了字符编码为<code>utf8</code>, 但是依然报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 0: ordinal not in range(128)</span><br></pre></td></tr></table></figure>
-
-<p>解决方法如下:</p>
-<p>在报错的python文件中加入以下几行代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/" class="post-title-link" itemprop="url">Python2的中文字符编码报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:22:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:22:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Python2的中文字符编码报错 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python2中, 在首行声明了字符编码为<code>utf8</code>, 但是依然报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 0: ordinal not in range(128)</span><br></pre></td></tr></table></figure>
-
-<p>解决方法如下:</p>
-<p>在报错的python文件中加入以下几行代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1079,7 +1224,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1147,7 +1292,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1160,7 +1305,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

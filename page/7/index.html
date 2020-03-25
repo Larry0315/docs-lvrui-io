@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">Go基础之字符和字符串的处理</a>
+            <a href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/" class="post-title-link" itemprop="url">heartbeat-elastic报错:system_api_version [6] is not supported by system_id [beats]</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-08-13 23:16:34" itemprop="dateCreated datePublished" datetime="2018-08-13T23:16:34+08:00">2018-08-13</time>
+              <time title="创建时间：2018-02-11 20:43:00" itemprop="dateCreated datePublished" datetime="2018-02-11T20:43:00+08:00">2018-02-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                  <a href="/categories/ELK-Stack/" itemprop="url" rel="index"><span itemprop="name">ELK Stack</span></a>
                 </span>
             </span>
 
@@ -252,618 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之字符和字符串的处理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Go语言中, 当我们尝试遍历一个字符串的时候</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"我是带😈emoji的字符串!"</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, ch := <span class="keyword">range</span> s &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d %c\n"</span>, i, ch)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">我是带😈emoji的字符串!</span><br><span class="line">0 我</span><br><span class="line">3 是</span><br><span class="line">6 带</span><br><span class="line">9 😈</span><br><span class="line">13 e</span><br><span class="line">14 m</span><br><span class="line">15 o</span><br><span class="line">16 j</span><br><span class="line">17 i</span><br><span class="line">18 的</span><br><span class="line">21 字</span><br><span class="line">24 符</span><br><span class="line">27 串</span><br><span class="line">30 !</span><br></pre></td></tr></table></figure>
-
-<p>每个<code>i</code>对应的都是一个字节, 结果中出现的<code>0 3 6 9</code>是对应了获取底层字节的索引码, 第二个字符的字节码之所以会从第3位开始取, 是因为第一个中文字符其实占用了三个字节, 所以下一个字需要从索引为3的字节开始读取</p>
-<p>Go语言中, 有一种数据类型叫<code>rune</code>, 他是由一个<code>int32</code>类型构成的新的数据类型, 专门用来处理Go语言中的字符问题</p>
-<p>下面的demo中, 我们使用强制类型转换来将字符串, 强制转换为rune类型</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"我是带😈emoji的字符串!"</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, ch := <span class="keyword">range</span> []<span class="keyword">rune</span>(s) &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d %c\n"</span>, i, ch)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">我是带😈emoji的字符串!</span><br><span class="line">0 我</span><br><span class="line">1 是</span><br><span class="line">2 带</span><br><span class="line">3 😈</span><br><span class="line">4 e</span><br><span class="line">5 m</span><br><span class="line">6 o</span><br><span class="line">7 j</span><br><span class="line">8 i</span><br><span class="line">9 的</span><br><span class="line">10 字</span><br><span class="line">11 符</span><br><span class="line">12 串</span><br><span class="line">13 !</span><br></pre></td></tr></table></figure>
-
-<p>小结:</p>
-<ul>
-<li>rune相当于Go语言中的char</li>
-<li>使用range遍历position, rune</li>
-<li>使用utf8.RuneCountInString来获得字符的长度</li>
-<li>使用len(s)来获得字节的长度, len([]rune(s))来获得字符的长度</li>
-<li>使用[]byte获得字节</li>
-</ul>
-<h1 id="使用strings包操作字符串"><a href="#使用strings包操作字符串" class="headerlink" title="使用strings包操作字符串"></a>使用strings包操作字符串</h1><p>一下列出常用的函数, 更多使用方法和demo请参考官方文档: <a href="https://golang.org/pkg/strings/" target="_blank" rel="noopener">https://golang.org/pkg/strings/</a></p>
-<h2 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h2><p><code>func Compare(a, b string) int</code></p>
-<p>Compare函数用来比较两个字符串, 返回值为int类型, 如果两个字符串相等, 返回<code>0</code>; 如果<code>a&gt;b</code>返回<code>1</code>; <code>a&lt;b</code>返回<code>-1</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"a"</span>, <span class="string">"b"</span>))</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"a"</span>, <span class="string">"a"</span>))</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"b"</span>, <span class="string">"a"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-1</span><br><span class="line">0</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Contains"><a href="#Contains" class="headerlink" title="Contains"></a>Contains</h2><p><code>func Contains(s, substr string) bool</code></p>
-<p>Contains函数用来判断第二个参数的字符串是否是第一个参数字符串的子串, 返回值为bool类型</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">"foo"</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">"bar"</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">""</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">""</span>, <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
-
-<h2 id="Count"><a href="#Count" class="headerlink" title="Count"></a>Count</h2><p><code>func Count(s, substr string) int</code></p>
-<p>Count函数用来计算子串在s字符串中出现的次数</p>
-<h2 id="Fields"><a href="#Fields" class="headerlink" title="Fields"></a>Fields</h2><p><code>func Fields(s string) []string</code></p>
-<p>Fields函数以空格为分隔符, 将字符串分割成slice</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"Fields are: %q"</span>, strings.Fields(<span class="string">"  foo bar  baz   "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fields are: [&quot;foo&quot; &quot;bar&quot; &quot;baz&quot;]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h2><p><code>func Index(s, substr string) int</code></p>
-<p>Index函数返回第一个substr在s中出现的位置, 如果没有找到, 将返回<code>-1</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"chicken"</span>, <span class="string">"ken"</span>))</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"chicken"</span>, <span class="string">"dmr"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h2><p><code>func Join(a []string, sep string) string</code></p>
-<p>Join函数用来将slice以指定的字符拼接成字符串</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">string</span>&#123;<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>&#125;</span><br><span class="line">	fmt.Println(strings.Join(s, <span class="string">", "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo, bar, baz</span><br></pre></td></tr></table></figure>
-
-<h2 id="LastIndex"><a href="#LastIndex" class="headerlink" title="LastIndex"></a>LastIndex</h2><p><code>func LastIndex(s, substr string) int</code></p>
-<p>LastIndex函数用来查找在s中最后一次出现子串的位置</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"go gopher"</span>, <span class="string">"go"</span>))</span><br><span class="line">	fmt.Println(strings.LastIndex(<span class="string">"go gopher"</span>, <span class="string">"go"</span>))</span><br><span class="line">	fmt.Println(strings.LastIndex(<span class="string">"go gopher"</span>, <span class="string">"rodent"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">3</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h2><p><code>func Repeat(s string, count int) string</code></p>
-<p>Repeat函数返回以指定次数重复的字符(串)</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"ba"</span> + strings.Repeat(<span class="string">"na"</span>, <span class="number">2</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">banana</span><br></pre></td></tr></table></figure>
-
-<h2 id="Replace"><a href="#Replace" class="headerlink" title="Replace"></a>Replace</h2><p><code>func Replace(s, old, new string, n int) string</code></p>
-<p>替换</p>
-<h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><p><code>func Split(s, sep string) []string</code></p>
-<p>将字符串以指定字符切割成slice</p>
-<h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p><code>func Title(s string) string</code></p>
-<p>每个单词的首字符大写</p>
-<h2 id="ToLower"><a href="#ToLower" class="headerlink" title="ToLower"></a>ToLower</h2><p><code>func ToLower(s string) string</code></p>
-<p>转小写</p>
-<h2 id="ToUpper"><a href="#ToUpper" class="headerlink" title="ToUpper"></a>ToUpper</h2><p><code>func ToUpper(s string) string</code></p>
-<p>转大写</p>
-<h2 id="Trim-TrimLeft-TrimRight"><a href="#Trim-TrimLeft-TrimRight" class="headerlink" title="Trim/TrimLeft/TrimRight"></a>Trim/TrimLeft/TrimRight</h2><p><code>func Trim(s string, cutset string) string</code></p>
-<p>去掉两边空格/去掉左边空格/去掉右边空格</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86%203/" class="post-title-link" itemprop="url">Go基础之字符和字符串的处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-13 23:16:34" itemprop="dateCreated datePublished" datetime="2018-08-13T23:16:34+08:00">2018-08-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%84%E7%90%86%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之字符和字符串的处理 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Go语言中, 当我们尝试遍历一个字符串的时候</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"我是带😈emoji的字符串!"</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, ch := <span class="keyword">range</span> s &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d %c\n"</span>, i, ch)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">我是带😈emoji的字符串!</span><br><span class="line">0 我</span><br><span class="line">3 是</span><br><span class="line">6 带</span><br><span class="line">9 😈</span><br><span class="line">13 e</span><br><span class="line">14 m</span><br><span class="line">15 o</span><br><span class="line">16 j</span><br><span class="line">17 i</span><br><span class="line">18 的</span><br><span class="line">21 字</span><br><span class="line">24 符</span><br><span class="line">27 串</span><br><span class="line">30 !</span><br></pre></td></tr></table></figure>
-
-<p>每个<code>i</code>对应的都是一个字节, 结果中出现的<code>0 3 6 9</code>是对应了获取底层字节的索引码, 第二个字符的字节码之所以会从第3位开始取, 是因为第一个中文字符其实占用了三个字节, 所以下一个字需要从索引为3的字节开始读取</p>
-<p>Go语言中, 有一种数据类型叫<code>rune</code>, 他是由一个<code>int32</code>类型构成的新的数据类型, 专门用来处理Go语言中的字符问题</p>
-<p>下面的demo中, 我们使用强制类型转换来将字符串, 强制转换为rune类型</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"我是带😈emoji的字符串!"</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, ch := <span class="keyword">range</span> []<span class="keyword">rune</span>(s) &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d %c\n"</span>, i, ch)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">我是带😈emoji的字符串!</span><br><span class="line">0 我</span><br><span class="line">1 是</span><br><span class="line">2 带</span><br><span class="line">3 😈</span><br><span class="line">4 e</span><br><span class="line">5 m</span><br><span class="line">6 o</span><br><span class="line">7 j</span><br><span class="line">8 i</span><br><span class="line">9 的</span><br><span class="line">10 字</span><br><span class="line">11 符</span><br><span class="line">12 串</span><br><span class="line">13 !</span><br></pre></td></tr></table></figure>
-
-<p>小结:</p>
-<ul>
-<li>rune相当于Go语言中的char</li>
-<li>使用range遍历position, rune</li>
-<li>使用utf8.RuneCountInString来获得字符的长度</li>
-<li>使用len(s)来获得字节的长度, len([]rune(s))来获得字符的长度</li>
-<li>使用[]byte获得字节</li>
-</ul>
-<h1 id="使用strings包操作字符串"><a href="#使用strings包操作字符串" class="headerlink" title="使用strings包操作字符串"></a>使用strings包操作字符串</h1><p>一下列出常用的函数, 更多使用方法和demo请参考官方文档: <a href="https://golang.org/pkg/strings/" target="_blank" rel="noopener">https://golang.org/pkg/strings/</a></p>
-<h2 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h2><p><code>func Compare(a, b string) int</code></p>
-<p>Compare函数用来比较两个字符串, 返回值为int类型, 如果两个字符串相等, 返回<code>0</code>; 如果<code>a&gt;b</code>返回<code>1</code>; <code>a&lt;b</code>返回<code>-1</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"a"</span>, <span class="string">"b"</span>))</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"a"</span>, <span class="string">"a"</span>))</span><br><span class="line">	fmt.Println(strings.Compare(<span class="string">"b"</span>, <span class="string">"a"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-1</span><br><span class="line">0</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Contains"><a href="#Contains" class="headerlink" title="Contains"></a>Contains</h2><p><code>func Contains(s, substr string) bool</code></p>
-<p>Contains函数用来判断第二个参数的字符串是否是第一个参数字符串的子串, 返回值为bool类型</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">"foo"</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">"bar"</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">"seafood"</span>, <span class="string">""</span>))</span><br><span class="line">	fmt.Println(strings.Contains(<span class="string">""</span>, <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
-
-<h2 id="Count"><a href="#Count" class="headerlink" title="Count"></a>Count</h2><p><code>func Count(s, substr string) int</code></p>
-<p>Count函数用来计算子串在s字符串中出现的次数</p>
-<h2 id="Fields"><a href="#Fields" class="headerlink" title="Fields"></a>Fields</h2><p><code>func Fields(s string) []string</code></p>
-<p>Fields函数以空格为分隔符, 将字符串分割成slice</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"Fields are: %q"</span>, strings.Fields(<span class="string">"  foo bar  baz   "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fields are: [&quot;foo&quot; &quot;bar&quot; &quot;baz&quot;]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h2><p><code>func Index(s, substr string) int</code></p>
-<p>Index函数返回第一个substr在s中出现的位置, 如果没有找到, 将返回<code>-1</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"chicken"</span>, <span class="string">"ken"</span>))</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"chicken"</span>, <span class="string">"dmr"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h2><p><code>func Join(a []string, sep string) string</code></p>
-<p>Join函数用来将slice以指定的字符拼接成字符串</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">string</span>&#123;<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>&#125;</span><br><span class="line">	fmt.Println(strings.Join(s, <span class="string">", "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo, bar, baz</span><br></pre></td></tr></table></figure>
-
-<h2 id="LastIndex"><a href="#LastIndex" class="headerlink" title="LastIndex"></a>LastIndex</h2><p><code>func LastIndex(s, substr string) int</code></p>
-<p>LastIndex函数用来查找在s中最后一次出现子串的位置</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(strings.Index(<span class="string">"go gopher"</span>, <span class="string">"go"</span>))</span><br><span class="line">	fmt.Println(strings.LastIndex(<span class="string">"go gopher"</span>, <span class="string">"go"</span>))</span><br><span class="line">	fmt.Println(strings.LastIndex(<span class="string">"go gopher"</span>, <span class="string">"rodent"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">3</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h2><p><code>func Repeat(s string, count int) string</code></p>
-<p>Repeat函数返回以指定次数重复的字符(串)</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"ba"</span> + strings.Repeat(<span class="string">"na"</span>, <span class="number">2</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">banana</span><br></pre></td></tr></table></figure>
-
-<h2 id="Replace"><a href="#Replace" class="headerlink" title="Replace"></a>Replace</h2><p><code>func Replace(s, old, new string, n int) string</code></p>
-<p>替换</p>
-<h2 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h2><p><code>func Split(s, sep string) []string</code></p>
-<p>将字符串以指定字符切割成slice</p>
-<h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p><code>func Title(s string) string</code></p>
-<p>每个单词的首字符大写</p>
-<h2 id="ToLower"><a href="#ToLower" class="headerlink" title="ToLower"></a>ToLower</h2><p><code>func ToLower(s string) string</code></p>
-<p>转小写</p>
-<h2 id="ToUpper"><a href="#ToUpper" class="headerlink" title="ToUpper"></a>ToUpper</h2><p><code>func ToUpper(s string) string</code></p>
-<p>转大写</p>
-<h2 id="Trim-TrimLeft-TrimRight"><a href="#Trim-TrimLeft-TrimRight" class="headerlink" title="Trim/TrimLeft/TrimRight"></a>Trim/TrimLeft/TrimRight</h2><p><code>func Trim(s string, cutset string) string</code></p>
-<p>去掉两边空格/去掉左边空格/去掉右边空格</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap/" class="post-title-link" itemprop="url">Go基础之Map</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-13 22:32:32" itemprop="dateCreated datePublished" datetime="2018-08-13T22:32:32+08:00">2018-08-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之Map/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="map中的key"><a href="#map中的key" class="headerlink" title="map中的key"></a>map中的key</h2><p>Go语言中对map中的key的数据类型有如下要求:</p>
-<ul>
-<li>map使用哈希表, key必须可以比较相等</li>
-<li>除了slice, map, function的内建类型都可以作为key</li>
-<li>struct类型如果不包含第二条中排除的数据类型, 也可以做为key</li>
-</ul>
-<h2 id="map的声明与赋值"><a href="#map的声明与赋值" class="headerlink" title="map的声明与赋值"></a>map的声明与赋值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(m)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-<h3 id="嵌套Map"><a href="#嵌套Map" class="headerlink" title="嵌套Map"></a>嵌套Map</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"member"</span>: &#123;</span><br><span class="line">			<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">			<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">			<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(m[<span class="string">"member"</span>][<span class="string">"name"</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">larry</span><br></pre></td></tr></table></figure>
-
-<h3 id="其他声明map的方式"><a href="#其他声明map的方式" class="headerlink" title="其他声明map的方式"></a>其他声明map的方式</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)  <span class="comment">// m == empty map</span></span><br><span class="line">	<span class="keyword">var</span> mm <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>  <span class="comment">// mm == nil</span></span><br><span class="line">	fmt.Println(m, mm)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map[] map[]</span><br></pre></td></tr></table></figure>
-
-<h2 id="map的遍历"><a href="#map的遍历" class="headerlink" title="map的遍历"></a>map的遍历</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		fmt.Println(k, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">company PolarSnow Inc.</span><br><span class="line">website https:&#x2F;&#x2F;lvrui.io</span><br><span class="line">name larry</span><br></pre></td></tr></table></figure>
-
-<p>注意: map是无序的</p>
-<h2 id="读取map中的值"><a href="#读取map中的值" class="headerlink" title="读取map中的值"></a>读取map中的值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m[<span class="string">"website"</span>])</span><br><span class="line"></span><br><span class="line">	fmt.Println(m[<span class="string">"site"</span>])  <span class="comment">// map中无此key, 但是不会报错, 拿到的是string的zero value</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 通常判断map取值有没有成功的方式</span></span><br><span class="line">	<span class="keyword">if</span> address, ok := m[<span class="string">"website"</span>]; ok &#123;</span><br><span class="line">		fmt.Println(address)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Key does not exist"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;lvrui.io</span><br><span class="line"></span><br><span class="line">https:&#x2F;&#x2F;lvrui.io</span><br></pre></td></tr></table></figure>
-
-<h2 id="增加-修改元素"><a href="#增加-修改元素" class="headerlink" title="增加/修改元素"></a>增加/修改元素</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	m[<span class="string">"country"</span>] = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	m[<span class="string">"name"</span>] = <span class="string">"Polar Snow"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map[company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io name:larry]</span><br><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io country:China]</span><br><span class="line">map[name:Polar Snow company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io country:China]</span><br></pre></td></tr></table></figure>
-
-<p>Go对map添加/修改元素的操作形式, 与Python相同</p>
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">delete</span>(m, <span class="string">"company"</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io]</span><br><span class="line">map[name:larry website:https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取map元素的个数"><a href="#获取map元素的个数" class="headerlink" title="获取map元素的个数"></a>获取map元素的个数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(m))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="map的应用"><a href="#map的应用" class="headerlink" title="map的应用"></a>map的应用</h2><h3 id="取出所有key和所有value"><a href="#取出所有key和所有value" class="headerlink" title="取出所有key和所有value"></a>取出所有key和所有value</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> key []<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">var</span> value []<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		key = <span class="built_in">append</span>(key, k)</span><br><span class="line">		value = <span class="built_in">append</span>(value, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(key)</span><br><span class="line">	fmt.Println(value)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[name company website]</span><br><span class="line">[larry PolarSnow Inc. https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap%203/" class="post-title-link" itemprop="url">Go基础之Map</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-13 22:32:32" itemprop="dateCreated datePublished" datetime="2018-08-13T22:32:32+08:00">2018-08-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8BMap%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之Map 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="map中的key"><a href="#map中的key" class="headerlink" title="map中的key"></a>map中的key</h2><p>Go语言中对map中的key的数据类型有如下要求:</p>
-<ul>
-<li>map使用哈希表, key必须可以比较相等</li>
-<li>除了slice, map, function的内建类型都可以作为key</li>
-<li>struct类型如果不包含第二条中排除的数据类型, 也可以做为key</li>
-</ul>
-<h2 id="map的声明与赋值"><a href="#map的声明与赋值" class="headerlink" title="map的声明与赋值"></a>map的声明与赋值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(m)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-<h3 id="嵌套Map"><a href="#嵌套Map" class="headerlink" title="嵌套Map"></a>嵌套Map</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"member"</span>: &#123;</span><br><span class="line">			<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">			<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">			<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(m[<span class="string">"member"</span>][<span class="string">"name"</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">larry</span><br></pre></td></tr></table></figure>
-
-<h3 id="其他声明map的方式"><a href="#其他声明map的方式" class="headerlink" title="其他声明map的方式"></a>其他声明map的方式</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)  <span class="comment">// m == empty map</span></span><br><span class="line">	<span class="keyword">var</span> mm <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>  <span class="comment">// mm == nil</span></span><br><span class="line">	fmt.Println(m, mm)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map[] map[]</span><br></pre></td></tr></table></figure>
-
-<h2 id="map的遍历"><a href="#map的遍历" class="headerlink" title="map的遍历"></a>map的遍历</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		fmt.Println(k, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">company PolarSnow Inc.</span><br><span class="line">website https:&#x2F;&#x2F;lvrui.io</span><br><span class="line">name larry</span><br></pre></td></tr></table></figure>
-
-<p>注意: map是无序的</p>
-<h2 id="读取map中的值"><a href="#读取map中的值" class="headerlink" title="读取map中的值"></a>读取map中的值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m[<span class="string">"website"</span>])</span><br><span class="line"></span><br><span class="line">	fmt.Println(m[<span class="string">"site"</span>])  <span class="comment">// map中无此key, 但是不会报错, 拿到的是string的zero value</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 通常判断map取值有没有成功的方式</span></span><br><span class="line">	<span class="keyword">if</span> address, ok := m[<span class="string">"website"</span>]; ok &#123;</span><br><span class="line">		fmt.Println(address)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Key does not exist"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;lvrui.io</span><br><span class="line"></span><br><span class="line">https:&#x2F;&#x2F;lvrui.io</span><br></pre></td></tr></table></figure>
-
-<h2 id="增加-修改元素"><a href="#增加-修改元素" class="headerlink" title="增加/修改元素"></a>增加/修改元素</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	m[<span class="string">"country"</span>] = <span class="string">"China"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	m[<span class="string">"name"</span>] = <span class="string">"Polar Snow"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map[company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io name:larry]</span><br><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io country:China]</span><br><span class="line">map[name:Polar Snow company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io country:China]</span><br></pre></td></tr></table></figure>
-
-<p>Go对map添加/修改元素的操作形式, 与Python相同</p>
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">delete</span>(m, <span class="string">"company"</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(m)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map[name:larry company:PolarSnow Inc. website:https:&#x2F;&#x2F;lvrui.io]</span><br><span class="line">map[name:larry website:https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取map元素的个数"><a href="#获取map元素的个数" class="headerlink" title="获取map元素的个数"></a>获取map元素的个数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(m))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="map的应用"><a href="#map的应用" class="headerlink" title="map的应用"></a>map的应用</h2><h3 id="取出所有key和所有value"><a href="#取出所有key和所有value" class="headerlink" title="取出所有key和所有value"></a>取出所有key和所有value</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"larry"</span>,</span><br><span class="line">		<span class="string">"company"</span>: <span class="string">"PolarSnow Inc."</span>,</span><br><span class="line">		<span class="string">"website"</span>: <span class="string">"https://lvrui.io"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> key []<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">var</span> value []<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		key = <span class="built_in">append</span>(key, k)</span><br><span class="line">		value = <span class="built_in">append</span>(value, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(key)</span><br><span class="line">	fmt.Println(value)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[name company website]</span><br><span class="line">[larry PolarSnow Inc. https:&#x2F;&#x2F;lvrui.io]</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">Go基础之range遍历</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-13 15:14:07" itemprop="dateCreated datePublished" datetime="2018-08-13T15:14:07+08:00">2018-08-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之range遍历/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/02/11/heartbeat-elastic%E6%8A%A5%E9%94%99-system-api-version-6-is-not-supported-by-system-id-beats/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/11/heartbeat-elastic报错-system-api-version-6-is-not-supported-by-system-id-beats/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -879,22 +269,12 @@
 
       
           <blockquote>
-<p>Go语言的<code>range</code>关键字用于在<code>for</code>语句中遍历数组Array, Slice, Map和Channel中的元素.</p>
+<p>配置heartbeat-elastic服务时日志报错如下<code>2018-02-11T07:36:29.217-0500    ERROR   pipeline/output.go:92   Failed to publish events: 400 Bad Request: {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;}],&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;system_api_version [6] is not supported by system_id [beats]&quot;},&quot;status&quot;:400}</code></p>
 </blockquote>
-<h1 id="遍历Array"><a href="#遍历Array" class="headerlink" title="遍历Array"></a>遍历Array</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个array</span></span><br><span class="line">	arr := [<span class="number">4</span>]<span class="keyword">string</span> &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		fmt.Println(i, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 a</span><br><span class="line">1 b</span><br><span class="line">2 c</span><br><span class="line">3 d</span><br></pre></td></tr></table></figure>
-
-<h1 id="遍历Slice"><a href="#遍历Slice" class="headerlink" title="遍历Slice"></a>遍历Slice</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个slice</span></span><br><span class="line">	arr := []<span class="keyword">string</span> &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		fmt.Println(i, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 a</span><br><span class="line">1 b</span><br><span class="line">2 c</span><br><span class="line">3 d</span><br></pre></td></tr></table></figure>
-
-<h1 id="遍历Map"><a href="#遍历Map" class="headerlink" title="遍历Map"></a>遍历Map</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个map</span></span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"k1"</span>: <span class="string">"polarsnow"</span>, <span class="string">"k2"</span>: <span class="string">"larry"</span>, <span class="string">"k3"</span>: <span class="string">"lyu"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		fmt.Println(k, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k1 polarsnow</span><br><span class="line">k2 larry</span><br><span class="line">k3 lyu</span><br></pre></td></tr></table></figure>
+<p>解决方法:</p>
+<p>手动设置<code>/etc/heartbeat/heartbeat.yml</code> 配置文件中的 <code>name</code>变量 <code>name: 10.10.62.16</code> </p>
+<p>重启<code>heartbeat-elastic</code>服务即可</p>
+<p><code>systemctl restart heartbeat-elastic.service</code></p>
 
       
     </div>
@@ -916,7 +296,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86%203/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -930,7 +310,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86%203/" class="post-title-link" itemprop="url">Go基础之range遍历</a>
+            <a href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Python实现redis的自增操作</a>
         </h2>
 
         <div class="post-meta">
@@ -940,7 +320,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-08-13 15:14:07" itemprop="dateCreated datePublished" datetime="2018-08-13T15:14:07+08:00">2018-08-13</time>
+              <time title="创建时间：2018-01-29 11:56:00" itemprop="dateCreated datePublished" datetime="2018-01-29T11:56:00+08:00">2018-01-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -948,7 +328,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -961,8 +341,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/08/13/Go%E5%9F%BA%E7%A1%80%E4%B9%8Brange%E9%81%8D%E5%8E%86%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/13/Go基础之range遍历 3/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/29/Python实现redis的自增操作/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -978,22 +358,21 @@
 
       
           <blockquote>
-<p>Go语言的<code>range</code>关键字用于在<code>for</code>语句中遍历数组Array, Slice, Map和Channel中的元素.</p>
+<p>在传统的数据库中, 如果实现一个计数器的操作, 需要先去数据库中读取该值, 再程序中加1, 再讲最新的值存入数据库. 用户操作的流程步骤多不说, 还容易出现数据安全性的问题, 比如多进程/多线程的并发情况, 有可能出现A进程读取的计数器为5, 在本地执行+1, 操作的时候, 此时B进程也去执行计数器+1操作, B读取的数值也是5, 然后A将+1之后的数字6存入数据库, 之后B处理完后也将+1之后的6存入数据库, 这样就导致了在并发的情况下, 计数器的数据不准的情况.</p>
 </blockquote>
-<h1 id="遍历Array"><a href="#遍历Array" class="headerlink" title="遍历Array"></a>遍历Array</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个array</span></span><br><span class="line">	arr := [<span class="number">4</span>]<span class="keyword">string</span> &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		fmt.Println(i, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Redis的很多操作本身都是原子性的, 例如上面案例中, 计数器+1的问题, 会有三个步骤</p>
+<ul>
+<li>读取数值</li>
+<li>自增操作</li>
+<li>写入数值</li>
+</ul>
+<p>在传统数据库中, 为了保证数据的安全性, 这三个步骤通常是要加锁的, 也就是在步骤已经很多的情况下, 还需要考虑锁的问题. 但是Redis就不同了, Redis原子性的意思就是说, 可以保证上面的三个步骤是一个操作, 在这个操作完成之后才允许我们对其进行其他操作, 这就原生的保证了数据安全性</p>
+<h1 id="redis中的自增"><a href="#redis中的自增" class="headerlink" title="redis中的自增"></a>redis中的自增</h1><p>在redis中, 如果一个key的value是数值类型, 我们就可以对这个值进行incr操作, 如果数值是整形int, 使用incr进行自增操作, 如果数值是浮点型float, 则需要使用incrbyfloat进行操作, 还有一种情况, 就是对int使用了incrbyfloat操作, 则这个数值就会变成float类型, 也就无法再对其执行incr操作了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: pool=redis.ConnectionPool(host=<span class="string">'127.0.0.1'</span>,port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: r = redis.StrictRedis(connection_pool=pool)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: r.keys()</span><br><span class="line">Out[<span class="number">4</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: r.incr(<span class="string">'counter'</span>, <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: r.keys()</span><br><span class="line">Out[<span class="number">9</span>]: [<span class="string">b'counter'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: r.get(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">10</span>]: <span class="string">b'5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">11</span>]: <span class="number">6.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">12</span>]: <span class="number">7.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">7.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">14</span>]: <span class="number">7.2</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 a</span><br><span class="line">1 b</span><br><span class="line">2 c</span><br><span class="line">3 d</span><br></pre></td></tr></table></figure>
+<h1 id="redis中的自减"><a href="#redis中的自减" class="headerlink" title="redis中的自减"></a>redis中的自减</h1><p>redis中使用decr函数进行自减操作, 但是自减中, 没有提供类似incrbyfloat的操作, 如果在自减中想实现浮点数的效果, 可以通过在incrbyfloat函数中使用负数的方式实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: r.keys()</span><br><span class="line">Out[<span class="number">19</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">20</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: r.decr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">22</span>]: <span class="number">-1.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">23</span>]: <span class="number">-2.2</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="遍历Slice"><a href="#遍历Slice" class="headerlink" title="遍历Slice"></a>遍历Slice</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个slice</span></span><br><span class="line">	arr := []<span class="keyword">string</span> &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		fmt.Println(i, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 a</span><br><span class="line">1 b</span><br><span class="line">2 c</span><br><span class="line">3 d</span><br></pre></td></tr></table></figure>
-
-<h1 id="遍历Map"><a href="#遍历Map" class="headerlink" title="遍历Map"></a>遍历Map</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义一个map</span></span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"k1"</span>: <span class="string">"polarsnow"</span>, <span class="string">"k2"</span>: <span class="string">"larry"</span>, <span class="string">"k3"</span>: <span class="string">"lyu"</span>&#125;</span><br><span class="line">	<span class="comment">// 遍历array</span></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		fmt.Println(k, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k1 polarsnow</span><br><span class="line">k2 larry</span><br><span class="line">k3 lyu</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1015,7 +394,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1029,7 +408,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema/" class="post-title-link" itemprop="url">mysqldump unknown table 'column_statistics' in information_schema</a>
+            <a href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">nginx切割日志文件</a>
         </h2>
 
         <div class="post-meta">
@@ -1039,16 +418,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-08-08 17:38:27" itemprop="dateCreated datePublished" datetime="2018-08-08T17:38:27+08:00">2018-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
+              <time title="创建时间：2018-01-26 18:13:00" itemprop="dateCreated datePublished" datetime="2018-01-26T18:13:00+08:00">2018-01-26</time>
             </span>
 
           
@@ -1060,8 +430,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/26/inx%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/26/inx切割日志文件/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1076,9 +446,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>如果使用MySQL 8.0+版本提供的命令行工具mysqldump来导出低于8.0版本的MySQL数据库到SQL文件，会出现<code>Unknown table &#39;column_statistics&#39; in information_schema</code>的错误，因为早期版本的MySQL数据库的information_schema数据库中没有名为COLUMN_STATISTICS的数据表。  </p>
-<p>解决方法: 使用8.0以前版本MySQL附带的mysqldump工具，最好使用待备份的MySQL服务器版本对应版本号的mysqldump工具.</p>
+          <p>不知道这么基础的功能, 为什么Nginx官方没有提供配置~</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#设置日志文件存放目录</span></span><br><span class="line">logs_path=<span class="string">"/data/logs/nginx/"</span></span><br><span class="line"><span class="comment">#设置pid文件</span></span><br><span class="line">pid_path=<span class="string">"/usr/local/openresty/nginx/logs/nginx.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重命名日志文件</span></span><br><span class="line">mv <span class="variable">$&#123;logs_path&#125;</span>access.log <span class="variable">$&#123;logs_path&#125;</span>access_$(date -d <span class="string">"yesterday"</span> +<span class="string">"%Y%m%d"</span>).<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#向nginx主进程发信号重新打开日志</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `cat <span class="variable">$&#123;pid_path&#125;</span>`</span><br></pre></td></tr></table></figure>
 
+<p>以上文件名为年月日形式, 写成脚本保存, 然后加入到计划任务里每天执行就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; crontab -l</span><br><span class="line">0 0  *  *  * &#x2F;bin&#x2F;bash &#x2F;data&#x2F;scripts&#x2F;nginx_log_cut.sh &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1099,7 +471,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1113,7 +485,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema%205/" class="post-title-link" itemprop="url">mysqldump unknown table 'column_statistics' in information_schema</a>
+            <a href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">json.dumps中的ensure_ascii参数</a>
         </h2>
 
         <div class="post-meta">
@@ -1123,7 +495,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-08-08 17:38:27" itemprop="dateCreated datePublished" datetime="2018-08-08T17:38:27+08:00">2018-08-08</time>
+              <time title="创建时间：2018-01-25 09:40:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:40:00+08:00">2018-01-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1131,7 +503,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1144,92 +516,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/mysqldump-unknown-table-column-statistics-in-information-schema 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>如果使用MySQL 8.0+版本提供的命令行工具mysqldump来导出低于8.0版本的MySQL数据库到SQL文件，会出现<code>Unknown table &#39;column_statistics&#39; in information_schema</code>的错误，因为早期版本的MySQL数据库的information_schema数据库中没有名为COLUMN_STATISTICS的数据表。  </p>
-<p>解决方法: 使用8.0以前版本MySQL附带的mysqldump工具，最好使用待备份的MySQL服务器版本对应版本号的mysqldump工具.</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Python语言实现工厂方法设计模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-08 17:25:18" itemprop="dateCreated datePublished" datetime="2018-08-08T17:25:18+08:00">2018-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python语言实现工厂方法设计模式/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/25/json-dumps%E4%B8%AD%E7%9A%84ensure-ascii%E5%8F%82%E6%95%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/json-dumps中的ensure-ascii参数/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1245,16 +533,23 @@
 
       
           <blockquote>
-<p>根据软件设计原则中<code>开放封闭原则</code>的指导思想, 一个类写好后，尽量不要修改里面的内容, 而是通过添加新的继承应对变化, 简单工厂不符合这个设计原则, 所以本篇文章将使用伪代码介绍工厂方法设计模式的使用</p>
+<p>json dump 中文时遇到的问题如下</p>
 </blockquote>
-<p>背景: 现公司监控系统报警需要对接企业微信公众号, 由于未认证企业微信推送消息的限制, 默认每天推送条数上限为<code>6000</code>条, 考虑到报警系统多, 规则没有收敛, 接收的人员多, 每天6000条可能不够用, 所以需要创建多个未认证的企业微信账号用于发送报警信息. 我们将以此需求为背景, 演示工厂方法的设计模式</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChat</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountA</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号A推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号A推送图片: "</span>, imageid)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountB</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号B推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号B推送图片: "</span>, imageid)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChatFactory</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountAFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountA()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountBFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountB()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">	<span class="comment"># 实例化账号A</span></span><br><span class="line">    wechat_factory_a = AccountAFactory()</span><br><span class="line">	<span class="comment"># 创建账号A的微信对象</span></span><br><span class="line">    wechat1 = wechat_factory_a.create_wechat()</span><br><span class="line">    wechat2 = wechat_factory_a.create_wechat()</span><br><span class="line">    wechat3 = wechat_factory_a.create_wechat()</span><br><span class="line">	<span class="comment"># 使用账号A对象发送信息</span></span><br><span class="line">    wechat1.send_message(content=<span class="string">"haha"</span>)</span><br><span class="line">    wechat2.send_message(content=<span class="string">"hehe"</span>)</span><br><span class="line">    wechat3.send_message(content=<span class="string">"xixi"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 实例化账号B</span></span><br><span class="line">    wechat_factory_b = AccountBFactory()</span><br><span class="line">	<span class="comment"># 创建账号B的微信对象</span></span><br><span class="line">    wechat4 = wechat_factory_b.create_wechat()</span><br><span class="line">    wechat5 = wechat_factory_b.create_wechat()</span><br><span class="line">	<span class="comment"># 使用账号B对象发送信息</span></span><br><span class="line">    wechat4.send_message(content=<span class="string">"heihei"</span>)</span><br><span class="line">    wechat5.send_message(content=<span class="string">"pupu"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"Chinese"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"Chinese"</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">使用企业微信账号A推送信息:  haha</span><br><span class="line">使用企业微信账号A推送信息:  hehe</span><br><span class="line">使用企业微信账号A推送信息:  xixi</span><br><span class="line">使用企业微信账号B推送信息:  heihei</span><br><span class="line">使用企业微信账号B推送信息:  pupu</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s)</span><br><span class="line"><span class="string">"\u4e2d\u6587"</span></span><br></pre></td></tr></table></figure>
 
-<p>如果此时, 两个微信账号都不够用了, 需要增加第三个账号时, 所有的类都不需要修改, 只需创建新的类即可, 符合开放封闭原则</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountC</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号C推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号C推送图片: "</span>, imageid)</span><br><span class="line">      </span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountCFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountC()</span><br></pre></td></tr></table></figure>
+<p>可以看到, json在dump中文的时候, 输出的是”中文”对应的ascii码, 这是因为json.dumps 序列化时对中文默认使用的ascii编码</p>
+<p>如果需要输出真正的中文字符, 需要在dump的时候加入<code>ensure_ascii=False</code>参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">"中文"</span></span><br></pre></td></tr></table></figure>
+
+<p>实际使用中, 在与微信企业企业号的主动发送消息接口交互时, 需要使用utf8字符编码encode</p>
+<p>所以在这个场景下, 写法可能会是下面这种情况</p>
+<p><code>json.dumps(s, ensure_ascii=False).encode(&#39;utf-8&#39;)</code></p>
+<p>Python3: 注意以下操作只在Python3环境下是正确的, Python2的环境下.encode会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python <span class="number">3.6</span><span class="number">.3</span> (v3<span class="number">.6</span><span class="number">.3</span>:<span class="number">2</span>c5fed86e0, Oct  <span class="number">3</span> <span class="number">2017</span>, <span class="number">00</span>:<span class="number">32</span>:<span class="number">08</span>)</span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"中文"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"><span class="string">'"中文"'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(s, ensure_ascii=<span class="literal">False</span>).encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'"\xe4\xb8\xad\xe6\x96\x87"'</span></span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
@@ -1276,7 +571,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%205/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1290,7 +585,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%205/" class="post-title-link" itemprop="url">Python语言实现工厂方法设计模式</a>
+            <a href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/" class="post-title-link" itemprop="url">Input strings must be a multiple of 16 in length</a>
         </h2>
 
         <div class="post-meta">
@@ -1300,7 +595,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-08-08 17:25:18" itemprop="dateCreated datePublished" datetime="2018-08-08T17:25:18+08:00">2018-08-08</time>
+              <time title="创建时间：2018-01-25 09:30:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:30:00+08:00">2018-01-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1308,7 +603,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1321,8 +616,267 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/08/08/Python%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python语言实现工厂方法设计模式 5/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/nput-strings-must-be-a-multiple-of-16-in-length/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在实现微信企业号自建应用与自由服务器信息交互的时候, 报了 <code>Input strings must be a multiple of 16 in length</code> 这个错误, 回复全部英文内容给微信的时候是正常的.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sRespData = <span class="string">"""&lt;xml&gt;</span></span><br><span class="line"><span class="string">                &lt;ToUserName&gt;&lt;![CDATA["""</span>+user_id+<span class="string">"""]]&gt;&lt;/ToUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;FromUserName&gt;&lt;![CDATA["""</span>+corp_id+<span class="string">"""]]&gt;&lt;/FromUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;CreateTime&gt;"""</span>+create_time+<span class="string">"""&lt;/CreateTime&gt;</span></span><br><span class="line"><span class="string">                &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;</span></span><br><span class="line"><span class="string">                &lt;Content&gt;&lt;![CDATA["""</span>+content+<span class="string">"""]]&gt;&lt;/Content&gt;</span></span><br><span class="line"><span class="string">                &lt;/xml&gt;"""</span></span><br></pre></td></tr></table></figure>
+
+<p>如以上即将回复给微信的xml信息, content变量就是实际的消息内容, 当content内容出现中文字符时, 就会报以上错误.</p>
+<p>解决方法:</p>
+<p><code>content = content.encode(&#39;utf-8&#39;)</code></p>
+<p>将content的内容以utf8字符编码进行encode即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/import-httplib-ImportError-No-module-named-httplib/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/" class="post-title-link" itemprop="url">import httplib ImportError: No module named httplib</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-25 09:25:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:25:00+08:00">2018-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/import-httplib-ImportError-No-module-named-httplib/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Python2的代码中<code>import httplib</code>是没有问题的, 到了Python3, 这个模块的导入名称变成了<code>http.client</code>, 所以在如果你使用的是Python3, 需要导入这个模块, <code>import http.client</code>就可以了</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Python2的中文字符编码报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-25 09:22:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:22:00+08:00">2018-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Python2的中文字符编码报错/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Python2中, 在首行声明了字符编码为<code>utf8</code>, 但是依然报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 0: ordinal not in range(128)</span><br></pre></td></tr></table></figure>
+
+<p>解决方法如下:</p>
+<p>在报错的python文件中加入以下几行代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/apt-get-install%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/25/apt-get-install%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">apt-get install报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-25 09:20:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:20:00+08:00">2018-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/25/apt-get-install%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/apt-get-install报错/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1338,16 +892,204 @@
 
       
           <blockquote>
-<p>根据软件设计原则中<code>开放封闭原则</code>的指导思想, 一个类写好后，尽量不要修改里面的内容, 而是通过添加新的继承应对变化, 简单工厂不符合这个设计原则, 所以本篇文章将使用伪代码介绍工厂方法设计模式的使用</p>
+<p>在一台Ubuntu安装软件的时候发现, 安装任何软件都会报一个类似<code>Errors were encountered while processing</code> <code>Sub-process /usr/bin/dpkg returned an error code</code>的错误, 尝试解决方式如下</p>
 </blockquote>
-<p>背景: 现公司监控系统报警需要对接企业微信公众号, 由于未认证企业微信推送消息的限制, 默认每天推送条数上限为<code>6000</code>条, 考虑到报警系统多, 规则没有收敛, 接收的人员多, 每天6000条可能不够用, 所以需要创建多个未认证的企业微信账号用于发送报警信息. 我们将以此需求为背景, 演示工厂方法的设计模式</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChat</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountA</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号A推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号A推送图片: "</span>, imageid)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountB</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号B推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号B推送图片: "</span>, imageid)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChatFactory</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountAFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountA()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountBFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountB()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">	<span class="comment"># 实例化账号A</span></span><br><span class="line">    wechat_factory_a = AccountAFactory()</span><br><span class="line">	<span class="comment"># 创建账号A的微信对象</span></span><br><span class="line">    wechat1 = wechat_factory_a.create_wechat()</span><br><span class="line">    wechat2 = wechat_factory_a.create_wechat()</span><br><span class="line">    wechat3 = wechat_factory_a.create_wechat()</span><br><span class="line">	<span class="comment"># 使用账号A对象发送信息</span></span><br><span class="line">    wechat1.send_message(content=<span class="string">"haha"</span>)</span><br><span class="line">    wechat2.send_message(content=<span class="string">"hehe"</span>)</span><br><span class="line">    wechat3.send_message(content=<span class="string">"xixi"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 实例化账号B</span></span><br><span class="line">    wechat_factory_b = AccountBFactory()</span><br><span class="line">	<span class="comment"># 创建账号B的微信对象</span></span><br><span class="line">    wechat4 = wechat_factory_b.create_wechat()</span><br><span class="line">    wechat5 = wechat_factory_b.create_wechat()</span><br><span class="line">	<span class="comment"># 使用账号B对象发送信息</span></span><br><span class="line">    wechat4.send_message(content=<span class="string">"heihei"</span>)</span><br><span class="line">    wechat5.send_message(content=<span class="string">"pupu"</span>)</span><br></pre></td></tr></table></figure>
+<p>清空/var/lib/dpkg/info目录下面的内容即可</p>
 
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">使用企业微信账号A推送信息:  haha</span><br><span class="line">使用企业微信账号A推送信息:  hehe</span><br><span class="line">使用企业微信账号A推送信息:  xixi</span><br><span class="line">使用企业微信账号B推送信息:  heihei</span><br><span class="line">使用企业微信账号B推送信息:  pupu</span><br></pre></td></tr></table></figure>
+      
+    </div>
 
-<p>如果此时, 两个微信账号都不够用了, 需要增加第三个账号时, 所有的类都不需要修改, 只需创建新的类即可, 符合开放封闭原则</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountC</span><span class="params">(WeChat)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号C推送信息: "</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_image</span><span class="params">(self, imageid)</span>:</span></span><br><span class="line">        print(<span class="string">"使用企业微信账号C推送图片: "</span>, imageid)</span><br><span class="line">      </span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AccountCFactory</span><span class="params">(WeChatFactory)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_wechat</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> AccountC()</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/" class="post-title-link" itemprop="url">grep: warning: GREP_OPTIONS is deprecated</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-25 09:18:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:18:00+08:00">2018-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原因是在你的配置文件中(我的是CentOS7, /etc/profile)出现了以下配置导致的: <code>export GREP_OPTIONS=--color=auto</code></p>
+</blockquote>
+<p>解决方法也很简单, 首先在<code>/etc/profile</code>中注释该行</p>
+<p><code># export GREP_OPTIONS=--color=auto</code></p>
+<p>然后在terminal界面执行<code>unset GREP_OPTIONS</code></p>
+<p>再次执行grep操作, 就不会有恼人的Warning出现啦~</p>
+<p>附录: 有可能影响到grep的这一行export配置并不在你的<code>/etc/profile</code>文件下,你可以尝试去<code>~/.bashrc</code> <code>~/.bashprofile</code> <code>~/.zshrc</code>等文件中查找</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/" class="post-title-link" itemprop="url">Zabbix agent is unreachable for 5 minutes</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-25 09:16:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:16:00+08:00">2018-01-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>最近入到了 <code>Zabbix agent on HOSTNAME is unreachable for 5 minutes</code> 的问题, 但实际server到agent的网络通信是没有任何问题的, 这种情况下, 我们需要登录到agent这台主机, 查看<code>zabbix_agent</code>的日志来排查错误</p>
+</blockquote>
+<h1 id="查看zabbix-agent的启动进程"><a href="#查看zabbix-agent的启动进程" class="headerlink" title="查看zabbix_agent的启动进程"></a>查看zabbix_agent的启动进程</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; ps aux | grep <span class="string">"zabbix"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是编译安装的agent, 手动指定配置文件启动的进程, 在这里你可以看到你引用的配置文件的地址</p>
+<h1 id="查看配置文件"><a href="#查看配置文件" class="headerlink" title="查看配置文件"></a>查看配置文件</h1><p>在配置文件中你需要查看的是记录日志的位置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LogFile=/var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看日志报错"><a href="#查看日志报错" class="headerlink" title="查看日志报错"></a>查看日志报错</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; tail -f /var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</span><br></pre></td></tr></table></figure>
+
+<p>在我这里的实际情况中, 出现了以下报错信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25863:20180116:103949.621 failed to accept an incoming connection: connection from &quot;192.168.10.85&quot; rejected, allowed hosts: &quot;zabbix_server.lvrui.io&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们可以看到几个关键字眼</p>
+<ul>
+<li>reject: 说明客户端拒绝了服务端的请求</li>
+<li>allowed hosts: 允许访问客户端的服务端地址</li>
+</ul>
+<p>通过以上关键字可以判断出, 客户端认到的server的实际IP地址是<code>192.168.10.85</code>, 但是客户端配置的server地址却是<code>zabbix_server.lvrui.io</code>, 客户端不能反解析出这个IP地址对应的域名, 所以拒绝了server的请求</p>
+<p>最简单的解决方法就是将zabbix_agent配置文件中的<code>Server</code> <code>ServerActive</code>的配置都改成 <code>192.168.10.85</code> 即可</p>
+<p>第二个办法, 你要是非要用域名的话, 你可以将监控模式改为主动模式, 主动去服务端推送数据</p>
+<p>第三个办法, 是你需要在你的网络环境中, 配置对应zabbix_server的反向解析</p>
 
       
     </div>
@@ -1369,7 +1111,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1437,7 +1179,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1450,7 +1192,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

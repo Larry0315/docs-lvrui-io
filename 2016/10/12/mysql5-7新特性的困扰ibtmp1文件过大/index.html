@@ -28,7 +28,7 @@
 <meta property="og:description" content="在一台 MySQL5.7 的服务器上磁盘使用空间突然爆满, 查看 mysql 数据目录下的文件发现,有个叫ibtmp1的文件大小达到了160GB.   后经过查询得知, ibtmp1文件是 MySQL5.7的新特性,MySQL5.7使用了独立的临时表空间来存储临时表数据，但不能是压缩表。临时表空间在实例启动的时候进行创建，shutdown的时候进行删除。即为所有非压缩的innodb临时表提供一个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-10-12T07:20:08.000Z">
-<meta property="article:modified_time" content="2020-03-22T06:37:46.670Z">
+<meta property="article:modified_time" content="2020-03-22T06:37:46.000Z">
 <meta property="article:author" content="极地瑞雪">
 <meta property="article:tag" content="ibtmp1">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">373</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -146,7 +146,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -283,12 +283,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2016/10/12/mysql5-7新特性的困扰ibtmp1文件过大 5/" rel="bookmark">mysql5.7新特性的困扰ibtmp1文件过大</a></div>
-    </li>
-  </ul>
 
         <div class="reward-container">
   <div></div>
@@ -323,11 +317,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2016/10/12/mysql5-7%E6%96%B0%E7%89%B9%E6%80%A7%E7%9A%84%E5%9B%B0%E6%89%B0ibtmp1%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7%205/" rel="prev" title="mysql5.7新特性的困扰ibtmp1文件过大">
-      <i class="fa fa-chevron-left"></i> mysql5.7新特性的困扰ibtmp1文件过大
+    <a href="/2016/10/12/mysqlbinlog%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bbinglog-format-row%E7%9A%84%E6%97%A5%E5%BF%97/" rel="prev" title="mysqlbinlog命令查看binglog_format=row的日志">
+      <i class="fa fa-chevron-left"></i> mysqlbinlog命令查看binglog_format=row的日志
     </a></div>
       <div class="post-nav-item">
-    <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode%205/" rel="next" title="mysql修改sql_mode">
+    <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/" rel="next" title="mysql修改sql_mode">
       mysql修改sql_mode <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -411,7 +405,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -424,7 +418,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">373</span>
+        <span class="site-state-item-count">372</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
