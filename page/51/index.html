@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,240 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%205/" class="post-title-link" itemprop="url">Python字符串格式化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-06 22:30:19" itemprop="dateCreated datePublished" datetime="2016-06-06T22:30:19+08:00">2016-06-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/06/Python字符串格式化 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python中格式化字符串的方式有两种，一种是使用百分号的方式；一种是使用format方式。使用百分号的方式比较古老，而使用format则是比较“先进”的方式，目前两者并存</p>
-<p>Python Version: 3.5+</p>
-</blockquote>
-<h1 id="百分号的方式格式化字符串"><a href="#百分号的方式格式化字符串" class="headerlink" title="百分号的方式格式化字符串"></a>百分号的方式格式化字符串</h1><p><strong>语法格式：</strong></p>
-<p><code>%[(name)][flags][width].[precision]typecode</code></p>
-<p>在学习更多参数之前，我们先来回顾以下，使用百分号的最简单的用法，是怎么实现的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %s, I am %d.'</span> % (<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
-
-<p>在这种多占位符的情况下，后面的括号中传入的是一个列表，根据索引，分别对应前面字符串占位符的第0个和第1个。</p>
-<h2 id="name"><a href="#name" class="headerlink" title="(name)"></a>(name)</h2><p>可选，用于选择指定的key</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
-
-<p>使用这种方式的好处是显而易见的，如果一长串字符串中有N多个占位符，极有可能无法保证一一对应，而且占位符多了，很容易记混第几个占位符是干嘛的。使用这种“字典”的方式，给每个占位符起名字，赋值的时候根据名字赋值，传递的位置不需要一一对应。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, Hello %(name)s.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, Hello Polar Snow.'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h2><p>可选，提供以下的值可以选择：</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>对齐</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>+</td>
-<td>右对齐</td>
-<td>正数前加<code>+</code>，负数前加<code>-</code></td>
-</tr>
-<tr>
-<td>-</td>
-<td>左对齐</td>
-<td>正数前无符号，负数前加<code>-</code></td>
-</tr>
-<tr>
-<td>空格</td>
-<td>右对齐</td>
-<td>正数前加空格，负数前加<code>-</code></td>
-</tr>
-<tr>
-<td>0</td>
-<td>右对齐</td>
-<td>正数前无符号，负数前加<code>-</code>，用0填充空白处</td>
-</tr>
-</tbody></table>
-<p>对齐的特性需要<code>width</code>参数的支持</p>
-<ul>
-<li>+</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)+d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am +25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)+d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)-d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)-d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>空格</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [ 25].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [-25].'</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>0</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)0d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)0d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="width"><a href="#width" class="headerlink" title="width"></a>width</h2><p>可选，占位符的宽度</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)05d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [-0025].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)05d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [00025].'</span></span><br></pre></td></tr></table></figure>
-
-<p>有个宽度的设置，上面的对齐才能看出效果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)+5d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [  +25].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) 5d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [   25].'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="precision"><a href="#precision" class="headerlink" title=".precision"></a>.precision</h2><p>可选，小数点后保留的位数(还有四舍五入哦！)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) 9.3f].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25.2525252525</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [   25.253].'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="typecode"><a href="#typecode" class="headerlink" title="typecode"></a>typecode</h2><ul>
-<li>s，获取传入对象的<strong>str</strong>方法的返回值，并将其格式化到指定位置</li>
-<li>r，获取传入对象的<strong>repr</strong>方法的返回值，并将其格式化到指定位置</li>
-<li>c，整数：将数字转换成其unicode对应的值，10进制范围为 0 &lt;= i &lt;= 1114111（py27则只支持0-255）；字符：将字符添加到指定位置</li>
-<li>o，将整数转换成 八  进制表示，并将其格式化到指定位置</li>
-<li>x，将整数转换成十六进制表示，并将其格式化到指定位置</li>
-<li>d，将整数、浮点数转换成 十 进制表示，并将其格式化到指定位置</li>
-<li>e，将整数、浮点数转换成科学计数法，并将其格式化到指定位置（小写e）</li>
-<li>E，将整数、浮点数转换成科学计数法，并将其格式化到指定位置（大写E）</li>
-<li>f， 将整数、浮点数转换成浮点数表示，并将其格式化到指定位置（默认保留小数点后6位）<br>F，同上</li>
-<li>g，自动调整将整数、浮点数转换成 浮点型或科学计数法表示（超过6位数用科学计数法），并将其格式化到指定位置（如果是科学计数则是e；）</li>
-<li>G，自动调整将整数、浮点数转换成 浮点型或科学计数法表示（超过6位数用科学计数法），并将其格式化到指定位置（如果是科学计数则是E；）</li>
-<li>%，当字符串中存在格式化标志时，需要用 %%表示一个百分号</li>
-</ul>
-<p>虽然上面列举辣么多字符类型，但是最常用的前面的例子中都已经使用过了！没错，就是<code>s</code> <code>d</code> <code>f</code>这三个货，特别提示一下，当你需要在字符串中打印<code>%</code>时，需要输入<code>%%</code>才能显示一个<code>%</code></p>
-<hr>
-<h1 id="format方式格式化字符串"><a href="#format方式格式化字符串" class="headerlink" title="format方式格式化字符串"></a>format方式格式化字符串</h1><p><strong>语法格式：</strong></p>
-<p><code>[[fill]align][sign][#][0][width][,][.precision][type]</code></p>
-<p>使用format的最简单方式格式化字符串：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25.2525252525</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.2525252525.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(name=<span class="string">'Polar Snow'</span>, age=<span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
-
-<p>在之前的Python笔记中，讲到参数的时候，提到过使用<code>*args, **kwargs</code>来当万能参数，包罗万象~ 而当参数为一个列表，而希望列表中的每一个元素去充当参数时，我们加上了<code>*</code>这个关键符号。区别就是如果传入参数的是一个列表，如果不加<code>*</code>，那么意味着整个列表是一个参数；而加上了<code>*</code>，则意味着将列表中的每一个元素取出充当参数。这个原理同样适用于字符串格式化，下面我们就用这种方法实现上面同样的效果。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(*[<span class="string">'Polar Snow'</span>, <span class="number">25</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(**&#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
-
-<p>注意：只有format的方式支持加<code>*</code> <code>**</code>关键字符，使用%的方式不支持！</p>
-<h2 id="fill"><a href="#fill" class="headerlink" title="fill"></a>fill</h2><p>可选，空白处填充的字符，需要配合width才能看出效果</p>
-<h2 id="align"><a href="#align" class="headerlink" title="align"></a>align</h2><p>可选，对齐方式，需要配合width才能看出效果</p>
-<ul>
-<li>&lt;，内容左对齐</li>
-<li><blockquote>
-<p>，内容右对齐(默认)</p>
-</blockquote>
-</li>
-<li>＝，内容右对齐，将符号放置在填充字符的左侧，且只对数字类型有效。 即使：符号+填充物+数字</li>
-<li>^，内容居中</li>
-</ul>
-<h2 id="sign"><a href="#sign" class="headerlink" title="sign"></a>sign</h2><p>可选，数字前的符号</p>
-<ul>
-<li>+，正号加正，负号加负；</li>
-<li>-，正号不变，负号加负；</li>
-<li>空格 ，正号空格，负号加负；</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title="#"></a><code>#</code></h2><p>可选，对于二进制、八进制、十六进制，如果加上#，会显示 0b/0o/0x，否则不显示</p>
-<h2 id="-1"><a href="#-1" class="headerlink" title=","></a><code>,</code></h2><p>可选，为数字添加分隔符，如：1,000,000</p>
-<h2 id="width-1"><a href="#width-1" class="headerlink" title="width"></a>width</h2><p>可选，格式化占位符所占的宽度</p>
-<h2 id="precision-1"><a href="#precision-1" class="headerlink" title=".precision"></a>.precision</h2><p>可选，小数位保留精度</p>
-<h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><p>可选，格式化类型</p>
-<ul>
-<li>传入” 字符串类型 “的参数<ul>
-<li>s，格式化字符串类型数据</li>
-<li>空白，未指定类型，则默认是None，同s</li>
-</ul>
-</li>
-<li>传入“ 整数类型 ”的参数<ul>
-<li>b，将10进制整数自动转换成2进制表示然后格式化</li>
-<li>c，将10进制整数自动转换为其对应的unicode字符</li>
-<li>d，十进制整数</li>
-<li>o，将10进制整数自动转换成8进制表示然后格式化；</li>
-<li>x，将10进制整数自动转换成16进制表示然后格式化（小写x）</li>
-<li>X，将10进制整数自动转换成16进制表示然后格式化（大写X）</li>
-</ul>
-</li>
-<li>传入“ 浮点型或小数类型 ”的参数<ul>
-<li>e， 转换为科学计数法（小写e）表示，然后格式化；</li>
-<li>E， 转换为科学计数法（大写E）表示，然后格式化;</li>
-<li>f ， 转换为浮点型（默认小数点后保留6位）表示，然后格式化；</li>
-<li>F， 转换为浮点型（默认小数点后保留6位）表示，然后格式化；</li>
-<li>g， 自动在e和f中切换</li>
-<li>G， 自动在E和F中切换</li>
-<li>%，显示百分比（默认显示小数点后6位）</li>
-</ul>
-</li>
-</ul>
-<h2 id="format中常用的格式化"><a href="#format中常用的格式化" class="headerlink" title="format中常用的格式化"></a>format中常用的格式化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先从最简单的开始</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 列表的形式传值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(*[<span class="string">'Polar Snow'</span>, <span class="number">25</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 指定值列表的索引</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0&#125;, I am &#123;1&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0&#125;, I am &#123;0&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am Polar Snow.'</span></span><br><span class="line"><span class="comment"># 甚至可以在嵌套中取值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0[0]&#125;, I am &#123;0[1]&#125;.'</span>.format([<span class="string">'Polar Snow'</span>, <span class="string">'Larry'</span>], <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am Larry.'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 设置占位符名称</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(name=<span class="string">'Polar Snow'</span>, age=<span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 字典的形式传值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(**&#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># format最省心的是不需要指定字符串类型，但是你也可以选择去指定</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88888.100000'</span></span><br><span class="line"><span class="comment"># 保留两位小数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88888.10'</span></span><br><span class="line"><span class="comment"># 保留两位小数并在数字中用,分隔</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:,.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88,888.10'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 居中显示，插入[]是为了展示居中的效果更直观</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age [&#123;:^10d&#125;], money &#123;:,.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age [    25    ], money 88,888.10'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 数字的展示</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"numbers: &#123;0:b&#125;,&#123;0:o&#125;,&#123;0:d&#125;,&#123;0:x&#125;,&#123;0:X&#125;, &#123;0:%&#125;"</span>.format(<span class="number">15</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'numbers: 1111,17,15,f,F, 1500.000000%'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"numbers: &#123;num:b&#125;,&#123;num:o&#125;,&#123;num:d&#125;,&#123;num:x&#125;,&#123;num:X&#125;, &#123;num:%&#125;"</span>.format(num=<span class="number">15</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'numbers: 1111,17,15,f,F, 1500.000000%'</span></span><br></pre></td></tr></table></figure>
-
-<p>如果以上这些还不能满足你的需求，请移步Python官方文档：<a href="https://docs.python.org/3/library/string.html" target="_blank" rel="noopener">Python Docs 4 String Format</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -2695,6 +2461,132 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/05/22/%E6%94%B6%E8%8E%B7%E4%B8%8D%E6%AD%A2Oracle%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/22/%E6%94%B6%E8%8E%B7%E4%B8%8D%E6%AD%A2Oracle%205/" class="post-title-link" itemprop="url">收获不止Oracle</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-05-22 15:04:20" itemprop="dateCreated datePublished" datetime="2016-05-22T15:04:20+08:00">2016-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/05/22/%E6%94%B6%E8%8E%B7%E4%B8%8D%E6%AD%A2Oracle%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/22/收获不止Oracle 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>今天跟大家分享的标题叫<code>《收获不止Oracle》</code> 三年前我在一家书店“纳凉”时发现了一本书<code>《收获不止Oracle》</code>  今天抛开Oracle不谈，我们来聊聊这本书是怎么“收获不止Oracle”的</p>
+</blockquote>
+<p>《收获不止Oracle》这本书中讨论的是Oracle数据库调优的问题，到底是什么东西能让人们在本书中的收获不止Oracle的？这个问题要从如何解决Oracle性能瓶颈的问题来入手。</p>
+<p>书中解决Oracle性能瓶颈的问题遵循的唯一原则就是<code>少做事儿！</code> 作者肯定的说，少做事儿，就一定能提高效率！道理很简单，举个例子来说~</p>
+<ul>
+<li><p>一个流程，原来需要走6步才能完成，现在在不增加额外负担的情况下把它优化成只需要5步，那效率就一定提高了！</p>
+</li>
+<li><p>拿算法来说，也可以简单的理解为根据具体情况，找到让CPU运算次数尽可能少的得到结果的办法</p>
+</li>
+</ul>
+<p>少做事儿的思想可以应用到各行各业，当然不局限于Oracle。</p>
+<p>如今大火的<code>运维自动化</code>、<code>DevOps</code>、<code>CMDB</code>等概念都是<code>少做事儿</code>的最佳体现！但是这三者有一个共同点！出发点都是<code>让人少做事儿</code>，将人工的重复劳动加以归类整合，让机器自己去完成，从而实现了通过少做事儿来提高工作效率。但以上这些理念并没有触及到业务的核心问题！就是业务上是否存在不必要的冗余！</p>
+<p>上面提到的技术，解决了让人少做事儿提高效率的办法，那第二个层次就是让机器也少做事儿，就能再一次掀起技术革命，提高运行效率！让机器少做事儿，也可以归到以下两个层面</p>
+<ul>
+<li><p>代码：让单台机器上的代码少做事儿（减少代码级别的冗余）</p>
+</li>
+<li><p>流程：精简业务集群的工作流程（减少不必要的流程和交互）</p>
+</li>
+</ul>
+<p>针对上面提到的代码级别的<code>少做事儿</code>实践中，最常见的就是优化业务逻辑和算法，比如购物平台的商品推荐算法、搜索引擎里推送广告的算法等等；还有一种情况是干了重复的事情，需要精简</p>
+<p>针对流程级别的<code>少做事儿</code>实践中，最常见的优化方法是调整技术架构，精简不必要的流程和业务环节。例如：数据库很慢，就不要让数据库干那么多活，在数据层之上加入中间件就是让数据库少干活的经典体现。再例如：业务逻辑方面，可以让用户一步操作就完成的事儿，就不要弄得那么繁琐。</p>
+<p>以上是基于<code>少做事儿</code>的个人理解。提到今天分享的内容，我想起刘龙军“前辈”关于“微服务”理念的那次分享，微服务其中解决的问题之一就是冗余问题，我觉得我们可以把微服务理念理解成面向对象编程里的封装这个概念！面向对象的终极目标是减少重复代码，实际也是少做事儿的一种体现。所以微服务当今大行其道是大势所趋。</p>
+<hr>
+<p>最后和大家分享两个我个人关于<code>少做事儿</code>的实践案例</p>
+<blockquote>
+<p>背景：我上家公司的日志处理流程，每天凌晨脚本在client端收集昨天的日志，处理后打包上传到分汇总，分汇总拿到所有数据后对数据进行处理后上传到汇总，汇总对数据处理后将源数据打包上传到备份服务器。大致流程： client–&gt;分汇总–&gt;汇总–&gt;备份</p>
+</blockquote>
+<ul>
+<li><p><code>少做事儿</code>代码级别的体现：在client端，服务器以及应用的一些参数经常变化，导致脚本经常因为各种情况而崩溃。经过长时间的考察，我决定比较激进的将client端的环境变量根据更新频率的不同分为三个等级，每个等级的变量的刷新都有自己对应的方式，实现了<code>少做事儿</code>的理念</p>
+<ol>
+<li><p>变量被分级，每天脚本自动刷新的变量只有获取IP和时间（之前是每天都刷新所有的环境变量），减少因为人工误操作信息表，而读取到错误的应用配置信息</p>
+</li>
+<li><p>得益于变量刷新分级制，原来脚本中对于各种各样意外情况的try代码块可以完全剔除</p>
+</li>
+</ol>
+</li>
+<li><p><code>少做事儿</code>流程级别的体现：原日志备份从client端到备份服务器，需要经过分汇总和汇总两道关卡。熟悉业务流程并保证日志有足够多的冗余备份后，剔除掉了汇总这一层的备份流程。由： client–&gt;分汇总–&gt;汇总–&gt;备份  简化为： client–&gt;分汇总&amp;备份–&gt;汇总</p>
+<ol>
+<li>分汇总拿到源数据包后直接将上传到备份服务器，不再经过汇总服务器，减少了一个流程，效率就一定有提高！</li>
+</ol>
+</li>
+</ul>
+<p>上面举的两个实际案例都是<code>少做事儿</code>的非常简单的应用，希望抛砖引玉，可以给大家一点启发<del>~</del></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -2767,7 +2659,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

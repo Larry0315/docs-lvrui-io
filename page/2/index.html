@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,119 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/" class="post-title-link" itemprop="url">go语言实现最大公约数算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-17 11:38:08" itemprop="dateCreated datePublished" datetime="2019-03-17T11:38:08+08:00">2019-03-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/17/go语言实现最大公约数算法 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="最大公约数简介"><a href="#最大公约数简介" class="headerlink" title="最大公约数简介"></a>最大公约数简介</h2><p>最大公约数(GCD/Greatest Common Divisor)指几个整数中共有约数中最大的一个</p>
-<h2 id="欧几里德算法"><a href="#欧几里德算法" class="headerlink" title="欧几里德算法"></a>欧几里德算法</h2><p>欧几里德算法又称辗转相除法, 该算法用于计算两个整数的最大公约数. 定理如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcd(a,b) &#x3D; gcd(b,a mod b)</span><br></pre></td></tr></table></figure>
-
-<p>意思就是说: <code>a</code>和<code>b</code>的最大公约数 =  <code>b</code>和<code>a➗b的余数</code>的最大公约数</p>
-<ul>
-<li>当<code>a➗b的余数</code>为0时, 最大公约数为b</li>
-<li>当<code>a➗b的余数</code>不为0时, 则将<code>a=b</code>, <code>b=a➗b的余数</code>, 递归运算, 直到余数为<code>0</code></li>
-</ul>
-<p>具体证明的过程在此不再赘述, 如有兴趣可以自行谷歌一下, 下面直接给出基于go语言的实现代码</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(gcd(<span class="number">5</span>, <span class="number">10</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
-
-<p>解析:</p>
-<p><strong>第一次调用:</strong></p>
-<p>调用<code>gcd(5, 10)</code>则<code>a=5, b=10</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=10</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(10, 5 % 10)</code>, <code>5与10计算取余</code>商0, 余5, 则实际调用参数为<code>gcd(10, 5)</code> </p>
-<p><strong>第二次调用:</strong><br>调用<code>gcd(10, 5)</code>则<code>a=10, b=5</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=5</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(5, 10 % 5)</code>, <code>10与5计算取余</code>商2, 余0, 则实际调用参数为<code>gcd(5, 0)</code> </p>
-<p><strong>第三次调用:</strong><br>调用<code>gcd(5, 0)</code>则<code>a=5, b=0</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=0</code>, 判断条件为真, 直接返回<code>a</code> 此时<code>a</code>即为两个数的最大公约数</p>
-<h2 id="多个数求最大公约数"><a href="#多个数求最大公约数" class="headerlink" title="多个数求最大公约数"></a>多个数求最大公约数</h2><p>实现思路: 先求出头两个数的最大公约数, 再拿计算出的最大公约数依次与后面所有的数求最大公约数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetGcd</span><span class="params">(n []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// 先取得Slice中的第一个数, 并假设第一个数为最大公约数</span></span><br><span class="line">	g := n[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">// 依次与Slice中的每个数字求最大公约数</span></span><br><span class="line">	<span class="comment">// 这里i=1, 因为第0个数字已经取出并假设为最大公约数</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">1</span>; i&lt;<span class="built_in">len</span>(n)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		oldGcd := g</span><br><span class="line">		<span class="comment">// 使用两个数字比较的最大公约数函数进行计算, 得出当前两个数字的最大公约数</span></span><br><span class="line">		<span class="comment">// 循环开始后, 依次将当前最大公约数与后面的数字一一进行运算, 求最大公约数</span></span><br><span class="line">		g = gcd(g, n[i])</span><br><span class="line">		fmt.Printf(<span class="string">"第%d次运算, 当前最大公约数为%d, 与%d运算得出的新最大公约数为: %d \n"</span>, i, oldGcd, n[i], g)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nums := []<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"运算结果: \n\t数列: %v 的最大公约数为: %d"</span>, nums, GetGcd(nums))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第1次运算, 当前最大公约数为4, 与4运算得出的新最大公约数为: 4 </span><br><span class="line">第2次运算, 当前最大公约数为4, 与6运算得出的新最大公约数为: 2 </span><br><span class="line">第3次运算, 当前最大公约数为2, 与2运算得出的新最大公约数为: 2 </span><br><span class="line">第4次运算, 当前最大公约数为2, 与8运算得出的新最大公约数为: 2 </span><br><span class="line">运算结果: </span><br><span class="line">        数列: [4 4 6 2 8 10] 的最大公约数为: 2</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1417,6 +1304,165 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/01/27/gin%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/27/gin%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6%203/" class="post-title-link" itemprop="url">gin添加自定义中间件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-27 00:59:36" itemprop="dateCreated datePublished" datetime="2019-01-27T00:59:36+08:00">2019-01-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/01/27/gin%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/27/gin添加自定义中间件 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="中间件的作用"><a href="#中间件的作用" class="headerlink" title="中间件的作用"></a>中间件的作用</h2><p>在我们熟悉的一个完整的<code>http</code>请求中, 客户端先向服务端发送的<code>http request</code>, 服务端接收到<code>request</code>之后, 根据实际需要, 给客户端返回<code>http response</code></p>
+<p>站在服务端的角度来看, 就是接收<code>request</code>, 响应<code>response</code>, 而中间件的作用, 就在<code>request</code>与<code>response</code>之间</p>
+<ul>
+<li>收到<code>request</code>之后, 在<code>request</code>还未到达处理的<code>handler</code>之前, 可以通过中间件做出一系列的数据处理, 可以看做是前置校验或过滤</li>
+<li><code>request</code>到达<code>handler</code>之后, 中间件还可以根据需要对响应体做统一的数据处理</li>
+</ul>
+<p><strong>gin内置的中间件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">func BasicAuth(accounts Accounts) HandlerFunc</span><br><span class="line">func BasicAuthForRealm(accounts Accounts, realm string) HandlerFunc</span><br><span class="line">func Bind(val interface&#123;&#125;) HandlerFunc </span><br><span class="line">func ErrorLogger() HandlerFunc </span><br><span class="line">func ErrorLoggerT(typ ErrorType) HandlerFunc</span><br><span class="line">func Logger() HandlerFunc</span><br><span class="line">func LoggerWithConfig(conf LoggerConfig) HandlerFunc</span><br><span class="line">func LoggerWithFormatter(f LogFormatter) HandlerFunc</span><br><span class="line">func LoggerWithWriter(out io.Writer, notlogged ...string) HandlerFunc</span><br><span class="line">func Recovery() HandlerFunc</span><br><span class="line">func RecoveryWithWriter(out io.Writer) HandlerFunc</span><br><span class="line">func WrapF(f http.HandlerFunc) HandlerFunc </span><br><span class="line">func WrapH(h http.Handler) HandlerFunc</span><br></pre></td></tr></table></figure>
+
+<h2 id="中间件的作用域"><a href="#中间件的作用域" class="headerlink" title="中间件的作用域"></a>中间件的作用域</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r := gin.Default()  <span class="comment">//默认带Logger(), Recovery()这两个内置中间件</span></span><br><span class="line">r := gin.New()      <span class="comment">//不带任何中间件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r := gin.New()  <span class="comment">//不带任何中间件</span></span><br><span class="line">r.Use(gin.Recovery()) <span class="comment">//在全局使用内置中间件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="组作用域"><a href="#组作用域" class="headerlink" title="组作用域"></a>组作用域</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r := gin.New()</span><br><span class="line">vm := r.Group(<span class="string">"vm"</span>, gin.Logger(),gin.Recovery())</span><br><span class="line">&#123;</span><br><span class="line">    vm.GET(<span class="string">"cpu"</span>, <span class="function"><span class="keyword">func</span><span class="params">(context *gin.Context)</span></span> &#123;&#125;)</span><br><span class="line">    vm.GET(<span class="string">"ram"</span>, <span class="function"><span class="keyword">func</span><span class="params">(context *gin.Context)</span></span> &#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单个路由作用域"><a href="#单个路由作用域" class="headerlink" title="单个路由作用域"></a>单个路由作用域</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := gin.New()</span><br><span class="line">router.GET(<span class="string">"/healthcheck"</span>,gin.Recovery(),gin.Logger(),<span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span>&#123;</span><br><span class="line">    c.JSON(<span class="number">200</span>,<span class="string">"ok"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义中间件"><a href="#自定义中间件" class="headerlink" title="自定义中间件"></a>自定义中间件</h2><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义中间件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware1</span><span class="params">(c *gin.Context)</span></span>&#123;</span><br><span class="line">    <span class="comment">//中间件逻辑 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引用中间件</span></span><br><span class="line">r := gin.Default()</span><br><span class="line">r.Use(middleware1)</span><br></pre></td></tr></table></figure>
+
+<p>注意: <code>r.Use()</code>中的中间件函数没有<code>()</code></p>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">    <span class="comment">//自定义逻辑</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">//中间件逻辑</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引用中间件</span></span><br><span class="line">r := gin.Default()</span><br><span class="line">r.Use(middleware2())</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据传递"><a href="#数据传递" class="headerlink" title="数据传递"></a>数据传递</h3><p><code>gin.Context</code>中提供了<code>Set``Get</code>函数用来存储和提取数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中间件set数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.Set(<span class="string">"name"</span>, c.Request.Header.Get(<span class="string">"name"</span>))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//handler中get数据</span></span><br><span class="line">r.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">			<span class="string">"name"</span>: c.Get(<span class="string">"name"</span>),</span><br><span class="line">			<span class="string">"message"</span>: <span class="string">"ok"</span>,</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>Set</code>方法存储的值为<code>interface{}</code>类型, <code>Get</code>方法中提供以下常用的数据类型方便提取数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func (c *Context) GetBool(key string) (b bool)</span><br><span class="line">func (c *Context) GetDuration(key string) (d time.Duration)</span><br><span class="line">func (c *Context) GetFloat64(key string) (f64 float64)</span><br><span class="line">func (c *Context) GetInt(key string) (i int)</span><br><span class="line">func (c *Context) GetInt64(key string) (i64 int64)</span><br><span class="line">func (c *Context) GetString(key string) (s string)</span><br><span class="line">func (c *Context) GetStringMap(key string) (sm map[string]interface&#123;&#125;)</span><br><span class="line">func (c *Context) GetStringMapString(key string) (sms map[string]string)</span><br><span class="line">func (c *Context) GetStringMapStringSlice(key string) (smss map[string][]string)</span><br><span class="line">func (c *Context) GetStringSlice(key string) (ss []string)</span><br><span class="line">func (c *Context) GetTime(key string) (t time.Time)</span><br></pre></td></tr></table></figure>
+
+<h3 id="拦截request请求"><a href="#拦截request请求" class="headerlink" title="拦截request请求"></a>拦截request请求</h3><ul>
+<li>为<code>request</code>请求添加<code>header</code></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中间件</span></span><br><span class="line"><span class="comment">//在请求到达`handler`之前, 为`request`请求添加`header`</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware1</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">	c.Request.Header.Set(<span class="string">"abc"</span>, <span class="string">"123"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//handler</span></span><br><span class="line">r.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">//获取请求头</span></span><br><span class="line">		fmt.Println(c.Request.Header.Get(<span class="string">"abc"</span>))</span><br><span class="line">		c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">			<span class="string">"message"</span>: <span class="string">"ok"</span>,</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为<code>response</code>响应添加<code>header</code></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">	   <span class="comment">//在接收request请求时就设置好response时要添加的header</span></span><br><span class="line">		c.Header(<span class="string">"xyz"</span>, <span class="string">"789"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="追加handler处理后的动作"><a href="#追加handler处理后的动作" class="headerlink" title="追加handler处理后的动作"></a>追加handler处理后的动作</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.Next()</span><br><span class="line">		c.String(<span class="number">200</span>, <span class="string">"handler ok\n"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	</span><br><span class="line">	r.Use(middleware2())</span><br><span class="line"></span><br><span class="line">	r.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.String(<span class="number">200</span>, <span class="string">"handler ok\n"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Run(<span class="string">":8080"</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8080/</span><br><span class="line">handler ok</span><br><span class="line">middleware ok</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-Next"><a href="#c-Next" class="headerlink" title="c.Next()"></a>c.Next()</h3><p><code>c.Next()</code>函数允许我们在中间件中控制调度的逻辑, 每执行到<code>c.Next()</code>一次, 执行权就会别切换到其他中间件或<code>handler</code>函数中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware1</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware1"</span>)</span><br><span class="line">		c.Next()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware1"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware2"</span>)</span><br><span class="line">		c.Next()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware2"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware3</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware3"</span>)</span><br><span class="line">		c.Next()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware3"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	r.Use(middleware1(), middleware2(), middleware3())</span><br><span class="line"></span><br><span class="line">	r.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start handler"</span>)</span><br><span class="line">		c.String(<span class="number">200</span>, <span class="string">"ok\n"</span>)</span><br><span class="line">		fmt.Println(<span class="string">"end handler"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Run(<span class="string">":8080"</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
+
+<p>访问:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8080  <span class="comment"># 返回结果: ok</span></span><br></pre></td></tr></table></figure>
+
+<p>程序日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">start middleware1</span><br><span class="line">start middleware2</span><br><span class="line">start middleware3</span><br><span class="line">start handler</span><br><span class="line">end handler</span><br><span class="line">end middleware3</span><br><span class="line">end middleware2</span><br><span class="line">end middleware1</span><br></pre></td></tr></table></figure>
+
+<p>依据注册中间件的顺序, 每次遇到<code>c.Next()</code>函数就跳转到下一个中间件执行, 直到跳转到最后一个中间件, 再次遇到<code>c.Next()</code>的时候, 就跳到<code>handler</code>主函数中运行, 当<code>handler</code>执行完毕后, 再逐层向上返回, 继续执行<code>c.Next()</code>之后的代码</p>
+<h3 id="c-Abord"><a href="#c-Abord" class="headerlink" title="c.Abord()"></a>c.Abord()</h3><p><code>c.Abord()</code>用来终止<code>request</code>, 阻止其到达<code>handler</code> 一般情况下用在鉴权与认证的中间件中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware1</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware1"</span>)</span><br><span class="line">		c.Next()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware1"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//跟上面c.Next()的代码相比, 只是middleware2中的Next换成了Abort</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware2</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware2"</span>)</span><br><span class="line">		c.Abort()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware2"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">middleware3</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start middleware3"</span>)</span><br><span class="line">		c.Next()</span><br><span class="line">		fmt.Println(<span class="string">"end middleware3"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	r.Use(middleware1(), middleware2(), middleware3())</span><br><span class="line"></span><br><span class="line">	r.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"start handler"</span>)</span><br><span class="line">		c.String(<span class="number">200</span>, <span class="string">"ok\n"</span>)</span><br><span class="line">		fmt.Println(<span class="string">"end handler"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Run(<span class="string">":8080"</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问后, 程序日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start middleware1</span><br><span class="line">start middleware2</span><br><span class="line">end middleware2</span><br><span class="line">end middleware1</span><br></pre></td></tr></table></figure>
+
+<p>可以看到即使在<code>middleware2</code>中执行了<code>c.Abord()</code>, <code>c.Abord()</code>后面的代码依然被完整的执行, 并且返回到了<code>middleware1</code>跳转的地方, 继续执行了后续代码</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1489,7 +1535,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

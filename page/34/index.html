@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,106 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/" class="post-title-link" itemprop="url">开启/关闭SWAP功能+制作SWAP文件/分区</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 12:10:31" itemprop="dateCreated datePublished" datetime="2016-10-12T12:10:31+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/开启-关闭SWAP功能-制作SWAP文件-分区 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 linux 中可以使用<code>free -m</code>命令来查看内存的使用情况(包括 swap 交换分区的使用情况)关于 swap 存在的意义不再讨论, 有的人在某些情况下需要开启 swap 功能以保证程序不会崩溃; 有的人在某些情况下需要关闭 swap 功能以保证”宁宕毋慢”.</p>
-</blockquote>
-<h1 id="开启-关闭-swap-功能"><a href="#开启-关闭-swap-功能" class="headerlink" title="开启/关闭 swap 功能"></a>开启/关闭 swap 功能</h1><h2 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h2><ul>
-<li>swap 文件: <code>swapon /opt/swapfile</code></li>
-<li>swap 分区: <code>swapon /dev/sdb1</code></li>
-</ul>
-<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ul>
-<li>swap 文件: <code>swapoff /opt/swapfile</code></li>
-<li>swap 分区: <code>swapoff /dev/sdb1</code></li>
-</ul>
-<p>如果是系统在安装时设置了 swap, 在后期想要关闭 swap 功能,可以去修改<code>/etc/fstab</code>文件</p>
-<p>将包含有 swap 信息的这一行注释掉<code>/dev/mapper/centos-swap swap                    swap    defaults        0 0</code></p>
-<h1 id="增加-swap-空间"><a href="#增加-swap-空间" class="headerlink" title="增加 swap 空间"></a>增加 swap 空间</h1><h2 id="制作-swap-文件"><a href="#制作-swap-文件" class="headerlink" title="制作 swap 文件"></a>制作 swap 文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个1G的文件作为交换分区使用</span></span><br><span class="line">➜  ~ dd <span class="keyword">if</span>=/dev/zero of=/opt/swapfile bs=1M count=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成swap分区</span></span><br><span class="line">➜  ~ mkswap /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开swap分区</span></span><br><span class="line">➜  ~ swapon /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<h2 id="制作-swap-分区"><a href="#制作-swap-分区" class="headerlink" title="制作 swap 分区"></a>制作 swap 分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个 swap 分区</span></span><br><span class="line">➜  ~ fdisk /dev/sdb</span><br><span class="line">		<span class="comment"># 新建一个分区</span></span><br><span class="line">		n</span><br><span class="line">		p</span><br><span class="line">		default</span><br><span class="line">		default</span><br><span class="line">		...</span><br><span class="line">		<span class="comment"># 修改分区 id 为swap</span></span><br><span class="line">		t</span><br><span class="line">		82</span><br><span class="line">		<span class="comment"># 写入分区表</span></span><br><span class="line">		w</span><br><span class="line">		</span><br><span class="line"><span class="comment"># 同步内存和分区表信息</span></span><br><span class="line">➜  ~  partprobe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成 swap 分区</span></span><br><span class="line">➜  ~  mkswap /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 swap 分区</span></span><br><span class="line">➜  ~  swapon /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<p><em>Tips: 如果本机已有2G swap 交换分区,又制作了一个8G 的 swap 分区文件, 那么在执行<code>swapon</code>命令之后, swap 空间将为10G(swap 空间会累加)</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1401,6 +1301,96 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1%205/" class="post-title-link" itemprop="url">添加/删除路由</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-09 11:09:16" itemprop="dateCreated datePublished" datetime="2016-09-09T11:09:16+08:00">2016-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/添加-删除路由 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看路由"><a href="#查看路由" class="headerlink" title="查看路由"></a>查看路由</h1><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">0.0.0.0         192.168.3.1     0.0.0.0         UG    100    0        0 eth0</span><br><span class="line">192.168.3.0     0.0.0.0         255.255.255.0   U     100    0        0 eth0</span><br></pre></td></tr></table></figure>
+
+<h2 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt; netstat -nr</span><br><span class="line">Routing tables</span><br><span class="line"></span><br><span class="line">Internet:</span><br><span class="line">Destination        Gateway            Flags        Refs      Use   Netif Expire</span><br><span class="line">default            10.1.101.254       UGSc          214      718     en0</span><br><span class="line">10.1.100/23        link<span class="comment">#4             UCS            11        0     en0</span></span><br><span class="line">10.1.100.22        link<span class="comment">#4             UHLWIi          1        1     en0</span></span><br><span class="line">10.1.100.65/32     link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.100.65        60:3:8:a5:3b:9e    UHLWIi          1        3     lo0</span><br><span class="line">10.1.100.88        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.94        link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.100.99        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.100       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.121       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.146       90:b6:86:d8:d:24   UHLWIi          1        1     en0    867</span><br><span class="line">10.1.101.128       link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.101.164       c8:25:e1:61:70:2e  UHLWIi          1        1     en0   1004</span><br><span class="line">10.1.101.254/32    link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.101.254       b0:aa:77:1a:b0:58  UHLWIir       215       16     en0    782</span><br><span class="line">10.1.101.255       link<span class="comment">#4             UHLWbI          1      142     en0</span></span><br><span class="line">10.255.1/24        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">10.255.1.65        10.255.1.66        UH              3        0   utun0</span><br><span class="line">10.255.99/24       10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">10.255.99.49       10.255.99.50       UH             13        0   utun1</span><br><span class="line">10.255.100/24      10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">10.255.100.41      10.255.100.42      UH             13        0   utun2</span><br><span class="line">111.202.124.222/32 192.168.1.1        UGSc            2        0     en0</span><br><span class="line">127                127.0.0.1          UCS             1        0     lo0</span><br><span class="line">127.0.0.1          127.0.0.1          UH             27    57535     lo0</span><br><span class="line">169.254            link<span class="comment">#4             UCS             1        0     en0</span></span><br><span class="line">192.168.2          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.3          10.255.99.49       UGSc            2        0   utun1</span><br><span class="line">192.168.4          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.7          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.8          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.89         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.90         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.91         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.95         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.99         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.101        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.103        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.105        10.255.100.41      UGSc            2        0   utun2</span><br><span class="line">192.168.110        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.111        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.168        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">192.168.247        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.248        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.251        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.252        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.253        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">224.0.0            link<span class="comment">#4             UmCS            2        0     en0</span></span><br><span class="line">224.0.0.251        1:0:5e:0:0:fb      UHmLWI          1        0     en0</span><br><span class="line">255.255.255.255/32 link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">255.255.255.255    link<span class="comment">#4             UHLWbI          1      133     en0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="通过出口IP添加"><a href="#通过出口IP添加" class="headerlink" title="通过出口IP添加"></a>通过出口IP添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.2.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.8.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.168.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.100.0/24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过出口设备添加"><a href="#通过出口设备添加" class="headerlink" title="通过出口设备添加"></a>通过出口设备添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 0.0.0.0 dev ppp0 //添加默认路由</span><br></pre></td></tr></table></figure>
+
+<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route del -net 192.168.2.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.8.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.168.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.100.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1473,7 +1463,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

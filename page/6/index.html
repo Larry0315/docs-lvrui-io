@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,111 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy%203/" class="post-title-link" itemprop="url">kubelet删除Pod报device or resource busy</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-11 19:56:45" itemprop="dateCreated datePublished" datetime="2018-10-11T19:56:45+08:00">2018-10-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/10/11/Kubelet%E5%88%A0%E9%99%A4Pod%E6%8A%A5device-or-resource-busy%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/Kubelet删除Pod报device-or-resource-busy 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>删除 deployment 资源后, 某些 pod 资源的状态一直显示 Terminating, 进入到该 pod 所在的宿主机, 查看 kubelet 日志:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u kubelet -f</span><br></pre></td></tr></table></figure>
-
-<p>会发现有删除某些目录/文件 <code>device or resource busy</code> 的错误出现, 说明有其他的进程在挂载容器内使用的目录</p>
-<p>使用如下脚本, 检查目录挂载情况</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]<span class="comment"># cat leak.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">declare</span> -A map</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `find /proc/*/mounts -<span class="built_in">exec</span> grep <span class="variable">$1</span> &#123;&#125; + 2&gt;/dev/null | awk <span class="string">'&#123;print $1"#"$2&#125;'</span>`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    pid=`<span class="built_in">echo</span> <span class="variable">$i</span> | awk -F <span class="string">"[/]"</span> <span class="string">'&#123;print $3&#125;'</span>`</span><br><span class="line">    point=`<span class="built_in">echo</span> <span class="variable">$i</span> | awk -F <span class="string">"[#]"</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">    mnt=`ls -l /proc/<span class="variable">$pid</span>/ns/mnt |awk <span class="string">'&#123;print $11&#125;'</span>`</span><br><span class="line">    map[<span class="string">"<span class="variable">$mnt</span>"</span>]=<span class="string">"exist"</span></span><br><span class="line">    cmd=`cat /proc/<span class="variable">$pid</span>/cmdline`</span><br><span class="line">    <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$pid</span>\t<span class="variable">$mnt</span>\t<span class="variable">$cmd</span>\t<span class="variable">$point</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `ps aux|grep docker-containerd-shim |grep -v <span class="string">"grep"</span> |awk <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    mnt=`ls -l /proc/<span class="variable">$i</span>/ns/mnt  2&gt;/dev/null | awk <span class="string">'&#123;print $11&#125;'</span>`</span><br><span class="line">    <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;map[$mnt]&#125;</span>"</span> == <span class="string">"exist"</span> ]];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="variable">$mnt</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>执行脚本, 后跟<code>device or resource busy</code>的目录绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh leak.sh &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F;81791176-a505-11e7-accf-5254fe5a9007&#x2F;volumes&#x2F;kubernetes.io~secret&#x2F;default-token-pzyxh</span><br></pre></td></tr></table></figure>
-
-<p>执行后, 可以看到该目录被哪些进程所挂载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8392    mnt:[4026532536]    &#x2F;bin&#x2F;bash&#x2F;start.sh--logtostderr -v&#x3D;2    &#x2F;var&#x2F;lib&#x2F;kubelet&#x2F;pods&#x2F;81791176-a505-11e7-accf-5254fe5a9007&#x2F;volumes&#x2F;kubernetes.io~secret&#x2F;default-token-pzyxh</span><br></pre></td></tr></table></figure>
-
-<p>一级一级往上追踪父进程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]<span class="comment"># ps -ef | grep 8392</span></span><br><span class="line">root      8392  8345  0 9月30 ?       00:00:00 /bin/bash /start.sh --logtostderr -v=2</span><br><span class="line">root      8420  8392  0 9月30 ?       00:17:19 /usr/bin/python /usr/bin/supervisord -c supervisord.conf</span><br><span class="line">root     13757  7126  0 13:35 pts/2    00:00:00 grep --color=auto 8392</span><br><span class="line">[root@k8s-node ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-<p>我遇到的情况是另一个专门用于收集日志的容器, 挂载了这个容器中的数据目录, 导致删除该容器时, 报<code>device or resource busy</code>的错误</p>
-<p>这种情况下, 你可以是用<code>kubectl exec</code>或<code>docker exec</code>进入到容器中, 将该目录 umount 掉, 过一会儿, 该 pod 即可被 Kubernetes 正确删除</p>
-<hr>
-<p>参考文档:</p>
-<ul>
-<li><a href="https://www.jianshu.com/p/4fc11a0a31da" target="_blank" rel="noopener">https://www.jianshu.com/p/4fc11a0a31da</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1486,6 +1381,146 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95%203/" class="post-title-link" itemprop="url">Go面向对象之结构体和方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-14 00:03:20" itemprop="dateCreated datePublished" datetime="2018-08-14T00:03:20+08:00">2018-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/14/Go%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/14/Go面向对象之结构体和方法 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>go语言只支持封装, 不支持继承和多态. Java是典型的支持面向对象的语言之一, 他本身支持面向对象的三大特征, 封装继承和多态; 到了Python中, Python显式的支持封装和继承, Python多态的特性大家争论不休, 虽然Python没有显式的多态语法, 但是由于Python这种动态语言的设计, 他本身就是多态的; 到了Go这里, 却只支持封装了, 与其说Go语言是一种面向对象的语言, 倒不如说他是一种面向接口的语言</p>
+</blockquote>
+<p>go语言没有class, 只有struct, Go语言中也没有构造函数的说法</p>
+<h1 id="定义结构体"><a href="#定义结构体" class="headerlink" title="定义结构体"></a>定义结构体</h1><p>在结构体中, 可以为不同的key定义不同的数据类型, 结构体是由一系列具有相同类型或不同类型的数据构成的数据集合</p>
+<p>结构体更类似于在传统的分层开发领域中的module层(实体层), 一般情况下, 实体层中的每个成员属性都对应了数据库中数据表的一个字段, 实力层存在的意义在于以对象的形式进行传值. 拿三层开发来说, 一般分为表示层/接口层, 业务逻辑层, 数据访问层. 每层与每层之间的数据流转正是通过引入的实体层, 实例化实体层的对象来实现的. 结构体之于Go, 类似于实体层中的类之于Java</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	ee := employee&#123;id:<span class="number">234</span>, name:<span class="string">"sam"</span>, age:<span class="number">45</span>, department:<span class="string">"daas"</span>, city:<span class="string">"BeiJing"</span>&#125;</span><br><span class="line">	fmt.Println(e)</span><br><span class="line">	fmt.Println(ee)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;123 larry 28 paas TangShan&#125;</span><br><span class="line">&#123;234 sam 45 daas BeiJing&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="访问结构体成员"><a href="#访问结构体成员" class="headerlink" title="访问结构体成员"></a>访问结构体成员</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> e1 employee  <span class="comment">// 声明e1变量为employee类型</span></span><br><span class="line">	<span class="keyword">var</span> e2 employee  <span class="comment">// 声明e2变量为employee类型</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 为e1对象赋值</span></span><br><span class="line">	e1.id = <span class="number">123</span></span><br><span class="line">	e1.name = <span class="string">"larry"</span></span><br><span class="line">	e1.age = <span class="number">28</span></span><br><span class="line">	e1.department = <span class="string">"paas"</span></span><br><span class="line">	e1.city = <span class="string">"TangShan"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 为e2对象赋值</span></span><br><span class="line">	e2.id = <span class="number">234</span></span><br><span class="line">	e2.name = <span class="string">"sam"</span></span><br><span class="line">	e2.age = <span class="number">45</span></span><br><span class="line">	e2.department = <span class="string">"daas"</span></span><br><span class="line">	e2.city = <span class="string">"BeiJing"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 访问结构体对象的成员</span></span><br><span class="line">	fmt.Println(e1.name, e1.age)</span><br><span class="line">	fmt.Println(e2.name, e2.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">larry 28</span><br><span class="line">sam 45</span><br></pre></td></tr></table></figure>
+
+<h1 id="结构体作为函数参数"><a href="#结构体作为函数参数" class="headerlink" title="结构体作为函数参数"></a>结构体作为函数参数</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printEmpInfo</span><span class="params">(emp employee)</span></span> &#123;</span><br><span class="line">	fmt.Println(emp.name, emp.city)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	ee := employee&#123;id:<span class="number">234</span>, name:<span class="string">"sam"</span>, age:<span class="number">45</span>, department:<span class="string">"daas"</span>, city:<span class="string">"BeiJing"</span>&#125;</span><br><span class="line"></span><br><span class="line">	printEmpInfo(e)</span><br><span class="line">	printEmpInfo(ee)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结构体用作函数参数的时候, 最像三层开发中的实体层用法</p>
+<h1 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> e1 *employee</span><br><span class="line"></span><br><span class="line">	e1 = &amp;e</span><br><span class="line"></span><br><span class="line">	fmt.Println(e1.age, e.age)</span><br><span class="line"></span><br><span class="line">	e1.age = <span class="number">29</span></span><br><span class="line">	</span><br><span class="line">	fmt.Println(e1.age, e.age)  <span class="comment">// 由于e1对象拿到的是e对象的指针, 所以对任意一个变量赋值都会被更改</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">28 28</span><br><span class="line">29 29</span><br></pre></td></tr></table></figure>
+
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>在Python中, 方法和函数的区别可以简单理解为在类中的函数就叫方法. 在Go语言中, 什么是方法呢, 可以简单认为, 为结构体定义的函数就叫方法</p>
+<p>与其他语言不同的是, 为结构体定义的方法, 从形式上看不是写在结构体里面的, 而是写在结构体外面的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="comment">// (emp employee) 在函数名的前面定义了接收者, 类似于其他语言的this, 或是Python的self</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp employee)</span> <span class="title">printEmpInfo</span><span class="params">(arg <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"我是形式参数 %s\n"</span>, arg)</span><br><span class="line">	fmt.Println(emp.name)</span><br><span class="line">	fmt.Println(emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	e.printEmpInfo(<span class="string">"PolarSnow"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我是形式参数 PolarSnow</span><br><span class="line">larry</span><br><span class="line">28</span><br></pre></td></tr></table></figure>
+
+<p>上面的demo中, <code>e.printEmpInfo(&quot;PolarSnow&quot;)</code> e对象调用了printEmpInfo方法, 并显式传递了PolarSnow参数, 其实在背后, 在存在一个隐式传参, 就是e把自己传递给了方法定义中的<code>(emp employee)</code>, 类似于Java中的this, 和Python中的self</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printEmpInfo</span><span class="params">(emp employee, arg <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"我是形式参数 %s\n"</span>, arg)</span><br><span class="line">	fmt.Println(emp.name)</span><br><span class="line">	fmt.Println(emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	printEmpInfo(e, <span class="string">"PolarSnow"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这么写效果是一样的, 只是调用的时候是直接调用函数, 把结构体对象当做形式参数传递, 而不是调用结构体自己的方法, 将自己隐式传递到方法中</p>
+<h1 id="结构体方法中隐式传参的问题"><a href="#结构体方法中隐式传参的问题" class="headerlink" title="结构体方法中隐式传参的问题"></a>结构体方法中隐式传参的问题</h1><p><strong>注意: 默认情况下, Go语言所有参数都是传值, <code>func (emp employee) printEmpInfo(arg string)</code> 也不例外, 同样是值传递</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	emp.age = age</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法里的值"</span>, emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法外面的值"</span>, e.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是结构体方法里的值 29</span><br><span class="line">我是结构体方法外面的值 28</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体方法</span></span><br><span class="line"><span class="comment">// 只要将接收结构体对象的数据类型前加*(取指针) 则方法内对结构体对象成员的修改就会同步到方法外部</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp *employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	emp.age = age</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法里的值"</span>, emp.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := employee&#123;id:<span class="number">123</span>, name:<span class="string">"larry"</span>, age:<span class="number">28</span>, department:<span class="string">"paas"</span>, city:<span class="string">"TangShan"</span>&#125;</span><br><span class="line">	<span class="comment">// 调用方不需要任何更改, Go会自动去识别是应该传值还是传址</span></span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">	fmt.Println(<span class="string">"我是结构体方法外面的值"</span>, e.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是结构体方法里的值 29</span><br><span class="line">我是结构体方法外面的值 29</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: 只有指针才可以改变结构体中的内容</strong></p>
+<p>nil指针也是可以调用方法的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age <span class="keyword">int</span></span><br><span class="line">	department <span class="keyword">string</span></span><br><span class="line">	city <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(emp *employee)</span> <span class="title">setEmpAge</span><span class="params">(age <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> emp == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"employee 对象为 nil 指针"</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> e *employee</span><br><span class="line">	e.setEmpAge(<span class="number">29</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">employee 对象为 nil 指针</span><br></pre></td></tr></table></figure>
+
+<h1 id="值接收者-vs-指针接收者"><a href="#值接收者-vs-指针接收者" class="headerlink" title="值接收者 vs 指针接收者"></a>值接收者 vs 指针接收者</h1><ul>
+<li>要改变内容必须使用指针接收者</li>
+<li>结构过大也需要考虑使用指针接受者</li>
+<li>一致性: 如果有指针接收者, 最好都是指针接收者</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1558,7 +1593,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

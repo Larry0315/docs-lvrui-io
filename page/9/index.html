@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,137 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/" class="post-title-link" itemprop="url">Go基础之切片Slice操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-08 01:34:34" itemprop="dateCreated datePublished" datetime="2018-08-08T01:34:34+08:00">2018-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/08/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87Slice%E6%93%8D%E4%BD%9C%203/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Go基础之切片Slice操作 3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="向Slice中添加元素"><a href="#向Slice中添加元素" class="headerlink" title="向Slice中添加元素"></a>向Slice中添加元素</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	arr := [...]<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>, <span class="string">"g"</span>, <span class="string">"h"</span>&#125;</span><br><span class="line">	s := arr[<span class="number">2</span>:<span class="number">6</span>]</span><br><span class="line">	ss := <span class="built_in">append</span>(s, <span class="string">"xx"</span>)</span><br><span class="line">	sss := <span class="built_in">append</span>(ss, <span class="string">"yy"</span>)</span><br><span class="line">	ssss := <span class="built_in">append</span>(sss, <span class="string">"zz"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">	fmt.Println(<span class="string">"sss"</span>, sss)</span><br><span class="line">	fmt.Println(<span class="string">"ssss"</span>, ssss)</span><br><span class="line">	fmt.Println(<span class="string">"arr"</span>, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s [c d e f]</span><br><span class="line">ss [c d e f xx]</span><br><span class="line">sss [c d e f xx yy]</span><br><span class="line">ssss [c d e f xx yy zz]</span><br><span class="line">arr [a b c d e f xx yy]</span><br></pre></td></tr></table></figure>
-
-<p>从执行结果中可以看出, 向Slice中append元素后, 会覆盖掉底层Array的值, 会覆盖掉索引为<code>ptr+len(Slice)</code>的值. 当Slice append后, 超出了cap的长度, 底层Array中已经没有多余的值可以给他覆盖后, 这时, 新的Slice其实已经不再是老的Array的view了, Go语言会在内部创建一个新的Array, 把老数据拷贝过去, 且新的Array的长度会设置的更长一些. 上面的Demo中, ssss已经不再是原始Array的view</p>
-<ul>
-<li><p>当添加元素时, 如果超越了cap, 系统会重新分配更大的底层数组, 原来的Array如果没有被任何对象使用, 将被垃圾回收机制回收</p>
-</li>
-<li><p>由于Go语言是值传递, 在append后, 必须接收其返回值. 原因是在append操作后, Slice的len肯定会变化, 如果超过了Array长度, cap的值也会变化, 所以需要我们使用新的Slice对象去接收新的返回值</p>
-</li>
-</ul>
-<h2 id="创建Slice"><a href="#创建Slice" class="headerlink" title="创建Slice"></a>创建Slice</h2><p>上一篇文章的介绍中, 全篇都使用了Array去创建Slice, 我们可以直接创建Slice</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span>  <span class="comment">// 声明创建一个int类型的Slice</span></span><br><span class="line">	<span class="comment">// 如果变量没有被赋值, Go语言会为每个变量定义Zero Value</span></span><br><span class="line">	<span class="comment">// Slice的Zero Value 为 nil</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>; i&lt;=<span class="number">59</span>; i++ &#123;</span><br><span class="line">		printSliceInfo(s)</span><br><span class="line">		s = <span class="built_in">append</span>(s, i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;0 cap&#x3D;0</span><br><span class="line">len&#x3D;1 cap&#x3D;1</span><br><span class="line">len&#x3D;2 cap&#x3D;2</span><br><span class="line">len&#x3D;3 cap&#x3D;4</span><br><span class="line">len&#x3D;4 cap&#x3D;4</span><br><span class="line">len&#x3D;5 cap&#x3D;8</span><br><span class="line">len&#x3D;6 cap&#x3D;8</span><br><span class="line">len&#x3D;7 cap&#x3D;8</span><br><span class="line">len&#x3D;8 cap&#x3D;8</span><br><span class="line">len&#x3D;9 cap&#x3D;16</span><br><span class="line">len&#x3D;10 cap&#x3D;16</span><br><span class="line">len&#x3D;11 cap&#x3D;16</span><br><span class="line">len&#x3D;12 cap&#x3D;16</span><br><span class="line">len&#x3D;13 cap&#x3D;16</span><br><span class="line">len&#x3D;14 cap&#x3D;16</span><br><span class="line">len&#x3D;15 cap&#x3D;16</span><br><span class="line">len&#x3D;16 cap&#x3D;16</span><br><span class="line">len&#x3D;17 cap&#x3D;32</span><br><span class="line">len&#x3D;18 cap&#x3D;32</span><br><span class="line">len&#x3D;19 cap&#x3D;32</span><br><span class="line">len&#x3D;20 cap&#x3D;32</span><br><span class="line">len&#x3D;21 cap&#x3D;32</span><br><span class="line">len&#x3D;22 cap&#x3D;32</span><br><span class="line">len&#x3D;23 cap&#x3D;32</span><br><span class="line">len&#x3D;24 cap&#x3D;32</span><br><span class="line">len&#x3D;25 cap&#x3D;32</span><br><span class="line">len&#x3D;26 cap&#x3D;32</span><br><span class="line">len&#x3D;27 cap&#x3D;32</span><br><span class="line">len&#x3D;28 cap&#x3D;32</span><br><span class="line">len&#x3D;29 cap&#x3D;32</span><br><span class="line">len&#x3D;30 cap&#x3D;32</span><br><span class="line">len&#x3D;31 cap&#x3D;32</span><br><span class="line">len&#x3D;32 cap&#x3D;32</span><br><span class="line">len&#x3D;33 cap&#x3D;64</span><br><span class="line">len&#x3D;34 cap&#x3D;64</span><br><span class="line">len&#x3D;35 cap&#x3D;64</span><br><span class="line">len&#x3D;36 cap&#x3D;64</span><br><span class="line">len&#x3D;37 cap&#x3D;64</span><br><span class="line">len&#x3D;38 cap&#x3D;64</span><br><span class="line">len&#x3D;39 cap&#x3D;64</span><br><span class="line">len&#x3D;40 cap&#x3D;64</span><br><span class="line">len&#x3D;41 cap&#x3D;64</span><br><span class="line">len&#x3D;42 cap&#x3D;64</span><br><span class="line">len&#x3D;43 cap&#x3D;64</span><br><span class="line">len&#x3D;44 cap&#x3D;64</span><br><span class="line">len&#x3D;45 cap&#x3D;64</span><br><span class="line">len&#x3D;46 cap&#x3D;64</span><br><span class="line">len&#x3D;47 cap&#x3D;64</span><br><span class="line">len&#x3D;48 cap&#x3D;64</span><br><span class="line">len&#x3D;49 cap&#x3D;64</span><br><span class="line">len&#x3D;50 cap&#x3D;64</span><br><span class="line">len&#x3D;51 cap&#x3D;64</span><br><span class="line">len&#x3D;52 cap&#x3D;64</span><br><span class="line">len&#x3D;53 cap&#x3D;64</span><br><span class="line">len&#x3D;54 cap&#x3D;64</span><br><span class="line">len&#x3D;55 cap&#x3D;64</span><br><span class="line">len&#x3D;56 cap&#x3D;64</span><br><span class="line">len&#x3D;57 cap&#x3D;64</span><br><span class="line">len&#x3D;58 cap&#x3D;64</span><br><span class="line">len&#x3D;59 cap&#x3D;64</span><br><span class="line">[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59]</span><br></pre></td></tr></table></figure>
-
-<p>从上面的执行结果可以看出, Go语言会根据使用情况自动去扩展Slice的len以及cap</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">string</span>&#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">16</span>, <span class="number">32</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">  len&#x3D;16 cap&#x3D;32</span><br></pre></td></tr></table></figure>
-
-<h2 id="拷贝Slice"><a href="#拷贝Slice" class="headerlink" title="拷贝Slice"></a>拷贝Slice</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>&#125;  <span class="comment">// 首先创建了个Array, 然后对其view</span></span><br><span class="line">	printSliceInfo(s)</span><br><span class="line">	fmt.Println(<span class="string">"s"</span>, s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">4</span>, <span class="number">8</span>)  <span class="comment">// 创建一个len为16, cap为32的string类型Slice</span></span><br><span class="line">	printSliceInfo(ss)</span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">copy</span>(ss, s)  <span class="comment">// 将s切片的数据拷贝到ss切片中</span></span><br><span class="line">	fmt.Println(<span class="string">"ss"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">len&#x3D;3 cap&#x3D;3</span><br><span class="line">s [2015 5 9]</span><br><span class="line">len&#x3D;4 cap&#x3D;8</span><br><span class="line">ss [0 0 0 0]</span><br><span class="line">ss [2015 5 9 0]</span><br></pre></td></tr></table></figure>
-
-<h2 id="删除Slice中的元素"><a href="#删除Slice中的元素" class="headerlink" title="删除Slice中的元素"></a>删除Slice中的元素</h2><p>对于Slice的删除功能, Go语言没有提供直接的操作语句, 但是可以通过Reslice来实现</p>
-<p>需求: 删除Slice中的第3个元素 [12, 34, 56, 78, 90, 89, 72]</p>
-<p>思路: 使用Reslice, s[:3] + s[4:] 取得的就是删除原切片第三个元素的数据, 但Go语言也没有提供Slice相加的功能, 只能通过append函数来实现, append(s[:3], s[4:]), 问题又来了, append的源码中要求第二参数必须是可变参数, 也就是一个值一个值的写在后面 <code>func append(slice []Type, elems ...Type) []Type</code></p>
-<p>Go语言中提供了相关的语法, 来解决s[4:]变成可变参数的问题</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	ss := <span class="built_in">append</span>(s[:<span class="number">3</span>], s[<span class="number">4</span>:]...)</span><br><span class="line">	fmt.Println(ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">[12 34 56 90 89 72]</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除头尾"><a href="#删除头尾" class="headerlink" title="删除头尾"></a>删除头尾</h3><p>删头</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	front := s[<span class="number">0</span>]</span><br><span class="line">	ss := s[<span class="number">1</span>:]</span><br><span class="line">	fmt.Println(<span class="string">"取出的头部元素为"</span>, front)</span><br><span class="line">	fmt.Println(<span class="string">"取出头部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的头部元素为 12</span><br><span class="line">取出头部元素后的Slice为 [34 56 78 90 89 72]</span><br></pre></td></tr></table></figure>
-
-<p>删尾</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">12</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">78</span>, <span class="number">90</span>, <span class="number">89</span>, <span class="number">72</span>&#125;</span><br><span class="line">	fmt.Println(s)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Poping from front"</span>)</span><br><span class="line">	tail := s[<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	ss := s[:<span class="built_in">len</span>(s)<span class="number">-1</span>]</span><br><span class="line">	fmt.Println(<span class="string">"取出的尾部元素为"</span>, tail)</span><br><span class="line">	fmt.Println(<span class="string">"取出尾部元素后的Slice为"</span>, ss)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[12 34 56 78 90 89 72]</span><br><span class="line">Poping from front</span><br><span class="line">取出的尾部元素为 72</span><br><span class="line">取出尾部元素后的Slice为 [12 34 56 78 90 89]</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1343,6 +1212,117 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/31/Python%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/31/Python%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%205/" class="post-title-link" itemprop="url">Python中的变量的本质</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-31 23:21:04" itemprop="dateCreated datePublished" datetime="2018-07-31T23:21:04+08:00">2018-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/07/31/Python%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/31/Python中的变量的本质 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python和Java中变量的本质不一样. Java在定义变量的时候, 就已经确定了该变量的数据类型且不可改变. Python的变量实质上是一个指针, 指针本身的大小是固定的, 它可以指向一个int, 也可以指向str或其他任何数据类型. 在Python中查找数据, 只需要找到指针即可找到对应的数据. 可以简单把Python变量理解为一个标签, 这个标签的大小是固定的, 标签可以贴在任何对象上</p>
+</blockquote>
+<h1 id="创建变量的过程"><a href="#创建变量的过程" class="headerlink" title="创建变量的过程"></a>创建变量的过程</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line">a = <span class="string">"abc"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先, 在内存中声明一个int对象, 用来放数据</li>
+<li>然后给对象贴上标签</li>
+</ul>
+<p>注意: 对于Python来说, 是<code>a</code>标签贴在了对象上, 而不是将对象分配给<code>a</code>. 在Java来说, 才是将对象分配到了<code>a</code>的”盒子”里. “标签”是动态语言的核心</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">b = a</span><br><span class="line">b.append(d)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到, a标签贴在了一个列表对象上, 然后将b也贴在了这个列表上, 所以后面对b标签的操作, 实际也是在操作a标签下的数据, 因为a, b两个标签此时对应的是同一对象</p>
+<p>此时可能有人会有疑问, 上面是引用数据类型, 如果我操作的是基本数据类型呢? 请看如下实验</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">"abc"</span></span><br><span class="line">b = a</span><br><span class="line">b.replace(<span class="string">"c"</span>, <span class="string">"x"</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#39;abc&#39;</span><br><span class="line">&#39;abc&#39;</span><br></pre></td></tr></table></figure>
+
+<p>在第三行中, 我对字符串进行了替换操作, 为什么没有影响到最终的结果呢? 因为在<code>字符串</code>.replace()的操作后, 会返回一个新的字符串对象, 该字符串对象才是符合预期修改的字符串, 该操作新生成了对象返回, 没有影响到原始对象的数据. 而且我们可以通过id()函数来观察</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id(a)</span><br><span class="line">id(b)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4554176528</span><br><span class="line">4554176528</span><br></pre></td></tr></table></figure>
+
+<p>从执行结果可以看出, 即使对象是基础数据类型, a, b两个标签依然是贴在同一个对象上, 没有生成新的对象</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1415,7 +1395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,92 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/" class="post-title-link" itemprop="url">TypeError: not all arguments converted during string formatting python</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-03-16 16:02:39" itemprop="dateCreated datePublished" datetime="2018-03-16T16:02:39+08:00">2018-03-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/TypeError-not-all-arguments-converted-during-string-formatting-python 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>该报错发生在字符串拼接时的操作, 以下字符串拼接的方式, 只要不混用, 该问题就可以解决</p>
-<h1 id="第一种-占位符"><a href="#第一种-占位符" class="headerlink" title="第一种 % 占位符"></a>第一种 % 占位符</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">2</span>]: s  = <span class="string">"abc %s"</span> % <span class="number">123</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: s</span><br><span class="line">Out[<span class="number">3</span>]: <span class="string">'abc 123'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: s = <span class="string">'abc %s %s'</span> % (<span class="number">123</span>, <span class="number">456</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s</span><br><span class="line">Out[<span class="number">5</span>]: <span class="string">'abc 123 456'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="第二种-大括号"><a href="#第二种-大括号" class="headerlink" title="第二种 {} 大括号"></a>第二种 {} 大括号</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: s = <span class="string">'abc &#123;0&#125;'</span>.format(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: s</span><br><span class="line">Out[<span class="number">7</span>]: <span class="string">'abc 123'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: s = <span class="string">'abc &#123;0&#125; &#123;1&#125;'</span>.format(<span class="number">123</span>, <span class="number">456</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: s</span><br><span class="line">Out[<span class="number">9</span>]: <span class="string">'abc 123 456'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1127,6 +1041,104 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/" class="post-title-link" itemprop="url">Python实现redis的自增操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-29 11:56:00" itemprop="dateCreated datePublished" datetime="2018-01-29T11:56:00+08:00">2018-01-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/01/29/Python%E5%AE%9E%E7%8E%B0redis%E7%9A%84%E8%87%AA%E5%A2%9E%E6%93%8D%E4%BD%9C%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/29/Python实现redis的自增操作 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在传统的数据库中, 如果实现一个计数器的操作, 需要先去数据库中读取该值, 再程序中加1, 再讲最新的值存入数据库. 用户操作的流程步骤多不说, 还容易出现数据安全性的问题, 比如多进程/多线程的并发情况, 有可能出现A进程读取的计数器为5, 在本地执行+1, 操作的时候, 此时B进程也去执行计数器+1操作, B读取的数值也是5, 然后A将+1之后的数字6存入数据库, 之后B处理完后也将+1之后的6存入数据库, 这样就导致了在并发的情况下, 计数器的数据不准的情况.</p>
+</blockquote>
+<p>Redis的很多操作本身都是原子性的, 例如上面案例中, 计数器+1的问题, 会有三个步骤</p>
+<ul>
+<li>读取数值</li>
+<li>自增操作</li>
+<li>写入数值</li>
+</ul>
+<p>在传统数据库中, 为了保证数据的安全性, 这三个步骤通常是要加锁的, 也就是在步骤已经很多的情况下, 还需要考虑锁的问题. 但是Redis就不同了, Redis原子性的意思就是说, 可以保证上面的三个步骤是一个操作, 在这个操作完成之后才允许我们对其进行其他操作, 这就原生的保证了数据安全性</p>
+<h1 id="redis中的自增"><a href="#redis中的自增" class="headerlink" title="redis中的自增"></a>redis中的自增</h1><p>在redis中, 如果一个key的value是数值类型, 我们就可以对这个值进行incr操作, 如果数值是整形int, 使用incr进行自增操作, 如果数值是浮点型float, 则需要使用incrbyfloat进行操作, 还有一种情况, 就是对int使用了incrbyfloat操作, 则这个数值就会变成float类型, 也就无法再对其执行incr操作了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: pool=redis.ConnectionPool(host=<span class="string">'127.0.0.1'</span>,port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: r = redis.StrictRedis(connection_pool=pool)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: r.keys()</span><br><span class="line">Out[<span class="number">4</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: r.incr(<span class="string">'counter'</span>, <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: r.keys()</span><br><span class="line">Out[<span class="number">9</span>]: [<span class="string">b'counter'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: r.get(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">10</span>]: <span class="string">b'5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">11</span>]: <span class="number">6.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: r.incrbyfloat(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">12</span>]: <span class="number">7.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">7.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">0.1</span>)</span><br><span class="line">Out[<span class="number">14</span>]: <span class="number">7.2</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="redis中的自减"><a href="#redis中的自减" class="headerlink" title="redis中的自减"></a>redis中的自减</h1><p>redis中使用decr函数进行自减操作, 但是自减中, 没有提供类似incrbyfloat的操作, 如果在自减中想实现浮点数的效果, 可以通过在incrbyfloat函数中使用负数的方式实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: r.keys()</span><br><span class="line">Out[<span class="number">19</span>]: []</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: r.incr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">20</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: r.decr(<span class="string">'counter'</span>)</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">22</span>]: <span class="number">-1.1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: r.incrbyfloat(<span class="string">'counter'</span>, <span class="number">-1.1</span>)</span><br><span class="line">Out[<span class="number">23</span>]: <span class="number">-2.2</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1199,7 +1211,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

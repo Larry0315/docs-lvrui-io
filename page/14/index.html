@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">573</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,93 +203,6 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/" class="post-title-link" itemprop="url">Python2的中文字符编码报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:22:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:22:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/Python2%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%8A%A5%E9%94%99%205/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Python2的中文字符编码报错 5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python2中, 在首行声明了字符编码为<code>utf8</code>, 但是依然报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 0: ordinal not in range(128)</span><br></pre></td></tr></table></figure>
-
-<p>解决方法如下:</p>
-<p>在报错的python文件中加入以下几行代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
   
   
@@ -1185,6 +1098,131 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/12/26/tornado%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%B6%88%E6%81%AF%E7%9A%84%E4%BA%A4%E4%BA%92%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/26/tornado%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%B6%88%E6%81%AF%E7%9A%84%E4%BA%A4%E4%BA%92%205/" class="post-title-link" itemprop="url">tornado实现与企业微信消息的交互</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-26 22:21:55" itemprop="dateCreated datePublished" datetime="2017-12-26T22:21:55+08:00">2017-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/12/26/tornado%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%B6%88%E6%81%AF%E7%9A%84%E4%BA%A4%E4%BA%92%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/26/tornado实现与企业微信消息的交互 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="tornado实现与企业微信消息的交互"><a href="#tornado实现与企业微信消息的交互" class="headerlink" title="tornado实现与企业微信消息的交互"></a>tornado实现与企业微信消息的交互</h1><blockquote>
+<p>现在企业微信开放了普通用户注册，大大方便了我们实现一些“脑洞大开”的想法。DevOps喊了好多年了，近期出现了两个DevOps的分支，一个是ChatOps，一个是AIOps。ChatOps是最近几年火起来的，其中比较出名是slack+hubot的双剑合璧。在slack频道中，发送的一些信息，根据hubot的配置规则，是可以将聊天信息转化为具体命令去服务器上执行的。基于此，国内使用率比较高的企业IM软件就是企业微信了。在企业中，我们可以创建自己的应用模块，在该模块中实现与用户的消息进行交互，本篇文章就来实现这一目标（本篇文章只介绍在已创建自建应用的情况下，与用户消息交互，不含注册企业微信号和创建企业号自建应用的教程，这个自己去百度.com一下就可以了，点一点，没什么难度）</p>
+</blockquote>
+<p><strong>注意：本篇文章不考虑tornado框架的完善性，只作为一个restful开发框架来做基本的演示</strong></p>
+<h1 id="前期准备："><a href="#前期准备：" class="headerlink" title="前期准备："></a>前期准备：</h1><ul>
+<li>一个企业微信账号（认不认证都可以）</li>
+<li>在企业微信账号管理后台中创建一个自建应用（企业应用–&gt;自建应用）</li>
+<li>拿到企业账号的CorpID（我的企业–&gt;企业信息）</li>
+<li>在企业微信平台获取一个Token（进入自建应用中–&gt;接收消息–&gt;启动API接收–&gt;随机获取Token）</li>
+<li>在企业微信平台获取一个EncodingAESKey（进入自建应用中–&gt;接收消息–&gt;启动API接收–&gt;随机获取EncodingAESKey）</li>
+<li>一个有公网IP的服务器（可以在阿里云等厂商购买）</li>
+<li>一个Python2.7的环境</li>
+</ul>
+<h1 id="下载企业微信提供的加解密模块"><a href="#下载企业微信提供的加解密模块" class="headerlink" title="下载企业微信提供的加解密模块"></a>下载企业微信提供的加解密模块</h1><p>企业微信提供了Python版本的加解密模块，我们可以直接从企业微信官方网站上下载使用</p>
+<ul>
+<li>地址：<a href="https://work.weixin.qq.com/api/doc#10128" target="_blank" rel="noopener">https://work.weixin.qq.com/api/doc#10128</a></li>
+<li>下载链接：<a href="http://open.work.weixin.qq.com/wwopen/downloadfile/python.zip" target="_blank" rel="noopener">http://open.work.weixin.qq.com/wwopen/downloadfile/python.zip</a></li>
+</ul>
+<p>下载完成后，你将得到以下文件：</p>
+<ul>
+<li>ierror.py 错误状态码</li>
+<li>Sample.py 示例代码</li>
+<li>WXBizMsgCrypt.py 加解密核心模块</li>
+<li>Readme.txt</li>
+</ul>
+<p>为了使用<code>WXBizMsgCrypt.py</code>这个模块，需要先在Python环境中安装<code>pycrypto</code>模块，执行一下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; pip install pycrypto</span><br></pre></td></tr></table></figure>
+
+<h1 id="搭建tornado运行框架"><a href="#搭建tornado运行框架" class="headerlink" title="搭建tornado运行框架"></a>搭建tornado运行框架</h1><p>在与微信提供的模块的同级目录中，创建tornado服务应用<code>app.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">from</span> WXBizMsgCrypt <span class="keyword">import</span> WXBizMsgCrypt</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> xml.etree.cElementTree <span class="keyword">as</span> ET</span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span>  <span class="comment"># 建立连接，认证使用</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self)</span>:</span>  <span class="comment"># 信息收发，交互使用</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">application = tornado.web.Application([</span><br><span class="line">    (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        application.listen(<span class="number">8888</span>)</span><br><span class="line">        tornado.ioloop.IOLoop.instance().start()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"exit"</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>此处的tornado框架只为演示，框架其他功能未完善</strong></p>
+<h1 id="与企业微信认证接口并建立连接"><a href="#与企业微信认证接口并建立连接" class="headerlink" title="与企业微信认证接口并建立连接"></a>与企业微信认证接口并建立连接</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 声明并赋值企业微信中的信息</span></span><br><span class="line">    sToken = <span class="string">"iXIPhJ35"</span></span><br><span class="line">    sEncodingAESKey = <span class="string">"LRB2JiYSMUsszYrcbTd9fWTLwlYEhrEjb7Z9coWRBoJ"</span></span><br><span class="line">    sCorpID = <span class="string">"yy4f13b9b0a629296d"</span></span><br><span class="line">    wxcpt=WXBizMsgCrypt(sToken,sEncodingAESKey,sCorpID)  <span class="comment"># 使用企业微信提供的模块创建加密解密对象</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取URL中的参数</span></span><br><span class="line">    sVerifyMsgSig=self.get_argument(<span class="string">'msg_signature'</span>)</span><br><span class="line">    sVerifyTimeStamp=self.get_argument(<span class="string">'timestamp'</span>)</span><br><span class="line">    sVerifyNonce=self.get_argument(<span class="string">'nonce'</span>)</span><br><span class="line">    sVerifyEchoStr=self.get_argument(<span class="string">'echostr'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用解密加密对象进行URL认证</span></span><br><span class="line">    ret,sEchoStr=wxcpt.VerifyURL(sVerifyMsgSig, sVerifyTimeStamp,sVerifyNonce,sVerifyEchoStr)</span><br><span class="line">    <span class="keyword">if</span> ret != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ERR: VerifyURL ret:"</span> + ret</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将解密后的字符串发回给企业微信端</span></span><br><span class="line">    self.write(sEchoStr)</span><br></pre></td></tr></table></figure>
+
+<p>认证建立连接的大概流程就是<code>企业微信用自己的加密算法加密一个字符串通过get请求的方式发送给你</code> –&gt; <code>你的接口拿到这次get请求后，依据URL中的参数，反解出企业微信发来的加密字符串</code> –&gt; <code>解密后，将该字符串返回给企业微信端</code> –&gt; <code>企业微信收到明文的字符串后会对比自己的初始发送的字符串</code> –&gt; <code>对比成功即验证成功，建立连接</code></p>
+<h1 id="与企业微信进行信息交互"><a href="#与企业微信进行信息交互" class="headerlink" title="与企业微信进行信息交互"></a>与企业微信进行信息交互</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 声明并赋值企业微信中的信息，这点与上面get请求的认证是一样的</span></span><br><span class="line">    sToken = <span class="string">"iXIPhJ35"</span></span><br><span class="line">    sEncodingAESKey = <span class="string">"LRB2JiYSMUsszYrcbTd9fWTLwlYEhrEjb7Z9coWRBoJ"</span></span><br><span class="line">    sCorpID = <span class="string">"yy4f13b9b0a629296d"</span></span><br><span class="line">    wxcpt = WXBizMsgCrypt(sToken, sEncodingAESKey, sCorpID)  <span class="comment"># 使用企业微信提供的模块创建加密解密对象</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取URL中的参数（注意上面的get函数中的密文是通过get请求直接加在url中传递的，而交互模式中，密文是单独post过来的）</span></span><br><span class="line">    sVerifyMsgSig = self.get_argument(<span class="string">'msg_signature'</span>)</span><br><span class="line">    sVerifyTimeStamp = self.get_argument(<span class="string">'timestamp'</span>)</span><br><span class="line">    sVerifyNonce = self.get_argument(<span class="string">'nonce'</span>)</span><br><span class="line">    sReqData = self.request.body</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将以上信息进行解密</span></span><br><span class="line">    ret, sMsg = wxcpt.DecryptMsg(sReqData, sVerifyMsgSig, sVerifyTimeStamp, sVerifyNonce)</span><br><span class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ERR: VerifyURL ret:"</span></span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根据接收到的xml消息，实例化成xml对象</span></span><br><span class="line">    xml_tree = ET.fromstring(sMsg)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断是否是发送消息的行为</span></span><br><span class="line">    <span class="keyword">if</span> xml.etree.ElementTree.iselement(xml_tree.find(<span class="string">"Content"</span>)):</span><br><span class="line">        content = xml_tree.find(<span class="string">"Content"</span>).text  <span class="comment"># 获取用户发送的消息</span></span><br><span class="line">    <span class="comment"># 判断是否是点击菜单栏的行为</span></span><br><span class="line">    <span class="keyword">elif</span> xml.etree.ElementTree.iselement(xml_tree.find(<span class="string">"EventKey"</span>)):</span><br><span class="line">        content = xml_tree.find(<span class="string">"EventKey"</span>).text  <span class="comment"># 获取用户点击菜单的id</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        content = <span class="string">"other type"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将我们收到的信息再发回给企业微信，需要从request的xml获取以下信息</span></span><br><span class="line">    user_id = xml_tree.find(<span class="string">"FromUserName"</span>).text  <span class="comment"># 用户id</span></span><br><span class="line">    corp_id = xml_tree.find(<span class="string">"ToUserName"</span>).text  <span class="comment"># 企业id</span></span><br><span class="line">    create_time = xml_tree.find(<span class="string">"CreateTime"</span>).text  <span class="comment"># 时间戳（用request的时间戳即可）</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 以下为需要回复给企业微信用户的消息的具体内容</span></span><br><span class="line">    content = <span class="string">"1.1.1.1\n2.2.2.2\n3.3.3.3"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 由于不是很熟悉xml的操作，也不明白为啥微信不用json，非要任性的用xml</span></span><br><span class="line">    <span class="comment"># 在这里只能用字符串拼出一个xml文件出来了 -_- 不要喷</span></span><br><span class="line">    <span class="comment"># 以下xml即为发送回企业微信的完整消息体，该消息体不能直接明文发送，需要加密后发送</span></span><br><span class="line">    sRespData = <span class="string">"""&lt;xml&gt;</span></span><br><span class="line"><span class="string">            &lt;ToUserName&gt;&lt;![CDATA["""</span>+user_id+<span class="string">"""]]&gt;&lt;/ToUserName&gt;</span></span><br><span class="line"><span class="string">            &lt;FromUserName&gt;&lt;![CDATA["""</span>+corp_id+<span class="string">"""]]&gt;&lt;/FromUserName&gt;</span></span><br><span class="line"><span class="string">            &lt;CreateTime&gt;"""</span>+create_time+<span class="string">"""&lt;/CreateTime&gt;</span></span><br><span class="line"><span class="string">            &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;</span></span><br><span class="line"><span class="string">            &lt;Content&gt;&lt;![CDATA["""</span>+content+<span class="string">"""]]&gt;&lt;/Content&gt;</span></span><br><span class="line"><span class="string">            &lt;/xml&gt;"""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将上面的明文消息体使用企业微信的加密模块进行加密操作</span></span><br><span class="line">    ret,sEncryptMsg = wxcpt.EncryptMsg(sRespData, sVerifyNonce, sVerifyTimeStamp)</span><br><span class="line">    <span class="keyword">if</span> ret!=<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"ERR: EncryptMsg ret: "</span> + str(ret)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 最后将密文回复给企业微信，即完成企业微信用户与企业自己服务器之间的信息交互</span></span><br><span class="line">    self.write(sEncryptMsg)</span><br></pre></td></tr></table></figure>
+
+<p>信息交互的大概流程是<code>企业微信用自己的加密算法加密用户发送的消息字符串，通过post请求的方式发送给你</code> –&gt; <code>你的接口拿到post请求后，依据URL中的参数，和post过来的密文，反解出企业微信发来的加密消息</code> –&gt; <code>解密后，将回复给用户的消息重新包进xml消息中</code> –&gt; <code>将完整的xml进行加密</code> –&gt; <code>将密文回复给企业微信端</code></p>
+<h1 id="没有下一步了-就是这么简单"><a href="#没有下一步了-就是这么简单" class="headerlink" title="没有下一步了 就是这么简单"></a>没有下一步了 就是这么简单</h1><p>以下是完整的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">from</span> WXBizMsgCrypt <span class="keyword">import</span> WXBizMsgCrypt</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> xml.etree.cElementTree <span class="keyword">as</span> ET</span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        sToken = <span class="string">"iXIPhJ35"</span></span><br><span class="line">        sEncodingAESKey = <span class="string">"LRB2JiYSMUsszYrcbTd9fWTLwlYEhrEjb7Z9coWRBoJ"</span></span><br><span class="line">        sCorpID = <span class="string">"yy4f13b9b0a629296d"</span></span><br><span class="line">        wxcpt=WXBizMsgCrypt(sToken,sEncodingAESKey,sCorpID)</span><br><span class="line"></span><br><span class="line">        sVerifyMsgSig=self.get_argument(<span class="string">'msg_signature'</span>)</span><br><span class="line">        sVerifyTimeStamp=self.get_argument(<span class="string">'timestamp'</span>)</span><br><span class="line">        sVerifyNonce=self.get_argument(<span class="string">'nonce'</span>)</span><br><span class="line">        sVerifyEchoStr=self.get_argument(<span class="string">'echostr'</span>)</span><br><span class="line"></span><br><span class="line">        ret,sEchoStr=wxcpt.VerifyURL(sVerifyMsgSig, sVerifyTimeStamp,sVerifyNonce,sVerifyEchoStr)</span><br><span class="line">        <span class="keyword">if</span> ret != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"ERR: VerifyURL ret:"</span> + ret</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.write(sEchoStr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self)</span>:</span></span><br><span class="line">        sToken = <span class="string">"iXIPhJ35"</span></span><br><span class="line">        sEncodingAESKey = <span class="string">"LRB2JiYSMUsszYrcbTd9fWTLwlYEhrEjb7Z9coWRBoJ"</span></span><br><span class="line">        sCorpID = <span class="string">"yy4f13b9b0a629296d"</span></span><br><span class="line">        wxcpt = WXBizMsgCrypt(sToken, sEncodingAESKey, sCorpID)</span><br><span class="line"></span><br><span class="line">        sVerifyMsgSig = self.get_argument(<span class="string">'msg_signature'</span>)</span><br><span class="line">        sVerifyTimeStamp = self.get_argument(<span class="string">'timestamp'</span>)</span><br><span class="line">        sVerifyNonce = self.get_argument(<span class="string">'nonce'</span>)</span><br><span class="line">        sReqData = self.request.body</span><br><span class="line"></span><br><span class="line">        ret, sMsg = wxcpt.DecryptMsg(sReqData, sVerifyMsgSig, sVerifyTimeStamp, sVerifyNonce)</span><br><span class="line">        <span class="keyword">if</span> (ret != <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"ERR: VerifyURL ret:"</span></span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        xml_tree = ET.fromstring(sMsg)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> xml.etree.ElementTree.iselement(xml_tree.find(<span class="string">"Content"</span>)):</span><br><span class="line">            content = xml_tree.find(<span class="string">"Content"</span>).text</span><br><span class="line">        <span class="keyword">elif</span> xml.etree.ElementTree.iselement(xml_tree.find(<span class="string">"EventKey"</span>)):</span><br><span class="line">            content = xml_tree.find(<span class="string">"EventKey"</span>).text</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            content = <span class="string">"other type"</span></span><br><span class="line"></span><br><span class="line">        user_id = xml_tree.find(<span class="string">"FromUserName"</span>).text</span><br><span class="line">        corp_id = xml_tree.find(<span class="string">"ToUserName"</span>).text</span><br><span class="line">        create_time = xml_tree.find(<span class="string">"CreateTime"</span>).text</span><br><span class="line"></span><br><span class="line">        content = <span class="string">"1.1.1.1\n2.2.2.2\n3.3.3.3"</span></span><br><span class="line"></span><br><span class="line">        sRespData = <span class="string">"""&lt;xml&gt;</span></span><br><span class="line"><span class="string">                &lt;ToUserName&gt;&lt;![CDATA["""</span>+user_id+<span class="string">"""]]&gt;&lt;/ToUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;FromUserName&gt;&lt;![CDATA["""</span>+corp_id+<span class="string">"""]]&gt;&lt;/FromUserName&gt;</span></span><br><span class="line"><span class="string">                &lt;CreateTime&gt;"""</span>+create_time+<span class="string">"""&lt;/CreateTime&gt;</span></span><br><span class="line"><span class="string">                &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;</span></span><br><span class="line"><span class="string">                &lt;Content&gt;&lt;![CDATA["""</span>+content+<span class="string">"""]]&gt;&lt;/Content&gt;</span></span><br><span class="line"><span class="string">                &lt;/xml&gt;"""</span></span><br><span class="line"></span><br><span class="line">        ret,sEncryptMsg = wxcpt.EncryptMsg(sRespData, sVerifyNonce, sVerifyTimeStamp)</span><br><span class="line">        <span class="keyword">if</span> ret!=<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"ERR: EncryptMsg ret: "</span> + str(ret)</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.write(sEncryptMsg)</span><br><span class="line"></span><br><span class="line">application = tornado.web.Application([</span><br><span class="line">    (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        application.listen(<span class="number">8888</span>)</span><br><span class="line">        tornado.ioloop.IOLoop.instance().start()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"exit"</span>)</span><br><span class="line">        exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>以上代码只是示例代码，细心的童鞋可能会发现get和post中有部分重复代码，而且该tornado框架本身也没有提供log/异步非阻塞等特性的支持，只是为了演示企业微信与自由服务器信息交互的流程与使用方法，无论你是使用Falcon还是Flask框架，逻辑都差不多，注意各个框架的回文函数即可，比如tornado是self.write(), Flask是直接return</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1257,7 +1295,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">573</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
