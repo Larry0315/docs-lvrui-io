@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,185 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">添加/删除路由</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-09 11:09:16" itemprop="dateCreated datePublished" datetime="2016-09-09T11:09:16+08:00">2016-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/添加-删除路由/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看路由"><a href="#查看路由" class="headerlink" title="查看路由"></a>查看路由</h1><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">0.0.0.0         192.168.3.1     0.0.0.0         UG    100    0        0 eth0</span><br><span class="line">192.168.3.0     0.0.0.0         255.255.255.0   U     100    0        0 eth0</span><br></pre></td></tr></table></figure>
+
+<h2 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt; netstat -nr</span><br><span class="line">Routing tables</span><br><span class="line"></span><br><span class="line">Internet:</span><br><span class="line">Destination        Gateway            Flags        Refs      Use   Netif Expire</span><br><span class="line">default            10.1.101.254       UGSc          214      718     en0</span><br><span class="line">10.1.100/23        link<span class="comment">#4             UCS            11        0     en0</span></span><br><span class="line">10.1.100.22        link<span class="comment">#4             UHLWIi          1        1     en0</span></span><br><span class="line">10.1.100.65/32     link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.100.65        60:3:8:a5:3b:9e    UHLWIi          1        3     lo0</span><br><span class="line">10.1.100.88        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.94        link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.100.99        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.100       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.121       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.146       90:b6:86:d8:d:24   UHLWIi          1        1     en0    867</span><br><span class="line">10.1.101.128       link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.101.164       c8:25:e1:61:70:2e  UHLWIi          1        1     en0   1004</span><br><span class="line">10.1.101.254/32    link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.101.254       b0:aa:77:1a:b0:58  UHLWIir       215       16     en0    782</span><br><span class="line">10.1.101.255       link<span class="comment">#4             UHLWbI          1      142     en0</span></span><br><span class="line">10.255.1/24        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">10.255.1.65        10.255.1.66        UH              3        0   utun0</span><br><span class="line">10.255.99/24       10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">10.255.99.49       10.255.99.50       UH             13        0   utun1</span><br><span class="line">10.255.100/24      10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">10.255.100.41      10.255.100.42      UH             13        0   utun2</span><br><span class="line">111.202.124.222/32 192.168.1.1        UGSc            2        0     en0</span><br><span class="line">127                127.0.0.1          UCS             1        0     lo0</span><br><span class="line">127.0.0.1          127.0.0.1          UH             27    57535     lo0</span><br><span class="line">169.254            link<span class="comment">#4             UCS             1        0     en0</span></span><br><span class="line">192.168.2          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.3          10.255.99.49       UGSc            2        0   utun1</span><br><span class="line">192.168.4          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.7          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.8          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.89         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.90         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.91         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.95         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.99         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.101        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.103        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.105        10.255.100.41      UGSc            2        0   utun2</span><br><span class="line">192.168.110        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.111        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.168        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">192.168.247        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.248        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.251        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.252        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.253        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">224.0.0            link<span class="comment">#4             UmCS            2        0     en0</span></span><br><span class="line">224.0.0.251        1:0:5e:0:0:fb      UHmLWI          1        0     en0</span><br><span class="line">255.255.255.255/32 link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">255.255.255.255    link<span class="comment">#4             UHLWbI          1      133     en0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="通过出口IP添加"><a href="#通过出口IP添加" class="headerlink" title="通过出口IP添加"></a>通过出口IP添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.2.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.8.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.168.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.100.0/24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过出口设备添加"><a href="#通过出口设备添加" class="headerlink" title="通过出口设备添加"></a>通过出口设备添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 0.0.0.0 dev ppp0 //添加默认路由</span><br></pre></td></tr></table></figure>
+
+<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route del -net 192.168.2.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.8.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.168.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.100.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">cisco设备的ping命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-09 10:57:24" itemprop="dateCreated datePublished" datetime="2016-09-09T10:57:24+08:00">2016-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/cisco设备的ping命令/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用<code>ping x.x.x.x</code>命令默认发送5个包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa&gt; ping 111.202.124.217</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 5, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!</span><br><span class="line">Success rate is 100 percent (5&#x2F;5), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;2&#x2F;10 ms</span><br></pre></td></tr></table></figure>
+
+<p>可以指定发包的个数<code>ping x.x.x.x repeat num</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa&gt; ping 111.202.124.217 repeat 100</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 100, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">Success rate is 100 percent (100&#x2F;100), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;3&#x2F;10 ms</span><br><span class="line">ciscoasa&gt; ping 111.202.124.217 repeat 1000</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 1000, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">Success rate is 99 percent (992&#x2F;1000), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;3&#x2F;30 ms</span><br></pre></td></tr></table></figure>
+
+<p><strong>后面还可给<code>size</code> 指定数据包的大小；<code>timeout</code> 表示超时的时间</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1229,241 +1408,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8Bexchange%E5%B1%9E%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8Bexchange%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">Python下使用rabbitmq之exchange属性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-08-08 00:45:51" itemprop="dateCreated datePublished" datetime="2016-08-08T00:45:51+08:00">2016-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8Bexchange%E5%B1%9E%E6%80%A7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/08/Python下使用rabbitmq之exchange属性/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>生产者向rabbitmq server发送消息，其实消息并不是由生产者直接向rabbitmq server中的队列中插入数据，在队列的前面，还挡着一层<code>exchange</code>，数据是由生产者发送给rabbitmq的exchange，然后由exchange存入对应的队列的</p>
-</blockquote>
-<p><img src="http://oss.20150509.cn/20160808011659.png" alt=""></p>
-<h1 id="发布与订阅-fanout"><a href="#发布与订阅-fanout" class="headerlink" title="发布与订阅-fanout"></a>发布与订阅-fanout</h1><p><strong>exchange type= fanout</strong></p>
-<p><img src="http://oss.20150509.cn/20160808011759.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 消费者</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange类型</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'logs'</span>, type=<span class="string">'fanout'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机创建一个队列名称</span></span><br><span class="line">result = channel.queue_declare(exclusive=<span class="literal">True</span>)</span><br><span class="line">queue_name = result.method.queue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将该队列与前面创建的exchange做绑定</span></span><br><span class="line"><span class="comment"># 当绑定完成后,生产者再向 exchange='logs' 中发送消息时,将自动将该消息插入到该队列中</span></span><br><span class="line">channel.queue_bind(exchange=<span class="string">'logs'</span>, queue=queue_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for logs. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取到数据后的回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] %r"</span> % body)</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=queue_name, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生产者</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(</span><br><span class="line">        host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange='logs'</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'logs'</span>, type=<span class="string">'fanout'</span>)</span><br><span class="line"></span><br><span class="line">message = <span class="string">"PolarSnow"</span></span><br><span class="line">channel.basic_publish(exchange=<span class="string">'logs'</span>, routing_key=<span class="string">''</span>, body=message)</span><br><span class="line">print(<span class="string">" [x] Sent %r"</span> % message)</span><br><span class="line">connection.close()</span><br></pre></td></tr></table></figure>
-
-<p>启动多个消费者，那么多个消费者就创建了多个队列（因为每一个消费者都是随机的队列名字），且所有的消费者创建的队列都和名字为logs的exchange做了绑定，也就是说，如果有生产者向<code>exchange=&#39;logs&#39;</code>中发送消息，那么所有的消费者对应的队列都会收到消息</p>
-<h1 id="关键字匹配-direct"><a href="#关键字匹配-direct" class="headerlink" title="关键字匹配-direct"></a>关键字匹配-direct</h1><p><strong>exchange type=direct</strong></p>
-<p><img src="http://oss.20150509.cn/20160808013459.png" alt=""></p>
-<p>在指定exchange名称的基础之上，还可以通过匹配关键字来分流消息</p>
-<p>就像上图一样，同一个队列可以绑定多个关键字，且同一个关键字可以被不同的队列重复绑定</p>
-<p>下面就来实现一个上图效果的队列</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 消费者1[info, error, warning]</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange的名称和类型</span></span><br><span class="line"><span class="comment"># 类型direct, 绑定关键字</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'direct_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名字随机的队列</span></span><br><span class="line">result = channel.queue_declare(exclusive=<span class="literal">True</span>)</span><br><span class="line">queue_name = result.method.queue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要为一个队列绑定多个关键字,在这里输入需要绑定的关键字列表</span></span><br><span class="line">severities = [<span class="string">'info'</span>, <span class="string">'error'</span>, <span class="string">'warning'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环绑定所有的关键字routing_key=severity</span></span><br><span class="line"><span class="keyword">for</span> severity <span class="keyword">in</span> severities:</span><br><span class="line">    channel.queue_bind(exchange=<span class="string">'direct_logs'</span>, queue=queue_name, routing_key=severity)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for logs. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] %r:%r"</span> % (method.routing_key, body))</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=queue_name, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 消费者2[error,]</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange的名称和类型</span></span><br><span class="line"><span class="comment"># 类型direct, 绑定关键字</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'direct_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名字随机的队列</span></span><br><span class="line">result = channel.queue_declare(exclusive=<span class="literal">True</span>)</span><br><span class="line">queue_name = result.method.queue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要为一个队列绑定多个关键字,在这里输入需要绑定的关键字列表</span></span><br><span class="line">severities = [<span class="string">'error'</span>,]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环绑定所有的关键字routing_key=severity</span></span><br><span class="line"><span class="keyword">for</span> severity <span class="keyword">in</span> severities:</span><br><span class="line">    channel.queue_bind(exchange=<span class="string">'direct_logs'</span>, queue=queue_name, routing_key=severity)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for logs. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] %r:%r"</span> % (method.routing_key, body))</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=queue_name, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生产者</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(</span><br><span class="line">        host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'direct_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定关键字为info时,只有第二个队列可以收到</span></span><br><span class="line">severity = <span class="string">'info'</span></span><br><span class="line"><span class="comment"># 指定关键字为error时,两个指定了exchange='direct_logs'的队列都可以收到</span></span><br><span class="line"><span class="comment"># serverity = 'error'</span></span><br><span class="line"></span><br><span class="line">message = <span class="string">'PolarSnow'</span></span><br><span class="line">channel.basic_publish(exchange=<span class="string">'direct_logs'</span>, routing_key=severity, body=message)</span><br><span class="line">print(<span class="string">" [x] Sent %r:%r"</span> % (severity, message))</span><br><span class="line">connection.close()</span><br></pre></td></tr></table></figure>
-
-<h1 id="模糊匹配-topic"><a href="#模糊匹配-topic" class="headerlink" title="模糊匹配-topic"></a>模糊匹配-topic</h1><p><strong>exchange type = topic</strong></p>
-<p>在topic类型下，可以让队列绑定几个模糊的关键字，之后发送者将数据发送到exchange，exchange将传入”路由值“和 ”关键字“进行匹配，匹配成功，则将数据发送到指定队列。</p>
-<ul>
-<li># 表示可以匹配 0 个 或 多个 单词</li>
-<li><ul>
-<li>表示只能匹配 一个 单词</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">发送者路由值              队列中</span><br><span class="line">docs.20150509.cn        docs.*  -- 不匹配</span><br><span class="line">docs.20150509.cn        docs.#  -- 匹配</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 消费者1[*.info.*, *.*.*error, warning.#]</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange的名称和类型</span></span><br><span class="line"><span class="comment"># 类型direct, 绑定关键字</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'topic_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名字随机的队列</span></span><br><span class="line">result = channel.queue_declare(exclusive=<span class="literal">True</span>)</span><br><span class="line">queue_name = result.method.queue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟上面的关键字匹配不同，这里需要绑定通配符</span></span><br><span class="line">severities = [<span class="string">'*.info.*'</span>, <span class="string">'*.*.*error'</span>, <span class="string">'warning.#'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环绑定所有的关键字routing_key=severity</span></span><br><span class="line"><span class="keyword">for</span> severity <span class="keyword">in</span> severities:</span><br><span class="line">    channel.queue_bind(exchange=<span class="string">'topic_logs'</span>, queue=queue_name, routing_key=severity)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for logs. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] %r:%r"</span> % (method.routing_key, body))</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=queue_name, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 消费者2[*.*.*error,]</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"><span class="comment"># 创建频道对象</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定exchange的名称和类型</span></span><br><span class="line"><span class="comment"># 类型direct, 绑定关键字</span></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'topic_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名字随机的队列</span></span><br><span class="line">result = channel.queue_declare(exclusive=<span class="literal">True</span>)</span><br><span class="line">queue_name = result.method.queue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟上面的关键字匹配不同，这里需要绑定通配符</span></span><br><span class="line">severities = [<span class="string">'*.*.*error'</span>,]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环绑定所有的关键字routing_key=severity</span></span><br><span class="line"><span class="keyword">for</span> severity <span class="keyword">in</span> severities:</span><br><span class="line">    channel.queue_bind(exchange=<span class="string">'topic_logs'</span>, queue=queue_name, routing_key=severity)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for logs. To exit press CTRL+C'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] %r:%r"</span> % (method.routing_key, body))</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=queue_name, no_ack=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生产者</span></span><br><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(</span><br><span class="line">        host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line">channel.exchange_declare(exchange=<span class="string">'topic_logs'</span>, type=<span class="string">'direct'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定关键字为info时,只有第二个队列可以收到</span></span><br><span class="line"><span class="comment"># rabbitmq绑定了topic，支持模糊匹配</span></span><br><span class="line">severity = <span class="string">'a.info.b'</span></span><br><span class="line"><span class="comment"># 指定关键字为error时,两个指定了exchange='topic_logs'的队列都可以收到</span></span><br><span class="line"><span class="comment"># serverity = 'a.b.c.error'</span></span><br><span class="line"></span><br><span class="line">message = <span class="string">'PolarSnow'</span></span><br><span class="line">channel.basic_publish(exchange=<span class="string">'direct_logs'</span>, routing_key=severity, body=message)</span><br><span class="line">print(<span class="string">" [x] Sent %r:%r"</span> % (severity, message))</span><br><span class="line">connection.close()</span><br></pre></td></tr></table></figure>
-
-<h1 id="基于消息队列的主机管理系统"><a href="#基于消息队列的主机管理系统" class="headerlink" title="基于消息队列的主机管理系统"></a>基于消息队列的主机管理系统</h1><p><img src="http://oss.20150509.cn/20160808022959.png" alt=""></p>
-<ul>
-<li>CLI在向server端发送命令时，指定了主机列表和一个随机的md5值</li>
-<li>消息队列中匹配主机对应的队列，将需要执行的命令插入到队列中</li>
-<li>对应的消费者（agent）监听到有新的消息后，在本地执行命令，并将执行结果发送给server端。在server端创建以md5为名字的临时队列，并将执行结果放在该队列中</li>
-<li>此次任务的所有消费者拿到的md5值都是相同的，所以，所有的消费者执行命令之后，都会将执行结果放入以md5命令的临时消息队列中</li>
-<li>全部消费者执行完毕后，在TempQ(md5)中保存了此次任务，所有消费者的执行结果</li>
-<li>最后临时队列中的结果可以一一被读出展示给CLI，最后删除该临时队列</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8B%E6%8F%90%E9%AB%98%E6%B6%88%E6%81%AF%E5%AE%89%E5%85%A8%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8B%E6%8F%90%E9%AB%98%E6%B6%88%E6%81%AF%E5%AE%89%E5%85%A8%E6%80%A7/" class="post-title-link" itemprop="url">Python下使用rabbitmq之提高消息安全性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-08-08 00:01:18" itemprop="dateCreated datePublished" datetime="2016-08-08T00:01:18+08:00">2016-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/08/08/Python%E4%B8%8B%E4%BD%BF%E7%94%A8rabbitmq%E4%B9%8B%E6%8F%90%E9%AB%98%E6%B6%88%E6%81%AF%E5%AE%89%E5%85%A8%E6%80%A7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/08/Python下使用rabbitmq之提高消息安全性/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="消息不丢失"><a href="#消息不丢失" class="headerlink" title="消息不丢失"></a>消息不丢失</h1><p>程序在去消息队列中取数据时，如果在没有对该消息处理完毕时，机器宕机，那么将丢失掉对这条消息的处理，下面介绍如何避免这样的情况发生</p>
-<h2 id="no-ack"><a href="#no-ack" class="headerlink" title="no_ack"></a>no_ack</h2><p>no_ack = False, 如果消费者遇到问题，没有完成对消息的处理，那么rabbitmq会重新将该任务添加到队列中</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建连接对象</span></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建频道</span></span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到指定的队列中,如果队列不存在,则创建</span></span><br><span class="line">channel.queue_declare(queue=<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取到消息后执行的回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] Received %r"</span> % body)</span><br><span class="line">    time.sleep(<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'ok'</span>)</span><br><span class="line">    <span class="comment"># 通知rabbitmq server,已经对消息处理完毕,可以释放掉保存的这个消息资源</span></span><br><span class="line">    ch.basic_ack(delivery_tag=method.delivery_tag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># no_ack=False 设置为消息处理完毕后,消费者必须明确告知rabbitmq server已经处理完毕</span></span><br><span class="line"><span class="comment"># 否则rabbitmq server将视为消息处理失败,把该消息重新放回到队列当中</span></span><br><span class="line">channel.basic_consume(callback, queue=<span class="string">'hello'</span>, no_ack=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for messages. To exit press CTRL+C'</span>)</span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-<h2 id="durable"><a href="#durable" class="headerlink" title="durable"></a>durable</h2><p>上面处理了消费者宕机保证数据安全的情况，那么rabbitmq server如果宕机怎么办？rabbitmq提供了数据持久化的机制，利用server端的数据持久化机制和消费者端的no_ack特性，可以更高的保障数据的安全</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57,233,243'</span>))</span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># make message persistent</span></span><br><span class="line">channel.queue_declare(queue=<span class="string">'hello'</span>, durable=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">channel.basic_publish(exchange=<span class="string">''</span>, routing_key=<span class="string">'hello'</span>, body=<span class="string">'Hello World!'</span>, properties=pika.BasicProperties(delivery_mode=<span class="number">2</span>,))</span><br><span class="line">print(<span class="string">" [x] Sent 'Hello World!'"</span>)</span><br><span class="line">connection.close()</span><br></pre></td></tr></table></figure>
-
-<h1 id="获取消息的顺序"><a href="#获取消息的顺序" class="headerlink" title="获取消息的顺序"></a>获取消息的顺序</h1><p>rabbitmq消费者默认获取消息的顺序是根据消息的索引</p>
-<p>假如有4个消费者去消费同一个队列中的数据，那么</p>
-<ul>
-<li>第一个消费者消费：0 4 8 12 16 20……</li>
-<li>第二个消费者消费：1 5 9 13 17 21……</li>
-<li>第三个消费者消费：2 6 10 14 18 22……</li>
-<li>第四个消费者消费：3 7 11 15 19 23……</li>
-</ul>
-<p>如果第一个消费者处理消息的速度非常慢，有可能发生下面的情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一个消费者：0 4</span><br><span class="line">第二个消费者：1 5 9 13 17 21</span><br><span class="line">第三个消费者：2 6 10 14 18 22</span><br><span class="line">第四个消费者：3 7 11 15 19 23</span><br></pre></td></tr></table></figure>
-
-<p>就是其他消费者已经处理了很多消息了，第一个消费者还在处理第4个消息</p>
-<p>以下代码为更改<code>索引的方式取数据</code>为<code>顺序方式取数据</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pika</span><br><span class="line"></span><br><span class="line">connection = pika.BlockingConnection(pika.ConnectionParameters(host=<span class="string">'123.57.233.243'</span>))</span><br><span class="line">channel = connection.channel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># make message persistent</span></span><br><span class="line">channel.queue_declare(queue=<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(ch, method, properties, body)</span>:</span></span><br><span class="line">    print(<span class="string">" [x] Received %r"</span> % body)</span><br><span class="line">    <span class="keyword">import</span> time</span><br><span class="line">    time.sleep(<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'ok'</span>)</span><br><span class="line">    ch.basic_ack(delivery_tag = method.delivery_tag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入这一行就可以保证rabbitmq上的消息是顺序取出的</span></span><br><span class="line">channel.basic_qos(prefetch_count=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">channel.basic_consume(callback, queue=<span class="string">'hello'</span>, no_ack=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">' [*] Waiting for messages. To exit press CTRL+C'</span>)</span><br><span class="line">channel.start_consuming()</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1536,7 +1480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1549,7 +1493,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

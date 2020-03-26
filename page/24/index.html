@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,229 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%B0%81%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%B0%81%E8%A3%85/" class="post-title-link" itemprop="url">Python面向对象基础篇之封装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-28 01:18:06" itemprop="dateCreated datePublished" datetime="2016-06-28T01:18:06+08:00">2016-06-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%B0%81%E8%A3%85/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/28/Python面向对象基础篇之封装/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在上一篇Python面向对象的开篇中，简单介绍了Python下的封装特性，主要封装的对象是基本数据类型，Python中除了可以封装基本数据类型外，还可以封装类似于list，tuple，set等常见的引用数据类型，甚至可以封装我们自定义的对象。</p>
+<p>本篇就是主要介绍Python的对象中封装对象的功能及实现。</p>
+</blockquote>
+<p><strong>对象中封装对象实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, host, b_obj)</span>:</span></span><br><span class="line">		self.host = host</span><br><span class="line">		self.b_obj = b_obj</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, username, password)</span>:</span></span><br><span class="line">		self.username = username</span><br><span class="line">		self.password = password</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'class B func show'</span>)</span><br><span class="line">		</span><br><span class="line">b = B(<span class="string">'ps'</span>, <span class="string">'password'</span>)</span><br><span class="line">a = A(<span class="string">'192.168.1.1'</span>, b)</span><br><span class="line">print(a.b_obj.username)</span><br><span class="line">print(a.b_obj.password)	</span><br><span class="line">a.b_obj.show()</span><br><span class="line">print(a.host)	</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">ps</span><br><span class="line">password</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="title">func</span> <span class="title">show</span></span></span><br><span class="line"><span class="class">192.168.1.1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第1-4行：定义了一个A类，构造方法中，接收两个参数，一个是主机名，一个是账户对象（注意，这里接收的是一个对象）</li>
+<li>第6-9行：定义了一个B类，构造方法接收用户名和密码两个字符串参数</li>
+<li>第11-12行：B类中的一个对象方法</li>
+<li>第14行：实例化一个B类的对象</li>
+<li>第15行：实例化一个A类的对象，并将B类的对象b当做参数传递给A类的构造方法</li>
+<li>第16行：a对象的第二个成员变量是一个B类型的对象，a.b_obj指向的就是B类的对象b，而a.b_obj.username等同于执行了b.username</li>
+<li>第17-18行：同理，等同于执行了<code>b.password</code>和<code>b.show()</code></li>
+</ul>
+<p><img src="http://oss.20150509.cn/QQ20160628-0@2x.png" alt=""></p>
+<p><strong>接下来感受一下对象中封装两层对象的情况</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, host, b_obj)</span>:</span></span><br><span class="line">		self.host = host</span><br><span class="line">		self.b_obj = b_obj</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, username, password)</span>:</span></span><br><span class="line">		self.username = username</span><br><span class="line">		self.password = password</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'class B func show'</span>)</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, db, a_obj)</span>:</span></span><br><span class="line">		self.db = db</span><br><span class="line">		self.a_obj = a_obj</span><br><span class="line">		</span><br><span class="line">b = B(<span class="string">'ps'</span>, <span class="string">'password'</span>)</span><br><span class="line">a = A(<span class="string">'192.168.1.1'</span>, b)</span><br><span class="line">c = C(<span class="string">'MySQL'</span>, a)</span><br><span class="line"></span><br><span class="line">print(c.a_obj.b_obj.username)</span><br><span class="line">print(c.a_obj.b_obj.password)</span><br><span class="line">c.a_obj.b_obj.show()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">ps</span><br><span class="line">password</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="title">func</span> <span class="title">show</span></span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/25/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BC%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/25/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BC%80%E7%AF%87/" class="post-title-link" itemprop="url">Python面向对象开篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-25 01:17:32" itemprop="dateCreated datePublished" datetime="2016-06-25T01:17:32+08:00">2016-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/25/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BC%80%E7%AF%87/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/25/Python面向对象开篇/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python是一门非常适合初学者学习的语言。Python本身是支持面向对象编程的。但是在运维界，Python很多时候被称之为脚本语言，因为Python不仅仅支持面向对象编程，还支持函数式编程。这是Java和C#这种OOP语言所不支持的</p>
+<p>Linux中的bash shell被当做一种脚本语言，本身也是支持函数式编程的，但是很多时候，shell的面向过程编程简单、粗暴、高效</p>
+<p>而Python不仅仅支持OOP面向对象编程，还支持脚本语言的特性，相面过程编程和函数式编程</p>
+</blockquote>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li>面向过程：根据业务逻辑从上到下写代码</li>
+<li>函数式编程：将某个功能的代码封装到一个函数中，后面用到该功能的时候无需重新编写，仅需要调用函数即可</li>
+<li>面向过程：对函数进行分类和封装，终极目标“消除重复代码”</li>
+</ul>
+<p>我的OOP启蒙导师之一 <code>Mars</code>（之前是千峰教育的负责人，2016年离职创业，现在是<code>育知同创</code>的创始人之一）曾经给OOP一个比喻，说重复代码就好比是别人往你的脸上吐了口痰，我们的终极目标就是“消除重复代码”</p>
+<p><strong>首先来感受下面向过程编程和函数式编程</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 面向过程编程</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>：</span><br><span class="line">    <span class="keyword">if</span> cpu利用率 &gt; <span class="number">90</span>%:</span><br><span class="line">        <span class="comment">#发送邮件提醒</span></span><br><span class="line">        连接邮箱服务器</span><br><span class="line">        发送邮件</span><br><span class="line">        关闭连接</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 硬盘使用空间 &gt; <span class="number">90</span>%:</span><br><span class="line">        <span class="comment">#发送邮件提醒</span></span><br><span class="line">        连接邮箱服务器</span><br><span class="line">        发送邮件</span><br><span class="line">        关闭连接</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 内存占用 &gt; <span class="number">80</span>%:</span><br><span class="line">        <span class="comment">#发送邮件提醒</span></span><br><span class="line">        连接邮箱服务器</span><br><span class="line">        发送邮件</span><br><span class="line">        关闭连接</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数式编程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> 发送邮件<span class="params">(内容)</span></span></span><br><span class="line"><span class="function">    #发送邮件提醒</span></span><br><span class="line"><span class="function">    连接邮箱服务器</span></span><br><span class="line"><span class="function">    发送邮件</span></span><br><span class="line"><span class="function">    关闭连接</span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"><span class="title">while</span> <span class="title">True</span>：</span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function">    <span class="title">if</span> <span class="title">cpu</span>利用率 &gt; 90%:</span></span><br><span class="line">        发送邮件(<span class="string">'CPU报警'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 硬盘使用空间 &gt; <span class="number">90</span>%:</span><br><span class="line">        发送邮件(<span class="string">'硬盘报警'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 内存占用 &gt; <span class="number">80</span>%:</span><br><span class="line">        发送邮件(<span class="string">'内存报警'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>每种写法都有自己存在的价值，世界上没有最好的编程方式，只有最合适的编程方式</p>
+<h1 id="创建类和对象"><a href="#创建类和对象" class="headerlink" title="创建类和对象"></a>创建类和对象</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 创建类中的函数（类中的函数又被称作类的方法）</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">	</span><br><span class="line">		<span class="comment"># 函数体 方法体</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line"><span class="comment"># 创建Foo这个类的对象</span></span><br><span class="line"><span class="comment"># 创建一个类的对象，又被称作类的实例化对象</span></span><br><span class="line">obj = Foo()</span><br></pre></td></tr></table></figure>
+
+<p><strong>体验一下上面的报警功能用OOP是如何实现的</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mail</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> 发送邮件<span class="params">(self, 内容)</span>:</span></span><br><span class="line">		<span class="comment">#发送邮件提醒</span></span><br><span class="line">    	连接邮箱服务器</span><br><span class="line">    	发送邮件</span><br><span class="line">    	关闭连接</span><br><span class="line">    	</span><br><span class="line">m = mail()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>：</span><br><span class="line">    <span class="keyword">if</span> cpu利用率 &gt; <span class="number">90</span>%:</span><br><span class="line">        m.发送邮件(<span class="string">'CPU报警'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 硬盘使用空间 &gt; <span class="number">90</span>%:</span><br><span class="line">        m.发送邮件(<span class="string">'硬盘报警'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> 内存占用 &gt; <span class="number">80</span>%:</span><br><span class="line">        m.发送邮件(<span class="string">'内存报警'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>为什么用了OOP，反而代码量比函数式编程还要多了呢，而且调用方法时不能直接调用了，需要使用mail类的对象来调用。</p>
+<p>总结：OOP的优势在极少的代码量的情况下很难体现出来。而且应对不同场景，使用不通的方式编程很重要。函数式编程的应用场景–&gt;各个函数之间是独立的且没有共用的数据。</p>
+<h1 id="类和对象的创建"><a href="#类和对象的创建" class="headerlink" title="类和对象的创建"></a>类和对象的创建</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 创建类中的函数</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line"><span class="comment"># 根据类Foo创建对象obj</span></span><br><span class="line">obj = Foo()</span><br></pre></td></tr></table></figure>
+
+<h1 id="对象和类的关系"><a href="#对象和类的关系" class="headerlink" title="对象和类的关系"></a>对象和类的关系</h1><p>创建类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>创建对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">obj1 = Foo()</span><br><span class="line">obj2 = Foo()</span><br><span class="line"></span><br><span class="line">obj1.func()</span><br><span class="line">obj2.func()</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，我们使用Foo类分别创建了<code>obj1</code>和<code>obj2</code>两个对象，在调用Foo类中的func方法时（调用对象方法），Python帮我们隐式地将这个对象传递给了func函数的self参数。在一个类的众多对象中，就是通过隐式的把自己传递给self参数，从而实现了每个对象个性之处。</p>
+<p>每一个由类实例化出来的对象，都保存了一个<code>类对象指针</code>指向自己的类</p>
+<h1 id="形式参数self"><a href="#形式参数self" class="headerlink" title="形式参数self"></a>形式参数self</h1><p>在创建类的时候，如果我们需要让一个方法在不同的对象操作时实现不同的效果，那么我们就需要把这个方法创建成为对象方法。类中的对象方法有个很明显的标记就是<code>self</code>关键字，每个对象方法的头一个参数，都是self！</p>
+<p>这个<code>self</code>起到的作用就是区分不同的对象，从而实现对象不同，方法执行的效果就不同。我们在实例化一个对象的时候，该对象调用类中的对象方法，不需要显示的去给<code>self</code>参数传值，因为Python会<code>隐式的</code>帮我们把对象的名字传递给对象方法中的第一个<code>self</code>参数。简单的说，就是哪个对象去执行对象方法，self就是谁。例如上面的例子中，<code>obj1</code>和<code>obj2</code>分别调用了对象方法，那么<code>obj1</code>调用<code>func</code>时，<code>self</code>就等于<code>obj1</code>，<code>obj2</code>调用<code>func</code>时，<code>self</code>就等于<code>obj2</code></p>
+<h1 id="构造方法-构造函数"><a href="#构造方法-构造函数" class="headerlink" title="构造方法/构造函数"></a>构造方法/构造函数</h1> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 操作MySQL数据库的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConnMySQL</span>:</span></span><br><span class="line">	<span class="comment"># 构造方法 __init__(self)</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, host, port, username, pasword)</span>:</span></span><br><span class="line">		print(self, <span class="string">'每一个对象被创建的时候都会执行这个方法'</span>)</span><br><span class="line">		self.host = host</span><br><span class="line">		self.port = port</span><br><span class="line">		self.username = username</span><br><span class="line">		self.password = possword</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">select</span><span class="params">(self, sql)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, sql)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, sql)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">modify</span><span class="params">(self, sql)</span>:</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">		</span><br><span class="line"><span class="comment"># 实例化操作MySQL数据库的对象</span></span><br><span class="line">my1 = ConnMySQL(<span class="string">'192.168.1.1'</span>, <span class="number">3306</span>, <span class="string">'root'</span>, <span class="string">'p@55\/\/0rd'</span>)</span><br><span class="line">my2 = ConnMySQL(<span class="string">'192.168.1.2'</span>, <span class="number">3307</span>, <span class="string">'admin'</span>, <span class="string">'password'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用对象去操作数据库</span></span><br><span class="line"><span class="comment"># 分别去两个数据库中操作sql语句</span></span><br><span class="line">my1.select(<span class="string">'select uid, username, password from userinfo where age=26'</span>)</span><br><span class="line">my2.select(<span class="string">'select uid, username, password from userinfo where age=26'</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ul>
+<li>在函数式编程中，Python解释器从上向下解释执行，如果一个方法A中依赖另一个方法B，那么B必须要在A之前定义，否则Python解释器会报错。但是在类中不需要，类中的函数可以调用任意位置的函数。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1410,239 +1633,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/15/Python%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97hashlibx/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/15/Python%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97hashlibx/" class="post-title-link" itemprop="url">Python加密模块</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-15 22:28:02" itemprop="dateCreated datePublished" datetime="2016-06-15T22:28:02+08:00">2016-06-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/15/Python%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97hashlibx/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/15/Python加密模块hashlibx/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python中的hashlib和hmac加密模块都是内置模块，可以方便的进行字符串加密，这些加密都是单向的，加密后的字符串不可反解成原字符串。但是由于某个固定的字符串使用某个固定的算法得出的加密串是固定的，所以有通过撞库来反解出密码的危险</p>
-<p>Python Version: 3.5+</p>
-</blockquote>
-<h1 id="hashlib模块"><a href="#hashlib模块" class="headerlink" title="hashlib模块"></a>hashlib模块</h1><h2 id="md5"><a href="#md5" class="headerlink" title="md5"></a>md5</h2><p>hashlib模块用于加密相关的操作，代替了md5模块和sha模块，主要提供 SHA1, SHA224, SHA256, SHA384, SHA512 ，MD5 算法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># md5</span></span><br><span class="line"><span class="comment"># 创建md5对象</span></span><br><span class="line">hash = hashlib.md5()</span><br><span class="line"><span class="comment"># update方法接收一个字节类型的数据是Python3+中的强制要求</span></span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line"><span class="comment"># 返回一个十六进制的字符串</span></span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"><span class="comment"># 返回一个二进制的字符串</span></span><br><span class="line">print(hash.digest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">72</span>c5c8f4fcfeb39c1ebce3be56ebb9f8</span><br><span class="line"><span class="string">b'r\xc5\xc8\xf4\xfc\xfe\xb3\x9c\x1e\xbc\xe3\xbeV\xeb\xb9\xf8'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="sha1"><a href="#sha1" class="headerlink" title="sha1"></a>sha1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># sha1</span></span><br><span class="line"><span class="comment"># 创建sha1对象</span></span><br><span class="line">hash = hashlib.sha1()</span><br><span class="line"><span class="comment"># 按照指定的字符编码加密字符串</span></span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">299</span>a06d4672c5a57facee0cf132593132084a3c0</span><br></pre></td></tr></table></figure>
-
-<h2 id="sha256"><a href="#sha256" class="headerlink" title="sha256"></a>sha256</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># sha256</span></span><br><span class="line">hash = hashlib.sha256()</span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">f379eefa6d3a0447d807d679dbd02f0593e8b3c3377da53dd909d98b4dcac9ad</span><br></pre></td></tr></table></figure>
-
-<h2 id="sha384"><a href="#sha384" class="headerlink" title="sha384"></a>sha384</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># sha384</span></span><br><span class="line">hash = hashlib.sha384()</span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">768e16</span>e89a691905e7e2413fc67ba2846a39a3d2dd064a7930eb54c36e58a2694b5bf57ca7bb52cea0ad33feaf718ad6</span><br></pre></td></tr></table></figure>
-
-<h2 id="sha512"><a href="#sha512" class="headerlink" title="sha512"></a>sha512</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># sha512</span></span><br><span class="line">hash = hashlib.sha512()</span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">ef510ae0c752261359b87e8260b1a8d90a1d9bc373fd5a107e091e9340d60877909b1e7996c32ecb5a571378815aa524e284a65d7d91d33b8fe29f1376ff048e</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="自定义key加密"><a href="#自定义key加密" class="headerlink" title="自定义key加密"></a>自定义key加密</h2><p>上面的加密算法虽然已经足够强大，但是还是存在缺陷，即可以通过撞库反解密码。所以，有必要对加密算法中添加自定义key再来做加密。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="comment"># md5</span></span><br><span class="line">hash = hashlib.md5(bytes(<span class="string">'9ol4rfv'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line">hash.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">'utf8'</span>))</span><br><span class="line"><span class="comment"># 返回一个十六进制的字符串</span></span><br><span class="line">print(hash.hexdigest()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">6e4257</span>d3855aaf563ce5c8d499156137</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="hmac模块"><a href="#hmac模块" class="headerlink" title="hmac模块"></a>hmac模块</h1><p>hmac 模块，它内部对我们创建 key 和 内容 进行进一步的处理然后再加密</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"></span><br><span class="line">h = hmac.new(bytes(<span class="string">'9ol4rfv'</span>, encoding=<span class="string">"utf-8"</span>))</span><br><span class="line">h.update(bytes(<span class="string">'polarsnow'</span>, encoding=<span class="string">"utf-8"</span>))</span><br><span class="line">print(h.hexdigest())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">2</span>d7acf84247e563213d0ec8e325831ba</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/15/Python%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/15/Python%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97/" class="post-title-link" itemprop="url">Python系统模块</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-15 21:38:40" itemprop="dateCreated datePublished" datetime="2016-06-15T21:38:40+08:00">2016-06-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/15/Python%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/15/Python系统模块/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python下有两个系统模块<code>sys</code> <code>os</code>，<code>sys</code>模块用于提供对Python解释器相关的操作；<code>os</code>模块用于提供系统级别的操作</p>
-<p>Python Version: 3.5+</p>
-</blockquote>
-<h1 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h1><p>sys模块中常用的函数</p>
-<ul>
-<li>sys.argv           命令行参数List，第一个元素是程序本身路径</li>
-<li>sys.exit(n)        退出程序，正常退出时exit(0)</li>
-<li>sys.version        获取Python解释程序的版本信息</li>
-<li>sys.maxint         最大的Int值</li>
-<li>sys.path           返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值</li>
-<li>sys.platform       返回操作系统平台名称</li>
-<li>sys.stdin          输入相关</li>
-<li>sys.stdout         输出相关</li>
-<li>sys.stderror       错误相关</li>
-</ul>
-<h1 id="os"><a href="#os" class="headerlink" title="os"></a>os</h1><ul>
-<li>os.getcwd()                 获取当前工作目录，即当前python脚本工作的目录路径</li>
-<li>os.chdir(“dirname”)         改变当前脚本工作目录；相当于shell下cd</li>
-<li>os.curdir                   返回当前目录: (‘.’)</li>
-<li>os.pardir                   获取当前目录的父目录字符串名：(‘..’)</li>
-<li>os.makedirs(‘dir1/dir2’)    可生成多层递归目录</li>
-<li>os.removedirs(‘dirname1’)   若目录为空，则删除，并递归到上一级目录，如若也为空，则删除，依此类推</li>
-<li>os.mkdir(‘dirname’)         生成单级目录；相当于shell中mkdir dirname</li>
-<li>os.rmdir(‘dirname’)         删除单级空目录，若目录不为空则无法删除，报错；相当于shell中rmdir dirname</li>
-<li>os.listdir(‘dirname’)       列出指定目录下的所有文件和子目录，包括隐藏文件，并以列表方式打印</li>
-<li>os.remove()                 删除一个文件</li>
-<li>os.rename(“oldname”,”new”)  重命名文件/目录</li>
-<li>os.stat(‘path/filename’)    获取文件/目录信息</li>
-<li>os.sep                      操作系统特定的路径分隔符，win下为”\“,Linux下为”/“</li>
-<li>os.linesep                  当前平台使用的行终止符，win下为”\t\n”,Linux下为”\n”</li>
-<li>os.pathsep                  用于分割文件路径的字符串</li>
-<li>os.name                     字符串指示当前使用平台。win-&gt;’nt’; Linux-&gt;’posix’</li>
-<li>os.system(“bash command”)   运行shell命令，直接显示</li>
-<li>os.environ                  获取系统环境变量</li>
-<li>os.path.abspath(path)       返回path规范化的绝对路径</li>
-<li>os.path.split(path)         将path分割成目录和文件名二元组返回</li>
-<li>os.path.dirname(path)       返回path的目录。其实就是os.path.split(path)的第一个元素</li>
-<li>os.path.basename(path)      返回path最后的文件名。如何path以／或\结尾，那么就会返回空值。即os.path.split(path)的第二个元素</li>
-<li>os.path.exists(path)        如果path存在，返回True；如果path不存在，返回False</li>
-<li>os.path.isabs(path)         如果path是绝对路径，返回True</li>
-<li>os.path.isfile(path)        如果path是一个存在的文件，返回True。否则返回False</li>
-<li>os.path.isdir(path)         如果path是一个存在的目录，则返回True。否则返回False</li>
-<li>os.path.join(path1[, path2[, …]])  将多个路径组合后返回，第一个绝对路径之前的参数将被忽略</li>
-<li>os.path.getatime(path)      返回path所指向的文件或者目录的最后存取时间</li>
-<li>os.path.getmtime(path)      返回path所指向的文件或者目录的最后修改时间</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1715,7 +1705,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1728,7 +1718,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

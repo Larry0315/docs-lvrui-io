@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,554 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96/" class="post-title-link" itemprop="url">Python字符串格式化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-06 22:30:19" itemprop="dateCreated datePublished" datetime="2016-06-06T22:30:19+08:00">2016-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/06/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/06/Python字符串格式化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python中格式化字符串的方式有两种，一种是使用百分号的方式；一种是使用format方式。使用百分号的方式比较古老，而使用format则是比较“先进”的方式，目前两者并存</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<h1 id="百分号的方式格式化字符串"><a href="#百分号的方式格式化字符串" class="headerlink" title="百分号的方式格式化字符串"></a>百分号的方式格式化字符串</h1><p><strong>语法格式：</strong></p>
+<p><code>%[(name)][flags][width].[precision]typecode</code></p>
+<p>在学习更多参数之前，我们先来回顾以下，使用百分号的最简单的用法，是怎么实现的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %s, I am %d.'</span> % (<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
+
+<p>在这种多占位符的情况下，后面的括号中传入的是一个列表，根据索引，分别对应前面字符串占位符的第0个和第1个。</p>
+<h2 id="name"><a href="#name" class="headerlink" title="(name)"></a>(name)</h2><p>可选，用于选择指定的key</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
+
+<p>使用这种方式的好处是显而易见的，如果一长串字符串中有N多个占位符，极有可能无法保证一一对应，而且占位符多了，很容易记混第几个占位符是干嘛的。使用这种“字典”的方式，给每个占位符起名字，赋值的时候根据名字赋值，传递的位置不需要一一对应。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, Hello %(name)s.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, Hello Polar Snow.'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h2><p>可选，提供以下的值可以选择：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>对齐</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>右对齐</td>
+<td>正数前加<code>+</code>，负数前加<code>-</code></td>
+</tr>
+<tr>
+<td>-</td>
+<td>左对齐</td>
+<td>正数前无符号，负数前加<code>-</code></td>
+</tr>
+<tr>
+<td>空格</td>
+<td>右对齐</td>
+<td>正数前加空格，负数前加<code>-</code></td>
+</tr>
+<tr>
+<td>0</td>
+<td>右对齐</td>
+<td>正数前无符号，负数前加<code>-</code>，用0填充空白处</td>
+</tr>
+</tbody></table>
+<p>对齐的特性需要<code>width</code>参数的支持</p>
+<ul>
+<li>+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)+d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am +25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)+d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)-d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)-d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>空格</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [ 25].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [-25].'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>0</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)0d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am %(age)0d.'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am -25.'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="width"><a href="#width" class="headerlink" title="width"></a>width</h2><p>可选，占位符的宽度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)05d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">-25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [-0025].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)05d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [00025].'</span></span><br></pre></td></tr></table></figure>
+
+<p>有个宽度的设置，上面的对齐才能看出效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age)+5d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [  +25].'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) 5d].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [   25].'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="precision"><a href="#precision" class="headerlink" title=".precision"></a>.precision</h2><p>可选，小数点后保留的位数(还有四舍五入哦！)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is %(name)s, I am [%(age) 9.3f].'</span> % &#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25.2525252525</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am [   25.253].'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="typecode"><a href="#typecode" class="headerlink" title="typecode"></a>typecode</h2><ul>
+<li>s，获取传入对象的<strong>str</strong>方法的返回值，并将其格式化到指定位置</li>
+<li>r，获取传入对象的<strong>repr</strong>方法的返回值，并将其格式化到指定位置</li>
+<li>c，整数：将数字转换成其unicode对应的值，10进制范围为 0 &lt;= i &lt;= 1114111（py27则只支持0-255）；字符：将字符添加到指定位置</li>
+<li>o，将整数转换成 八  进制表示，并将其格式化到指定位置</li>
+<li>x，将整数转换成十六进制表示，并将其格式化到指定位置</li>
+<li>d，将整数、浮点数转换成 十 进制表示，并将其格式化到指定位置</li>
+<li>e，将整数、浮点数转换成科学计数法，并将其格式化到指定位置（小写e）</li>
+<li>E，将整数、浮点数转换成科学计数法，并将其格式化到指定位置（大写E）</li>
+<li>f， 将整数、浮点数转换成浮点数表示，并将其格式化到指定位置（默认保留小数点后6位）<br>F，同上</li>
+<li>g，自动调整将整数、浮点数转换成 浮点型或科学计数法表示（超过6位数用科学计数法），并将其格式化到指定位置（如果是科学计数则是e；）</li>
+<li>G，自动调整将整数、浮点数转换成 浮点型或科学计数法表示（超过6位数用科学计数法），并将其格式化到指定位置（如果是科学计数则是E；）</li>
+<li>%，当字符串中存在格式化标志时，需要用 %%表示一个百分号</li>
+</ul>
+<p>虽然上面列举辣么多字符类型，但是最常用的前面的例子中都已经使用过了！没错，就是<code>s</code> <code>d</code> <code>f</code>这三个货，特别提示一下，当你需要在字符串中打印<code>%</code>时，需要输入<code>%%</code>才能显示一个<code>%</code></p>
+<hr>
+<h1 id="format方式格式化字符串"><a href="#format方式格式化字符串" class="headerlink" title="format方式格式化字符串"></a>format方式格式化字符串</h1><p><strong>语法格式：</strong></p>
+<p><code>[[fill]align][sign][#][0][width][,][.precision][type]</code></p>
+<p>使用format的最简单方式格式化字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25.2525252525</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.2525252525.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(name=<span class="string">'Polar Snow'</span>, age=<span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
+
+<p>在之前的Python笔记中，讲到参数的时候，提到过使用<code>*args, **kwargs</code>来当万能参数，包罗万象~ 而当参数为一个列表，而希望列表中的每一个元素去充当参数时，我们加上了<code>*</code>这个关键符号。区别就是如果传入参数的是一个列表，如果不加<code>*</code>，那么意味着整个列表是一个参数；而加上了<code>*</code>，则意味着将列表中的每一个元素取出充当参数。这个原理同样适用于字符串格式化，下面我们就用这种方法实现上面同样的效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(*[<span class="string">'Polar Snow'</span>, <span class="number">25</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(**&#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：只有format的方式支持加<code>*</code> <code>**</code>关键字符，使用%的方式不支持！</p>
+<h2 id="fill"><a href="#fill" class="headerlink" title="fill"></a>fill</h2><p>可选，空白处填充的字符，需要配合width才能看出效果</p>
+<h2 id="align"><a href="#align" class="headerlink" title="align"></a>align</h2><p>可选，对齐方式，需要配合width才能看出效果</p>
+<ul>
+<li>&lt;，内容左对齐</li>
+<li><blockquote>
+<p>，内容右对齐(默认)</p>
+</blockquote>
+</li>
+<li>＝，内容右对齐，将符号放置在填充字符的左侧，且只对数字类型有效。 即使：符号+填充物+数字</li>
+<li>^，内容居中</li>
+</ul>
+<h2 id="sign"><a href="#sign" class="headerlink" title="sign"></a>sign</h2><p>可选，数字前的符号</p>
+<ul>
+<li>+，正号加正，负号加负；</li>
+<li>-，正号不变，负号加负；</li>
+<li>空格 ，正号空格，负号加负；</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title="#"></a><code>#</code></h2><p>可选，对于二进制、八进制、十六进制，如果加上#，会显示 0b/0o/0x，否则不显示</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=","></a><code>,</code></h2><p>可选，为数字添加分隔符，如：1,000,000</p>
+<h2 id="width-1"><a href="#width-1" class="headerlink" title="width"></a>width</h2><p>可选，格式化占位符所占的宽度</p>
+<h2 id="precision-1"><a href="#precision-1" class="headerlink" title=".precision"></a>.precision</h2><p>可选，小数位保留精度</p>
+<h2 id="type"><a href="#type" class="headerlink" title="type"></a>type</h2><p>可选，格式化类型</p>
+<ul>
+<li>传入” 字符串类型 “的参数<ul>
+<li>s，格式化字符串类型数据</li>
+<li>空白，未指定类型，则默认是None，同s</li>
+</ul>
+</li>
+<li>传入“ 整数类型 ”的参数<ul>
+<li>b，将10进制整数自动转换成2进制表示然后格式化</li>
+<li>c，将10进制整数自动转换为其对应的unicode字符</li>
+<li>d，十进制整数</li>
+<li>o，将10进制整数自动转换成8进制表示然后格式化；</li>
+<li>x，将10进制整数自动转换成16进制表示然后格式化（小写x）</li>
+<li>X，将10进制整数自动转换成16进制表示然后格式化（大写X）</li>
+</ul>
+</li>
+<li>传入“ 浮点型或小数类型 ”的参数<ul>
+<li>e， 转换为科学计数法（小写e）表示，然后格式化；</li>
+<li>E， 转换为科学计数法（大写E）表示，然后格式化;</li>
+<li>f ， 转换为浮点型（默认小数点后保留6位）表示，然后格式化；</li>
+<li>F， 转换为浮点型（默认小数点后保留6位）表示，然后格式化；</li>
+<li>g， 自动在e和f中切换</li>
+<li>G， 自动在E和F中切换</li>
+<li>%，显示百分比（默认显示小数点后6位）</li>
+</ul>
+</li>
+</ul>
+<h2 id="format中常用的格式化"><a href="#format中常用的格式化" class="headerlink" title="format中常用的格式化"></a>format中常用的格式化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先从最简单的开始</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 列表的形式传值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;&#125;, I am &#123;&#125;.'</span>.format(*[<span class="string">'Polar Snow'</span>, <span class="number">25</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 指定值列表的索引</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0&#125;, I am &#123;1&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0&#125;, I am &#123;0&#125;.'</span>.format(<span class="string">'Polar Snow'</span>, <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am Polar Snow.'</span></span><br><span class="line"><span class="comment"># 甚至可以在嵌套中取值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;0[0]&#125;, I am &#123;0[1]&#125;.'</span>.format([<span class="string">'Polar Snow'</span>, <span class="string">'Larry'</span>], <span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am Larry.'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 设置占位符名称</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(name=<span class="string">'Polar Snow'</span>, age=<span class="number">25</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line"><span class="comment"># 字典的形式传值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'My name is &#123;name&#125;, I am &#123;age&#125;.'</span>.format(**&#123;<span class="string">'name'</span>: <span class="string">'Polar Snow'</span>, <span class="string">'age'</span>: <span class="number">25</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'My name is Polar Snow, I am 25.'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># format最省心的是不需要指定字符串类型，但是你也可以选择去指定</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88888.100000'</span></span><br><span class="line"><span class="comment"># 保留两位小数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88888.10'</span></span><br><span class="line"><span class="comment"># 保留两位小数并在数字中用,分隔</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age &#123;:d&#125;, money &#123;:,.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age 25, money 88,888.10'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 居中显示，插入[]是为了展示居中的效果更直观</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"i am &#123;:s&#125;, age [&#123;:^10d&#125;], money &#123;:,.2f&#125;"</span>.format(<span class="string">"seven"</span>, <span class="number">25</span>, <span class="number">88888.1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'i am seven, age [    25    ], money 88,888.10'</span></span><br><span class="line">------</span><br><span class="line"><span class="comment"># 数字的展示</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"numbers: &#123;0:b&#125;,&#123;0:o&#125;,&#123;0:d&#125;,&#123;0:x&#125;,&#123;0:X&#125;, &#123;0:%&#125;"</span>.format(<span class="number">15</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'numbers: 1111,17,15,f,F, 1500.000000%'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">"numbers: &#123;num:b&#125;,&#123;num:o&#125;,&#123;num:d&#125;,&#123;num:x&#125;,&#123;num:X&#125;, &#123;num:%&#125;"</span>.format(num=<span class="number">15</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'numbers: 1111,17,15,f,F, 1500.000000%'</span></span><br></pre></td></tr></table></figure>
+
+<p>如果以上这些还不能满足你的需求，请移步Python官方文档：<a href="https://docs.python.org/3/library/string.html" target="_blank" rel="noopener">Python Docs 4 String Format</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/03/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/03/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Python内置函数详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-03 14:32:09" itemprop="dateCreated datePublished" datetime="2016-06-03T14:32:09+08:00">2016-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/03/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/03/Python内置函数详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="http://oss.20150509.cn/Snip20160603_1.png" alt=""></p>
+<h1 id="abs-x"><a href="#abs-x" class="headerlink" title="abs(x)"></a>abs(x)</h1><p>abs函数用来返回参数的绝对值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>abs(<span class="number">-59</span>)</span><br><span class="line"><span class="number">59</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="all-iterable"><a href="#all-iterable" class="headerlink" title="all(iterable)"></a>all(iterable)</h1><p>all函数接收一个可迭代的对象作为参数，所有元素均为真则返回真</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">l1 = [<span class="number">1</span>, <span class="string">'1'</span>, <span class="literal">True</span>]</span><br><span class="line">print(all(l1))</span><br><span class="line"></span><br><span class="line">l2 = [<span class="number">0</span>, <span class="string">'1'</span>, <span class="literal">True</span>]</span><br><span class="line">print(all(l2))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="comment">#0为假，可迭代对象中只要全为真才返回为真</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于做了如下操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> element:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="any-iterable"><a href="#any-iterable" class="headerlink" title="any(iterable)"></a>any(iterable)</h1><p>any函数接收一个可迭代的对象作为参数，只要有一个元素为真即返回为真</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">l1 = [<span class="number">1</span>, <span class="string">'1'</span>, <span class="literal">True</span>]</span><br><span class="line">print(any(l1))</span><br><span class="line"></span><br><span class="line">l2 = [<span class="number">0</span>, <span class="string">'1'</span>, <span class="literal">True</span>]</span><br><span class="line">print(any(l2))</span><br><span class="line"></span><br><span class="line">l3 = [<span class="number">0</span>, <span class="string">''</span>, <span class="literal">False</span>]</span><br><span class="line">print(any(l3))</span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>相当于做了如下操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">any</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">if</span> element:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="all-iterable-与-any-iterable-的区别"><a href="#all-iterable-与-any-iterable-的区别" class="headerlink" title="all(iterable) 与 any(iterable) 的区别"></a>all(iterable) 与 any(iterable) 的区别</h2><ul>
+<li>all(iterable) 可迭代的参数对象中，只要有一个值为假，则立即返回<code>False</code>，所有值都为真才返回为<code>True</code></li>
+<li>any(iterable) 可迭代的参数对象中，只要有一个值为真，则立即返回<code>True</code>，所有值都为假才返回<code>False</code></li>
+</ul>
+<hr>
+<h1 id="ascii-object"><a href="#ascii-object" class="headerlink" title="ascii(object)"></a>ascii(object)</h1><p>ascii 自动执行对象的<code>__repr__</code>方法</p>
+<p>这个函数跟<code>repr()</code>函数一样，返回一个可打印的对象字符串方式表示。</p>
+<p>当遇到非ASCII码时，就会输出<code>\x</code> <code>\u</code>或<code>\U</code>等字符来表示。</p>
+<p>与Python 2版本里的repr()是等效的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">c</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'repr'</span></span><br><span class="line"></span><br><span class="line">print(ascii(c()))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">repr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>ascii(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">"'\\u6781\\u5730\\u745e\\u96ea'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ascii(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="string">"'Polar Snow'"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="repr-object"><a href="#repr-object" class="headerlink" title="repr(object)"></a>repr(object)</h1><p>而repr(object)转化为供<code>解释器</code>读取的字符串形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">"'极地瑞雪'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="string">"'Polar Snow'"</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="str-object-’’"><a href="#str-object-’’" class="headerlink" title="str(object=’’)"></a>str(object=’’)</h1><p><strong>class str(object=b’’, encoding=’utf-8’, errors=’strict’)</strong></p>
+<p>函数str(object=’’)用于将值转化为适于<code>人</code>阅读的<code>字符串</code>形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">'极地瑞雪'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="string">'Polar Snow'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ascii-object-与-repr-object-的区别"><a href="#ascii-object-与-repr-object-的区别" class="headerlink" title="ascii(object) 与 repr(object) 的区别"></a>ascii(object) 与 repr(object) 的区别</h2><blockquote>
+<p>两者的作用都是将对象转化为字符串</p>
+</blockquote>
+<ul>
+<li>ascii()方法返回的字符串为非ascii码能表示的字符时，使用\x, \u or \U来表示</li>
+<li>repr()方法返回对<code>Python解释器</code>友好的字符串格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>ascii(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">"'\\u6781\\u5730\\u745e\\u96ea'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ascii(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="string">"'Polar Snow'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ascii(<span class="number">59</span>)</span><br><span class="line"><span class="string">'59'</span></span><br><span class="line">------------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">"'极地瑞雪'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"'Polar Snow'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="number">59</span>)</span><br><span class="line"><span class="string">'59'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="repr-object-与-str-object-’’-的区别"><a href="#repr-object-与-str-object-’’-的区别" class="headerlink" title="repr(object) 与 str(object=’’) 的区别"></a>repr(object) 与 str(object=’’) 的区别</h2><blockquote>
+<p>两者的作用都是将对象转化为字符串</p>
+</blockquote>
+<ul>
+<li>repr()方法返回对<code>Python解释器</code>友好的字符串格式</li>
+<li>str()方法返回对<code>人阅读</code>友好的字符串格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">"'极地瑞雪'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"'Polar Snow'"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="number">59</span>)</span><br><span class="line"><span class="string">'59'</span></span><br><span class="line">------------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">'极地瑞雪'</span>)</span><br><span class="line"><span class="string">'极地瑞雪'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">'Polar Snow'</span>)</span><br><span class="line"><span class="string">'Polar Snow'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="number">59</span>)</span><br><span class="line"><span class="string">'59'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="http://www.oschina.net/translate/difference-between-str-and-repr-in-python" target="_blank" rel="noopener">更详细的区别可以参考这篇文章</a></li>
+</ul>
+<hr>
+<h1 id="bin-x"><a href="#bin-x" class="headerlink" title="bin(x)"></a>bin(x)</h1><p>bin(x) 接收一个十进制,返回二进制 0b</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>bin(<span class="number">59</span>)</span><br><span class="line"><span class="string">'0b111011'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="oct-x"><a href="#oct-x" class="headerlink" title="oct(x)"></a>oct(x)</h1><p>oct(x) 接收一个十进制,返回八进制 0o</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>oct(<span class="number">59</span>)</span><br><span class="line"><span class="string">'0o73'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="hex-x"><a href="#hex-x" class="headerlink" title="hex(x)"></a>hex(x)</h1><p>hex(x) 接收一个十进制,返回十六进制 0x</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hex(<span class="number">59</span>)</span><br><span class="line"><span class="string">'0x3b'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="bool-x"><a href="#bool-x" class="headerlink" title="bool([x])"></a>bool([x])</h1><p>bool([x]) 判断元素真假, 以下元素为常出现的假元素：</p>
+<ul>
+<li>0</li>
+<li>‘’</li>
+<li>[]</li>
+<li>()</li>
+<li>{}</li>
+<li>set()</li>
+<li>False</li>
+</ul>
+<hr>
+<h1 id="bytes"><a href="#bytes" class="headerlink" title="bytes"></a>bytes</h1><p>betes() 把指定的字符串转换为字节类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>bytes(<span class="string">'极地瑞雪'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">b'\xe6\x9e\x81\xe5\x9c\xb0\xe7\x91\x9e\xe9\x9b\xaa'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">b'\xe6\x9e\x81\xe5\x9c\xb0\xe7\x91\x9e\xe9\x9b\xaa'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">'极地瑞雪'</span></span><br><span class="line">------------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bytes(<span class="string">'极地瑞雪'</span>, encoding=<span class="string">'gbk'</span>)</span><br><span class="line"><span class="string">b'\xbc\xab\xb5\xd8\xc8\xf0\xd1\xa9'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="string">b'\xbc\xab\xb5\xd8\xc8\xf0\xd1\xa9'</span>, encoding=<span class="string">'gbk'</span>)</span><br><span class="line"><span class="string">'极地瑞雪'</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一个汉字使用utf-8编码的话占用三个字节,使用gbk编码的话占用两个字节</p>
+</blockquote>
+<ul>
+<li>打开文件乱码实况再现:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">u = bytes(<span class="string">'吕瑞'</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">s = str(u, encoding=<span class="string">'gbk'</span>)</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line"><span class="comment">######运行结果</span></span><br><span class="line">鍚曠憺</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果一个文件是以utf-8的编码方式保存,每三个字节是一个汉字,再同样以utf-8的方式读取,会正确的按照3个字节一个汉字去读取文件,而如果以gbk的方式读取文件,会按照两个字节一个汉字的方式读取,所以会产生乱码的情况</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                        极地瑞雪(UTF-8)</span><br><span class="line">二进制:    11100110 10011110 10000001 11100101 10011100 10110000 11100111 10010001 10011110 11101001 10011011 10101010</span><br><span class="line">十进制:    230 158 129 229 156 176 231 145 158 233 155 170</span><br><span class="line">十六进制:   e6 9e 81 e5 9c b0 e7 91 9e e9 9b aa</span><br><span class="line"></span><br><span class="line">注意：二进制的表现形式为字节</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用香来表示精确数字的小故事(二进制转十进制)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">一支香有两种状态,点燃的情况和熄灭的情况</span><br><span class="line">现在定义:香熄灭[I]的状态表示0,点燃[i]的情况表示为1</span><br><span class="line">0:  那么我现在要表示0,很简单,一支香足够,熄灭就行了--[I]</span><br><span class="line">                                               0</span><br><span class="line">1:  一支香足够,点燃即可--[i]</span><br><span class="line">                       1</span><br><span class="line">2:  一支香最多只能表示到1,如果要表示2,需要在前面加一支香来表示2,这样我只需点燃头一支香即可表示2--[iI]</span><br><span class="line">                                                                                      10</span><br><span class="line">3: 两支香的话,第一支表示2,第一支最多表示1,只需将第二支点燃即可表示3--[ii]</span><br><span class="line">                                                              11</span><br><span class="line">4: 两支香最大可表示到3,现在需要加第三支香来表示4--[iII]</span><br><span class="line">                                             100</span><br><span class="line">5: 以此类推--[iIi]</span><br><span class="line">             101</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">关系图:</span><br><span class="line">        最大表示:1</span><br><span class="line">0:             [I]</span><br><span class="line">           状态:0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:1</span><br><span class="line">1:             [i]</span><br><span class="line">           状态:1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:2 1</span><br><span class="line">2:             [i I]</span><br><span class="line">           状态:1 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:2 1</span><br><span class="line">3:             [i i]</span><br><span class="line">           状态:1 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:4 2 1</span><br><span class="line">4:             [i I I]</span><br><span class="line">           状态:1 0 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:4 2 1</span><br><span class="line">5:             [i I i]</span><br><span class="line">           状态:1 0 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:4 2 1</span><br><span class="line">6:             [i i I]</span><br><span class="line">           状态:1 1 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:4 2 1</span><br><span class="line">7:             [i i i]</span><br><span class="line">           状态:1 1 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">8:             [i I I I]</span><br><span class="line">           状态:1 0 0 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">9:             [i I I i]</span><br><span class="line">           状态:1 0 0 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">10:            [i I i I]</span><br><span class="line">           状态:1 0 1 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">11:            [i I i i]</span><br><span class="line">           状态:1 0 1 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">12:            [i i I I]</span><br><span class="line">           状态:1 1 0 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">13:            [i i I i]</span><br><span class="line">           状态:1 1 0 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">14:            [i i i I]</span><br><span class="line">           状态:1 1 1 0</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:8 4 2 1</span><br><span class="line">15:            [i i i i]</span><br><span class="line">           状态:1 1 1 1</span><br><span class="line">-------------------</span><br><span class="line">        最大表示:16 8 4 2 1</span><br><span class="line">16:             [i I I I I]</span><br><span class="line">            状态:1 0 0 0 0</span><br><span class="line">-------------------</span><br><span class="line">……以此类推</span><br><span class="line">从2开始,每翻一番就多一支香来表示</span><br><span class="line">4(2支),8(3支),16(4支)都增加了一支香类表示</span><br><span class="line">32(5支),64(6支),128(7支),256(8支),512(9支),1024(10支)</span><br><span class="line">也可以把&quot;支&quot;换成&quot;2的x次方&quot;--&gt; 2的10次方&#x3D;1024</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="callable-object"><a href="#callable-object" class="headerlink" title="callable(object)"></a>callable(object)</h1><p>callable(object) 检查对象是否可以被执行调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># f1()</span></span><br><span class="line"></span><br><span class="line">f2 = <span class="number">123</span></span><br><span class="line"><span class="comment"># f2()</span></span><br><span class="line"></span><br><span class="line">print(callable(f1))</span><br><span class="line">print(callable(f2))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="chr-i"><a href="#chr-i" class="headerlink" title="chr(i)"></a>chr(i)</h1><p>chr(i) 将数字转换为字符</p>
+<p>Python3中，chr() 不仅包含ascii的对照表，还包含了Unicode对照表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>chr(<span class="number">59</span>)</span><br><span class="line"><span class="string">';'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>chr(<span class="number">8364</span>)</span><br><span class="line"><span class="string">'€'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>chr(<span class="number">201559</span>)</span><br><span class="line"><span class="string">'\U00031357'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="classmethod-function"><a href="#classmethod-function" class="headerlink" title="classmethod(function)"></a>classmethod(function)</h1><p>classmethod(function) 是一个装饰器函数，一般会使用<code>@classmethod</code>的方式来调用，用来表示下面的方法是<code>类方法</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(cls, arg1, arg2, ...)</span>:</span> ...</span><br></pre></td></tr></table></figure>
+
+<p>代码实例：<a href="http://www.pythontab.com/html/2013/hanshu_0129/186.html" target="_blank" rel="noopener">参考自Pythontab</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line"><span class="meta">... </span>    @classmethod</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(cls)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">print</span> <span class="string">"This is a class method"</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>C.f()</span><br><span class="line">This <span class="keyword">is</span> a <span class="class"><span class="keyword">class</span> <span class="title">method</span></span></span><br><span class="line">&gt;&gt;&gt; c = C()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.f()</span><br><span class="line">This <span class="keyword">is</span> a <span class="class"><span class="keyword">class</span> <span class="title">method</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">class</span> <span class="title">D</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">print</span> <span class="string">" This is not a class method "</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>D.f()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: unbound method f() must be called <span class="keyword">with</span> D instance <span class="keyword">as</span> first argument (got nothing instead)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = D()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d.f()</span><br><span class="line">This <span class="keyword">is</span> <span class="keyword">not</span> a <span class="class"><span class="keyword">class</span> <span class="title">method</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="staticmethod-function"><a href="#staticmethod-function" class="headerlink" title="staticmethod(function)"></a>staticmethod(function)</h1><p>staticmethod(function) 是一个装饰器函数， 一般会使用<code>@staticmethod</code>的方式来调用，用来表示下面的方法的<code>静态方法</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(arg1, arg2, ...)</span>:</span> ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="classmethod-function-staticmethod-function-和实例方法的区别"><a href="#classmethod-function-staticmethod-function-和实例方法的区别" class="headerlink" title="classmethod(function) / staticmethod(function) 和实例方法的区别"></a>classmethod(function) / staticmethod(function) 和实例方法的区别</h2><blockquote>
+<p>实例的方法针对的是具体某一实例化对象的方法；类方法针对的是某一类的方法；静态方法可以与类或实例化无关</p>
+</blockquote>
+<ul>
+<li>类方法：<ul>
+<li>类方法的第一个参数是<code>class</code></li>
+<li>类方法可以通过类直接调用，不需要传递实例的引用</li>
+<li>默认将该class对象（不是class实例化对象）隐式的传递给方法</li>
+</ul>
+</li>
+<li>静态方法：<ul>
+<li>静态方法可以认为是全局函数</li>
+<li>静态方法可以用类调用，也可以用对象调用</li>
+<li>不会隐式的传入任何参数</li>
+</ul>
+</li>
+<li>实例方法：<ul>
+<li>实例方法的第一个参数是<code>self</code></li>
+<li>实例方法必须通过实例化的对象去调用（Python3可以传递任意对象，Python2中会报错）</li>
+<li>默认将该实例化对象隐式的传递给方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self)</span>:</span>    <span class="comment">#定义了实例方法</span></span><br><span class="line">        print(<span class="string">"object"</span>)</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">(clss)</span>:</span>    <span class="comment">#定义了类方法</span></span><br><span class="line">        print(<span class="string">"class"</span>)</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test3</span><span class="params">()</span>:</span>    <span class="comment">#定义了静态方法</span></span><br><span class="line">        print(<span class="string">"static"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实例方法的调用方式</span></span><br><span class="line"><span class="comment"># 第一种方式，先生成对象（先实例化）再调用</span></span><br><span class="line">f1 = Foo()</span><br><span class="line">f1.test()</span><br><span class="line"><span class="comment"># 第二种方式，自己传递实例的引用</span></span><br><span class="line">Foo.test(f1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类方法的调用方式</span></span><br><span class="line"><span class="comment"># 可以直接使用类来调用,不需要传递实例的引用</span></span><br><span class="line">Foo.test2()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 静态方法的调用方式</span></span><br><span class="line"><span class="comment"># 第一种方式,使用实例化对象来调用静态方法</span></span><br><span class="line">f3 = Foo()</span><br><span class="line">f3.test3()</span><br><span class="line"><span class="comment"># 第二种方式,使用类来调用静态方法</span></span><br><span class="line">Foo.test3()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">object</span><br><span class="line">object</span><br><span class="line"><span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class"><span class="title">static</span></span></span><br><span class="line"><span class="class"><span class="title">static</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>代码实例：<a href="http://genggeng.iteye.com/blog/1290458" target="_blank" rel="noopener">参考自ITEYE</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"init"</span>  </span><br><span class="line"> </span><br><span class="line"><span class="meta">    @staticmethod  </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">(hello)</span>:</span>  </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hello:  </span><br><span class="line">            hello=<span class="string">'hello'</span>  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"i will sya %s"</span> %hello  </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">    @classmethod  </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">introduce</span><span class="params">(clazz,hello)</span>:</span>  </span><br><span class="line">        clazz.sayHello(hello)  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"from introduce method"</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(self,hello)</span>:</span>  </span><br><span class="line">        self.sayHello(hello)  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"from hello method"</span>         </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>  </span><br><span class="line">    Person.sayHello(<span class="string">"haha"</span>)  </span><br><span class="line">    Person.introduce(<span class="string">"hello world!"</span>)  </span><br><span class="line">    <span class="comment">#Person.hello("self.hello") #TypeError: unbound method hello() must be called with Person instance as first argument (got str instance instead)  </span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"*"</span> * <span class="number">20</span>  </span><br><span class="line">    p = Person()  </span><br><span class="line">    p.sayHello(<span class="string">"haha"</span>)  </span><br><span class="line">    p.introduce(<span class="string">"hello world!"</span>)  </span><br><span class="line">    p.hello(<span class="string">"self.hello"</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:  </span><br><span class="line">    main() </span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">i will sya haha  </span><br><span class="line">i will sya hello world!  </span><br><span class="line"><span class="keyword">from</span> introduce method  </span><br><span class="line">********************  </span><br><span class="line">init  </span><br><span class="line">i will sya haha  </span><br><span class="line">i will sya hello world!  </span><br><span class="line"><span class="keyword">from</span> introduce method  </span><br><span class="line">i will sya self.hello  </span><br><span class="line"><span class="keyword">from</span> hello method </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="comment"># compile(source, filename, mode, flags=0, dont_inherit=False, optimize=-1)</span></span><br><span class="line"></span><br><span class="line">compile(source, filename, mode, flags=<span class="number">0</span>, dont_inherit=<span class="literal">False</span>, optimize=<span class="number">-1</span>) 把字符串编译成Pythontab代码，编译后可以通过`eval()`或`exec()`来执行</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">s = <span class="string">"print(123)"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译，single，eval，exec</span></span><br><span class="line"><span class="comment"># 将字符串编译成python代码</span></span><br><span class="line">r = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">"exec"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行python代码</span></span><br><span class="line">exec(r)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+<p><code>print(123)</code>和<code>&#39;print(123)&#39;</code>的区别是，前者可以被Python解释器自动编译执行，而后者只是个字符串而已。如果想让后面的字符串去单过Python的命令的去执行，第一步就是先手动将该字符串进行编译，编译后的对象保存在内存中，可以被<code>eval()</code>或<code>exec()</code>来执行</p>
+<p><strong>mode参数有三个：</strong></p>
+<ul>
+<li>single: 执行单条语句  —&gt; exec()</li>
+<li>exec: 可以执行多条语句  —&gt; exec()</li>
+<li>evel: 进行表达式计算  —&gt; evel()</li>
+</ul>
+<h1 id="eval-expression-globals-None-locals-None"><a href="#eval-expression-globals-None-locals-None" class="headerlink" title="eval(expression, globals=None, locals=None)"></a>eval(expression, globals=None, locals=None)</h1><p>eval(expression, globals=None, locals=None) 执行参数中的表达式并返回结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>eval(<span class="string">'x+1'</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>eval() 函数同样可以处理compile()函数生成的对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print(eval(<span class="string">'5 * 9'</span>))</span><br><span class="line"></span><br><span class="line">s = <span class="string">'5 * 9'</span></span><br><span class="line">ret = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">'eval'</span>)</span><br><span class="line">print(eval(ret))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">45</span></span><br><span class="line"><span class="number">45</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="exec-object-globals-locals"><a href="#exec-object-globals-locals" class="headerlink" title="exec(object[, globals[, locals]])"></a>exec(object[, globals[, locals]])</h1><p>exec(object[, globals[, locals]]) 执行参数中的命令，返回值为None（区别于eval，eval是计算，计算就需要有返回值返回计算结果）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ret = exec(<span class="string">'print(123)'</span>)</span><br><span class="line">print(ret)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>exec() 函数处理compile()函数生成的对象—mod:single—处理单行命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'print(123)'</span></span><br><span class="line">ret = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">'single'</span>)</span><br><span class="line">print(exec(ret))    <span class="comment">#返回值为None</span></span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">123</span></span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>exec() 函数处理compile()函数生成的对象—mod:single—处理多行命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'for i in range(5): print(i)'</span></span><br><span class="line">ret = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">'single'</span>)</span><br><span class="line">print(exec(ret))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"/Users/lvrui/PycharmProjects/untitled/4/test.py"</span>, line <span class="number">43</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    ret = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">'single'</span>)</span><br><span class="line">  File <span class="string">"&lt;string&gt;"</span>, line <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>): print(i)</span><br><span class="line">                              ^</span><br><span class="line">SyntaxError: unexpected EOF <span class="keyword">while</span> parsing</span><br><span class="line"><span class="comment"># single 模式无法处理多行命令，应该使用 exec模式</span></span><br></pre></td></tr></table></figure>
+
+<p>exec() 函数处理compile()函数生成的对象—mod:exec—处理多行命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'for i in range(5): print(i)'</span></span><br><span class="line">ret = compile(s, <span class="string">"&lt;string&gt;"</span>, <span class="string">'exec'</span>)</span><br><span class="line">print(exec(ret))    <span class="comment">#返回值为None</span></span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>代码实例：<a href="http://www.pythoner.com/56.html" target="_blank" rel="noopener">参考Pythoner</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>eval_code = compile( <span class="string">'1+2'</span>, <span class="string">''</span>, <span class="string">'eval'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>eval_code</span><br><span class="line">&lt;code object &lt;module&gt; at <span class="number">0142</span>ABF0, file <span class="string">""</span>, line <span class="number">1</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>eval(eval_code)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>single_code = compile( <span class="string">'print "pythoner.com"'</span>, <span class="string">''</span>, <span class="string">'single'</span> )</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>single_code</span><br><span class="line">&lt;code object &lt;module&gt; at <span class="number">01</span>C68848, file <span class="string">""</span>, line <span class="number">1</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exec(single_code)</span><br><span class="line">pythoner.com</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exec_code = compile( <span class="string">"""for i in range(5):</span></span><br><span class="line"><span class="string"><span class="meta">... </span>  print "iter time: %d" % i"""</span>, <span class="string">''</span>, <span class="string">'exec'</span> )</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exec_code</span><br><span class="line">&lt;code object &lt;module&gt; at <span class="number">01</span>C68968, file <span class="string">""</span>, line <span class="number">1</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exec(exec_code)</span><br><span class="line">iter time: <span class="number">0</span></span><br><span class="line">iter time: <span class="number">1</span></span><br><span class="line">iter time: <span class="number">2</span></span><br><span class="line">iter time: <span class="number">3</span></span><br><span class="line">iter time: <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Python反射相关"><a href="#Python反射相关" class="headerlink" title="Python反射相关"></a>Python反射相关</h1><ul>
+<li>delattr()</li>
+<li>hasattr()</li>
+<li>getattr()</li>
+<li>setattr()</li>
+<li>__import__()</li>
+</ul>
+<p>详细介绍请<a href="http://docs.20150509.cn/2016/06/16/Python反射详解/" target="_blank" rel="noopener">点击这里查看</a></p>
+<h1 id="未整理完的内建函数"><a href="#未整理完的内建函数" class="headerlink" title="未整理完的内建函数"></a>未整理完的内建函数</h1><ol>
+<li>bytearray()</li>
+<li>complex()</li>
+<li>dict()</li>
+<li>dir()</li>
+<li>divmod()</li>
+<li>enumerate()</li>
+<li>filter()</li>
+<li>float()</li>
+<li>format()</li>
+<li>frozenset()</li>
+<li>globals()</li>
+<li>hash()</li>
+<li>help()</li>
+<li>id()</li>
+<li>input()</li>
+<li>int()</li>
+<li>isinstance()</li>
+<li>issubclass()</li>
+<li>iter()</li>
+<li>len()</li>
+<li>list()</li>
+<li>locals()</li>
+<li>map()</li>
+<li>max()</li>
+<li>memoryview()</li>
+<li>min()</li>
+<li>next()</li>
+<li>object()</li>
+<li>open()</li>
+<li>pow()</li>
+<li>print()</li>
+<li>property()</li>
+<li>range()</li>
+<li>reversed()</li>
+<li>round()</li>
+<li>set()</li>
+<li>slice()</li>
+<li>sorted()</li>
+<li>sum()</li>
+<li>super()</li>
+<li>tuple()</li>
+<li>type()</li>
+<li>vars()</li>
+<li>zip()</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1451,343 +1999,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/" class="post-title-link" itemprop="url">CentOS6系列安装MySQL5.7</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-03-08 10:56:51" itemprop="dateCreated datePublished" datetime="2016-03-08T10:56:51+08:00">2016-03-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/08/CentOS6系列安装MySQL5-7/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>CentOS6系列，自带的repo库中，默认安装的依然是MySQL5.1版本，过于老旧，而5.6+版本相比5.1版本在各个方面均有全名的提升，对性能要求较高的应用优先考虑5.6+版本。本篇文章介绍使用MySQL官方源安装MySQL5.7</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">shell&gt; wget http://repo.mysql.com//mysql57-community-release-el6-7.noarch.rpm</span><br><span class="line">shell&gt; rpm -ivh mysql57-community-release-el6-7.noarch.rpm</span><br><span class="line">shell&gt; yum install mysql-server  <span class="comment">#这里会默认安装mysql-community-server和对应版本的mysql-community-client</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>如果已经安装有5.1的老版本，可以先将其卸载，再执行上面的安装步骤</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum remove mysql</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Setting up Remove Process</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package mysql.x86_64 0:5.1.73-5.el6_6 will be erased</span><br><span class="line">--&gt; Processing Dependency: mysql = 5.1.73-5.el6_6 <span class="keyword">for</span> package: mysql-server-5.1.73-5.el6_6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package mysql-server.x86_64 0:5.1.73-5.el6_6 will be erased</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">=====================================================================================</span><br><span class="line"> Package               Arch            Version                  Repository      Size</span><br><span class="line">=====================================================================================</span><br><span class="line">Removing:</span><br><span class="line"> mysql                 x86_64          5.1.73-5.el6_6           @base          2.4 M</span><br><span class="line">Removing <span class="keyword">for</span> dependencies:</span><br><span class="line"> mysql-server          x86_64          5.1.73-5.el6_6           @base           25 M</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">=====================================================================================</span><br><span class="line">Remove        2 Package(s)</span><br><span class="line"></span><br><span class="line">Installed size: 27 M</span><br><span class="line">Is this ok [y/N]:</span><br><span class="line"><span class="comment">#卸载老版本的MySQL，默认会同时卸载掉对应的client端</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#执行上面的安装部分...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启动数据库可能会出现下面的错误</span></span><br><span class="line">shell&gt; service mysqld restart</span><br><span class="line">Stopping mysqld:                                           [  OK  ]</span><br><span class="line">MySQL Daemon failed to start.</span><br><span class="line">Starting mysqld:                                           [FAILED]</span><br><span class="line"></span><br><span class="line">shell&gt; mysql</span><br><span class="line">ERROR 2002 (HY000): Can<span class="string">'t connect to local MySQL server through socket '</span>/var/lib/mysql/mysql.sock<span class="string">' (2)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#查看日志出现如下报错</span></span><br><span class="line"><span class="string">#[ERROR] Fatal error: mysql.user table is damaged. Please run mysql_upgrade.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#解决方法是重新初始化数据库</span></span><br><span class="line"><span class="string">shell&gt; rm -fr /var/lib/mysql</span></span><br><span class="line"><span class="string">shell&gt; mysqld --initialize --user=mysql</span></span><br><span class="line"><span class="string">shell&gt; service mysqld restart</span></span><br><span class="line"><span class="string">Stopping mysqld:                                           [  OK  ]</span></span><br><span class="line"><span class="string">Starting mysqld:                                           [  OK  ]</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>假如老版本的5.1由于某些原因，不能卸载或不允许卸载，那么安装5.7时，可以使用编译安装的方式，将新数据库启动的端口由3306改成3307，即可实现两个MySQL版本的数据库进程共存</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Grafana2.6+Zabbix3.0监控系统搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-03-04 16:46:14" itemprop="dateCreated datePublished" datetime="2016-03-04T16:46:14+08:00">2016-03-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/04/Grafana-2-6-Zabbix-3-0-监控系统搭建/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文介绍在CentOS6系列系统中，安装zabbix 3.0与grafana 2.5 搭配的监控系统<br>据了解在zabbix 3.0 LTS版本有50余项升级，zabbix是结合了众多监控系统的优点，是一款比较全面分布式监控系统。在与Grafana搭伙后，完美解决了Zabbix GUI审美疲劳的痛点，接下来进入正题（Zabbix 3.0安装部分完全按照官方文档的步骤实现）</p>
-</blockquote>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ol>
-<li>本文的Zabbix部分知识只介绍它的基础安装，Zabbix的使用以及配置优化并不在本文的介绍范围之内。</li>
-<li>本文只介绍在CentOS6系列下的安装和部署，其他发行版与其他版本号暂不涉及</li>
-<li>本文默认使用MySQL作为后端数据库支持</li>
-</ol>
-<hr>
-<h1 id="CentOS-6-x-基础环境配置部分"><a href="#CentOS-6-x-基础环境配置部分" class="headerlink" title="CentOS 6.x 基础环境配置部分"></a>CentOS 6.x 基础环境配置部分</h1><h2 id="基础环境介绍"><a href="#基础环境介绍" class="headerlink" title="基础环境介绍"></a>基础环境介绍</h2><ul>
-<li>CentOS 6.7 64bit</li>
-<li>8CPU</li>
-<li>1G Mem</li>
-<li>MySQL InnoDB</li>
-</ul>
-<h2 id="基础依赖环境配置"><a href="#基础依赖环境配置" class="headerlink" title="基础依赖环境配置"></a>基础依赖环境配置</h2><h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><p><strong>1.Zabbix官方文档要求Apache的版本要在1.3.12之后</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install httpd -y</span><br><span class="line">Loaded plugins: fastestmirror, refresh-packagekit, security</span><br><span class="line">Setting up Install Process</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.neusoft.edu.cn</span><br><span class="line"> * epel: mirrors.yun-idc.com</span><br><span class="line"> * extras: mirrors.btte.net</span><br><span class="line"> * remi-safe: mirror.innosol.asia</span><br><span class="line"> * rpmforge: mirrors.neusoft.edu.cn</span><br><span class="line"> * updates: mirrors.btte.net</span><br><span class="line">Package httpd-2.2.15-47.el6.centos.3.x86_64 already installed and latest version</span><br><span class="line">Nothing to <span class="keyword">do</span></span><br></pre></td></tr></table></figure>
-
-<p> 我这里已经安装了<code>httpd 2.2</code>版本，符合官方文档中的要求</p>
-<p><strong>2.启动httpd服务，并设置为开机自动启动</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; service httpd start</span><br><span class="line">shell&gt; chkconfig httpd on</span><br></pre></td></tr></table></figure>
-
-<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p><strong>PHP的版本要求在5.4以上，但Linux 6.x系统自带repo中的PHP版本是5.3.3 不符合Zabbix官方文档的要求，需要使用Remi repo来安装更高版本的PHP</strong></p>
-<h4 id="配置Remi-Repo来安装高版本的PHP"><a href="#配置Remi-Repo来安装高版本的PHP" class="headerlink" title="配置Remi Repo来安装高版本的PHP"></a>配置Remi Repo来安装高版本的PHP</h4><p><strong>1.下载Remi</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.配置Remi</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用习惯的文本编辑器（如 vim）打开 Remi 源配置文件 &#x2F;etc&#x2F;yum.repos.d&#x2F;remi.repo</span><br><span class="line">启用 Remi Repository修改 enabled&#x3D;0 为 enabled&#x3D;1</span><br><span class="line">为 Remi Repository 设置合适的优先级在 [remi] 那一节的结尾另起一行添加下面的代码：priority&#x3D;3</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.安装PHP</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install --enablerepo=remi php php-gd</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>因为php-gd和php版本可能有依赖，所以php-gd这个扩展也使用remi这个repo来安装</p>
-</li>
-<li><p>如果出现<code>Requires: libt1.so.5()(64bit)</code>这个报错，可以参考 <a href="http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/" target="_blank" rel="noopener">http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/</a> 这篇文章解决</p>
-</li>
-</ul>
-<p><strong>4.根据Zabbix官方文档需求安装PHP扩展</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install php-bcmath php-ctype php-xml php-xmlreader php-xmlwriter php-session php-net-socket php-gettext php-mbstring php-gettext php-ldap php-mysql</span><br></pre></td></tr></table></figure>
-
-<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><p><strong>根据官方文档的要求，需要在服务器中安装一下软件支持</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install OpenIPMI OpenIPMI-devel libssh2 libssh2-devel fping libcurl libxml2 libxml2-devel net-snmp</span><br></pre></td></tr></table></figure>
-
-<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p><strong>官方文档要求MySQL的版本要在5.0.3以上，CentOS 6.7默认的repo里提供的MySQL版本为5.1.73 符合官方文档要求</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install mysql mysql-server mysql-devel</span><br><span class="line">shell&gt; service mysqld start  <span class="comment">#首次启动需要初始化</span></span><br><span class="line">shell&gt; chkconfig mysqld on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="Zabbix安装部分"><a href="#Zabbix安装部分" class="headerlink" title="Zabbix安装部分"></a>Zabbix安装部分</h1><p><strong>Zabbix 3.0的安装参考了官方文档中源码编译安装的方式，软件包的方式比较简单，大家可以参考官方文档自行试验，时间关系，这里暂不介绍rpm包的安装方式，后续有时间会补充提供这种安装方式的说明</strong></p>
-<h2 id="源码安装的方式"><a href="#源码安装的方式" class="headerlink" title="源码安装的方式"></a>源码安装的方式</h2><h3 id="下载Zabbix-3-0源码包并解压"><a href="#下载Zabbix-3-0源码包并解压" class="headerlink" title="下载Zabbix 3.0源码包并解压"></a>下载Zabbix 3.0源码包并解压</h3><p>Zabbix 3.0 源码官方下载地址： <a href="http://www.zabbix.com/download.php" target="_blank" rel="noopener">http://www.zabbix.com/download.php</a><br>选择<code>Zabbix Sources</code>下的<code>Zabbix 3.0 LTS</code>进行下载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; tar -zxvf zabbix-3.0.0.tar.gz  <span class="comment">#解压缩</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="创建用户及组"><a href="#创建用户及组" class="headerlink" title="创建用户及组"></a>创建用户及组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; groupadd zabbix</span><br><span class="line">shell&gt; useradd -g zabbix zabbix</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建Zabbix数据库"><a href="#创建Zabbix数据库" class="headerlink" title="创建Zabbix数据库"></a>创建Zabbix数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mysql -uroot -p&lt;password&gt;</span><br><span class="line">mysql&gt; create database zabbix character <span class="built_in">set</span> utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by <span class="string">'&lt;password&gt;'</span>;</span><br><span class="line">mysql&gt; quit;</span><br><span class="line">shell&gt; <span class="built_in">cd</span> database/mysql  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; schema.sql</span><br><span class="line"><span class="comment">#如果你是为Zabbix Proxy来创建数据库，那么到这里就必须停止了，下面的不需要执行</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; images.sql</span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; data.sql</span><br></pre></td></tr></table></figure>
-
-<h3 id="编译安装Zabbix-Server和Zabbix-Agent"><a href="#编译安装Zabbix-Server和Zabbix-Agent" class="headerlink" title="编译安装Zabbix Server和Zabbix Agent"></a>编译安装Zabbix Server和Zabbix Agent</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --<span class="built_in">help</span> <span class="comment">#可以查看编译的参数项</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-server --<span class="built_in">enable</span>-agent --with-mysql --<span class="built_in">enable</span>-ipv6 --with-net-snmp --with-libcurl --with-libxml2  <span class="comment">#Zabbix Server与Agent安装参数参考</span></span><br><span class="line">shell&gt; make install</span><br></pre></td></tr></table></figure>
-
-<p>其他组件安装参考：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --prefix=/usr --<span class="built_in">enable</span>-proxy --with-net-snmp --with-sqlite3 --with-ssh2  <span class="comment">#Zabbix Proxy安装参数参考</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-agent  <span class="comment">#Zabbix Agent安装参数参考</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>如果Server与Agent采用了AIO（All In One）的部署方式，作为测试，Agent的配置文件<code>可以不修改</code></p>
-<p>接下来修改Server的配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; vim /usr/<span class="built_in">local</span>/etc/zabbix_server.conf</span><br><span class="line"><span class="comment">#以下为修改完成后的项目</span></span><br><span class="line"><span class="comment">#DBName和DBUser保持以下默认参数即可，只需设置DBPassword一项</span></span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=zabbix</span><br><span class="line">DBPassword=zabbix  <span class="comment">#上面配置数据时，我设置zabbix用户的密码为zabbix</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_server  <span class="comment">#启动Zabbix Server</span></span><br><span class="line">shell&gt; zabbix_agentd  <span class="comment">#启动Zabbix Agent</span></span><br></pre></td></tr></table></figure>
-
-<p>启动其他服务：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_proxy  <span class="comment">#启动Zabbix Proxy</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="安装Zabbix网站页面接口"><a href="#安装Zabbix网站页面接口" class="headerlink" title="安装Zabbix网站页面接口"></a>安装Zabbix网站页面接口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mkdir /var/www/html/zabbix</span><br><span class="line">shell&gt; <span class="built_in">cd</span> frontends/php  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; cp -a . /var/www/html/zabbix</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置Zabbix"><a href="#配置Zabbix" class="headerlink" title="配置Zabbix"></a>配置Zabbix</h3><ul>
-<li><p><strong>在浏览器中打开如下网址： <a href="http://server_ip_or_name/zabbix" target="_blank" rel="noopener">http://server_ip_or_name/zabbix</a></strong></p>
-</li>
-<li><p>在打开的页面中看到“Welcome to Zabbix 3.0”几个大字就算成功了一半了！点击<code>Next step</code><img src="http://oss.20150509.cn/install_1.png" alt="Welcome"></p>
-</li>
-<li><p>第二个页面<code>Check of pre-requisites</code> 会检查PHP的一些配置参数（第一列是变量名；第二列是PHP配置文件实际值；第三项是Zabbix强制要求的最低值或固定值），默认情况下这个页面所有的检查项应该都是“OK”的，如果有红色的错误项，根据前面提示的变量名，去找PHP的配置文件，修改成“REQUIRED”要求的值就可以啦（默认PHP的配置文件<code>/etc/php.ini</code>）<img src="http://oss.20150509.cn/install_2.png" alt="Check of pre-requisites"></p>
-</li>
-<li><p>第三个页面<code>Configure DB connection</code> 这一步骤会去尝试连接数据库。第一项数据库类型选择<code>MySQL</code>；DB Host 保持默认的<code>localhost</code>（因为这里采用了AIO的安装方式，数据库没有单独分离）；DB Port修改成<code>3306</code>；DB Name：<code>zabbix</code>； User：<code>zabbix</code>；Password：<code>zabbix</code>。点击<code>Next step</code>如果出现报错，根据报错信息排查是否是配置错误（这些配置都是在前面设置过的，3306是MySQL默认的端口号）<img src="http://oss.20150509.cn/install_3.png" alt="Configure DB connection"></p>
-</li>
-<li><p>第四个页面<code>Zabbix server details</code> 保持默认的Host：<code>localhost</code>和Port：<code>10051</code>配置即可，Name可以自定义设置，为这套监控系统起个名字<img src="http://oss.20150509.cn/install_4.png" alt="Zabbix server details"></p>
-</li>
-<li><p>第五个页面<code>Pre-installation summary</code> 总览一下前面所有的配置<code>Next step</code><img src="http://oss.20150509.cn/install_5.png" alt="Pre-installation summary"></p>
-</li>
-<li><p>第六个页面<code>Install</code> 我在进入到这个页面后，出现了报错，提示<code>Can not create the configuration file</code> 下方官方也给出了手动解决这个问题的方法。按照提示，第一步点击给出的连接，下载zabbix官方提供的配置文件；第二步，根据提示，放在指定的位置保存为指定的文件，我这里提示保存为：<code>/usr/share/zabbix/conf/zabbix.conf.php</code> 按照提示操作完成后点击<code>Finish</code><img src="http://oss.20150509.cn/install_6.png" alt="Install"></p>
-</li>
-<li><p>如果上面配置的都没有问题，第七个页面将会出现<code>congratulations! ...</code> 点击<code>Finish</code><img src="http://oss.20150509.cn/install_7.png" alt="Install2"></p>
-</li>
-<li><p>第八个页面将会出现登陆页面，默认的登陆用户名为<code>Admin</code> 密码为<code>zabbix</code><img src="http://oss.20150509.cn/login.png" alt="login"></p>
-</li>
-</ul>
-<h3 id="Zabbix的使用简介"><a href="#Zabbix的使用简介" class="headerlink" title="Zabbix的使用简介"></a>Zabbix的使用简介</h3><p>进入到Zabbix首页后，会发现3.0版本与之前的2.x版本的界面相比焕然一新，更养眼了，对解决2.x版本的审美疲劳起到了一定的作用。当然这只是最肤浅的外貌协会成员的结论，除了颜值高了，Zabbix还有50余项技术更新，变得愈发强大了<del>~</del></p>
-<ul>
-<li>在<code>Configuation</code>–&gt;<code>Hosts</code>–&gt;<code>status</code>中，将<code>Disabled</code>变成<code>Enabled</code>状态，稍等片刻，如果Zabbix Agent启动正常的话，<code>ZBX</code>的图标就会亮起，表示Server与Agent之间通信正常<img src="http://oss.20150509.cn/Zabbix_1.jpg" alt="Enabled"></li>
-<li>监控首页会是如下状态（各个模块可以拖拽移动布局）<img src="http://oss.20150509.cn/Zabbix_2.jpg" alt="Dashboard"></li>
-<li>再瞅一眼监控图表的效果~<img src="http://oss.20150509.cn/Zabbix_3.jpg" alt="Graphs1"></li>
-</ul>
-<p><strong>那么问题来了，虽然3.0换了一层扁平简约的外观，但是图表展示还是一样的丑……为了解决这个问题，Grafana可以帮上大忙，接下来的部分就详细介绍如何使用Grafana给Zabbix监控图表披上一层华丽的外衣</strong></p>
-<h2 id="RPM包安装方式"><a href="#RPM包安装方式" class="headerlink" title="RPM包安装方式"></a>RPM包安装方式</h2><p><em>略</em></p>
-<hr>
-<h1 id="Grafana安装部分"><a href="#Grafana安装部分" class="headerlink" title="Grafana安装部分"></a>Grafana安装部分</h1><p>截止至我写这篇文档的时候，Grafana的最新版本是<code>2.6.0</code> 而Grafana原生是不支持获取Zabbix数据的，需要通过grafana-zabbix插件来实现，grafana-zabbix插件的最新版本是2.5.1，github上写的很清楚，该插件服务于Grafana的2.5版本。经过测试，成功在2.6.0的Grafana上使用了grafana-zabbix的2.5.1版本。所以这里你可以任意选择2.5或2.6版本的Grafana来安装。</p>
-<h2 id="Grafana的下载及安装"><a href="#Grafana的下载及安装" class="headerlink" title="Grafana的下载及安装"></a>Grafana的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install https://grafanarel.s3.amazonaws.com/builds/grafana-2.6.0-1.x86_64.rpm  <span class="comment">#这里只提供了yum的安装方式，其他安装方式可以参考附录中的Grafana官方安装文档</span></span><br><span class="line">shell&gt; service grafana-server start  <span class="comment">#启动Grafana服务</span></span><br><span class="line">shell&gt; chkconfig grafana-server on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Grafana-Zabbix插件的下载及安装"><a href="#Grafana-Zabbix插件的下载及安装" class="headerlink" title="Grafana Zabbix插件的下载及安装"></a>Grafana Zabbix插件的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#https://github.com/alexanderzobnin/grafana-zabbix/releases/latest  #请到该网址下载2.5.1版本的grafana-zabbix插件</span></span><br><span class="line">shell&gt; tar -xvzf grafana-zabbix-2.5.1.tar.gz</span><br><span class="line">shell&gt; cp -r grafana-zabbix-2.5.1/zabbix/  /usr/share/grafana/public/app/plugins/datasource/</span><br><span class="line">shell&gt; service grafana-server restart</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="Grafana-Zabbix联通部分"><a href="#Grafana-Zabbix联通部分" class="headerlink" title="Grafana + Zabbix联通部分"></a>Grafana + Zabbix联通部分</h1><ul>
-<li>在浏览器地址栏输入 <code>http://IP:3000</code>就可以看到Grafana的登陆页面了。输入默认的用户名<code>admin</code> 密码<code>admin</code>登陆</li>
-<li>点击左侧的<code>Data Sourses</code>–&gt;<code>Add new</code><ul>
-<li>Type下拉框中选择<code>Zabbix</code></li>
-<li>Name 可以自由发挥~~</li>
-<li>Http settings–&gt;Url 填入<code>http://zabbix-server-ip/zabbix/api_jsonrpc.php</code> 这里填入的是Zabbix API接口</li>
-<li>Http settings–&gt;Access 选择 <code>direct</code> 使用直接访问的方式</li>
-<li>Zabbix API details–&gt;User 填入<code>Admin</code></li>
-<li>Zabbix API details–&gt;Password 填入 <code>zabbix</code></li>
-<li>点<code>Save</code>保存后再编辑，出现<code>Test Connection</code>按钮，点击可测试API配置是否正确。出现：Success Zabbix API version: 3.0.0 配置成功<img src="http://oss.20150509.cn/grafana_1.jpg" alt="enter image description here"></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Grafana配置部分"><a href="#Grafana配置部分" class="headerlink" title="Grafana配置部分"></a>Grafana配置部分</h1><p>至此仅差最后一步，将Zabbix的数据读取到Grafana来以图表展示，就打完收工啦！</p>
-<ul>
-<li>点击左侧的<code>Dashboards</code>–&gt;<code>Home</code>–&gt;在下拉菜单的底部选择<code>+ New</code>。这时新的页面中默认出现一个空的横行图表，左上角有绿色的竖线，右下角有<code>+ ADD ROW</code>添加新行的按钮。</li>
-<li>鼠标放在左上角的绿色竖线上，点击后弹出一个菜单，选择<code>Add Panel</code>。下面有五个选项，下面选择四个常用的分别介绍</li>
-<li>记得点击上面的<code>保存</code>按钮以保存新建的页面</li>
-</ul>
-<h2 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h2><p>这个选项是创建一个图表，类似于Zabbix的监控图表，是最常用的类型之一。</p>
-<ul>
-<li>General-Title：设置该图表的名称</li>
-<li>Metrics：在该项的右下角，选择正确的数据源（之前在Data Sources配置的Name）</li>
-<li>Metrics-Group/Host/Application/Item：这些项目是必填项目，需要依次下拉选择</li>
-</ul>
-<p><em>如果一张图需要展现两条线的数据，可以在左下角点击<code>+ Query</code></em></p>
-<ul>
-<li>Display Styles-Chart Options：这里可以选择以<code>竖线</code>展示，以<code>折线</code>展示或以<code>点</code>来展示数据<br><img src="http://oss.20150509.cn/grafana_2.jpg" alt="Grafana-Graph"></li>
-</ul>
-<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><p>表格展示，类似于Excel表格的展现形式<br><img src="http://oss.20150509.cn/grafana_3.jpg" alt="enter image description here"></p>
-<ul>
-<li>点击 <code>- +</code> 号可以调整该模块的大小（横向伸缩）</li>
-<li>点击<code>Edit</code>可以重新编辑该模块的数据源</li>
-</ul>
-<h2 id="Single-stat"><a href="#Single-stat" class="headerlink" title="Single stat"></a>Single stat</h2><p>单统计模块，从字面意思就可以知道，该种模块仅可以展示一种数据，统计一种数据。这里需要重点说明就是<code>Option</code>选项下的参数</p>
-<p>以统计磁盘使用大小一项来举例</p>
-<ul>
-<li>Unit：要选择<code>data</code>下的<code>bytes</code>单位来统计</li>
-<li>Decimals：小数设置保持默认的auto即可</li>
-<li>Coloring：这里可以选择渲染背景色或字体色<ul>
-<li>Colors控制着三个颜色，可以自由发挥，一般绿色代表正常，黄色代表预警，红色代表警告</li>
-<li>Thresholds可以设置以逗号分隔的三个数字，分别表示三个状态的阈值</li>
-<li>Spark lines有两种显示模式，<code>Show</code>会在数据的下方展示折线；<code>Background mode</code>会在整个模块的背景展示折线</li>
-</ul>
-</li>
-</ul>
-<h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><p>这个模块很好理解，就是一个现实文字的模块，支持markdown语法，可以放在每个页面的头部，标记当前图表信息的归类。</p>
-<h2 id="Dashboards-list"><a href="#Dashboards-list" class="headerlink" title="Dashboards list"></a>Dashboards list</h2><p>这个模块是用来展示页面列表用的。举个例子，如果一个监控系统中，涉及到了多个页面展示监控图表，就会用到这个功能，这个模块会列出你需要展示的页面的列表，方便在当前页面中，快速的切换到其他监控页面。</p>
-<h2 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h2><p><img src="http://oss.20150509.cn/grafana_5.jpg" alt="Final"></p>
-<h2 id="页面自动刷新"><a href="#页面自动刷新" class="headerlink" title="页面自动刷新"></a>页面自动刷新</h2><p>点击右上角<code>Last 6 hours</code>, 在弹出的下拉框中，选择<code>Time range</code>下的<code>Refreshing every</code>选项，点击下拉框按钮，默认应该有<code>off</code> 和 <code>1m</code>两个选项。点击<code>1m</code> 然后<code>Apply</code>设置。即为每一分钟刷新一次数据的意思。<strong>设置成功后</strong>，在原来<code>Last 6 hours</code>的后面会出现<code>Refresh every 1m</code>的橙色文字！</p>
-<hr>
-<h1 id="附录：参考文档"><a href="#附录：参考文档" class="headerlink" title="附录：参考文档"></a>附录：参考文档</h1><p><a href="https://www.zabbix.com/documentation/3.0/manual/installation/requirements" target="_blank" rel="noopener">Zabbix 3.0官方文档</a></p>
-<p><a href="http://cnzhx.net/blog/remi-repository/#i-2" target="_blank" rel="noopener">Remi官方文档</a></p>
-<p><a href="http://grafana.org/" target="_blank" rel="noopener">Grafana官方网站</a></p>
-<p><a href="http://docs.grafana.org/installation/rpm/" target="_blank" rel="noopener">Grafana官方安装文档</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1860,7 +2071,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1873,7 +2084,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

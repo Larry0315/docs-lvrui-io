@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,259 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">YAML语法简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-12-03 16:15:47" itemprop="dateCreated datePublished" datetime="2015-12-03T16:15:47+08:00">2015-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/03/YAML语法简介/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="YAML的数据结构"><a href="#YAML的数据结构" class="headerlink" title="YAML的数据结构"></a>YAML的数据结构</h1><p>YAML的设计者认为在配置文件中所要表达的数据内容有三种类型</p>
+<ul>
+<li>Scalars（标量，如字符串和数字等）</li>
+<li>Sequence （序列，类似于Python中列表的概念）</li>
+<li>Mapping （类似于Python中字典的概念）</li>
+</ul>
+<h2 id="Sequence-of-Scalars"><a href="#Sequence-of-Scalars" class="headerlink" title="Sequence of Scalars"></a>Sequence of Scalars</h2><p>YAML(ball players)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'Mark McGwire'</span>, <span class="string">'Sammy Sosa'</span>, <span class="string">'Ken Griffey'</span>]</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Mapping-Scalars-to-Scalars"><a href="#Mapping-Scalars-to-Scalars" class="headerlink" title="Mapping Scalars to Scalars"></a>Mapping Scalars to Scalars</h2><p>YAML(player statistics)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hr:  65    # Home runs</span><br><span class="line">avg: 0.278 # Batting average</span><br><span class="line">rbi: 147   # Runs Batted In</span><br></pre></td></tr></table></figure>
+
+<p>Pyhton(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>, <span class="string">'rbi'</span>:<span class="number">147</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Mapping-Scalars-to-Sequences"><a href="#Mapping-Scalars-to-Sequences" class="headerlink" title="Mapping Scalars to Sequences"></a>Mapping Scalars to Sequences</h2><p>YAML(ball clubs in each league)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">american:</span><br><span class="line">  - Boston Red Sox</span><br><span class="line">  - Detroit Tigers</span><br><span class="line">  - New York Yankees</span><br><span class="line">national:</span><br><span class="line">  - New York Mets</span><br><span class="line">  - Chicago Cubs</span><br><span class="line">  - Atlanta Braves</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'american'</span>:[<span class="string">'Boston Red Sox'</span>, <span class="string">'Detroit Tigers'</span>, <span class="string">'New York Yankees'</span>], <span class="string">'national'</span>:[<span class="string">'New York Mets'</span>, <span class="string">'Chicago Cubs'</span>, <span class="string">'Atlanta Braves'</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Sequence-of-Mappings"><a href="#Sequence-of-Mappings" class="headerlink" title="Sequence of Mappings"></a>Sequence of Mappings</h2><p>YAML(players’ statistics)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-</span><br><span class="line">  name: Mark McGwire</span><br><span class="line">  hr:   65</span><br><span class="line">  avg:  0.278</span><br><span class="line">-</span><br><span class="line">  name: Sammy Sosa</span><br><span class="line">  hr:   63</span><br><span class="line">  avg:  0.288</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">'name'</span>:<span class="string">'Mark McGwire'</span>, <span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>&#125;, &#123;<span class="string">'name'</span>:<span class="string">'Sammy Sosa'</span>, <span class="string">'hr'</span>:<span class="number">63</span>, <span class="string">'avg'</span>:<span class="number">0.288</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sequence-of-Sequences"><a href="#Sequence-of-Sequences" class="headerlink" title="Sequence of Sequences"></a>Sequence of Sequences</h2><p>YAML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- [name        , hr, avg  ]</span><br><span class="line">- [Mark McGwire, 65, 0.278]</span><br><span class="line">- [Sammy Sosa  , 63, 0.288]</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="string">'name'</span>, <span class="string">'hr'</span>, <span class="string">'avg'</span>], [<span class="string">'Mark McGwire'</span>, <span class="number">65</span>, <span class="number">0.278</span>], [<span class="string">'Sammy Sosa'</span>, <span class="number">63</span>, <span class="number">0.288</span>]]</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Mapping-of-Mappings"><a href="#Mapping-of-Mappings" class="headerlink" title="Mapping of Mappings"></a>Mapping of Mappings</h2><p>YAML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mark McGwire: &#123;hr: 65, avg: 0.278&#125;</span><br><span class="line">Sammy Sosa: &#123;</span><br><span class="line">    hr: 63,</span><br><span class="line">    avg: 0.288</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'Mark McGwire'</span>:&#123;<span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>&#125;, <span class="string">'Sammy Sosa'</span>:&#123;<span class="string">'hr'</span>:<span class="number">63</span>, <span class="string">'avg'</span>:<span class="number">0.288</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="YAML中的注释"><a href="#YAML中的注释" class="headerlink" title="YAML中的注释"></a>YAML中的注释</h1><p>YAML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#ball players</span><br><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="YAML中的文档"><a href="#YAML中的文档" class="headerlink" title="YAML中的文档"></a>YAML中的文档</h1><p>在单一一个YAML文件中</p>
+<ul>
+<li>使用三个下划线<code>___</code>来分隔文档</li>
+<li>使用三个句号<code>...</code>表示结束（一般在通信信道中使用）</li>
+</ul>
+<p>YAML(Two Documents in a Stream)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Ranking of 1998 home runs</span><br><span class="line">---</span><br><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br><span class="line"> </span><br><span class="line"># Team ranking</span><br><span class="line">---</span><br><span class="line">- Chicago Cubs</span><br><span class="line">- St Louis Cardinals</span><br></pre></td></tr></table></figure>
+
+<p>YAML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">time: 20:03:20</span><br><span class="line">player: Sammy Sosa</span><br><span class="line">action: strike (miss)</span><br><span class="line">...</span><br><span class="line">---</span><br><span class="line">time: 20:03:47</span><br><span class="line">player: Sammy Sosa</span><br><span class="line">action: grand slam</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>YAML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">用YAML来描述一本书《Linux命令行与shell脚本编程大全》</span><br><span class="line"> </span><br><span class="line"># 《Linux命令行与shell脚本编程大全》描述</span><br><span class="line">---  # begin of document</span><br><span class="line">书名: &#39;Linux命令行与shell脚本编程大全&#39;</span><br><span class="line">出版社: &#39;人民邮电出版社&#39;</span><br><span class="line">原作者: [&#39;Richard Blum&#39;, &#39;Christine Bresnahan&#39;]</span><br><span class="line">译者:</span><br><span class="line">    - 武海峰</span><br><span class="line">    - 朱巍</span><br><span class="line">前二章节:</span><br><span class="line">    - 第一章: 初识Linux Shell</span><br><span class="line">    - 第二章: 走进Shell</span><br><span class="line"> </span><br><span class="line">#end of document</span><br></pre></td></tr></table></figure>
+
+<p>Python(YAML)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'书名'</span>:<span class="string">'Linux命令行与shell脚本编程大全'</span>, <span class="string">'出版社'</span>:<span class="string">'人民邮电出版社'</span>, <span class="string">'原作者'</span>:[<span class="string">'Richard Blum'</span>, <span class="string">'Christine Bresnahan'</span>], <span class="string">'译者'</span>:[<span class="string">'武海峰'</span>, <span class="string">'朱巍'</span>], <span class="string">'前二章节'</span>:&#123;<span class="string">'第一章'</span>:<span class="string">'初识Linux Shell'</span>, <span class="string">'第二章'</span>:<span class="string">'走进Shell'</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文档：</p>
+<ul>
+<li><a href="http://yaml.org/spec/1.1/" target="_blank" rel="noopener">http://yaml.org/spec/1.1/</a></li>
+<li><a href="http://www.cnblogs.com/chwkai/archive/2009/03/01/249924.html" target="_blank" rel="noopener">http://www.cnblogs.com/chwkai/archive/2009/03/01/249924.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/" class="post-title-link" itemprop="url">salt pkg.install报错:No module named yum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-24 17:03:52" itemprop="dateCreated datePublished" datetime="2015-11-24T17:03:52+08:00">2015-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/24/salt-pkg-install报错-No-module-named-yum/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在使用salt进行软件管理的时候，有些节点报 No module named yum 的错误。经过排查，发现是因为升级了minion端Python版本后产生的问题</p>
+</blockquote>
+<p><strong>msater</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ salt <span class="string">'vm3.salt.com'</span> pkg.install httpd</span><br><span class="line">vm3.salt.com:</span><br><span class="line">    ERROR: Traceback (most recent call last):</span><br><span class="line">      File <span class="string">"/usr/bin/repoquery"</span>, line 34, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">        import yum</span><br><span class="line">    ImportError: No module named yum</span><br></pre></td></tr></table></figure>
+
+<p>服务器自带的Python版本是2.6.6 由于其他业务的需求，Python的版本升级到了2.7.10，升级后首先yum命令处于不可用的状态，通过修改<code>/usr/bin/yum</code>文件的第一行<code>#!/usr/bin/python</code>为<code>#!/usr/bin/python2.6</code>来修复yum命令的使用</p>
+<p>由于系统默认的Python已经由2.6.6变更到了2.7.10</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /usr/bin/python</span><br><span class="line">lrwxrwxrwx 1 root root 34 Oct  9 02:16 /usr/bin/python -&gt; /usr/<span class="built_in">local</span>/python2.7/bin/python2.7</span><br></pre></td></tr></table></figure>
+
+<p>salt master在派发任务后，minion接收到任务并在本地使用默认的Python来执行，实际使用了升级后默认的Python2.7.10，导致Python报找不到yum模块的错误</p>
+<p>在网上搜索了很多方案，全部是修改yum默认使用的Python版本来解决问题，貌似不能通过让yum来支持高版本的Python来解决问题。so，要解决salt minion本地调用yum不报错，就必须要保证其使用Python2.6.6来执行！解决方案和yum命令的修复方式相同：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ head /usr/bin/repoquery</span><br><span class="line"><span class="comment">#!/usr/bin/python -tt</span></span><br><span class="line"><span class="comment">#... ...</span></span><br><span class="line"></span><br><span class="line">$ vim /usr/bin/repoquery </span><br><span class="line"></span><br><span class="line">$ head /usr/bin/repoquery</span><br><span class="line"><span class="comment">#!/usr/bin/python2.6 -tt</span></span><br><span class="line"><span class="comment">#... ...</span></span><br></pre></td></tr></table></figure>
+<p>将<code>/usr/bin/repoquery</code>文件第一行的<code>#!/usr/bin/python -tt</code>更改为<code>#!/usr/bin/python2.6 -tt</code>即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1084,195 +1337,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/" class="post-title-link" itemprop="url">使用forever让node.js持久运行</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-18 10:57:36" itemprop="dateCreated datePublished" datetime="2015-11-18T10:57:36+08:00">2015-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/11/18/%E4%BD%BF%E7%94%A8forever%E8%AE%A9node-js%E6%8C%81%E4%B9%85%E8%BF%90%E8%A1%8C/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/使用forever让node-js持久运行/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>nodejs一般是当成一条命令执行的，当用户断开session，nodejs也就停止了运行。如何让nodejs持续在后台运行呢？</p>
-</blockquote>
-<p>#最简单粗暴的方法是使用Linux本身后台执行的特性</p>
-<hr>
-<p>使用&amp;符号后台执行，并利用nohup命令实现进程禁止挂起</p>
-<p><code>nohup node app.js &amp;</code></p>
-<p>#使用forever让node.js持久运行</p>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">npm install forever -g   <span class="comment">#安装</span></span><br><span class="line">forever start app.js  <span class="comment">#启动应用</span></span><br><span class="line">forever stop app.js  <span class="comment">#关闭应用</span></span><br><span class="line">forever restartall  <span class="comment">#重启所有应用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#输出日志和错误</span></span><br><span class="line">forever start -l forever.log -o out.log -e err.log app.js   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定forever信息输出文件，当然，默认它会放到~/.forever/forever.log</span></span><br><span class="line">forever start -l forever.log app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定app.js中的日志信息和错误日志输出文件，  </span></span><br><span class="line"><span class="comment"># -o 就是console.log输出的信息，-e 就是console.error输出的信息</span></span><br><span class="line">forever start -o out.log -e err.log app.js </span><br><span class="line"></span><br><span class="line"><span class="comment"># 追加日志，forever默认是不能覆盖上次的启动日志，  </span></span><br><span class="line"><span class="comment"># 所以如果第二次启动不加-a，则会不让运行  </span></span><br><span class="line">forever start -l forever.log -a app.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听当前文件夹下的所有文件改动（不太建议这样）  </span></span><br><span class="line">forever start -w app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示所有运行的服务 </span></span><br><span class="line">forever list  </span><br><span class="line"></span><br><span class="line"><span class="comment">######停止操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止所有运行的node App  </span></span><br><span class="line">forever stopall  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 停止其中一个node App  </span></span><br><span class="line">forever stop app.js  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 当然还可以这样  </span></span><br><span class="line"><span class="comment"># forever list 找到对应的id，然后：  </span></span><br><span class="line">forever stop [id]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发环境下  </span></span><br><span class="line">NODE_ENV=development forever start -l forever.log -e err.log -a app.js  </span><br><span class="line"><span class="comment"># 线上环境下  </span></span><br><span class="line">NODE_ENV=production forever start -l ~/.forever/forever.log -e ~/.forever/err.log -w -a app.js</span><br><span class="line"><span class="comment">#上面加上NODE_ENV为了让app.js辨认当前是什么环境用的</span></span><br></pre></td></tr></table></figure>
-
-<p>The End</p>
-<hr>
-<ul>
-<li>参考1: <a href="https://cnodejs.org/topic/5021c2cff767cc9a51e684e3" target="_blank" rel="noopener">https://cnodejs.org/topic/5021c2cff767cc9a51e684e3</a></li>
-<li>参考2: <a href="http://tcrct.iteye.com/blog/2043644" target="_blank" rel="noopener">http://tcrct.iteye.com/blog/2043644</a></li>
-<li>forever github: <a href="https://github.com/foreverjs/forever" target="_blank" rel="noopener">https://github.com/foreverjs/forever</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">yum provides 反查询</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-18 10:56:27" itemprop="dateCreated datePublished" datetime="2015-11-18T10:56:27+08:00">2015-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/11/18/yum-provides-%E5%8F%8D%E6%9F%A5%E8%AF%A2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/yum-provides-反查询/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在日常运维工作中，常常遇到需要安装一些依赖的库文件。在实际工作中，一次在Linux中安装SQL Server ODBC驱动时，遇到一个依赖的库文件需要安装（libcrypto.so.6）</p>
-</blockquote>
-<p>可是使用yum provides命令查询<code>libcrypto.so.6</code>文件包含在哪个软件包中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@manage final]<span class="comment"># yum provides libcrypto.so.6</span></span><br><span class="line">已加载插件：dellsysid, fastestmirror, refresh-packagekit, security</span><br><span class="line">Repository base is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository updates is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository extras is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository centosplus is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Repository contrib is listed more than once <span class="keyword">in</span> the configuration</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.btte.net</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.btte.net</span><br><span class="line"> * rpmforge: ftp.riken.jp</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">openssl098e-0.9.8e-18.el6_5.2.i686 : A compatibility version of a general cryptography and TLS library</span><br><span class="line">Repo        : base</span><br><span class="line">匹配来自于:</span><br><span class="line">Other       : libcrypto.so.6</span><br></pre></td></tr></table></figure>
-
-<p>通过查询可以看出，<code>libcrypto.so.6</code>文件包含在<code>openssl098e</code>的软件包中，接下来只需要使用yum安装openssl098e即可解决依赖问题</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1345,7 +1409,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1358,7 +1422,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,192 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/aiohttp-uvloop-gunicorn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/aiohttp-uvloop-gunicorn/" class="post-title-link" itemprop="url">aiohttp+uvloop+gunicorn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 15:42:45" itemprop="dateCreated datePublished" datetime="2018-08-08T15:42:45+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/aiohttp-uvloop-gunicorn/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/aiohttp-uvloop-gunicorn/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="aiohttp-uvloop"><a href="#aiohttp-uvloop" class="headerlink" title="aiohttp+uvloop"></a>aiohttp+uvloop</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"><span class="keyword">from</span> utils.logger_helper <span class="keyword">import</span> LogFactory</span><br><span class="line"></span><br><span class="line">logger = LogFactory.get_logger()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    web.run_app(app, host=cfg.host, port=cfg.port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 使用 uvloop 替换掉 asyncio 默认的事件循环</span></span><br><span class="line">    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启动 Server</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        main()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logger.error(e)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="aiohttp-uvloop-gunicorn"><a href="#aiohttp-uvloop-gunicorn" class="headerlink" title="aiohttp+uvloop+gunicorn"></a>aiohttp+uvloop+gunicorn</h1><p><strong>main.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For Gunicorn</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">web_app</span><span class="params">()</span>:</span></span><br><span class="line">    logger.info(<span class="string">"Server Starting at &#123;0&#125;;&#123;1&#125;"</span>.format(cfg.host, cfg.port))</span><br><span class="line">    app = web.Application()</span><br><span class="line">    setup_routes(app)</span><br><span class="line">    app.on_shutdown.append(shutdown)</span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+
+<p><code>gunicorn ... --worker-class aiohttp.worker.GunicornUVLoopWebWorker</code></p>
+<p>在启动gunicorn的时候, 指定uvloop的worker-class即可</p>
+<h1 id="How-to-use-uvloop-in-an-asyncio-application"><a href="#How-to-use-uvloop-in-an-asyncio-application" class="headerlink" title="How to use uvloop in an asyncio application"></a>How to use uvloop in an asyncio application</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br></pre></td></tr></table></figure>
+
+<h1 id="How-to-use-uvloop-with-Tornado"><a href="#How-to-use-uvloop-with-Tornado" class="headerlink" title="How to use uvloop with Tornado"></a>How to use uvloop with Tornado</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tornado.platform.asyncio <span class="keyword">import</span> AsyncIOMainLoop</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> uvloop</span><br><span class="line"></span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br><span class="line">AsyncIOMainLoop().install()</span><br><span class="line">asyncio.get_event_loop().run_forever()</span><br></pre></td></tr></table></figure>
+
+<p>参考文档:</p>
+<ul>
+<li><a href="https://github.com/MagicStack/uvloop/wiki" target="_blank" rel="noopener">https://github.com/MagicStack/uvloop/wiki</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/" class="post-title-link" itemprop="url">Python SMTPException: No suitable authentication method found</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 15:32:26" itemprop="dateCreated datePublished" datetime="2018-08-08T15:32:26+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python-SMTPException-No-suitable-authentication-method-found/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在发送邮件日报时, 使用<code>smtplib</code>库抛了一个异常<code>raise SMTPException(&quot;No suitable authentication method found.&quot;)</code></p>
+<p>原因是配置了<code>https</code>的邮件服务器, 在初始化SMTP和login之间调用<code>starttls()</code>方法即可解决问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line">server = smtplib.SMTP(self.server, self.port)</span><br><span class="line">server.set_debuglevel(<span class="number">1</span>)</span><br><span class="line">server.starttls()</span><br><span class="line">server.login(self.send_user, self.password)</span><br><span class="line">server.sendmail(self.send_user, [to], msg.as_string())</span><br><span class="line">server.quit()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1122,182 +1308,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/26/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/26/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">Go基础之函数的用法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-26 00:14:56" itemprop="dateCreated datePublished" datetime="2018-07-26T00:14:56+08:00">2018-07-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/07/26/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/26/Go基础之函数的用法/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文Demo介绍Go语言函数的使用, 包含多返回值, 闭包, 带参闭包, 函数作为变量的值, 函数的参数为函数, 函数参数为可变参数列表的这几种情况</p>
-</blockquote>
-<p><strong>在Go语言的函数的参数中, 没有Python中类似的默认参数, 可变参数等概念, 只有一个可变参数列表的功能</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的用法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Go语言支持多返回值, 大多数情况下, 返回两个值, 一个值是结果, 一个值是error</span></span><br><span class="line"><span class="comment">// 如果函数执行正确, error值返回为nil</span></span><br><span class="line"><span class="comment">// 这样在if判断的时候, 就可以判断函数的第二个返回值是否非nil</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo5</span><span class="params">(arg1, arg2 <span class="keyword">float64</span>)</span> <span class="params">(<span class="keyword">float64</span>, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> arg2 == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">float64</span>(<span class="number">0</span>), fmt.Errorf(<span class="string">"被除数不能为0"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> arg1/arg2, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的用法之闭包</span></span><br><span class="line"><span class="comment">// 闭包的表现形式为函数里返回另外一个匿名函数, 该匿名函数为一个内联的语句或表达式</span></span><br><span class="line"><span class="comment">// func 函数名() 匿名函数() 匿名函数返回值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo6</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// 在命名函数内声明变量</span></span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		<span class="comment">// 在匿名函数中可以直接访问或操作命名函数中定义的变量</span></span><br><span class="line">		i++</span><br><span class="line">		<span class="keyword">return</span> i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带参闭包</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo7</span><span class="params">(arg1, arg2 <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">(arg3, arg4 <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(arg3, arg4 <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">		i++</span><br><span class="line">		sum := arg1 + arg2 + arg3 + arg4 + i</span><br><span class="line">		<span class="keyword">return</span> sum, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数还有一种用法: 作为变量的值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo8</span><span class="params">(arg1, arg2 <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 声明一个普通变量, 该变量的值为一个函数</span></span><br><span class="line">	result := <span class="function"><span class="keyword">func</span><span class="params">(arg3, arg4 <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> arg1 * arg2</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 该变量被赋值为一个函数后, 该变量即可被当做其函数调用</span></span><br><span class="line">	r := result(arg1, arg2)</span><br><span class="line">	fmt.Println(r)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的参数为函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo9</span><span class="params">(arg1, arg2 <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> arg1 + arg2, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo10</span><span class="params">(op <span class="keyword">func</span>(arg1, arg2 <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span>, <span class="title">arg3</span>, <span class="title">arg4</span> <span class="title">int</span>) <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">	result, err := op(arg3, arg4)</span><br><span class="line">	<span class="keyword">return</span> result, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的参数为可变参数列表(参数传多少个值都可以)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo11</span><span class="params">(numbers ...<span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">	s := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> numbers &#123;</span><br><span class="line">		s += numbers[i]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> result, err := FuncDemo5(<span class="number">13</span>,<span class="number">6</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Error"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(result)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result, err := FuncDemo5(<span class="number">13</span>,<span class="number">0</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Error"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(result)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	nextValue := FuncDemo6()</span><br><span class="line">	fmt.Println(nextValue())</span><br><span class="line">	fmt.Println(nextValue())</span><br><span class="line">	fmt.Println(nextValue())</span><br><span class="line"></span><br><span class="line">	nextValue2 := FuncDemo6()</span><br><span class="line">	fmt.Println(nextValue2())</span><br><span class="line">	fmt.Println(nextValue2())</span><br><span class="line"></span><br><span class="line">	demo7 :=  FuncDemo7(<span class="number">5</span>,<span class="number">9</span>)</span><br><span class="line">	fmt.Println(demo7(<span class="number">6</span>,<span class="number">13</span>)) <span class="comment">// i==1  5+9+6+13+1</span></span><br><span class="line">	fmt.Println(demo7(<span class="number">6</span>,<span class="number">13</span>)) <span class="comment">// i==2  5+9+6+13+2</span></span><br><span class="line">	fmt.Println(demo7(<span class="number">10</span>,<span class="number">10</span>)) <span class="comment">// i==3  5+9+10+10+3</span></span><br><span class="line"></span><br><span class="line">	FuncDemo8(<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(FuncDemo10(FuncDemo9, <span class="number">5</span>,<span class="number">9</span>))</span><br><span class="line"></span><br><span class="line">	fmt.Println(FuncDemo11(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2.1666666666666665</span><br><span class="line">Error</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">34 &lt;nil&gt;</span><br><span class="line">35 &lt;nil&gt;</span><br><span class="line">37 &lt;nil&gt;</span><br><span class="line">30</span><br><span class="line">14 &lt;nil&gt;</span><br><span class="line">15 &lt;nil&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">Go基础之函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-25 23:32:46" itemprop="dateCreated datePublished" datetime="2018-07-25T23:32:46+08:00">2018-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/07/25/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/25/Go基础之函数/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// func 函数名(参数1 参数类型, 参数2 参数类型....) 返回值类型</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncName</span><span class="params">(arg1 <span class="keyword">int</span>, arg2 <span class="keyword">int</span>, arg3 <span class="keyword">string</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> arg3 &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"+"</span>: <span class="keyword">return</span> arg1 + arg2</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"-"</span>: <span class="keyword">return</span> arg1 - arg2</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数列表中, 相同类型的参数可以统一声明</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo2</span><span class="params">(arg1, arg2 <span class="keyword">int</span>, arg3 <span class="keyword">string</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> arg3 &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"+"</span>: <span class="keyword">return</span> arg1 + arg2</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"-"</span>: <span class="keyword">return</span> arg1 - arg2</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多返回值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo3</span><span class="params">(arg1, arg2 <span class="keyword">int</span>, arg3 <span class="keyword">string</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> arg1, arg2, arg3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名返回值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FuncDemo4</span><span class="params">(arg1, arg2 <span class="keyword">int</span>, arg3 <span class="keyword">string</span>)</span> <span class="params">(a, b <span class="keyword">int</span>, c <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	a = arg1</span><br><span class="line">	b = arg2</span><br><span class="line">	c = arg3</span><br><span class="line">	<span class="comment">// 由于上面已经为返回值变量赋值, return时后面可以省略不写</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数参数</span></span><br><span class="line"><span class="comment">// 值传递: 指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数</span></span><br><span class="line"><span class="comment">// 引用传递: 指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	result := FuncName(<span class="number">5</span>, <span class="number">9</span>, <span class="string">"+"</span>)</span><br><span class="line">	result2 := FuncDemo2(<span class="number">9</span>, <span class="number">5</span>, <span class="string">"-"</span>)</span><br><span class="line">	fmt.Println(result, result2)</span><br><span class="line"></span><br><span class="line">	a, b, c := FuncDemo3(<span class="number">5</span>,<span class="number">9</span>,<span class="string">"*"</span>)</span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line"></span><br><span class="line">	d, e, f := FuncDemo4(<span class="number">5</span>,<span class="number">6</span>, <span class="string">"/"</span>)</span><br><span class="line">	fmt.Println(d, e, f)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">14 4</span><br><span class="line">5 9 *</span><br><span class="line">5 6 &#x2F;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1370,7 +1380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1383,7 +1393,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

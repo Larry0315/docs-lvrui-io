@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,204 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">解决docker容器不支持中文的问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 20:56:39" itemprop="dateCreated datePublished" datetime="2017-02-19T20:56:39+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/解决docker容器不支持中文的问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>我们 pull 下来的大多镜像时不支持中文的, 网上也有好多文章介绍如何让 container 支持中文, 有的写的挺复杂的, 把运维都看晕了, 有的按照他写的执行过后发现还是不能正常显示中文, 或是又引发了其他问题… 这里给大家介绍一个简单的方法让 docker 容器支持中文</p>
+</blockquote>
+<h1 id="已经启动的容器"><a href="#已经启动的容器" class="headerlink" title="已经启动的容器"></a>已经启动的容器</h1><p>由于容器是根据镜像而来, 已经启动的容器或已经存在的镜像不支持配置永久生效(当然你也可以在容器内配置之后, 再出来保存容器的状态为一个新的镜像) 所以下面的配置操作, 只对当前容器的生存周期有效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker <span class="built_in">exec</span> -it containerID /bin/bash</span><br><span class="line">&gt;&gt; <span class="built_in">echo</span> <span class="string">'export LANG="en_US.UTF-8"'</span> &gt;&gt; /etc/profile</span><br><span class="line">&gt;&gt; <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置镜像支持中文"><a href="#配置镜像支持中文" class="headerlink" title="配置镜像支持中文"></a>配置镜像支持中文</h1><p>只需要在 dockerfile 中加入如下一行配置即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 环境变量</span></span><br><span class="line">ENV LANG=<span class="string">"en_US.UTF-8"</span></span><br></pre></td></tr></table></figure>
+
+<p>有人可能会问为什么不是用<code>zh_CN.UTF-8</code>而是用<code>en_US.UTF-8</code></p>
+<p>这个问题很棒👍 我也不清楚, 但是我查阅了资料, 整理如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">en_US.UTF-8：你说英语，你在美国，字符集是utf-8 </span><br><span class="line">zh_CN.UTF-8：你说中文，你在中国，字符集是utf-8 </span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是en_US.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是英文的</span><br><span class="line"></span><br><span class="line">如果你的LANG环境变量是zh_CN.UTF-8，那么系统的菜单、程序的工具栏语言、输入法默认语言就都是中文的</span><br></pre></td></tr></table></figure>
+
+<p>在运维的实际应用中, 系统一般都是使用英文环境, 且支持中文字符的, 因为在自动化的过程中, 系统的回显是英文会避免很多不必要的问题</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/" class="post-title-link" itemprop="url">使用淘宝 npm 镜像源</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 20:55:47" itemprop="dateCreated datePublished" datetime="2017-02-19T20:55:47+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E4%BD%BF%E7%94%A8%E6%B7%98%E5%AE%9D-npm-%E9%95%9C%E5%83%8F%E6%BA%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/使用淘宝-npm-镜像源/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>镜像使用方法（三种办法任意一种都能解决问题，建议使用第三种，将配置写死，下次用的时候配置还在）:</p>
+<ul>
+<li>通过config命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org </span><br><span class="line">&gt; npm info underscore <span class="comment">#如果上面配置正确这个命令会有字符串response</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>命令行指定</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org info underscore</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编辑 ~/.npmrc 加入下面内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry = https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p><strong>参考文章</strong></p>
+<p><a href="http://www.cnblogs.com/trying/p/4064518.html" target="_blank" rel="noopener">http://www.cnblogs.com/trying/p/4064518.html</a></p>
+<p><strong>官网站点</strong></p>
+<p><a href="https://npm.taobao.org" target="_blank" rel="noopener">https://npm.taobao.org</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1003,189 +1201,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">指定tomcat使用的jdk版本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-12-12 13:59:03" itemprop="dateCreated datePublished" datetime="2016-12-12T13:59:03+08:00">2016-12-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/指定tomcat使用的jdk版本/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p> 操作目标： 192.168.100.150 cloudfollowadmin 项目指定java 1.8</p>
-</blockquote>
-<p>192.168.100.150 上有多个tomcat项目，起java版本使用了系统默认的1.6，现在要为cloudfollowadmin项目指定使用java1.8版本，以下是操作步骤</p>
-<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><ul>
-<li>找到启动加载的配置文件</li>
-<li>在配置文件中指定javahome</li>
-</ul>
-<p>以下是该项目的完整路径<br><code>/webserver/tomcat/cloudfollowadmin/bin/</code></p>
-<p>在该路径下，tomcat启动时会加载执行catalina.sh文件，这里设置了一些环境变量，但是在脚本的中间部分</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim catalina.sh</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get standard Java environment variables</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">$os400</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="comment"># -r will Only work on the os400 if the files are:</span></span><br><span class="line">  <span class="comment"># 1. owned by the user</span></span><br><span class="line">  <span class="comment"># 2. owned by the PRIMARY group of the user</span></span><br><span class="line">  <span class="comment"># this will not work if the user belongs in secondary groups</span></span><br><span class="line">  BASEDIR=<span class="string">"<span class="variable">$CATALINA_HOME</span>"</span></span><br><span class="line">  . <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh ]; <span class="keyword">then</span></span><br><span class="line">    BASEDIR=<span class="string">"<span class="variable">$CATALINA_HOME</span>"</span></span><br><span class="line">    . <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Cannot find <span class="variable">$CATALINA_HOME</span>/bin/setclasspath.sh"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"This file is needed to run this program"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p>在获取java环境变量的时候，实际是读取了该bin目录下，setclasspath.sh脚本的执行结果，所以有此可以推导出，只要在setclasspath.sh脚本中，把java的配置写死，那么tomcat启动时，就会去指定的路径下去找javahome了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim setclasspath.sh</span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=<span class="string">"/usr/local/src/jdk1.8.0_101/"</span></span><br><span class="line">JRE_HOME=<span class="string">"/usr/local/src/jdk1.8.0_101/jre"</span></span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p>在setclasspath.sh脚本的开头，设置java的环境变量，如果你本机的其他java应用需要继续使用tomcat老版本，那么在这个脚本中，千万不要在前面加上export关键字，这样会把这个变量的设置提升为全局变量，会影响到其他应用重启时获取到的javaHome路径</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">MySQL迁移方案-单实例单库主从同步迁移</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-12-12 13:56:03" itemprop="dateCreated datePublished" datetime="2016-12-12T13:56:03+08:00">2016-12-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL迁移方案-单实例单库主从同步迁移/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="迁库-amp-同步"><a href="#迁库-amp-同步" class="headerlink" title="迁库&amp;同步"></a>迁库&amp;同步</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在主库锁库</span></span><br><span class="line">mysql&gt; flush tables with read lock;</span><br><span class="line"><span class="comment"># dump主库数据库</span></span><br><span class="line">$ mysqldump -uroot -p OcrManagement &gt; OcrManagement.sql</span><br><span class="line"><span class="comment">#查看主库位置</span></span><br><span class="line">mysql&gt; show master status;</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line">| File             | Position   | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line">| mysql-bin.000014 | 1058718197 |              | mysql            |                   |</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line"><span class="comment"># 解锁主库</span></span><br><span class="line">mysql&gt; unlock tables;</span><br><span class="line"><span class="comment"># 将dump出来的sql文件传送到从库</span></span><br><span class="line">$ tar -cvzf OcrManagement.sql.tar.gz OcrManagement.sql</span><br><span class="line">$ scp OcrManagement.sql ps@192.168.3.11:/data/</span><br><span class="line"><span class="comment"># 查看主库数据库建库参数</span></span><br><span class="line">mysql&gt; show create database OcrManagement;</span><br><span class="line"></span><br><span class="line"><span class="comment">----------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 根据主库建库参数，在从库预先建立数据库</span></span><br><span class="line">mysql&gt; create database OcrManagement;</span><br><span class="line"><span class="comment"># 在从库中解压文件</span></span><br><span class="line">$ tar -xvzf OcrManagement.sql.tar.gz</span><br><span class="line"><span class="comment"># 导入数据</span></span><br><span class="line">$ mysql -uroot -p OcrManagement &lt; OcrManagement.sql</span><br><span class="line"><span class="comment"># 设置主库信息</span></span><br><span class="line">mysql&gt; change master to MASTER_HOST='192.168.168.149',MASTER_PORT=33306,MASTER_USER='repl',MASTER_PASSWORD='xxxxxxxx',MASTER_LOG_FILE='mysql-bin.000014',MASTER_LOG_POS=1058718197;</span><br><span class="line"><span class="comment"># 启动从库线程</span></span><br><span class="line">mysql&gt; start slave;</span><br><span class="line"><span class="comment"># 检查同步状态</span></span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
-
-<h1 id="切换主从"><a href="#切换主从" class="headerlink" title="切换主从"></a>切换主从</h1><p>[MySQL主从切换]<a href="https://docs.20150509.cn/2016/12/12/MySQL的主从切换/" target="_blank" rel="noopener">https://docs.20150509.cn/2016/12/12/MySQL的主从切换/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1258,7 +1273,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1271,7 +1286,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

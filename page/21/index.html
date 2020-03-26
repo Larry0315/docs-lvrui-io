@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,226 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">自定义线程池的实现思路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-22 02:57:06" itemprop="dateCreated datePublished" datetime="2016-07-22T02:57:06+08:00">2016-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/22/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/22/自定义线程池的实现思路/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在使用多线程的过程中，一旦任务数量过多，如果不对派生出来的子线程做出限制的话，多线程极有可能会拉低程序的性能，这时，我们需要维护一个固定数量的线程，也就是线程池的概念</p>
+</blockquote>
+<p>实现线程池的思路：</p>
+<ul>
+<li>设置线程池的容量</li>
+<li>每取走一个线程，在线程池中就减少一个线程</li>
+<li>每个子线程的任务执行完毕，把自己的线程配额放回线程池中</li>
+<li>当线程池中的线程全部分配完毕，新的任务需要等待获取线程池中的线程</li>
+</ul>
+<p>基于以上的需求，我们可以通过队列来实现线程池的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> queue</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadPool</span>:</span></span><br><span class="line">    <span class="comment"># 接收的实例化参数为线程池的最大容量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, maxsize=<span class="number">5</span>)</span>:</span></span><br><span class="line">        self.maxsize = maxsize</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置队列的最大容量</span></span><br><span class="line">        self.q = queue.Queue(maxsize)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用线程类填满队列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(maxsize):</span><br><span class="line">            self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 从队列中取出一个线程类返回</span></span><br><span class="line">        <span class="keyword">return</span> self.q.get()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_thread</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 先线程池添加一个线程类</span></span><br><span class="line">        <span class="comment"># 用来被执行完任务的函数调用,实现回收线程配额的功能</span></span><br><span class="line">        self.q.put(threading.Thread)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task</span><span class="params">(arg, pool)</span>:</span></span><br><span class="line">    <span class="string">"""接收了一个线程池对象"""</span></span><br><span class="line">    print(arg)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行完毕函数的主体后,将拿到的线程配额再放回到线程池中</span></span><br><span class="line">    pool.add_thread()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建一个容量为5的线程池</span></span><br><span class="line">    pool = ThreadPool(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">59</span>):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 从线程池中拿到一个线程对象</span></span><br><span class="line">        <span class="comment"># 相当于 t = threading.Thread</span></span><br><span class="line">        t = pool.get_thread()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建子线程对象</span></span><br><span class="line">        <span class="comment"># 把线程池对象传递到执行函数中</span></span><br><span class="line">        o = t(target=task, args=(i, pool,))</span><br><span class="line"></span><br><span class="line">        o.start()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/22/%E7%BA%BF%E7%A8%8B%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/22/%E7%BA%BF%E7%A8%8B%E9%94%81/" class="post-title-link" itemprop="url">线程锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-22 00:49:35" itemprop="dateCreated datePublished" datetime="2016-07-22T00:49:35+08:00">2016-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/22/%E7%BA%BF%E7%A8%8B%E9%94%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/22/线程锁/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在多线程的使用过程中，需要考虑的一个问题就是线程安全。如果使用多线程对多个对象进行操作，也许不会有异常的情况的产生，因为每个对象是独立的，每个对象的改变对其他对象没有影响。但是如果使用多线程操作同一个对象，极有可能产生脏数据；但是同时访问同一个对象不会产生脏数据</p>
+</blockquote>
+<h1 id="多线程修改同一对象"><a href="#多线程修改同一对象" class="headerlink" title="多线程修改同一对象"></a>多线程修改同一对象</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">NUM = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">global</span> NUM</span><br><span class="line">  NUM -= <span class="number">1</span></span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br><span class="line">  print(NUM)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  t = threading.Thread(target=func)</span><br><span class="line">  t.start()</span><br><span class="line">  </span><br><span class="line">------------</span><br><span class="line"><span class="number">00</span></span><br><span class="line"> <span class="number">0</span></span><br><span class="line"> <span class="number">0</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的小程序中，定义了一个全局变量<code>NUM</code>，在<code>func</code>方法中对全局变量<code>NUM</code>做自减一的操作，我们理想中的结果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>但实际结果却全都是0</p>
+<p>这是因为每个线程运行到<code>sleep(1)</code>的时候都在这里卡住，最后，所有的线程都执行完了<code>NUM -= 1</code>，这个时候全局变量<code>NUM</code>已经<code>=0</code>，而第一个线程还没有执行完<code>sleep(1)</code>,所以最后所有的线程打印出来的都是0</p>
+<h1 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">NUM = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数里接收一个锁对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(lock)</span>:</span></span><br><span class="line">  <span class="keyword">global</span> NUM</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 获取锁</span></span><br><span class="line">  lock.acquire()</span><br><span class="line">  NUM -= <span class="number">1</span></span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br><span class="line">  print(NUM)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 释放锁</span></span><br><span class="line">  lock.release()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个互斥锁</span></span><br><span class="line">lock = threading.Lock()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  <span class="comment"># 把创建的锁对象当做参数传递给函数</span></span><br><span class="line">  t = threading.Thread(target=func, args=(lock,))</span><br><span class="line">  t.start()</span><br><span class="line">  </span><br><span class="line">------------</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="RLock"><a href="#RLock" class="headerlink" title="RLock"></a>RLock</h1><p>RLock和Lock的使用方法相同，但却是Lock的”升级版”，RLock支持在函数内的多层嵌套锁，例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">NUM = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数里接收一个锁对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(lock)</span>:</span></span><br><span class="line">  <span class="keyword">global</span> NUM</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 获取锁</span></span><br><span class="line">  lock.acquire()</span><br><span class="line">  NUM -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 嵌套锁</span></span><br><span class="line">  lock.acquire()</span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br><span class="line">  lock.release()</span><br><span class="line"></span><br><span class="line">  print(NUM)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 释放锁</span></span><br><span class="line">  lock.release()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个互斥锁</span></span><br><span class="line">lock = threading.RLock()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  <span class="comment"># 把创建的锁对象当做参数传递给函数</span></span><br><span class="line">  t = threading.Thread(target=func, args=(lock,))</span><br><span class="line">  t.start()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h1><p>信号量，可以放出一批锁，类似于批量“授权”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">NUM = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数里接收一个锁对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, lock)</span>:</span></span><br><span class="line">  <span class="keyword">global</span> NUM</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 获取锁，这里最多可以发放3把锁</span></span><br><span class="line">  lock.acquire()</span><br><span class="line">  NUM -= <span class="number">1</span></span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br><span class="line">  print(i, NUM)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 释放锁</span></span><br><span class="line">  lock.release()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个锁,锁的数量有3个</span></span><br><span class="line">lock = threading.BoundedSemaphore(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  <span class="comment"># 把创建的锁对象当做参数传递给函数</span></span><br><span class="line">  t = threading.Thread(target=func, args=(i, lock,))</span><br><span class="line">  t.start()</span><br><span class="line">  </span><br><span class="line">------------</span><br><span class="line"><span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">4</span> <span class="number">0</span></span><br><span class="line"><span class="number">3</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出，总共有3把锁被放出，所以前三个线程打印值是相同的，三个线程依次修改<code>NUM</code>的值，然后依次进入<code>time.sleep(1)</code>等待（此时NUM已经被自减了3次，值=2），最后依次打印出<code>NUM</code>的值</p>
+<h1 id="event"><a href="#event" class="headerlink" title="event"></a>event</h1><p>事件, 同样是“批量授权”，但是和信号量指定创建锁的数量不同的是，事件要么锁住所有的线程，要么释放所有的线程，不能自定义锁的数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收一个event对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, event)</span>:</span></span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这里的wait()方法会阻塞所有的线程,但是是否阻塞取决于event维护的全局Flag</span></span><br><span class="line">    event.wait()  <span class="comment"># wait会去检测"Flag"的值的真假</span></span><br><span class="line">    print(i + <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个event对象</span></span><br><span class="line">event = threading.Event()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置event对象中的"Flag"为False</span></span><br><span class="line"><span class="comment"># 默认情况下就是False</span></span><br><span class="line">event.clear()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    t = threading.Thread(target=func, args=(i, event))</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line">inp = input(<span class="string">"&gt; "</span>)</span><br><span class="line"><span class="keyword">if</span> inp == <span class="string">"go"</span>:</span><br><span class="line">    <span class="comment"># 设置event对象中的"Flag"为True</span></span><br><span class="line">    <span class="comment"># 释放了所有的锁</span></span><br><span class="line">    event.set()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">&gt; go</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">103</span></span><br><span class="line"><span class="number">101</span></span><br><span class="line"><span class="number">104</span></span><br><span class="line"><span class="number">102</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>wait：检测“Flag”的值</li>
+<li>clear：将“Flag”设置为False</li>
+<li>set：将“Flag”设置为True</li>
+</ul>
+<h1 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h1><p>条件，上面说了事件的特性，就是要阻塞就阻塞住所有的子线程，要释放就释放掉所有的锁，不支持信号量中的自定义释放锁的数量</p>
+<p>条件锁，既支持事件阻塞所有子线程的特性，又具有信号量指定释放锁数量的特性</p>
+<h2 id="condition的第一种用法"><a href="#condition的第一种用法" class="headerlink" title="condition的第一种用法"></a>condition的第一种用法</h2><p>指定释放锁的数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收一个condition对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, con)</span>:</span></span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 给线程上锁</span></span><br><span class="line">    con.acquire()</span><br><span class="line">    <span class="comment"># wait会根据notify指定的数量去释放锁,默认锁住所有线程</span></span><br><span class="line">    con.wait()</span><br><span class="line">    print(i + <span class="number">100</span>)</span><br><span class="line">    con.release()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">condition = threading.Condition()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    t = threading.Thread(target=func, args=(i, condition))</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    inp = input(<span class="string">"&gt; "</span>)</span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">"q"</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 指定释放锁数量的三剑客</span></span><br><span class="line">    <span class="comment"># 语法中规定他们必须按照这个顺序写</span></span><br><span class="line">    condition.acquire()</span><br><span class="line">    condition.notify(int(inp))  <span class="comment"># 这里的int类型的inp变量,就是指定释放锁的数量</span></span><br><span class="line">    condition.release()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">&gt; <span class="number">1</span></span><br><span class="line">&gt; <span class="number">100</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">&gt; <span class="number">102</span></span><br><span class="line"><span class="number">101</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">&gt; <span class="number">104</span></span><br><span class="line"><span class="number">103</span></span><br></pre></td></tr></table></figure>
+
+<p>最后只打印两个数字，是因为总共有5个测试数据，前面已经累计释放了三个子线程处理的测试数据，所以第三次，我即使指定了释放3个锁（当时程序中只剩两个子线程被锁住），也只会出现2个值</p>
+<h1 id="condition的第二种用法"><a href="#condition的第二种用法" class="headerlink" title="condition的第二种用法"></a>condition的第二种用法</h1><p>如果条件为真，释放一个锁</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select</span><span class="params">()</span>:</span></span><br><span class="line">    ret = <span class="literal">False</span></span><br><span class="line">    inp = input(<span class="string">"&gt; "</span>)</span><br><span class="line">    <span class="keyword">if</span> inp == <span class="string">"true"</span>:</span><br><span class="line">        ret = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ret = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收一个condition对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i, con)</span>:</span></span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 给线程上锁</span></span><br><span class="line">    con.acquire()</span><br><span class="line">    <span class="comment"># wait_for会根据参数的值的真假来选择是否释放一个锁</span></span><br><span class="line">    <span class="comment"># 这里传入的是一个函数,也就是说如果函数的返回值为真,就释放一个锁</span></span><br><span class="line">    con.wait_for(select)</span><br><span class="line">    print(i + <span class="number">100</span>)</span><br><span class="line">    con.release()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一把条件锁</span></span><br><span class="line">condition = threading.Condition()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    t = threading.Thread(target=func, args=(i, condition))</span><br><span class="line">    t.start()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line">&gt; <span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">true</span><br><span class="line"><span class="number">100</span></span><br><span class="line">&gt; true</span><br><span class="line"><span class="number">101</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>con.wait_for(select)</code>中，我们传入了一个函数名，当第一个子线程执行到这一行的时候，会自动去执行这个函数，从而打印出了第一个<code>&gt;</code>符号，之后就停在了等待用户输入的那一行<code>input()</code></p>
+<p>其他所有的子线程都停在了<code>con.acquare()</code>这一行，等待前面的子线程释放锁</p>
+<p>这时，我输入一个<code>true</code>，<code>select</code>函数返回了一个<code>True</code>, <code>wait_for()</code>接收到这个<code>True</code>之后，就继续向下执行，最后释放掉自己的锁</p>
+<p>接着下一个被调度到的子线程执行到<code>wait_for()</code>又去执行了里面传入的函数……以此类推</p>
+<h1 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h1><p>Timer不是锁，是定时器，用来指定x秒后执行某些操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Timer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"hello, world"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">t = Timer(<span class="number">1</span>, hello)</span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">hello, world</span><br></pre></td></tr></table></figure>
+
+<p>结果没有立即输入，而是等了一秒钟之后输出了<code>hello, world</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1268,255 +1488,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/12/Python2-7%E4%B8%8EPython3-5%E7%BB%A7%E6%89%BF%E7%9A%84%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/12/Python2-7%E4%B8%8EPython3-5%E7%BB%A7%E6%89%BF%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">Python2.7与Python3.5继承的区别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-12 03:24:52" itemprop="dateCreated datePublished" datetime="2016-07-12T03:24:52+08:00">2016-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/12/Python2-7%E4%B8%8EPython3-5%E7%BB%A7%E6%89%BF%E7%9A%84%E5%8C%BA%E5%88%AB/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/12/Python2-7与Python3-5继承的区别/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python中2.7与3.5的继承略有区别， 在Python2.7中的类可以分为经典类（默认就是经典类）和新式类（继承了object类的就是新式类），而在Python3.5中，所有的类默认继承object类</p>
-</blockquote>
-<p><img src="http://oss.20150509.cn/20160712033359.png" alt=""></p>
-<ul>
-<li><p>Python2.7的类如果继承了object类，那么多继承向上寻找的路径和Python3.5是一样的，图中橙色的寻找路径</p>
-</li>
-<li><p>但是如果Python2.7没有继承object类，那么就是图中蓝色的寻找路径</p>
-</li>
-</ul>
-<p>更多关于继承的内容可以参考以下文章：</p>
-<p><a href="http://docs.20150509.cn/2016/06/28/Python面向对象基础篇之继承/" target="_blank" rel="noopener">http://docs.20150509.cn/2016/06/28/Python面向对象基础篇之继承/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/12/Python%E7%9A%84%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/12/Python%E7%9A%84%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-title-link" itemprop="url">Python的变量作用域</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-12 01:13:36" itemprop="dateCreated datePublished" datetime="2016-07-12T01:13:36+08:00">2016-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/12/Python%E7%9A%84%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/12/Python的变量作用域/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python的变量作用域中分为四个级别，简称为：BGEL，作用域的级别依次升高，级别最高的是Local，如果该变量在Local中已经声明并赋值，将优先使用Local中的变量对应的值</p>
-</blockquote>
-<p>Python变量作用域的四种情况：</p>
-<ul>
-<li>B：build-in 系统固定模块里面的变量，也叫系统变量，比如int</li>
-<li>G：global 全局变量，也就是模块级别定义的变量</li>
-<li>E：enclosing 嵌套的父级函数的局部作用域，就是包含此函数的上层函数的局部作用域</li>
-<li>L：local 局部作用域，即为函数中定义的变量</li>
-</ul>
-<p><em>E和L是相对的，E中的变量相对上层来说也是L</em></p>
-<p>Python的变量作用域可以用下图表示：</p>
-<p><img src="http://oss.20150509.cn/20160712012859.png" alt=""></p>
-<p>一个变量使用哪个域中定义的值，取决于它的相对位置</p>
-<p>从上图中看，如果从Local的位置向上看，最先看到的是Local中的变量，其次是Enclosing中的变量，再次是Global中的变量，最后才是Build-in变量</p>
-<p>变量的取值取决于你在哪个位置，比如你在E和L中间，那同名的这个变量肯定是会向前看，取E中的值</p>
-<h1 id="Python作用域的产生"><a href="#Python作用域的产生" class="headerlink" title="Python作用域的产生"></a>Python作用域的产生</h1><p>在Python中，没有块级作用域。只有模块(module)，类(class)以及函数(def,lambda)才会引入新的作用域</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="literal">True</span>:</span><br><span class="line">    name = <span class="string">"PolarSnow"</span></span><br><span class="line">    </span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
-
-<p>以上代码是可以正常运行的，但是在Java(有块级作用域)中运行就会报，变量未定义的错误</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    name = <span class="string">"Polarsnow"</span></span><br><span class="line">  </span><br><span class="line">func()  </span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
-
-<p>以上代码执行就会报错，name变量未定义</p>
-<h1 id="Python变量作用域"><a href="#Python变量作用域" class="headerlink" title="Python变量作用域"></a>Python变量作用域</h1><h2 id="L-Local"><a href="#L-Local" class="headerlink" title="L(Local)"></a>L(Local)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int = <span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    int = <span class="number">6</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">        int = <span class="number">5</span></span><br><span class="line">        print(int)</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line"></span><br><span class="line">f = func2()</span><br><span class="line">f()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<p>LEG都对int变量自定义了值，但是最后取得是L中的值</p>
-<h2 id="E-Enclosing"><a href="#E-Enclosing" class="headerlink" title="E(Enclosing)"></a>E(Enclosing)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int = <span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    int = <span class="number">6</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">        print(int)</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line"></span><br><span class="line">f = func2()</span><br><span class="line">f()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-<p>在local中取值，但是local中没有，就会去E里面找</p>
-<h2 id="G-Global"><a href="#G-Global" class="headerlink" title="G(Global)"></a>G(Global)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int = <span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">        print(int)</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line"></span><br><span class="line">f = func2()</span><br><span class="line">f()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">7</span></span><br></pre></td></tr></table></figure>
-
-<p>L和E中都没有找到int的值，继续向上找，在G中找到了int的值</p>
-<h2 id="B-Build-in"><a href="#B-Build-in" class="headerlink" title="B(Build-in)"></a>B(Build-in)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">        print(int)</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line"></span><br><span class="line">f = func2()</span><br><span class="line">f()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">int</span>'&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>int变量的值在LEG中都没有找到，但是int是内建变量，在系统中已经对其有定义，最后在B中，找到了int的值</p>
-<p>如果一个变量在local中查找，查找到B中还没有找到，就会报变量未定义的错误</p>
-<h1 id="global-amp-nonlocal-关键字"><a href="#global-amp-nonlocal-关键字" class="headerlink" title="global &amp; nonlocal 关键字"></a>global &amp; nonlocal 关键字</h1><h2 id="global"><a href="#global" class="headerlink" title="global"></a>global</h2><p>函数内部可以访问全局变量中的值，但是不能修改全局变量的值。如果需要修改，要加上global关键字</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"ps"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readonly</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"inner ---&gt;"</span>, name)</span><br><span class="line"></span><br><span class="line">readonly()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">ps</span><br></pre></td></tr></table></figure>
-
-<p>函数内部是可以访问全局变量的值的，原则 –&gt; GBEL</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"ps"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readonly</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> name</span><br><span class="line">    name = <span class="string">"PolarSnow"</span></span><br><span class="line"></span><br><span class="line">readonly()</span><br><span class="line">print(name)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">PolarSnow</span><br></pre></td></tr></table></figure>
-
-<p>加上了global关键字，就可以修改全局变量的值</p>
-<h2 id="nonlocal"><a href="#nonlocal" class="headerlink" title="nonlocal"></a>nonlocal</h2><p>global关键字声明的变量必须在全局作用域上，不能嵌套作用域上，当要修改嵌套作用域（enclosing作用域，外层非全局作用域）中的变量就需要nonlocal关键字了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    count = <span class="number">10</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count = <span class="number">20</span></span><br><span class="line">        print(<span class="string">"inner ---&gt; "</span>, count)</span><br><span class="line">    inner()</span><br><span class="line">    print(<span class="string">"outer ---&gt;"</span>, count)</span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">20</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="变量作用域中的疑难杂症"><a href="#变量作用域中的疑难杂症" class="headerlink" title="变量作用域中的疑难杂症"></a>变量作用域中的疑难杂症</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"123"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span><span class="params">()</span>:</span></span><br><span class="line">    print(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    name = <span class="string">"456"</span></span><br><span class="line">    func1()</span><br><span class="line"></span><br><span class="line">func2()</span><br></pre></td></tr></table></figure>
-
-<p>最后会输出什么结果？</p>
-<p>结果是： <code>123</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"123"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span><span class="params">()</span>:</span></span><br><span class="line">    print(name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">()</span>:</span></span><br><span class="line">    name = <span class="string">"456"</span></span><br><span class="line">    <span class="keyword">return</span> func1</span><br><span class="line"></span><br><span class="line">ret = func2()</span><br><span class="line">ret()</span><br></pre></td></tr></table></figure>
-
-<p>结果是： <code>123</code></p>
-<p>上面两段代码的结果都是全局变量中的值<code>123</code>，这里需要特别注意的是，变量作用域在函数执行之前就已经确定了！</p>
-<p>Python作为解释型的语言，代码从上至下执行，遇到def时，就将其函数体保存在内存的堆区，把对应的函数名保存在栈区并指向堆区的函数体，在函数执行之前，这个函数中的变量作用域就已经被记录到内存中了，不会因为后期的调用或嵌套而更改</p>
-<hr>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">l = [x + <span class="number">1</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>) <span class="keyword">if</span> x &gt; <span class="number">5</span>]</span><br><span class="line">print(<span class="string">"display list ---&gt;"</span>, l)</span><br><span class="line">print(<span class="string">"first element ---&gt;"</span>, l[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">print(<span class="string">"---"</span> * <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">ll = [<span class="keyword">lambda</span> :x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>) <span class="keyword">if</span> x &gt; <span class="number">5</span>]</span><br><span class="line">print(<span class="string">"display list ---&gt;"</span>, ll)</span><br><span class="line"></span><br><span class="line">ret = ll[<span class="number">0</span>]()</span><br><span class="line">print(<span class="string">"first element ---&gt;"</span>, ret)</span><br></pre></td></tr></table></figure>
-
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">display list ---&gt; [7, 8, 9, 10]</span><br><span class="line">first element ---&gt; 7</span><br><span class="line">---------------</span><br><span class="line">display list ---&gt; [&lt;function &lt;listcomp&gt;.&lt;lambda&gt; at 0x101b7b730&gt;, &lt;function &lt;listcomp&gt;.&lt;lambda&gt; at 0x101b7b7b8&gt;, &lt;function &lt;listcomp&gt;.&lt;lambda&gt; at 0x101b7b840&gt;, &lt;function &lt;listcomp&gt;.&lt;lambda&gt; at 0x101b7b8c8&gt;]</span><br><span class="line">first element ---&gt; 9</span><br></pre></td></tr></table></figure>
-
-<p>问题来了，问什么使用了lambda之后，第一个元素变成9了呢？</p>
-<p>我们把这个问题拆解一下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">lll = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">5</span>:</span><br><span class="line">        lll.append(x + <span class="number">1</span>)</span><br><span class="line">print(lll)</span><br><span class="line">print(lll[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">llll = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">5</span>:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">        llll.append(func)</span><br><span class="line">print(llll)</span><br><span class="line">print(llll[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</span><br><span class="line"><span class="number">7</span></span><br><span class="line">[&lt;function func at <span class="number">0x10137b620</span>&gt;, &lt;function func at <span class="number">0x10137b6a8</span>&gt;, &lt;function func at <span class="number">0x10137b730</span>&gt;, &lt;function func at <span class="number">0x10137b7b8</span>&gt;]</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-
-<p>为什么 x+1 时第一个元素 = 7， 而 lambda :x 时第一个元素 = 9了呢</p>
-<p>原因就是Python程序在解释道lambda的时候，并没有执行里面的代码，而是直接放到的了内存中，随着外侧循环的结束，x的值已经变成了9，此时再把内存里保存的lambda函数拿出来执行，x变量获取到的就是当前已经变成9的这个值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">lllll = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">5</span>:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i = x)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">        lllll.append(func)</span><br><span class="line">print(lllll)</span><br><span class="line">print(lllll[<span class="number">0</span>]())</span><br><span class="line">print(lllll[<span class="number">1</span>]())</span><br><span class="line">print(lllll[<span class="number">2</span>]())</span><br><span class="line">print(lllll[<span class="number">3</span>]())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[&lt;function func at <span class="number">0x101b7b620</span>&gt;, &lt;function func at <span class="number">0x101b7b6a8</span>&gt;, &lt;function func at <span class="number">0x101b7b730</span>&gt;, &lt;function func at <span class="number">0x101b7b7b8</span>&gt;]</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-
-<p>上面的代码仅仅小修改了一下，在func中执行一条赋值语句，结果就立刻不一样了，这次列表的第一个值变成了6</p>
-<p>之前不是说代码运行到def就直接保存到内存，不执行了吗？没错，函数体是没有被执行，但是函数的参数是个赋值表达式，被Python解释器执行了，获取到了每个循环的x的值，并赋值给函数自己内部的变量（local）</p>
-<p>当程序执行完毕，运行列表中第一个函数取值的时候，该函数取到的是函数内部的变量i，所以最后的结果和上面是截然不同的</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1589,7 +1560,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1602,7 +1573,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

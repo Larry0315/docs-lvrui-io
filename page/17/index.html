@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,220 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">开启GTID的情况下导出导入库的注意事项</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-28 11:45:06" itemprop="dateCreated datePublished" datetime="2016-10-28T11:45:06+08:00">2016-10-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/28/开启GTID的情况下导出导入库的注意事项/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息. </p>
+</blockquote>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don<span class="string">'t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
+
+<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
+<p><code>➜  mysqldump -uroot -p --set-gtid-purged=OFF userdb &gt; userdb.sql</code></p>
+<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
+<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
+<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line">ERROR 1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be <span class="built_in">set</span> when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
+
+<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
+<p>这个时候你有两个选择:</p>
+<ol>
+<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
+<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/" class="post-title-link" itemprop="url">mysql修改sql_mode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-12 15:53:28" itemprop="dateCreated datePublished" datetime="2016-10-12T15:53:28+08:00">2016-10-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysql修改sql-mode/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="sql-mode"><a href="#sql-mode" class="headerlink" title="sql_mode"></a>sql_mode</h1><ul>
+<li></li>
+<li>ANSI</li>
+<li>TRADITIONAL</li>
+<li>STRICT_TRANS_TABLES</li>
+</ul>
+<h2 id="sql-mode为空"><a href="#sql-mode为空" class="headerlink" title="sql_mode为空"></a>sql_mode为空</h2><p>最宽松的模式, 即使有错误既不会报错也不会有警告⚠️</p>
+<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>宽松模式，对插入数据进行校验，如果不符合定义类型或长度，对数据类型调整或截断保存，报warning警告</p>
+<h2 id="TRADITIONAL"><a href="#TRADITIONAL" class="headerlink" title="TRADITIONAL"></a>TRADITIONAL</h2><p>严格模式，当向mysql数据库插入数据时，进行数据的严格校验，保证错误数据不能插入，报error错误。用于事物时，会进行事物的回滚</p>
+<h2 id="STRICT-TRANS-TABLES"><a href="#STRICT-TRANS-TABLES" class="headerlink" title="STRICT_TRANS_TABLES"></a>STRICT_TRANS_TABLES</h2><p>严格模式，进行数据的严格校验，错误数据不能插入，报error错误</p>
+<h2 id="NO-ENGINE-SUBSTITUTION"><a href="#NO-ENGINE-SUBSTITUTION" class="headerlink" title="NO_ENGINE_SUBSTITUTION"></a>NO_ENGINE_SUBSTITUTION</h2><p>no_engine_subtitution的作用：mysql 在create table 时可以指定engine子句(指定存储引擎),如果把引擎指定成一个并不存在的引擎, 这个时候mysql可以有两种行为供选择</p>
+<ul>
+<li>直接报错</li>
+<li>把表的存储引擎替换成innodb</li>
+</ul>
+<p>如果 sql_mode 存在 no_engine_subtitution 的时候 ===&gt; 直接报错</p>
+<p>如果 sql_mode 不存在 no_engine_subtitution 的时候 ===&gt; 把表的存储引擎替换成innodb</p>
+<h1 id="查询-sql-mode"><a href="#查询-sql-mode" class="headerlink" title="查询 sql_mode"></a>查询 sql_mode</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select @@sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@sql_mode             |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@global.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@global.sql_mode      |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@session.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@session.sql_mode     |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h1 id="在线修改-sql-mode"><a href="#在线修改-sql-mode" class="headerlink" title="在线修改 sql_mode"></a>在线修改 sql_mode</h1><p><code>SET [GLOBAL|SESSION] sql_mode=&#39;modes&#39;</code></p>
+<h2 id="当前-session-生效"><a href="#当前-session-生效" class="headerlink" title="当前 session 生效"></a>当前 session 生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`;</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局生效"><a href="#全局生效" class="headerlink" title="全局生效"></a>全局生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`</span><br></pre></td></tr></table></figure>
+
+<h1 id="离线修改-sql-mode"><a href="#离线修改-sql-mode" class="headerlink" title="离线修改 sql_mode"></a>离线修改 sql_mode</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文档: </p>
+<ul>
+<li>no_engine_subtitution: <a href="http://www.cnblogs.com/JiangLe/p/5621856.html" target="_blank" rel="noopener">http://www.cnblogs.com/JiangLe/p/5621856.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1085,185 +1299,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">添加/删除路由</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-09-09 11:09:16" itemprop="dateCreated datePublished" datetime="2016-09-09T11:09:16+08:00">2016-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/添加-删除路由/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="查看路由"><a href="#查看路由" class="headerlink" title="查看路由"></a>查看路由</h1><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">0.0.0.0         192.168.3.1     0.0.0.0         UG    100    0        0 eth0</span><br><span class="line">192.168.3.0     0.0.0.0         255.255.255.0   U     100    0        0 eth0</span><br></pre></td></tr></table></figure>
-
-<h2 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt; netstat -nr</span><br><span class="line">Routing tables</span><br><span class="line"></span><br><span class="line">Internet:</span><br><span class="line">Destination        Gateway            Flags        Refs      Use   Netif Expire</span><br><span class="line">default            10.1.101.254       UGSc          214      718     en0</span><br><span class="line">10.1.100/23        link<span class="comment">#4             UCS            11        0     en0</span></span><br><span class="line">10.1.100.22        link<span class="comment">#4             UHLWIi          1        1     en0</span></span><br><span class="line">10.1.100.65/32     link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.100.65        60:3:8:a5:3b:9e    UHLWIi          1        3     lo0</span><br><span class="line">10.1.100.88        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.94        link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.100.99        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.100       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.121       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.146       90:b6:86:d8:d:24   UHLWIi          1        1     en0    867</span><br><span class="line">10.1.101.128       link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.101.164       c8:25:e1:61:70:2e  UHLWIi          1        1     en0   1004</span><br><span class="line">10.1.101.254/32    link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.101.254       b0:aa:77:1a:b0:58  UHLWIir       215       16     en0    782</span><br><span class="line">10.1.101.255       link<span class="comment">#4             UHLWbI          1      142     en0</span></span><br><span class="line">10.255.1/24        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">10.255.1.65        10.255.1.66        UH              3        0   utun0</span><br><span class="line">10.255.99/24       10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">10.255.99.49       10.255.99.50       UH             13        0   utun1</span><br><span class="line">10.255.100/24      10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">10.255.100.41      10.255.100.42      UH             13        0   utun2</span><br><span class="line">111.202.124.222/32 192.168.1.1        UGSc            2        0     en0</span><br><span class="line">127                127.0.0.1          UCS             1        0     lo0</span><br><span class="line">127.0.0.1          127.0.0.1          UH             27    57535     lo0</span><br><span class="line">169.254            link<span class="comment">#4             UCS             1        0     en0</span></span><br><span class="line">192.168.2          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.3          10.255.99.49       UGSc            2        0   utun1</span><br><span class="line">192.168.4          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.7          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.8          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.89         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.90         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.91         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.95         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.99         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.101        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.103        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.105        10.255.100.41      UGSc            2        0   utun2</span><br><span class="line">192.168.110        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.111        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.168        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">192.168.247        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.248        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.251        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.252        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.253        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">224.0.0            link<span class="comment">#4             UmCS            2        0     en0</span></span><br><span class="line">224.0.0.251        1:0:5e:0:0:fb      UHmLWI          1        0     en0</span><br><span class="line">255.255.255.255/32 link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">255.255.255.255    link<span class="comment">#4             UHLWbI          1      133     en0</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="通过出口IP添加"><a href="#通过出口IP添加" class="headerlink" title="通过出口IP添加"></a>通过出口IP添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.2.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.8.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.168.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.100.0/24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
-
-<h2 id="通过出口设备添加"><a href="#通过出口设备添加" class="headerlink" title="通过出口设备添加"></a>通过出口设备添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 0.0.0.0 dev ppp0 //添加默认路由</span><br></pre></td></tr></table></figure>
-
-<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route del -net 192.168.2.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.8.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.168.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.100.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">cisco设备的ping命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-09-09 10:57:24" itemprop="dateCreated datePublished" datetime="2016-09-09T10:57:24+08:00">2016-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/09/09/cisco%E8%AE%BE%E5%A4%87%E7%9A%84ping%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/cisco设备的ping命令/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用<code>ping x.x.x.x</code>命令默认发送5个包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa&gt; ping 111.202.124.217</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 5, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!</span><br><span class="line">Success rate is 100 percent (5&#x2F;5), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;2&#x2F;10 ms</span><br></pre></td></tr></table></figure>
-
-<p>可以指定发包的个数<code>ping x.x.x.x repeat num</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa&gt; ping 111.202.124.217 repeat 100</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 100, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">Success rate is 100 percent (100&#x2F;100), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;3&#x2F;10 ms</span><br><span class="line">ciscoasa&gt; ping 111.202.124.217 repeat 1000</span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Sending 1000, 100-byte ICMP Echos to 111.202.124.217, timeout is 2 seconds:</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">Success rate is 99 percent (992&#x2F;1000), round-trip min&#x2F;avg&#x2F;max &#x3D; 1&#x2F;3&#x2F;30 ms</span><br></pre></td></tr></table></figure>
-
-<p><strong>后面还可给<code>size</code> 指定数据包的大小；<code>timeout</code> 表示超时的时间</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1336,7 +1371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1349,7 +1384,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

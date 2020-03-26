@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,201 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/14/%E4%B8%BAk8s-master%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0%E6%B1%A1%E7%82%B9taints/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/14/%E4%B8%BAk8s-master%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0%E6%B1%A1%E7%82%B9taints/" class="post-title-link" itemprop="url">为k8s-master节点添加污点taints</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-14 14:43:43" itemprop="dateCreated datePublished" datetime="2018-11-14T14:43:43+08:00">2018-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/14/%E4%B8%BAk8s-master%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0%E6%B1%A1%E7%82%B9taints/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/14/为k8s-master节点添加污点taints/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>手动部署的k8s集群, 需要为master节点手动设置taints</p>
+<h2 id="设置taint"><a href="#设置taint" class="headerlink" title="设置taint"></a>设置taint</h2><p>语法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint node [node] key&#x3D;value[effect]   </span><br><span class="line">     其中[effect] 可取值: [ NoSchedule | PreferNoSchedule | NoExecute ]</span><br><span class="line">      NoSchedule: 一定不能被调度</span><br><span class="line">      PreferNoSchedule: 尽量不要调度</span><br><span class="line">      NoExecute: 不仅不会调度, 还会驱逐Node上已有的Pod</span><br></pre></td></tr></table></figure>
+
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint node node1 key1&#x3D;value1:NoSchedule</span><br><span class="line">kubectl taint node node1 key1&#x3D;value1:NoExecute</span><br><span class="line">kubectl taint node node1 key2&#x3D;value2:NoSchedule</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看taint："><a href="#查看taint：" class="headerlink" title="查看taint："></a>查看taint：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe node node1</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除taint"><a href="#删除taint" class="headerlink" title="删除taint:"></a>删除taint:</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint node node1 key1:NoSchedule-  <span class="comment"># 这里的key可以不用指定value</span></span><br><span class="line">kubectl taint node node1 key1:NoExecute-</span><br><span class="line"><span class="comment"># kubectl taint node node1 key1-  删除指定key所有的effect</span></span><br><span class="line">kubectl taint node node1 key2:NoSchedule-</span><br></pre></td></tr></table></figure>
+
+<h2 id="master节点设置taint"><a href="#master节点设置taint" class="headerlink" title="master节点设置taint"></a>master节点设置taint</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes master1 node-role.kubernetes.io&#x2F;master&#x3D;:NoSchedule</span><br></pre></td></tr></table></figure>
+
+<p>注意⚠️ : 为master设置的这个taint中, <code>node-role.kubernetes.io/master</code>为<code>key</code>, <code>value</code>为空, <code>effect</code>为<code>NoSchedule</code></p>
+<p>如果输入命令时, 你丢掉了<code>=</code>符号, 写成了<code>node-role.kubernetes.io/master:NoSchedule</code>, 会报<code>error: at least one taint update is required</code>错误</p>
+<h2 id="容忍tolerations主节点的taints"><a href="#容忍tolerations主节点的taints" class="headerlink" title="容忍tolerations主节点的taints"></a>容忍tolerations主节点的taints</h2><p>以上面为 master1 设置的 taints 为例, 你需要为你的 yaml 文件中添加如下配置, 才能容忍 master 节点的污点</p>
+<p>在 pod 的 spec 中设置 tolerations 字段</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tolerations:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">key:</span> <span class="string">"node-role.kubernetes.io/master"</span></span><br><span class="line">  <span class="attr">operator:</span> <span class="string">"Equal"</span></span><br><span class="line">  <span class="attr">value:</span> <span class="string">""</span></span><br><span class="line">  <span class="attr">effect:</span> <span class="string">"NoSchedule"</span></span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/k8s%E8%AE%BE%E7%BD%AEnode%E8%8A%82%E7%82%B9Role%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/01/k8s%E8%AE%BE%E7%BD%AEnode%E8%8A%82%E7%82%B9Role%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">k8s设置node节点Role属性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 19:52:23" itemprop="dateCreated datePublished" datetime="2018-11-01T19:52:23+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/11/01/k8s%E8%AE%BE%E7%BD%AEnode%E8%8A%82%E7%82%B9Role%E5%B1%9E%E6%80%A7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/k8s设置node节点Role属性/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:~# kubectl get nodes</span><br><span class="line">NAME         STATUS     ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready      master    50d       v1.11.2</span><br><span class="line">k8s-node1    NotReady   &lt;none&gt;    50d       v1.11.2</span><br><span class="line">k8s-node2    NotReady   &lt;none&gt;    50d       v1.11.2</span><br></pre></td></tr></table></figure>
+
+<p>在 kubeadm 引导的 k8s 集群中, 查看 nodes 信息时, ROLES 一列标记了 master 节点的身份, 其他节点默认没有标记. 在手动安装的 k8s 集群中, 你看到情况可能是如下这样的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:~# kubectl get nodes</span><br><span class="line">NAME         STATUS     ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready      &lt;none&gt;    50d       v1.11.2</span><br><span class="line">k8s-node1    NotReady   &lt;none&gt;    50d       v1.11.2</span><br><span class="line">k8s-node2    NotReady   &lt;none&gt;    50d       v1.11.2</span><br></pre></td></tr></table></figure>
+
+<p>没错, 连 master 节点的标记都没有, 我们可以手动给任意 node 设置 ROLES</p>
+<p>原理就是给 node 打标签, 只不过是特殊的标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:~# kubectl get nodes</span><br><span class="line">NAME         STATUS     ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready      master    50d       v1.11.2</span><br><span class="line">k8s-node1    NotReady   &lt;none&gt;    50d       v1.11.2</span><br><span class="line">k8s-node2    NotReady   &lt;none&gt;    50d       v1.11.2</span><br><span class="line">root@k8s-master:~# kubectl label node k8s-node1 node-role.kubernetes.io&#x2F;worker&#x3D;worker</span><br><span class="line">node&#x2F;k8s-node1 labeled</span><br><span class="line">root@k8s-master:~# kubectl get nodes</span><br><span class="line">NAME         STATUS     ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready      master    50d       v1.11.2</span><br><span class="line">k8s-node1    NotReady   worker    50d       v1.11.2</span><br><span class="line">k8s-node2    NotReady   &lt;none&gt;    50d       v1.11.2</span><br><span class="line">root@k8s-master:~#</span><br></pre></td></tr></table></figure>
+
+<p>参考文档:</p>
+<p><a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/implementation-details/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/setup-tools/kubeadm/implementation-details/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1095,319 +1290,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/" class="post-title-link" itemprop="url">Kubelet的认证和授权</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-08 11:29:09" itemprop="dateCreated datePublished" datetime="2018-10-08T11:29:09+08:00">2018-10-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/10/08/Kubelet-%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/08/Kubelet-的认证和授权/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>kubelet 与 kube-apiserver 之间的通信是双向的, kubelet 既需要访问 kube-apiserver 获取分配到自己节点上的 pod 信息, kube-apiserver 也需要主动访问 kubelet 拉取日志, 状态, 监控数据等信息, 所以对两个组件来说, 认证是双向的, kube-apiserver 需要持有 kubelet 的客户端证书, 以完成 kubelet 对自己身份的校验; kubelet 也需要持有 kube-apiserver 的客户端证书, 完成 kube-apiserver 对自己身份的认证.</p>
-<h1 id="Kubelet-的认证"><a href="#Kubelet-的认证" class="headerlink" title="Kubelet 的认证"></a>Kubelet 的认证</h1><p>默认情况下, 对 kubelet 的 https 请求, 如果没有被配置的其他身份验证拒绝的话, 则被视为匿名请求, 并为这个请求赋予<code>system:anonymous</code>用户名和<code>system:unauthenticated</code>用户组</p>
-<h2 id="禁用匿名访问"><a href="#禁用匿名访问" class="headerlink" title="禁用匿名访问"></a>禁用匿名访问</h2><p>如需要禁用匿名访问, 可以在启动 kubelet Daemon 时加入<code>--anonymous-auth=false</code>配置, 当有匿名访问时, 将回复<code>401 Unauthorized</code>响应未认证的请求</p>
-<h2 id="开启-X509-认证"><a href="#开启-X509-认证" class="headerlink" title="开启 X509 认证"></a>开启 X509 认证</h2><ul>
-<li>kubelet 启动时添加<code>--client-ca-file</code>参数, 并指定签发客户端证书的 ca 根证书所在路径</li>
-<li>kube-apiserver 启动时添加<code>--kubelet-client-certificate</code>和<code>--kubelet-client-key</code>参数, 并分别为其指定由 kubelet ca 根证书签发的客户端证书和秘钥</li>
-</ul>
-<h1 id="Kubelet-的授权"><a href="#Kubelet-的授权" class="headerlink" title="Kubelet 的授权"></a>Kubelet 的授权</h1><p>任何被成功认证的请求(包括匿名请求)都将被授权. 默认的授权模式为<code>AlwaysAllow</code>, 即允许所有类型的请求</p>
-<h2 id="细分对-kubelet-API-访问权限的原因"><a href="#细分对-kubelet-API-访问权限的原因" class="headerlink" title="细分对 kubelet API 访问权限的原因"></a>细分对 kubelet API 访问权限的原因</h2><ul>
-<li>匿名访问启用时, 应限制其调用 kubelet API 的能力</li>
-<li>客户端证书身份认证启用时, 只允许配置 CA 签名的客户端证书使用 kubelet API</li>
-</ul>
-<h2 id="细分权限"><a href="#细分权限" class="headerlink" title="细分权限"></a>细分权限</h2><ul>
-<li>确保<code>authorization.k8s.io/v1beta1</code>该 API Group 在 kube-apiserver 中是被启动的状态</li>
-<li>在 kubelet Daemon 启动参数中, 确保配置了<code>--authorization-mode=Webhook</code>和<code>--kubeconfig</code>两个参数</li>
-</ul>
-<p>kubelet 在接收到每个请求后, 会向指定的 kube-apiserver 发起 <code>SubjectAccessReview</code> API 的请求, 来确定该请求是否被允许</p>
-<hr>
-<p><strong>参考文档</strong></p>
-<ul>
-<li>官方文档  <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/" class="post-title-link" itemprop="url">详解kubeadm生成的证书</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-28 20:05:48" itemprop="dateCreated datePublished" datetime="2018-09-28T20:05:48+08:00">2018-09-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/09/28/%E8%AF%A6%E8%A7%A3kubeadm%E7%94%9F%E6%88%90%E7%9A%84%E8%AF%81%E4%B9%A6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/28/详解kubeadm生成的证书/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>如果你使用过kubeadm部署过Kubernetes的环境, master主机节点上就一定会在相应的目录创建了一大批证书文件, 本篇文章就来说说kubeadm到底为我们生成了哪些证书</p>
-</blockquote>
-<p>在Kubernetes的部署中, 创建证书, 配置证书是一道绕不过去坎儿, 好在有kubeadm这样的自动化工具, 帮我们去生成, 配置这些证书. 对于只是想体验Kubernetes或只是想测试的亲来说, 这已经够了, 但是作为Kubernetes的集群维护者来说, kubeadm更像是一个黑盒, 本篇文章就来说说黑盒中关于证书的事儿~</p>
-<p>使用kubeadm创建完Kubernetes集群后, 默认会在<code>/etc/kubernetes/pki</code>目录下存放集群中需要用到的证书文件, 整体结构如下图所示:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:&#x2F;etc&#x2F;kubernetes&#x2F;pki# tree</span><br><span class="line">.</span><br><span class="line">|-- apiserver.crt</span><br><span class="line">|-- apiserver-etcd-client.crt</span><br><span class="line">|-- apiserver-etcd-client.key</span><br><span class="line">|-- apiserver.key</span><br><span class="line">|-- apiserver-kubelet-client.crt</span><br><span class="line">|-- apiserver-kubelet-client.key</span><br><span class="line">|-- ca.crt</span><br><span class="line">|-- ca.key</span><br><span class="line">|-- etcd</span><br><span class="line">|   |-- ca.crt</span><br><span class="line">|   |-- ca.key</span><br><span class="line">|   |-- healthcheck-client.crt</span><br><span class="line">|   |-- healthcheck-client.key</span><br><span class="line">|   |-- peer.crt</span><br><span class="line">|   |-- peer.key</span><br><span class="line">|   |-- server.crt</span><br><span class="line">|   &#96;-- server.key</span><br><span class="line">|-- front-proxy-ca.crt</span><br><span class="line">|-- front-proxy-ca.key</span><br><span class="line">|-- front-proxy-client.crt</span><br><span class="line">|-- front-proxy-client.key</span><br><span class="line">|-- sa.key</span><br><span class="line">&#96;-- sa.pub</span><br><span class="line"></span><br><span class="line">1 directory, 22 files</span><br></pre></td></tr></table></figure>
-
-<p>以上22个文件就是kubeadm为我们创建的所有证书相关的文件, 下面我们来一一解析</p>
-<h2 id="证书分组"><a href="#证书分组" class="headerlink" title="证书分组"></a>证书分组</h2><p>Kubernetes把证书放在了两个文件夹中</p>
-<ul>
-<li>/etc/kubernetes/pki</li>
-<li>/etc/kubernetes/pki/etcd</li>
-</ul>
-<p>我们再将这22个文件按照更细的粒度去分组</p>
-<h2 id="Kubernetes-集群根证书"><a href="#Kubernetes-集群根证书" class="headerlink" title="Kubernetes 集群根证书"></a>Kubernetes 集群根证书</h2><p>Kubernetes 集群根证书CA(Kubernetes集群组件的证书签发机构)</p>
-<ul>
-<li><code>/etc/kubernetes/pki/ca.crt</code></li>
-<li><code>/etc/kubernetes/pki/ca.key</code></li>
-</ul>
-<p>以上这组证书为签发其他Kubernetes组件证书使用的根证书, 可以认为是Kubernetes集群中证书签发机构之一</p>
-<p>由此根证书签发的证书有:</p>
-<ol>
-<li><p>kube-apiserver 组件持有的服务端证书</p>
-<ul>
-<li><code>/etc/kubernetes/pki/apiserver.crt</code></li>
-<li><code>/etc/kubernetes/pki/apiserver.key</code></li>
-</ul>
-</li>
-<li><p>kubelet 组件持有的客户端证书, 用作 kube-apiserver 主动向 kubelet 发起请求时的客户端认证</p>
-<ul>
-<li><code>/etc/kubernetes/pki/apiserver-kubelet-client.crt</code></li>
-<li><code>/etc/kubernetes/pki/apiserver-kubelet-client.key</code></li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>注意: Kubernetes集群组件之间的交互是双向的, kubelet 既需要主动访问 kube-apiserver, kube-apiserver 也需要主动向 kubelet 发起请求, 所以双方都需要有自己的根证书以及使用该根证书签发的服务端证书和客户端证书. 在 kube-apiserver 中, 一般明确指定用于 https 访问的服务端证书和带有<code>CN 用户名</code>信息的客户端证书. 而在 kubelet 的启动配置中, 一般只指定了 ca 根证书, 而没有明确指定用于 https 访问的服务端证书, 这是因为, 在生成服务端证书时, 一般会指定服务端地址或主机名, kube-apiserver 相对变化不是很频繁, 所以在创建集群之初就可以预先分配好用作 kube-apiserver 的 IP 或主机名/域名, 但是由于部署在 node 节点上的 kubelet 会因为集群规模的变化而频繁变化, 而无法预知 node 的所有 IP 信息, 所以 kubelet 上一般不会明确指定服务端证书, 而是只指定 ca 根证书, 让 kubelet 根据本地主机信息自动生成服务端证书并保存到配置的<code>cert-dir</code>文件夹中.</p>
-</blockquote>
-<p>好了, 至此, Kubernetes集群根证书所签发的证书都在上面了, 算上根证书一共涉及到6个文件, 22-6=16, 我们还剩下16个文件</p>
-<h2 id="汇聚层证书"><a href="#汇聚层证书" class="headerlink" title="汇聚层证书"></a>汇聚层证书</h2><p>kube-apiserver 的另一种访问方式就是使用 <code>kubectl proxy</code> 来代理访问, 而该证书就是用来支持SSL代理访问的. 在该种访问模式下, 我们是以http的方式发起请求到代理服务的, 此时, 代理服务会将该请求发送给 kube-apiserver, 在此之前, 代理会将发送给 kube-apiserver 的请求头里加入证书信息, 以下两个配置</p>
-<p>API Aggregation允许在不修改Kubernetes核心代码的同时扩展Kubernetes API.  开启 API Aggregation 需要在 kube-apiserver 中添加如下配置:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--requestheader-client-ca-file&#x3D;&lt;path to aggregator CA cert&gt;</span><br><span class="line">--requestheader-allowed-names&#x3D;front-proxy-client</span><br><span class="line">--requestheader-extra-headers-prefix&#x3D;X-Remote-Extra-</span><br><span class="line">--requestheader-group-headers&#x3D;X-Remote-Group</span><br><span class="line">--requestheader-username-headers&#x3D;X-Remote-User</span><br><span class="line">--proxy-client-cert-file&#x3D;&lt;path to aggregator proxy cert&gt;</span><br><span class="line">--proxy-client-key-file&#x3D;&lt;path to aggregator proxy key&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>官方警告: 除非你了解保护 CA 使用的风险和机制, 否则不要在不通上下文中重用已经使用过的 CA</strong></p>
-<p>如果 kube-proxy 没有和 API server 运行在同一台主机上，那么需要确保启用了如下 apiserver 标记：</p>
-<p><code>--enable-aggregator-routing=true</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">客户端 ---发起请求---&gt; 代理 ---Add Header:发起请求---&gt; kube-apiserver</span><br><span class="line">                   (客户端证书)                        (服务端证书)</span><br></pre></td></tr></table></figure>
-
-<p>kube-apiserver 代理根证书(客户端证书)</p>
-<p>用在<code>requestheader-client-ca-file</code>配置选项中, kube-apiserver 使用该证书来验证客户端证书是否为自己所签发</p>
-<ul>
-<li><code>/etc/kubernetes/pki/front-proxy-ca.crt</code></li>
-<li><code>/etc/kubernetes/pki/front-proxy-ca.key</code></li>
-</ul>
-<p>由此根证书签发的证书只有一组:</p>
-<p>代理层(如汇聚层aggregator)使用此套代理证书来向 kube-apiserver 请求认证</p>
-<ol>
-<li>代理端使用的客户端证书, 用作代用户与 kube-apiserver 认证<ul>
-<li><code>/etc/kubernetes/pki/front-proxy-client.crt</code></li>
-<li><code>/etc/kubernetes/pki/front-proxy-client.key</code></li>
-</ul>
-</li>
-</ol>
-<p>参考文档:</p>
-<ul>
-<li>kube-apiserver 配置参数: <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/" target="_blank" rel="noopener">https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/</a></li>
-<li>使用汇聚层扩展 Kubernetes API: <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/</a></li>
-<li>配置汇聚层: <a href="https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/</a></li>
-</ul>
-<p>至此, 刨除代理专用的证书外, 还剩下 16-4=12 个文件</p>
-<h2 id="etcd-集群根证书"><a href="#etcd-集群根证书" class="headerlink" title="etcd 集群根证书"></a>etcd 集群根证书</h2><p>etcd集群所用到的证书都保存在<code>/etc/kubernetes/pki/etcd</code>这路径下, 很明显, 这一套证书是用来专门给etcd集群服务使用的, 设计以下证书文件</p>
-<p>etcd 集群根证书CA(etcd 所用到的所有证书的签发机构)</p>
-<ul>
-<li><code>/etc/kubernetes/pki/etcd/ca.crt</code></li>
-<li><code>/etc/kubernetes/pki/etcd/ca.key</code></li>
-</ul>
-<p>由此根证书签发机构签发的证书有:</p>
-<ol>
-<li><p>etcd server 持有的服务端证书</p>
-<ul>
-<li><code>/etc/kubernetes/pki/etcd/server.crt</code></li>
-<li><code>/etc/kubernetes/pki/etcd/server.key</code></li>
-</ul>
-</li>
-<li><p>peer 集群中节点互相通信使用的客户端证书</p>
-<ul>
-<li><p><code>/etc/kubernetes/pki/etcd/peer.crt</code></p>
-</li>
-<li><p><code>/etc/kubernetes/pki/etcd/peer.key</code></p>
-<p>注: Peer：对同一个etcd集群中另外一个Member的称呼</p>
-</li>
-</ul>
-</li>
-<li><p>pod 中定义 Liveness 探针使用的客户端证书</p>
-<p>kubeadm 部署的 Kubernetes 集群是以 pod 的方式运行 etcd 服务的, 在该 pod 的定义中, 配置了 Liveness 探活探针</p>
-<ul>
-<li><p><code>/etc/kubernetes/pki/etcd/healthcheck-client.crt</code></p>
-</li>
-<li><p><code>/etc/kubernetes/pki/etcd/healthcheck-client.key</code></p>
-<p>当你 describe etcd 的 pod 时, 会看到如下一行配置:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Liveness:       exec [&#x2F;bin&#x2F;sh -ec ETCDCTL_API&#x3D;3 etcdctl --endpoints&#x3D;https:&#x2F;&#x2F;[127.0.0.1]:2379 --cacert&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;ca.crt --cert&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;healthcheck-client.crt --key&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;healthcheck-client.key get foo] delay&#x3D;15s timeout&#x3D;15s period&#x3D;10s #success&#x3D;1 #failure&#x3D;8</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>配置在 kube-apiserver 中用来与 etcd server 做双向认证的客户端证书</p>
-<ul>
-<li><code>/etc/kubernetes/pki/apiserver-etcd-client.crt</code></li>
-<li><code>/etc/kubernetes/pki/apiserver-etcd-client.key</code></li>
-</ul>
-</li>
-</ol>
-<p>至此, 介绍了涉及到 etcd 服务的10个证书文件, 12-10=2, 仅剩两个没有介绍到的文件啦, 胜利✌️在望, 坚持一下~</p>
-<h2 id="Serveice-Account秘钥"><a href="#Serveice-Account秘钥" class="headerlink" title="Serveice Account秘钥"></a>Serveice Account秘钥</h2><p>最后介绍的这组”证书”其实不是证书, 而是一组秘钥. 看着后缀名是不是有点眼熟呢, 没错, 这组秘钥对儿其实跟我们在Linux上创建, 用于免密登录的密钥对儿原理是一样的~</p>
-<blockquote>
-<p>这组的密钥对儿仅提供给 kube-controller-manager 使用. kube-controller-manager 通过 sa.key 对 token 进行签名, master 节点通过公钥 sa.pub 进行签名的验证</p>
-</blockquote>
-<ul>
-<li><code>/etc/kubernetes/pki/sa.key</code></li>
-<li><code>/etc/kubernetes/pki/sa.pub</code></li>
-</ul>
-<p>至此, kubeadm 工具帮我们创建的所有证书文件都已经介绍完了, 整个 Kubernetes&amp;etcd 集群中所涉及到的绝大部分证书都差不多在这里了. 有的行家可能会看出来, 至少还少了一组证书呀, 就是 kube-proxy 持有的证书怎么没有自动生成呀. 因为 kubeadm 创建的集群, kube-proxy 是以 pod 形式运行的, 在 pod 中, 直接使用 service account 与 kube-apiserver 进行认证, 此时就不需要再单独为 kube-proxy 创建证书了. 如果你的 kube-proxy 是以守护进程的方式直接运行在宿主机的, 那么你就需要为它创建一套证书了. 创建的方式也很简单, 直接使用上面第一条提到的 <code>Kubernetes 集群根证书</code> 进行签发就可以了(注意CN和O的设置)</p>
-<p>下一篇文章中, 将实际操作创建所有证书的流程(含kube-proxy证书), 并逐一解释参数的使用</p>
-<hr>
-<p>参考文档:</p>
-<ul>
-<li>PKI 认证: <a href="https://kubernetes.io/docs/setup/certificates/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/certificates/</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1480,7 +1362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1493,7 +1375,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

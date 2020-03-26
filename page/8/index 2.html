@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polar Snow Documentation">
+<meta property="og:url" content="https://docs.lvrui.io/page/8/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="etcd">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/page/8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">Python3编译安装后pip3命令报ssl错误</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-26 22:19:53" itemprop="dateCreated datePublished" datetime="2017-12-26T22:19:53+08:00">2017-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/12/26/Python3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%90%8Epip3%E5%91%BD%E4%BB%A4%E6%8A%A5ssl%E9%94%99%E8%AF%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/26/Python3编译安装后pip3命令报ssl错误/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Python3编译安装后pip3命令报ssl错误"><a href="#Python3编译安装后pip3命令报ssl错误" class="headerlink" title="Python3编译安装后pip3命令报ssl错误"></a>Python3编译安装后pip3命令报ssl错误</h1><p>首先确保ssl相关的库文件已经安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<p>在编译的时候加上<code>--with-ssl</code>参数即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Python-3.6.2</span><br><span class="line">./configure --with-ssl</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/" class="post-title-link" itemprop="url">对Element对象的自省</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-26 22:13:23" itemprop="dateCreated datePublished" datetime="2017-12-26T22:13:23+08:00">2017-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/12/26/%E5%AF%B9Element%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%87%AA%E7%9C%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/26/对Element对象的自省/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="对Element对象的自省"><a href="#对Element对象的自省" class="headerlink" title="对Element对象的自省"></a>对Element对象的自省</h1><p>Python中的自省有两个核心模块实现</p>
+<ul>
+<li>isinstance(obj, cls)</li>
+<li>issubclass(sub, super)</li>
+</ul>
+<p>当判断一个基础数据类型的时候，我们可以这么做</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">10</span></span><br><span class="line">print(isinstance(i, int))</span><br></pre></td></tr></table></figure>
+
+<p>当判断一个自有数据类型的时候，我们可以这么做</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(isinstance(a, A))</span><br></pre></td></tr></table></figure>
+
+<p>现在我有一个Element对象，如何让他自省呢？</p>
+<p>在xml模块中，本身就提供了用于自省的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml.etree.cElementTree <span class="keyword">as</span> ET</span><br><span class="line"></span><br><span class="line">root = ET.fromstring(<span class="string">"""&lt;xml&gt;&lt;name&gt;polarsnow&lt;/name&gt;&lt;/xml&gt;"""</span>)</span><br><span class="line"><span class="keyword">print</span> type(root)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> ET.iselement(root)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;type &#39;Element&#39;&gt;</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">Python中__import__()的fromlist参数用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-13 10:56:59" itemprop="dateCreated datePublished" datetime="2017-10-13T10:56:59+08:00">2017-10-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/10/13/Python%E4%B8%AD-import-%E7%9A%84fromlist%E5%8F%82%E6%95%B0%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/13/Python中-import-的fromlist参数用法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python中的<code>__import__()</code>函数用来动态的加载包文件, 其中<code>__import__()</code>有个<code>fromlist</code>的参数选项, 对于动态加载模块来说, 非常重要</p>
+</blockquote>
+<p>Python 中的 import 大概有以下几种用法</p>
+<ul>
+<li>import pkg  调用方法: <code>pkg.mod.func()</code></li>
+<li>import pkg.mod 调用方法: <code>pkg.mod.func()</code></li>
+<li>import mod 调用方法: <code>mod.func()</code></li>
+<li>from pkg import mod 调用方法: <code>mod.func()</code></li>
+<li>from pkg.mod import func 调用方法 : <code>func()</code></li>
+<li>from mod import func 调用方法: <code>func()</code></li>
+</ul>
+<p>第一种和第二种情况下, 当使用<code>__import__</code>导入模块时, 得到的对象是完全一样的. 默认情况下, <code>__import__</code> 只能导入最左侧的包文件, 即以下两种写法, 导入的对象都是一样的</p>
+<ul>
+<li><code>pkg2 = __import__(pkg)</code> 调用方法: <code>pkg2.mod.func()</code></li>
+<li><code>pkg3 = __import__(pkg.mod)</code> 调用方法: <code>pkg3.mod.func()</code></li>
+</ul>
+<p>第三种情况下, 当使用<code>__import__</code>导入模块时, 与<code>import mod</code>的导入效果是一样的</p>
+<ul>
+<li>mod2 = <code>__import__(mod)</code> 调用方法: <code>mod2.func1(); mod2.func2()</code></li>
+</ul>
+<p>第四种情况下, 当使用<code>__import__</code>导入模块时的用法</p>
+<ul>
+<li><code>pkg4 = __import__(pkg, fromlist=[mod1, mod2])</code></li>
+</ul>
+<p>调用方法:</p>
+<ul>
+<li><code>pkg4.mod1.func1()</code></li>
+<li><code>pkg4.mod2.func2()</code></li>
+</ul>
+<p>第五种情况下, 不支持使用<code>__import__</code>直接导入包内模块中的函数,  默认情况下, 即使你是如下的写法</p>
+<ul>
+<li><code>pkg5 = __import__(pkg.mod)</code></li>
+</ul>
+<p>效果依然是只导入<code>pkg</code>包而已, <code>pkg.mod</code>这个模块并没有被导入</p>
+<ul>
+<li><code>pkg5 = __import__(pkg.mod, fromlist=[mod])</code></li>
+</ul>
+<p>如果是加入了 <code>fromlist</code> 关键字的话, 那么该 pkg5 为 mod 模块对象</p>
+<p><em>总结来说就是当 <code>__import__(A.B)</code>时, 当 fromlist 为空, 则导入的对象时 A, 如果 fromlist 不为空, 导入的对象就是 B</em></p>
+<p>第六种情况下, 当使用<code>__import__</code>导入模块时, 与<code>from mod import func</code>的效果是一样的, 不需要使用fromlist参数支持就可以导入全部函数</p>
+<ul>
+<li><code>mod3 = __import__(mod)</code> 调用方法: <code>mod3.func()</code></li>
+<li><code>pkg5 = __import__(&#39;mod2&#39;, fromlist=[&#39;func2&#39;, &#39;func3&#39;])</code> 这种写法非常啰嗦, 上面的写法已经可以导入全部函数了, 不需要再使用 fromlist 单独指定</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">collections中deque的用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 17:14:59" itemprop="dateCreated datePublished" datetime="2017-07-26T17:14:59+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/collections%E4%B8%ADdeque%E7%9A%84%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/collections中deque的用法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>collections.deque 是用来创建一个有序的队列, 而且可以限定其队列的大小, 当队列已经装满后, 再填入的元素将实现头部元素被抛弃, 所有元素向前挪动一位, 新元素追加到最后的效果</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">q = collections.deque([], <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">1</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">2</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">3</span>)</span><br><span class="line">print(q)</span><br><span class="line"></span><br><span class="line">q.append(<span class="number">4</span>)</span><br><span class="line">print(q)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deque([<span class="number">1</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">1</span>, <span class="number">2</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], maxlen=<span class="number">3</span>)</span><br><span class="line">deque([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], maxlen=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/" class="post-title-link" itemprop="url">Python中的有序字典</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 16:56:08" itemprop="dateCreated datePublished" datetime="2017-07-26T16:56:08+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中的有序字典/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 3.5版本(含3.5)之前, 默认的字典是无序的. 在最新的3.6版本中, 字典变成了有序字典, 本篇文章将介绍3.5版本及之前版本中有序字典的使用和3.6版本原生有序字典的使用</p>
+</blockquote>
+<h1 id="3-5"><a href="#3-5" class="headerlink" title="3.5-"></a>3.5-</h1><p>3.5版本及之前的版本中, 需要借助<code>collections</code>模块中的<code>OrderedDict</code>来实现有序字典的声明和使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">od = OrderedDict()</span><br><span class="line">d = &#123;&#125;</span><br><span class="line"></span><br><span class="line">od[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">od[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">od[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">print(od)</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'lvrui'</span>), (<span class="string">'age'</span>, <span class="number">26</span>), (<span class="string">'city'</span>, <span class="string">'HeBei'</span>)])</span><br><span class="line">&#123;<span class="string">'city'</span>: <span class="string">'HeBei'</span>, <span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-6"><a href="#3-6" class="headerlink" title="3.6+"></a>3.6+</h1><p>在 Python3.6+ 版本中, 内置字典默认就是有序的😆 爽~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3<span class="number">.6</span></span><br><span class="line">Python <span class="number">3.6</span><span class="number">.2</span> (v3<span class="number">.6</span><span class="number">.2</span>:<span class="number">5</span>fd33b5926, Jul <span class="number">16</span> <span class="number">2017</span>, <span class="number">20</span>:<span class="number">11</span>:<span class="number">06</span>) </span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>, <span class="string">'city'</span>: <span class="string">'HeBei'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/" class="post-title-link" itemprop="url">Python中为元组的每个元素命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 11:53:19" itemprop="dateCreated datePublished" datetime="2017-07-26T11:53:19+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%B8%BA%E5%85%83%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%91%BD%E5%90%8D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中为元组的每个元素命名/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>元组是一种高效的数据类型, 同时我们为了提高提取元组元素的可读性,  做出如下修改来为元组的元素命名</p>
+</blockquote>
+<p>比如我们用一个元组来描述一个位置信息, 比如 <code>(5,9)</code>来标识横坐标信息和纵坐标信息</p>
+<h1 id="第一种方式-通过变量"><a href="#第一种方式-通过变量" class="headerlink" title="第一种方式: 通过变量"></a>第一种方式: 通过变量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = (<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">x, y = range(<span class="number">2</span>)</span><br><span class="line">print(p[x])</span><br><span class="line">print(p[y])</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="第二种方式-collections-内置函数"><a href="#第二种方式-collections-内置函数" class="headerlink" title="第二种方式: collections 内置函数"></a>第二种方式: collections 内置函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line">P = collections.namedtuple(<span class="string">'P'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</span><br><span class="line">p = P(<span class="number">5</span>, <span class="number">9</span>)</span><br><span class="line">print(p.x)</span><br><span class="line">print(p.y)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+
+<p>查看<code>p</code>的数据类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(isinstance(p, P))</span><br><span class="line">print(isinstance(p, tuple))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/" class="post-title-link" itemprop="url">Python中使用Counter实现简单的计数器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 11:51:21" itemprop="dateCreated datePublished" datetime="2017-07-26T11:51:21+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中使用Counter实现简单的计数器/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 中可以使用 collections 内置模块下的 Counter 来实现简单的统计功能</p>
+</blockquote>
+<h1 id="统计列表中的元素"><a href="#统计列表中的元素" class="headerlink" title="统计列表中的元素"></a>统计列表中的元素</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [chr(random.randint(<span class="number">97</span>, <span class="number">102</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">result = collections.Counter(l)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'f'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'f'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>]</span><br><span class="line">Counter(&#123;<span class="string">'f'</span>: <span class="number">6</span>, <span class="string">'e'</span>: <span class="number">6</span>, <span class="string">'c'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="统计文件中单词出现的频率"><a href="#统计文件中单词出现的频率" class="headerlink" title="统计文件中单词出现的频率"></a>统计文件中单词出现的频率</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">txt = re.split(<span class="string">'\W+'</span>, f.read())</span><br><span class="line">s = collections.Counter(txt)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Counter(&#123;<span class="string">'the'</span>: <span class="number">93</span>, <span class="string">'to'</span>: <span class="number">39</span>, <span class="string">'and'</span>: <span class="number">32</span>, <span class="string">'for'</span>: <span class="number">31</span>, <span class="string">'SSL'</span>: <span class="number">29</span>, <span class="string">'is'</span>: <span class="number">26</span>, <span class="string">'a'</span>: <span class="number">21</span>, <span class="string">'of'</span>: <span class="number">21</span>, <span class="string">'private'</span>: <span class="number">20</span>, <span class="string">'in'</span>: <span class="number">18</span>, <span class="string">'you'</span>: <span class="number">17</span>, <span class="string">'server'</span>: <span class="number">17</span>, <span class="string">'file'</span>: <span class="number">16</span>, <span class="string">'apache2'</span>: <span class="number">16</span>, <span class="string">'be'</span>: <span class="number">16</span>, <span class="string">'1'</span>: <span class="number">16</span>, <span class="string">'etc'</span>: <span class="number">15</span>, <span class="string">'certificate'</span>: <span class="number">15</span>, <span class="string">'this'</span>: <span class="number">14</span>, <span class="string">'as'</span>: <span class="number">13</span>, <span class="string">'This'</span>: <span class="number">13</span>, <span class="string">'0'</span>: <span class="number">13</span>, <span class="string">'or'</span>: <span class="number">13</span>, <span class="string">'use'</span>: <span class="number">12</span>, <span class="string">'client'</span>: <span class="number">10</span>, <span class="string">'that'</span>: <span class="number">10</span>, <span class="string">'when'</span>: <span class="number">10</span>, <span class="string">'can'</span>: <span class="number">10</span>, <span class="string">'are'</span>: <span class="number">9</span>, <span class="string">'mod_ssl'</span>: <span class="number">9</span>, <span class="string">'ciphers'</span>: <span class="number">9</span>, <span class="string">'CA'</span>: <span class="number">8</span>, <span class="string">'on'</span>: <span class="number">8</span>, <span class="string">'one'</span>: <span class="number">8</span>, <span class="string">'2'</span>: <span class="number">8</span>, <span class="string">'an'</span>: <span class="number">7</span>, <span class="string">'crt'</span>: <span class="number">7</span>, <span class="string">'standard'</span>: <span class="number">7</span>, <span class="string">'TLS'</span>: <span class="number">7</span>, <span class="string">'The'</span>: <span class="number">7</span>, <span class="string">'directives'</span>: <span class="number">7</span>, <span class="string">'ssl'</span>: <span class="number">7</span>, <span class="string">'Use'</span>: <span class="number">7</span>, <span class="string">'only'</span>: <span class="number">7</span>, <span class="string">'o'</span>: <span class="number">7</span>, <span class="string">'shutdown'</span>: <span class="number">7</span>, <span class="string">'dev'</span>: <span class="number">7</span>, <span class="string">'all'</span>: <span class="number">6</span>, <span class="string">'more'</span>: <span class="number">6</span>, <span class="string">'close'</span>: <span class="number">6</span>, <span class="string">'used'</span>: <span class="number">6</span>, <span class="string">'not'</span>: <span class="number">6</span>, <span class="string">'which'</span>: <span class="number">6</span>, <span class="string">'notify'</span>: <span class="number">6</span>, <span class="string">'key'</span>: <span class="number">6</span>, <span class="string">'default'</span>: <span class="number">6</span>, <span class="string">'certificates'</span>: <span class="number">6</span>, <span class="string">'alert'</span>: <span class="number">6</span>, <span class="string">'var'</span>: <span class="number">6</span>, <span class="string">'also'</span>: <span class="number">6</span>, <span class="string">'should'</span>: <span class="number">5</span>, <span class="string">'OpenSSL'</span>: <span class="number">5</span>, <span class="string">'SSLv3'</span>: <span class="number">5</span>, <span class="string">'PEM'</span>: <span class="number">5</span>, <span class="string">'encoded'</span>: <span class="number">5</span>, <span class="string">'clients'</span>: <span class="number">5</span>, <span class="string">'random'</span>: <span class="number">5</span>, <span class="string">'OCSP'</span>: <span class="number">5</span>, <span class="string">'containing'</span>: <span class="number">5</span>, <span class="string">'with'</span>: <span class="number">5</span>, <span class="string">'connection'</span>: <span class="number">5</span>, <span class="string">'from'</span>: <span class="number">5</span>, <span class="string">'SSLCertificateFile'</span>: <span class="number">5</span>, <span class="string">'user'</span>: <span class="number">5</span>, <span class="string">'both'</span>: <span class="number">5</span>, <span class="string">'parallel'</span>: <span class="number">4</span>, <span class="string">'variables'</span>: <span class="number">4</span>, <span class="string">'usually'</span>: <span class="number">4</span>, <span class="string">'at'</span>: <span class="number">4</span>, <span class="string">'Note'</span>: <span class="number">4</span>, <span class="string">'HIGH'</span>: <span class="number">4</span>, <span class="string">'configured'</span>: <span class="number">4</span>, </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>以上方法在读取文件的时候, 采用了读取全部内容到内存的方法, 如果文件体积较大, 会对内存造成较大压力, 可以通过如下这种迭代的用法实现相同的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个空集合对象</span></span><br><span class="line">s = collections.Counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代文件中的每一行</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="comment"># 将每行内容进行按单词的切割, 在切割之前去掉每行字符串的首位空格以及换行</span></span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串切割后, 拿到 res 列表, 循环迭代它</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="comment"># 如果不是空字符的话就在集合中将该键出现的次数+1</span></span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果与上面相同</p>
+<h1 id="统计后找出前三个元素"><a href="#统计后找出前三个元素" class="headerlink" title="统计后找出前三个元素"></a>统计后找出前三个元素</h1><p>在 counter 对象中, 还有一个功能可以帮我们取出指定的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">s = collections.Counter()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'the'</span>, <span class="number">93</span>), (<span class="string">'to'</span>, <span class="number">39</span>), (<span class="string">'and'</span>, <span class="number">32</span>)]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python中可迭代对象的排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 10:44:44" itemprop="dateCreated datePublished" datetime="2017-07-26T10:44:44+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中可迭代对象的排序/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 中, 提供给我们了两种排序的方式, 一种是列表对象自己的<code>.sort</code>方法, 一种是Python 内置的<code>sorted</code>函数</p>
+</blockquote>
+<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><p>列表排序有两种方式可以实现, 分别是自带的 <code>.sort</code>方法, 还有内置的<code>sorted</code>函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">16</span>, <span class="number">42</span>, <span class="number">84</span>, <span class="number">78</span>, <span class="number">22</span>, <span class="number">50</span>, <span class="number">86</span>, <span class="number">14</span>, <span class="number">95</span>, <span class="number">75</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title=".sort 方法"></a>.sort 方法</h2><p>列表对象自身的<code>.sort</code>方法执行后, 会改变原列表对象的顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.sort()</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的结果可以看出, 原列表的成员位置已经发生了变化</p>
+<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted 函数"></a>sorted 函数</h2><p>使用<code>sorted</code>函数排序后会返回新的对象, 不会在原对象中修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l2 = sorted(l)</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="元组排序"><a href="#元组排序" class="headerlink" title="元组排序"></a>元组排序</h1><p>元组中的元素是有序的, 但是本身的元素是不可修改的, 所以元组自身没有<code>.sort</code>方法可以使用. 但是可以通过转化为列表的方式, 间接使用<code>.sort</code></p>
+<h2 id="使用类型转换得到元组"><a href="#使用类型转换得到元组" class="headerlink" title="使用类型转换得到元组"></a>使用类型转换得到元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">t = tuple(l)</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">10</span>, <span class="number">47</span>, <span class="number">33</span>, <span class="number">68</span>, <span class="number">5</span>, <span class="number">86</span>, <span class="number">95</span>, <span class="number">51</span>, <span class="number">12</span>, <span class="number">28</span>)</span><br><span class="line">[<span class="number">5</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">68</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用生成器表达式得到元组-迭代对象"><a href="#使用生成器表达式得到元组-迭代对象" class="headerlink" title="使用生成器表达式得到元组(迭代对象)"></a>使用生成器表达式得到元组(迭代对象)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = (random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x1019962b0</span>&gt;</span><br><span class="line">[<span class="number">6</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">68</span>, <span class="number">72</span>, <span class="number">88</span>, <span class="number">89</span>, <span class="number">93</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="集合排序"><a href="#集合排序" class="headerlink" title="集合排序"></a>集合排序</h1><p> 集合本身是无序的, 本身也没有<code>.sort</code>方法. 但是集合也可以间接的通过先转化为列表的方式来使用<code>.sort</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = &#123;random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">s2 = sorted(s)</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">100</span>, <span class="number">6</span>, <span class="number">71</span>, <span class="number">11</span>, <span class="number">50</span>, <span class="number">21</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">26</span>, <span class="number">94</span>&#125;</span><br><span class="line">[<span class="number">6</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">26</span>, <span class="number">50</span>, <span class="number">62</span>, <span class="number">71</span>, <span class="number">89</span>, <span class="number">94</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h1><h2 id="依据-key-排序"><a href="#依据-key-排序" class="headerlink" title="依据 key 排序"></a>依据 key 排序</h2><p>使用 sorted 对一个字典进行排序, 只需要把对象传进去即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line">d2 = sorted(d)</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'m'</span>: <span class="number">11</span>, <span class="string">'s'</span>: <span class="number">18</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">15</span>, <span class="string">'v'</span>: <span class="number">17</span>, <span class="string">'a'</span>: <span class="number">4</span>, <span class="string">'h'</span>: <span class="number">6</span>, <span class="string">'i'</span>: <span class="number">20</span>, <span class="string">'l'</span>: <span class="number">10</span>&#125;</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'s'</span>, <span class="string">'v'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>当我们拿到这个排序过后的列表之后, 就可以依据列表里的”键”的顺序, 到对应的字典中取值了</p>
+<h2 id="依据-value-排序"><a href="#依据-value-排序" class="headerlink" title="依据 value 排序"></a>依据 value 排序</h2><p>依据 value 排序就需要用到 sorted 函数中的<code>key</code>参数了, <code>key</code>参数接收一个函数, 此函数即为处理迭代对象每一个元素的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>, <span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment"># 字典对象.items() 会把每个键值对转化成元组, 并把字典的最外层转化为列表</span></span><br><span class="line">print(d.items())</span><br><span class="line">d2 = sorted(d.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'y'</span>: <span class="number">8</span>, <span class="string">'h'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">17</span>, <span class="string">'p'</span>: <span class="number">9</span>, <span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'o'</span>: <span class="number">14</span>, <span class="string">'c'</span>: <span class="number">15</span>, <span class="string">'a'</span>: <span class="number">9</span>, <span class="string">'z'</span>: <span class="number">9</span>&#125;</span><br><span class="line">dict_items([(<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'d'</span>, <span class="number">17</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>)])</span><br><span class="line">[(<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'d'</span>, <span class="number">17</span>)]</span><br></pre></td></tr></table></figure>
+
+<p>从结果的第一行和第二行可以看出<code>字典. items()</code>的执行效果.</p>
+<p>key 后面的 lambda 函数, 将循环接收前面迭代元素的每一个值, 第一次迭代时, 第一个值 <code>(&#39;y&#39;, 8)</code>被传递给 lambda 函数的参数. lambda 函数接收这个参数, 并取这个参数值的第二位值, 也就是取得 <code>(&#39;y&#39;, 8)</code>的第二个值, 并依据此值进行排序</p>
+<h1 id="列表嵌套字典混合排序"><a href="#列表嵌套字典混合排序" class="headerlink" title="列表嵌套字典混合排序"></a>列表嵌套字典混合排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line">dd.sort(key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd)</span><br></pre></td></tr></table></figure>
+
+<p>以上的方式是通过列表自身的<code>.sort</code>方法实现的, 修改了元列表内部元素的位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line"></span><br><span class="line">dd2 = sorted(dd, key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd2)</span><br></pre></td></tr></table></figure>
+
+<p>以上则是通过<code>sorted</code>函数实现.</p>
+<p>列举这种用法主要是为了体现 sorted 函数中, key 参数的使用方法, 前面的迭代对象的中每个值, 都会依次传递给 key 中的函数, key 中的函数需要接收一个参数, 并对这个参数的值进行处理, 返回需要排序的对象</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在集合中根据条件筛选数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 11:54:38" itemprop="dateCreated datePublished" datetime="2017-07-25T11:54:38+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在集合中根据条件筛选数据/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首选创建一个集合</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">s = set(l)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">-1</span>, <span class="number">-9</span>, <span class="number">-6</span>, <span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-2</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现有一个需求, 需要此集合中筛选出可以被3整除的数字都有哪些, 以下给出四种实现方式</p>
+<h2 id="第一种方式-循环迭代"><a href="#第一种方式-循环迭代" class="headerlink" title="第一种方式: 循环迭代"></a>第一种方式: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s1 = set()</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> item % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        s1.add(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(s1)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.77478</span></span><br><span class="line"><span class="number">1500954512.774822</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000042</code></p>
+<h2 id="第二种方式-filter-函数"><a href="#第二种方式-filter-函数" class="headerlink" title="第二种方式: filter 函数"></a>第二种方式: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'---'</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">s2 = list(filter(<span class="keyword">lambda</span> x: x % <span class="number">3</span> == <span class="number">0</span>, s))</span><br><span class="line">print(time.time())</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774839</span></span><br><span class="line"><span class="number">1500954512.774854</span></span><br><span class="line">[<span class="number">3</span>, <span class="number">-9</span>, <span class="number">-6</span>]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000015</code></p>
+<h2 id="第三种方式-集合解析式"><a href="#第三种方式-集合解析式" class="headerlink" title="第三种方式: 集合解析式"></a>第三种方式: 集合解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s3 = &#123;i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(s3)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774865</span></span><br><span class="line"><span class="number">1500954512.774885</span></span><br><span class="line">&#123;<span class="number">-6</span>, <span class="number">3</span>, <span class="number">-9</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000020</code></p>
+<h2 id="第四种方式-生成器表达式"><a href="#第四种方式-生成器表达式" class="headerlink" title="第四种方式: 生成器表达式"></a>第四种方式: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">s4 = (i <span class="keyword">for</span> i <span class="keyword">in</span> s <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500954512.774917</span></span><br><span class="line"><span class="number">1500954512.774934</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">-9</span></span><br><span class="line"><span class="number">-6</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>集合与之前的字典,列表一样, 要实现数据的筛选依然有四种选择, 小数据量下依然推荐使用<code>集合解析式</code>, 大数据量的情况下推荐使用<code>生成器表达式</code>或 <code>filter 函数</code>(直接返回 filter 迭代对象, 而不直接使用 list 转换)</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在字典中根据条件筛选数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 11:11:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:11:20+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在字典中根据条件筛选数据/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先创建一个字典</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">d = &#123;str(x): random.randint(<span class="number">60</span>, <span class="number">100</span>) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">21</span>)&#125;</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'16'</span>: <span class="number">61</span>, <span class="string">'3'</span>: <span class="number">66</span>, <span class="string">'17'</span>: <span class="number">70</span>, <span class="string">'10'</span>: <span class="number">82</span>, <span class="string">'1'</span>: <span class="number">71</span>, <span class="string">'18'</span>: <span class="number">89</span>, <span class="string">'5'</span>: <span class="number">83</span>, <span class="string">'4'</span>: <span class="number">97</span>, <span class="string">'19'</span>: <span class="number">77</span>, <span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'8'</span>: <span class="number">73</span>, <span class="string">'11'</span>: <span class="number">74</span>, <span class="string">'15'</span>: <span class="number">60</span>, <span class="string">'13'</span>: <span class="number">68</span>, <span class="string">'20'</span>: <span class="number">80</span>, <span class="string">'7'</span>: <span class="number">62</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'6'</span>: <span class="number">85</span>, <span class="string">'14'</span>: <span class="number">83</span>, <span class="string">'9'</span>: <span class="number">87</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现有一个需求, 需要此列表中筛选出值大于90的 id(key) 都有哪些, 以下给出四种实现方式</p>
+<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d2 = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> d:</span><br><span class="line">    <span class="keyword">if</span> d[k] &gt; <span class="number">90</span>:</span><br><span class="line">        d2[k] = d[k]</span><br><span class="line">print(time.time())</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126503</span></span><br><span class="line"><span class="number">1500951937.126532</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000029</code></p>
+<h2 id="第二种方法-filter-函数"><a href="#第二种方法-filter-函数" class="headerlink" title="第二种方法: filter 函数"></a>第二种方法: filter 函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d5 = list(filter(<span class="keyword">lambda</span> x: d[x] &gt; <span class="number">90</span>, d))</span><br><span class="line">print(time.time())</span><br><span class="line">print(d5)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126604</span></span><br><span class="line"><span class="number">1500951937.126618</span></span><br><span class="line">[<span class="string">'4'</span>, <span class="string">'12'</span>, <span class="string">'2'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000014</code></p>
+<h2 id="第三种方法-字典解析式"><a href="#第三种方法-字典解析式" class="headerlink" title="第三种方法: 字典解析式"></a>第三种方法: 字典解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d3 = &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>&#125;</span><br><span class="line">print(time.time())</span><br><span class="line">print(d3)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126555</span></span><br><span class="line"><span class="number">1500951937.126564</span></span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>, <span class="string">'2'</span>: <span class="number">99</span>, <span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000009</code></p>
+<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">d4 = (&#123;k: v&#125; <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items() <span class="keyword">if</span> v &gt; <span class="number">90</span>)</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> d4:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1500951937.126576</span></span><br><span class="line"><span class="number">1500951937.126581</span></span><br><span class="line">&#123;<span class="string">'4'</span>: <span class="number">97</span>&#125;</span><br><span class="line">&#123;<span class="string">'12'</span>: <span class="number">92</span>&#125;</span><br><span class="line">&#123;<span class="string">'2'</span>: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为: <code>0.000005</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>在字典数据量较小时, 依然推荐使用<code>字典解析式</code>去筛选数据, 在数据量较大且数据需要一条一条处理时, 生成器依然是最佳的选择</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>

@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,197 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/" class="post-title-link" itemprop="url">python下http.client与urllib访问https报证书认证失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-16 15:35:56" itemprop="dateCreated datePublished" datetime="2018-03-16T15:35:56+08:00">2018-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/03/16/python%E4%B8%8Bhttp-client%E4%B8%8Eurllib%E8%AE%BF%E9%97%AEhttps%E6%8A%A5%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E5%A4%B1%E8%B4%A5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python下http-client与urllib访问https报证书认证失败/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在python3代码中, 使用http.client或urllib.request进行https访问的时候, 出现以下报错</p>
+<p><code>ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)</code></p>
+<p>解决方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import ssl</span><br><span class="line"></span><br><span class="line">ssl._create_default_https_context &#x3D; ssl._create_unverified_context</span><br></pre></td></tr></table></figure>
+
+<p>再次访问, 即可正常访问https站点</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/" class="post-title-link" itemprop="url">python连接mysql报错:'latin-1' codec can't encode characters</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-16 14:58:31" itemprop="dateCreated datePublished" datetime="2018-03-16T14:58:31+08:00">2018-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/03/16/python%E8%BF%9E%E6%8E%A5mysql%E6%8A%A5%E9%94%99-latin-1-codec-can-t-encode-characters/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python连接mysql报错-latin-1-codec-can-t-encode-characters/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>python连接mysql数据库进行查询时, 遇到以下报错: <code>UnicodeEncodeError: &#39;latin-1&#39; codec can&#39;t encode characters in position 40-41: ordinal not in range(256)</code> 很明显提示了是字符编码的问题</p>
+</blockquote>
+<p>发生以上问题, 是因为我在sql语句中出现了中文, 在拿到db游标对象之后, 去执行sql的时候的报错</p>
+<h1 id="排查数据库字符编码"><a href="#排查数据库字符编码" class="headerlink" title="排查数据库字符编码"></a>排查数据库字符编码</h1><p>登录MySQL数据库, 执行以下SQL语句执行查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| Variable_name            | Value              |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">| character_set_client     | utf8mb4            |</span><br><span class="line">| character_set_connection | utf8mb4            |</span><br><span class="line">| character_set_database   | utf8mb4            |</span><br><span class="line">| character_set_filesystem | binary             |</span><br><span class="line">| character_set_results    | utf8mb4            |</span><br><span class="line">| character_set_server     | utf8mb4            |</span><br><span class="line">| character_set_system     | utf8               |</span><br><span class="line">| collation_connection     | utf8mb4_unicode_ci |</span><br><span class="line">| collation_database       | utf8mb4_unicode_ci |</span><br><span class="line">| collation_server         | utf8mb4_unicode_ci |</span><br><span class="line">+<span class="comment">--------------------------+--------------------+</span></span><br><span class="line">10 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>经过查询, 发现mysql数据库本身已是 <code>utf8</code> 的字符编码</p>
+<p>分析可能的原因:</p>
+<p>mysql一般有三段配置, 分别是: <code>[mysql]</code> <code>[clinet]</code> <code>[mysqld]</code></p>
+<ul>
+<li>[mysql] 对其他远程连接的mysql客户端的配置, 例如在其他服务器执行<code>mysql -h -u -p</code>或使用代码进行连接</li>
+<li>[client] 对本地的mysql客户端的配置, 例如在本地执行<code>mysql -u -p</code></li>
+<li>[mysqld] 对mysql服务进行配置</li>
+</ul>
+<p>有可能mysql配置文件中的[mysql]下没有配置 <code>default-character-set = utf8mb4</code>, 导致远程客户端连接到服务器端后, 没有获得服务端声明的字符编码, 而使用客户端默认带的字符编码进行连接, 如果是这种情况, 可以在mysql服务端更改配置文件并重启mysql服务, 如果你不想重启数据库, 可以显示地在mysql客户端声明使用的字符编码</p>
+<h1 id="解决pymysql字符编码问题"><a href="#解决pymysql字符编码问题" class="headerlink" title="解决pymysql字符编码问题"></a>解决pymysql字符编码问题</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">"localhost"</span>,<span class="string">"root"</span>,<span class="string">"123"</span>,<span class="string">"mysql"</span>, charset=<span class="string">"utf8"</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select Host, User from user where User='中文';"</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
+
+<p>解决方法很简单, 只需要在创建数据库连接对象的时候, 显示地声明字符编码就可以了 <code>charset=&quot;utf8&quot;</code></p>
+<p>注意: 如果你的MySQL服务器的字符编码使用的是<code>utf-8</code> 的话, 你需要声明你的连接对象的字符编码也是 <code>utf-8</code></p>
+<p>如果你的MySQL服务器的字符编码使用的是<code>utf8mb4</code> 的话, 相对应的, 你应该声明自己客户端的字符编码是 <code>utf8mb4</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -912,201 +1103,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/" class="post-title-link" itemprop="url">grep: warning: GREP_OPTIONS is deprecated</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:18:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:18:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/grep-warning-GREP-OPTIONS-is-deprecated/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>原因是在你的配置文件中(我的是CentOS7, /etc/profile)出现了以下配置导致的: <code>export GREP_OPTIONS=--color=auto</code></p>
-</blockquote>
-<p>解决方法也很简单, 首先在<code>/etc/profile</code>中注释该行</p>
-<p><code># export GREP_OPTIONS=--color=auto</code></p>
-<p>然后在terminal界面执行<code>unset GREP_OPTIONS</code></p>
-<p>再次执行grep操作, 就不会有恼人的Warning出现啦~</p>
-<p>附录: 有可能影响到grep的这一行export配置并不在你的<code>/etc/profile</code>文件下,你可以尝试去<code>~/.bashrc</code> <code>~/.bashprofile</code> <code>~/.zshrc</code>等文件中查找</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/" class="post-title-link" itemprop="url">Zabbix agent is unreachable for 5 minutes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:16:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:16:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/Zabbix-agent-is-unreachable-for-5-minutes/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>最近入到了 <code>Zabbix agent on HOSTNAME is unreachable for 5 minutes</code> 的问题, 但实际server到agent的网络通信是没有任何问题的, 这种情况下, 我们需要登录到agent这台主机, 查看<code>zabbix_agent</code>的日志来排查错误</p>
-</blockquote>
-<h1 id="查看zabbix-agent的启动进程"><a href="#查看zabbix-agent的启动进程" class="headerlink" title="查看zabbix_agent的启动进程"></a>查看zabbix_agent的启动进程</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; ps aux | grep <span class="string">"zabbix"</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是编译安装的agent, 手动指定配置文件启动的进程, 在这里你可以看到你引用的配置文件的地址</p>
-<h1 id="查看配置文件"><a href="#查看配置文件" class="headerlink" title="查看配置文件"></a>查看配置文件</h1><p>在配置文件中你需要查看的是记录日志的位置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LogFile=/var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</span><br></pre></td></tr></table></figure>
-
-<h1 id="查看日志报错"><a href="#查看日志报错" class="headerlink" title="查看日志报错"></a>查看日志报错</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; tail -f /var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</span><br></pre></td></tr></table></figure>
-
-<p>在我这里的实际情况中, 出现了以下报错信息:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25863:20180116:103949.621 failed to accept an incoming connection: connection from &quot;192.168.10.85&quot; rejected, allowed hosts: &quot;zabbix_server.lvrui.io&quot;</span><br></pre></td></tr></table></figure>
-
-<p>在这里我们可以看到几个关键字眼</p>
-<ul>
-<li>reject: 说明客户端拒绝了服务端的请求</li>
-<li>allowed hosts: 允许访问客户端的服务端地址</li>
-</ul>
-<p>通过以上关键字可以判断出, 客户端认到的server的实际IP地址是<code>192.168.10.85</code>, 但是客户端配置的server地址却是<code>zabbix_server.lvrui.io</code>, 客户端不能反解析出这个IP地址对应的域名, 所以拒绝了server的请求</p>
-<p>最简单的解决方法就是将zabbix_agent配置文件中的<code>Server</code> <code>ServerActive</code>的配置都改成 <code>192.168.10.85</code> 即可</p>
-<p>第二个办法, 你要是非要用域名的话, 你可以将监控模式改为主动模式, 主动去服务端推送数据</p>
-<p>第三个办法, 是你需要在你的网络环境中, 配置对应zabbix_server的反向解析</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1179,7 +1175,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1192,7 +1188,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

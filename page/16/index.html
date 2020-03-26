@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,189 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">指定tomcat使用的jdk版本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:59:03" itemprop="dateCreated datePublished" datetime="2016-12-12T13:59:03+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/%E6%8C%87%E5%AE%9Atomcat%E4%BD%BF%E7%94%A8%E7%9A%84jdk%E7%89%88%E6%9C%AC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/指定tomcat使用的jdk版本/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p> 操作目标： 192.168.100.150 cloudfollowadmin 项目指定java 1.8</p>
+</blockquote>
+<p>192.168.100.150 上有多个tomcat项目，起java版本使用了系统默认的1.6，现在要为cloudfollowadmin项目指定使用java1.8版本，以下是操作步骤</p>
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><ul>
+<li>找到启动加载的配置文件</li>
+<li>在配置文件中指定javahome</li>
+</ul>
+<p>以下是该项目的完整路径<br><code>/webserver/tomcat/cloudfollowadmin/bin/</code></p>
+<p>在该路径下，tomcat启动时会加载执行catalina.sh文件，这里设置了一些环境变量，但是在脚本的中间部分</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim catalina.sh</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get standard Java environment variables</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">$os400</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="comment"># -r will Only work on the os400 if the files are:</span></span><br><span class="line">  <span class="comment"># 1. owned by the user</span></span><br><span class="line">  <span class="comment"># 2. owned by the PRIMARY group of the user</span></span><br><span class="line">  <span class="comment"># this will not work if the user belongs in secondary groups</span></span><br><span class="line">  BASEDIR=<span class="string">"<span class="variable">$CATALINA_HOME</span>"</span></span><br><span class="line">  . <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh ]; <span class="keyword">then</span></span><br><span class="line">    BASEDIR=<span class="string">"<span class="variable">$CATALINA_HOME</span>"</span></span><br><span class="line">    . <span class="string">"<span class="variable">$CATALINA_HOME</span>"</span>/bin/setclasspath.sh</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Cannot find <span class="variable">$CATALINA_HOME</span>/bin/setclasspath.sh"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"This file is needed to run this program"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>在获取java环境变量的时候，实际是读取了该bin目录下，setclasspath.sh脚本的执行结果，所以有此可以推导出，只要在setclasspath.sh脚本中，把java的配置写死，那么tomcat启动时，就会去指定的路径下去找javahome了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim setclasspath.sh</span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">JAVA_HOME=<span class="string">"/usr/local/src/jdk1.8.0_101/"</span></span><br><span class="line">JRE_HOME=<span class="string">"/usr/local/src/jdk1.8.0_101/jre"</span></span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>在setclasspath.sh脚本的开头，设置java的环境变量，如果你本机的其他java应用需要继续使用tomcat老版本，那么在这个脚本中，千万不要在前面加上export关键字，这样会把这个变量的设置提升为全局变量，会影响到其他应用重启时获取到的javaHome路径</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">MySQL迁移方案-单实例单库主从同步迁移</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:56:03" itemprop="dateCreated datePublished" datetime="2016-12-12T13:56:03+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/MySQL%E8%BF%81%E7%A7%BB%E6%96%B9%E6%A1%88-%E5%8D%95%E5%AE%9E%E4%BE%8B%E5%8D%95%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E8%BF%81%E7%A7%BB/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL迁移方案-单实例单库主从同步迁移/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="迁库-amp-同步"><a href="#迁库-amp-同步" class="headerlink" title="迁库&amp;同步"></a>迁库&amp;同步</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在主库锁库</span></span><br><span class="line">mysql&gt; flush tables with read lock;</span><br><span class="line"><span class="comment"># dump主库数据库</span></span><br><span class="line">$ mysqldump -uroot -p OcrManagement &gt; OcrManagement.sql</span><br><span class="line"><span class="comment">#查看主库位置</span></span><br><span class="line">mysql&gt; show master status;</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line">| File             | Position   | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line">| mysql-bin.000014 | 1058718197 |              | mysql            |                   |</span><br><span class="line">+<span class="comment">------------------+------------+--------------+------------------+-------------------+</span></span><br><span class="line"><span class="comment"># 解锁主库</span></span><br><span class="line">mysql&gt; unlock tables;</span><br><span class="line"><span class="comment"># 将dump出来的sql文件传送到从库</span></span><br><span class="line">$ tar -cvzf OcrManagement.sql.tar.gz OcrManagement.sql</span><br><span class="line">$ scp OcrManagement.sql ps@192.168.3.11:/data/</span><br><span class="line"><span class="comment"># 查看主库数据库建库参数</span></span><br><span class="line">mysql&gt; show create database OcrManagement;</span><br><span class="line"></span><br><span class="line"><span class="comment">----------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 根据主库建库参数，在从库预先建立数据库</span></span><br><span class="line">mysql&gt; create database OcrManagement;</span><br><span class="line"><span class="comment"># 在从库中解压文件</span></span><br><span class="line">$ tar -xvzf OcrManagement.sql.tar.gz</span><br><span class="line"><span class="comment"># 导入数据</span></span><br><span class="line">$ mysql -uroot -p OcrManagement &lt; OcrManagement.sql</span><br><span class="line"><span class="comment"># 设置主库信息</span></span><br><span class="line">mysql&gt; change master to MASTER_HOST='192.168.168.149',MASTER_PORT=33306,MASTER_USER='repl',MASTER_PASSWORD='xxxxxxxx',MASTER_LOG_FILE='mysql-bin.000014',MASTER_LOG_POS=1058718197;</span><br><span class="line"><span class="comment"># 启动从库线程</span></span><br><span class="line">mysql&gt; start slave;</span><br><span class="line"><span class="comment"># 检查同步状态</span></span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
+
+<h1 id="切换主从"><a href="#切换主从" class="headerlink" title="切换主从"></a>切换主从</h1><p>[MySQL主从切换]<a href="https://docs.20150509.cn/2016/12/12/MySQL的主从切换/" target="_blank" rel="noopener">https://docs.20150509.cn/2016/12/12/MySQL的主从切换/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1090,220 +1273,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">开启GTID的情况下导出导入库的注意事项</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-28 11:45:06" itemprop="dateCreated datePublished" datetime="2016-10-28T11:45:06+08:00">2016-10-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/28/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/28/开启GTID的情况下导出导入库的注意事项/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息. </p>
-</blockquote>
-<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don<span class="string">'t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
-
-<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
-<p><code>➜  mysqldump -uroot -p --set-gtid-purged=OFF userdb &gt; userdb.sql</code></p>
-<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
-<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
-<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
-<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line">ERROR 1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be <span class="built_in">set</span> when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
-
-<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
-<p>这个时候你有两个选择:</p>
-<ol>
-<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
-<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/" class="post-title-link" itemprop="url">mysql修改sql_mode</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 15:53:28" itemprop="dateCreated datePublished" datetime="2016-10-12T15:53:28+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysql修改sql-mode/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="sql-mode"><a href="#sql-mode" class="headerlink" title="sql_mode"></a>sql_mode</h1><ul>
-<li></li>
-<li>ANSI</li>
-<li>TRADITIONAL</li>
-<li>STRICT_TRANS_TABLES</li>
-</ul>
-<h2 id="sql-mode为空"><a href="#sql-mode为空" class="headerlink" title="sql_mode为空"></a>sql_mode为空</h2><p>最宽松的模式, 即使有错误既不会报错也不会有警告⚠️</p>
-<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>宽松模式，对插入数据进行校验，如果不符合定义类型或长度，对数据类型调整或截断保存，报warning警告</p>
-<h2 id="TRADITIONAL"><a href="#TRADITIONAL" class="headerlink" title="TRADITIONAL"></a>TRADITIONAL</h2><p>严格模式，当向mysql数据库插入数据时，进行数据的严格校验，保证错误数据不能插入，报error错误。用于事物时，会进行事物的回滚</p>
-<h2 id="STRICT-TRANS-TABLES"><a href="#STRICT-TRANS-TABLES" class="headerlink" title="STRICT_TRANS_TABLES"></a>STRICT_TRANS_TABLES</h2><p>严格模式，进行数据的严格校验，错误数据不能插入，报error错误</p>
-<h2 id="NO-ENGINE-SUBSTITUTION"><a href="#NO-ENGINE-SUBSTITUTION" class="headerlink" title="NO_ENGINE_SUBSTITUTION"></a>NO_ENGINE_SUBSTITUTION</h2><p>no_engine_subtitution的作用：mysql 在create table 时可以指定engine子句(指定存储引擎),如果把引擎指定成一个并不存在的引擎, 这个时候mysql可以有两种行为供选择</p>
-<ul>
-<li>直接报错</li>
-<li>把表的存储引擎替换成innodb</li>
-</ul>
-<p>如果 sql_mode 存在 no_engine_subtitution 的时候 ===&gt; 直接报错</p>
-<p>如果 sql_mode 不存在 no_engine_subtitution 的时候 ===&gt; 把表的存储引擎替换成innodb</p>
-<h1 id="查询-sql-mode"><a href="#查询-sql-mode" class="headerlink" title="查询 sql_mode"></a>查询 sql_mode</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select @@sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@sql_mode             |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@global.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@global.sql_mode      |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@session.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@session.sql_mode     |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<h1 id="在线修改-sql-mode"><a href="#在线修改-sql-mode" class="headerlink" title="在线修改 sql_mode"></a>在线修改 sql_mode</h1><p><code>SET [GLOBAL|SESSION] sql_mode=&#39;modes&#39;</code></p>
-<h2 id="当前-session-生效"><a href="#当前-session-生效" class="headerlink" title="当前 session 生效"></a>当前 session 生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`;</span><br></pre></td></tr></table></figure>
-
-<h2 id="全局生效"><a href="#全局生效" class="headerlink" title="全局生效"></a>全局生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`</span><br></pre></td></tr></table></figure>
-
-<h1 id="离线修改-sql-mode"><a href="#离线修改-sql-mode" class="headerlink" title="离线修改 sql_mode"></a>离线修改 sql_mode</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考文档: </p>
-<ul>
-<li>no_engine_subtitution: <a href="http://www.cnblogs.com/JiangLe/p/5621856.html" target="_blank" rel="noopener">http://www.cnblogs.com/JiangLe/p/5621856.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1376,7 +1345,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1389,7 +1358,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

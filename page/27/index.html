@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,343 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/" class="post-title-link" itemprop="url">CentOS6系列安装MySQL5.7</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-08 10:56:51" itemprop="dateCreated datePublished" datetime="2016-03-08T10:56:51+08:00">2016-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/08/CentOS6%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85MySQL5-7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/08/CentOS6系列安装MySQL5-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>CentOS6系列，自带的repo库中，默认安装的依然是MySQL5.1版本，过于老旧，而5.6+版本相比5.1版本在各个方面均有全名的提升，对性能要求较高的应用优先考虑5.6+版本。本篇文章介绍使用MySQL官方源安装MySQL5.7</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">shell&gt; wget http://repo.mysql.com//mysql57-community-release-el6-7.noarch.rpm</span><br><span class="line">shell&gt; rpm -ivh mysql57-community-release-el6-7.noarch.rpm</span><br><span class="line">shell&gt; yum install mysql-server  <span class="comment">#这里会默认安装mysql-community-server和对应版本的mysql-community-client</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>如果已经安装有5.1的老版本，可以先将其卸载，再执行上面的安装步骤</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum remove mysql</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Setting up Remove Process</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package mysql.x86_64 0:5.1.73-5.el6_6 will be erased</span><br><span class="line">--&gt; Processing Dependency: mysql = 5.1.73-5.el6_6 <span class="keyword">for</span> package: mysql-server-5.1.73-5.el6_6.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package mysql-server.x86_64 0:5.1.73-5.el6_6 will be erased</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">=====================================================================================</span><br><span class="line"> Package               Arch            Version                  Repository      Size</span><br><span class="line">=====================================================================================</span><br><span class="line">Removing:</span><br><span class="line"> mysql                 x86_64          5.1.73-5.el6_6           @base          2.4 M</span><br><span class="line">Removing <span class="keyword">for</span> dependencies:</span><br><span class="line"> mysql-server          x86_64          5.1.73-5.el6_6           @base           25 M</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">=====================================================================================</span><br><span class="line">Remove        2 Package(s)</span><br><span class="line"></span><br><span class="line">Installed size: 27 M</span><br><span class="line">Is this ok [y/N]:</span><br><span class="line"><span class="comment">#卸载老版本的MySQL，默认会同时卸载掉对应的client端</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#执行上面的安装部分...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启动数据库可能会出现下面的错误</span></span><br><span class="line">shell&gt; service mysqld restart</span><br><span class="line">Stopping mysqld:                                           [  OK  ]</span><br><span class="line">MySQL Daemon failed to start.</span><br><span class="line">Starting mysqld:                                           [FAILED]</span><br><span class="line"></span><br><span class="line">shell&gt; mysql</span><br><span class="line">ERROR 2002 (HY000): Can<span class="string">'t connect to local MySQL server through socket '</span>/var/lib/mysql/mysql.sock<span class="string">' (2)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#查看日志出现如下报错</span></span><br><span class="line"><span class="string">#[ERROR] Fatal error: mysql.user table is damaged. Please run mysql_upgrade.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#解决方法是重新初始化数据库</span></span><br><span class="line"><span class="string">shell&gt; rm -fr /var/lib/mysql</span></span><br><span class="line"><span class="string">shell&gt; mysqld --initialize --user=mysql</span></span><br><span class="line"><span class="string">shell&gt; service mysqld restart</span></span><br><span class="line"><span class="string">Stopping mysqld:                                           [  OK  ]</span></span><br><span class="line"><span class="string">Starting mysqld:                                           [  OK  ]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>假如老版本的5.1由于某些原因，不能卸载或不允许卸载，那么安装5.7时，可以使用编译安装的方式，将新数据库启动的端口由3306改成3307，即可实现两个MySQL版本的数据库进程共存</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Grafana2.6+Zabbix3.0监控系统搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-04 16:46:14" itemprop="dateCreated datePublished" datetime="2016-03-04T16:46:14+08:00">2016-03-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/04/Grafana-2-6-Zabbix-3-0-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/04/Grafana-2-6-Zabbix-3-0-监控系统搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文介绍在CentOS6系列系统中，安装zabbix 3.0与grafana 2.5 搭配的监控系统<br>据了解在zabbix 3.0 LTS版本有50余项升级，zabbix是结合了众多监控系统的优点，是一款比较全面分布式监控系统。在与Grafana搭伙后，完美解决了Zabbix GUI审美疲劳的痛点，接下来进入正题（Zabbix 3.0安装部分完全按照官方文档的步骤实现）</p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ol>
+<li>本文的Zabbix部分知识只介绍它的基础安装，Zabbix的使用以及配置优化并不在本文的介绍范围之内。</li>
+<li>本文只介绍在CentOS6系列下的安装和部署，其他发行版与其他版本号暂不涉及</li>
+<li>本文默认使用MySQL作为后端数据库支持</li>
+</ol>
+<hr>
+<h1 id="CentOS-6-x-基础环境配置部分"><a href="#CentOS-6-x-基础环境配置部分" class="headerlink" title="CentOS 6.x 基础环境配置部分"></a>CentOS 6.x 基础环境配置部分</h1><h2 id="基础环境介绍"><a href="#基础环境介绍" class="headerlink" title="基础环境介绍"></a>基础环境介绍</h2><ul>
+<li>CentOS 6.7 64bit</li>
+<li>8CPU</li>
+<li>1G Mem</li>
+<li>MySQL InnoDB</li>
+</ul>
+<h2 id="基础依赖环境配置"><a href="#基础依赖环境配置" class="headerlink" title="基础依赖环境配置"></a>基础依赖环境配置</h2><h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><p><strong>1.Zabbix官方文档要求Apache的版本要在1.3.12之后</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install httpd -y</span><br><span class="line">Loaded plugins: fastestmirror, refresh-packagekit, security</span><br><span class="line">Setting up Install Process</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.neusoft.edu.cn</span><br><span class="line"> * epel: mirrors.yun-idc.com</span><br><span class="line"> * extras: mirrors.btte.net</span><br><span class="line"> * remi-safe: mirror.innosol.asia</span><br><span class="line"> * rpmforge: mirrors.neusoft.edu.cn</span><br><span class="line"> * updates: mirrors.btte.net</span><br><span class="line">Package httpd-2.2.15-47.el6.centos.3.x86_64 already installed and latest version</span><br><span class="line">Nothing to <span class="keyword">do</span></span><br></pre></td></tr></table></figure>
+
+<p> 我这里已经安装了<code>httpd 2.2</code>版本，符合官方文档中的要求</p>
+<p><strong>2.启动httpd服务，并设置为开机自动启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; service httpd start</span><br><span class="line">shell&gt; chkconfig httpd on</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p><strong>PHP的版本要求在5.4以上，但Linux 6.x系统自带repo中的PHP版本是5.3.3 不符合Zabbix官方文档的要求，需要使用Remi repo来安装更高版本的PHP</strong></p>
+<h4 id="配置Remi-Repo来安装高版本的PHP"><a href="#配置Remi-Repo来安装高版本的PHP" class="headerlink" title="配置Remi Repo来安装高版本的PHP"></a>配置Remi Repo来安装高版本的PHP</h4><p><strong>1.下载Remi</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.配置Remi</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用习惯的文本编辑器（如 vim）打开 Remi 源配置文件 &#x2F;etc&#x2F;yum.repos.d&#x2F;remi.repo</span><br><span class="line">启用 Remi Repository修改 enabled&#x3D;0 为 enabled&#x3D;1</span><br><span class="line">为 Remi Repository 设置合适的优先级在 [remi] 那一节的结尾另起一行添加下面的代码：priority&#x3D;3</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.安装PHP</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install --enablerepo=remi php php-gd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>因为php-gd和php版本可能有依赖，所以php-gd这个扩展也使用remi这个repo来安装</p>
+</li>
+<li><p>如果出现<code>Requires: libt1.so.5()(64bit)</code>这个报错，可以参考 <a href="http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/" target="_blank" rel="noopener">http://docs.20150509.cn/2016/03/02/Requires-libt1-so-5-64bit/</a> 这篇文章解决</p>
+</li>
+</ul>
+<p><strong>4.根据Zabbix官方文档需求安装PHP扩展</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install php-bcmath php-ctype php-xml php-xmlreader php-xmlwriter php-session php-net-socket php-gettext php-mbstring php-gettext php-ldap php-mysql</span><br></pre></td></tr></table></figure>
+
+<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><p><strong>根据官方文档的要求，需要在服务器中安装一下软件支持</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install OpenIPMI OpenIPMI-devel libssh2 libssh2-devel fping libcurl libxml2 libxml2-devel net-snmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p><strong>官方文档要求MySQL的版本要在5.0.3以上，CentOS 6.7默认的repo里提供的MySQL版本为5.1.73 符合官方文档要求</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install mysql mysql-server mysql-devel</span><br><span class="line">shell&gt; service mysqld start  <span class="comment">#首次启动需要初始化</span></span><br><span class="line">shell&gt; chkconfig mysqld on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Zabbix安装部分"><a href="#Zabbix安装部分" class="headerlink" title="Zabbix安装部分"></a>Zabbix安装部分</h1><p><strong>Zabbix 3.0的安装参考了官方文档中源码编译安装的方式，软件包的方式比较简单，大家可以参考官方文档自行试验，时间关系，这里暂不介绍rpm包的安装方式，后续有时间会补充提供这种安装方式的说明</strong></p>
+<h2 id="源码安装的方式"><a href="#源码安装的方式" class="headerlink" title="源码安装的方式"></a>源码安装的方式</h2><h3 id="下载Zabbix-3-0源码包并解压"><a href="#下载Zabbix-3-0源码包并解压" class="headerlink" title="下载Zabbix 3.0源码包并解压"></a>下载Zabbix 3.0源码包并解压</h3><p>Zabbix 3.0 源码官方下载地址： <a href="http://www.zabbix.com/download.php" target="_blank" rel="noopener">http://www.zabbix.com/download.php</a><br>选择<code>Zabbix Sources</code>下的<code>Zabbix 3.0 LTS</code>进行下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; tar -zxvf zabbix-3.0.0.tar.gz  <span class="comment">#解压缩</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建用户及组"><a href="#创建用户及组" class="headerlink" title="创建用户及组"></a>创建用户及组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; groupadd zabbix</span><br><span class="line">shell&gt; useradd -g zabbix zabbix</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Zabbix数据库"><a href="#创建Zabbix数据库" class="headerlink" title="创建Zabbix数据库"></a>创建Zabbix数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mysql -uroot -p&lt;password&gt;</span><br><span class="line">mysql&gt; create database zabbix character <span class="built_in">set</span> utf8 collate utf8_bin;</span><br><span class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by <span class="string">'&lt;password&gt;'</span>;</span><br><span class="line">mysql&gt; quit;</span><br><span class="line">shell&gt; <span class="built_in">cd</span> database/mysql  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; schema.sql</span><br><span class="line"><span class="comment">#如果你是为Zabbix Proxy来创建数据库，那么到这里就必须停止了，下面的不需要执行</span></span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; images.sql</span><br><span class="line">shell&gt; mysql -uzabbix -p&lt;password&gt; zabbix &lt; data.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装Zabbix-Server和Zabbix-Agent"><a href="#编译安装Zabbix-Server和Zabbix-Agent" class="headerlink" title="编译安装Zabbix Server和Zabbix Agent"></a>编译安装Zabbix Server和Zabbix Agent</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --<span class="built_in">help</span> <span class="comment">#可以查看编译的参数项</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-server --<span class="built_in">enable</span>-agent --with-mysql --<span class="built_in">enable</span>-ipv6 --with-net-snmp --with-libcurl --with-libxml2  <span class="comment">#Zabbix Server与Agent安装参数参考</span></span><br><span class="line">shell&gt; make install</span><br></pre></td></tr></table></figure>
+
+<p>其他组件安装参考：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; ./configure --prefix=/usr --<span class="built_in">enable</span>-proxy --with-net-snmp --with-sqlite3 --with-ssh2  <span class="comment">#Zabbix Proxy安装参数参考</span></span><br><span class="line">shell&gt; ./configure --<span class="built_in">enable</span>-agent  <span class="comment">#Zabbix Agent安装参数参考</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>如果Server与Agent采用了AIO（All In One）的部署方式，作为测试，Agent的配置文件<code>可以不修改</code></p>
+<p>接下来修改Server的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; vim /usr/<span class="built_in">local</span>/etc/zabbix_server.conf</span><br><span class="line"><span class="comment">#以下为修改完成后的项目</span></span><br><span class="line"><span class="comment">#DBName和DBUser保持以下默认参数即可，只需设置DBPassword一项</span></span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=zabbix</span><br><span class="line">DBPassword=zabbix  <span class="comment">#上面配置数据时，我设置zabbix用户的密码为zabbix</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_server  <span class="comment">#启动Zabbix Server</span></span><br><span class="line">shell&gt; zabbix_agentd  <span class="comment">#启动Zabbix Agent</span></span><br></pre></td></tr></table></figure>
+
+<p>启动其他服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; zabbix_proxy  <span class="comment">#启动Zabbix Proxy</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Zabbix网站页面接口"><a href="#安装Zabbix网站页面接口" class="headerlink" title="安装Zabbix网站页面接口"></a>安装Zabbix网站页面接口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mkdir /var/www/html/zabbix</span><br><span class="line">shell&gt; <span class="built_in">cd</span> frontends/php  <span class="comment">#在解压缩后的zabbix-3.0.0文件夹中</span></span><br><span class="line">shell&gt; cp -a . /var/www/html/zabbix</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置Zabbix"><a href="#配置Zabbix" class="headerlink" title="配置Zabbix"></a>配置Zabbix</h3><ul>
+<li><p><strong>在浏览器中打开如下网址： <a href="http://server_ip_or_name/zabbix" target="_blank" rel="noopener">http://server_ip_or_name/zabbix</a></strong></p>
+</li>
+<li><p>在打开的页面中看到“Welcome to Zabbix 3.0”几个大字就算成功了一半了！点击<code>Next step</code><img src="http://oss.20150509.cn/install_1.png" alt="Welcome"></p>
+</li>
+<li><p>第二个页面<code>Check of pre-requisites</code> 会检查PHP的一些配置参数（第一列是变量名；第二列是PHP配置文件实际值；第三项是Zabbix强制要求的最低值或固定值），默认情况下这个页面所有的检查项应该都是“OK”的，如果有红色的错误项，根据前面提示的变量名，去找PHP的配置文件，修改成“REQUIRED”要求的值就可以啦（默认PHP的配置文件<code>/etc/php.ini</code>）<img src="http://oss.20150509.cn/install_2.png" alt="Check of pre-requisites"></p>
+</li>
+<li><p>第三个页面<code>Configure DB connection</code> 这一步骤会去尝试连接数据库。第一项数据库类型选择<code>MySQL</code>；DB Host 保持默认的<code>localhost</code>（因为这里采用了AIO的安装方式，数据库没有单独分离）；DB Port修改成<code>3306</code>；DB Name：<code>zabbix</code>； User：<code>zabbix</code>；Password：<code>zabbix</code>。点击<code>Next step</code>如果出现报错，根据报错信息排查是否是配置错误（这些配置都是在前面设置过的，3306是MySQL默认的端口号）<img src="http://oss.20150509.cn/install_3.png" alt="Configure DB connection"></p>
+</li>
+<li><p>第四个页面<code>Zabbix server details</code> 保持默认的Host：<code>localhost</code>和Port：<code>10051</code>配置即可，Name可以自定义设置，为这套监控系统起个名字<img src="http://oss.20150509.cn/install_4.png" alt="Zabbix server details"></p>
+</li>
+<li><p>第五个页面<code>Pre-installation summary</code> 总览一下前面所有的配置<code>Next step</code><img src="http://oss.20150509.cn/install_5.png" alt="Pre-installation summary"></p>
+</li>
+<li><p>第六个页面<code>Install</code> 我在进入到这个页面后，出现了报错，提示<code>Can not create the configuration file</code> 下方官方也给出了手动解决这个问题的方法。按照提示，第一步点击给出的连接，下载zabbix官方提供的配置文件；第二步，根据提示，放在指定的位置保存为指定的文件，我这里提示保存为：<code>/usr/share/zabbix/conf/zabbix.conf.php</code> 按照提示操作完成后点击<code>Finish</code><img src="http://oss.20150509.cn/install_6.png" alt="Install"></p>
+</li>
+<li><p>如果上面配置的都没有问题，第七个页面将会出现<code>congratulations! ...</code> 点击<code>Finish</code><img src="http://oss.20150509.cn/install_7.png" alt="Install2"></p>
+</li>
+<li><p>第八个页面将会出现登陆页面，默认的登陆用户名为<code>Admin</code> 密码为<code>zabbix</code><img src="http://oss.20150509.cn/login.png" alt="login"></p>
+</li>
+</ul>
+<h3 id="Zabbix的使用简介"><a href="#Zabbix的使用简介" class="headerlink" title="Zabbix的使用简介"></a>Zabbix的使用简介</h3><p>进入到Zabbix首页后，会发现3.0版本与之前的2.x版本的界面相比焕然一新，更养眼了，对解决2.x版本的审美疲劳起到了一定的作用。当然这只是最肤浅的外貌协会成员的结论，除了颜值高了，Zabbix还有50余项技术更新，变得愈发强大了<del>~</del></p>
+<ul>
+<li>在<code>Configuation</code>–&gt;<code>Hosts</code>–&gt;<code>status</code>中，将<code>Disabled</code>变成<code>Enabled</code>状态，稍等片刻，如果Zabbix Agent启动正常的话，<code>ZBX</code>的图标就会亮起，表示Server与Agent之间通信正常<img src="http://oss.20150509.cn/Zabbix_1.jpg" alt="Enabled"></li>
+<li>监控首页会是如下状态（各个模块可以拖拽移动布局）<img src="http://oss.20150509.cn/Zabbix_2.jpg" alt="Dashboard"></li>
+<li>再瞅一眼监控图表的效果~<img src="http://oss.20150509.cn/Zabbix_3.jpg" alt="Graphs1"></li>
+</ul>
+<p><strong>那么问题来了，虽然3.0换了一层扁平简约的外观，但是图表展示还是一样的丑……为了解决这个问题，Grafana可以帮上大忙，接下来的部分就详细介绍如何使用Grafana给Zabbix监控图表披上一层华丽的外衣</strong></p>
+<h2 id="RPM包安装方式"><a href="#RPM包安装方式" class="headerlink" title="RPM包安装方式"></a>RPM包安装方式</h2><p><em>略</em></p>
+<hr>
+<h1 id="Grafana安装部分"><a href="#Grafana安装部分" class="headerlink" title="Grafana安装部分"></a>Grafana安装部分</h1><p>截止至我写这篇文档的时候，Grafana的最新版本是<code>2.6.0</code> 而Grafana原生是不支持获取Zabbix数据的，需要通过grafana-zabbix插件来实现，grafana-zabbix插件的最新版本是2.5.1，github上写的很清楚，该插件服务于Grafana的2.5版本。经过测试，成功在2.6.0的Grafana上使用了grafana-zabbix的2.5.1版本。所以这里你可以任意选择2.5或2.6版本的Grafana来安装。</p>
+<h2 id="Grafana的下载及安装"><a href="#Grafana的下载及安装" class="headerlink" title="Grafana的下载及安装"></a>Grafana的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install https://grafanarel.s3.amazonaws.com/builds/grafana-2.6.0-1.x86_64.rpm  <span class="comment">#这里只提供了yum的安装方式，其他安装方式可以参考附录中的Grafana官方安装文档</span></span><br><span class="line">shell&gt; service grafana-server start  <span class="comment">#启动Grafana服务</span></span><br><span class="line">shell&gt; chkconfig grafana-server on  <span class="comment">#添加开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Grafana-Zabbix插件的下载及安装"><a href="#Grafana-Zabbix插件的下载及安装" class="headerlink" title="Grafana Zabbix插件的下载及安装"></a>Grafana Zabbix插件的下载及安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#https://github.com/alexanderzobnin/grafana-zabbix/releases/latest  #请到该网址下载2.5.1版本的grafana-zabbix插件</span></span><br><span class="line">shell&gt; tar -xvzf grafana-zabbix-2.5.1.tar.gz</span><br><span class="line">shell&gt; cp -r grafana-zabbix-2.5.1/zabbix/  /usr/share/grafana/public/app/plugins/datasource/</span><br><span class="line">shell&gt; service grafana-server restart</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Grafana-Zabbix联通部分"><a href="#Grafana-Zabbix联通部分" class="headerlink" title="Grafana + Zabbix联通部分"></a>Grafana + Zabbix联通部分</h1><ul>
+<li>在浏览器地址栏输入 <code>http://IP:3000</code>就可以看到Grafana的登陆页面了。输入默认的用户名<code>admin</code> 密码<code>admin</code>登陆</li>
+<li>点击左侧的<code>Data Sourses</code>–&gt;<code>Add new</code><ul>
+<li>Type下拉框中选择<code>Zabbix</code></li>
+<li>Name 可以自由发挥~~</li>
+<li>Http settings–&gt;Url 填入<code>http://zabbix-server-ip/zabbix/api_jsonrpc.php</code> 这里填入的是Zabbix API接口</li>
+<li>Http settings–&gt;Access 选择 <code>direct</code> 使用直接访问的方式</li>
+<li>Zabbix API details–&gt;User 填入<code>Admin</code></li>
+<li>Zabbix API details–&gt;Password 填入 <code>zabbix</code></li>
+<li>点<code>Save</code>保存后再编辑，出现<code>Test Connection</code>按钮，点击可测试API配置是否正确。出现：Success Zabbix API version: 3.0.0 配置成功<img src="http://oss.20150509.cn/grafana_1.jpg" alt="enter image description here"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Grafana配置部分"><a href="#Grafana配置部分" class="headerlink" title="Grafana配置部分"></a>Grafana配置部分</h1><p>至此仅差最后一步，将Zabbix的数据读取到Grafana来以图表展示，就打完收工啦！</p>
+<ul>
+<li>点击左侧的<code>Dashboards</code>–&gt;<code>Home</code>–&gt;在下拉菜单的底部选择<code>+ New</code>。这时新的页面中默认出现一个空的横行图表，左上角有绿色的竖线，右下角有<code>+ ADD ROW</code>添加新行的按钮。</li>
+<li>鼠标放在左上角的绿色竖线上，点击后弹出一个菜单，选择<code>Add Panel</code>。下面有五个选项，下面选择四个常用的分别介绍</li>
+<li>记得点击上面的<code>保存</code>按钮以保存新建的页面</li>
+</ul>
+<h2 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h2><p>这个选项是创建一个图表，类似于Zabbix的监控图表，是最常用的类型之一。</p>
+<ul>
+<li>General-Title：设置该图表的名称</li>
+<li>Metrics：在该项的右下角，选择正确的数据源（之前在Data Sources配置的Name）</li>
+<li>Metrics-Group/Host/Application/Item：这些项目是必填项目，需要依次下拉选择</li>
+</ul>
+<p><em>如果一张图需要展现两条线的数据，可以在左下角点击<code>+ Query</code></em></p>
+<ul>
+<li>Display Styles-Chart Options：这里可以选择以<code>竖线</code>展示，以<code>折线</code>展示或以<code>点</code>来展示数据<br><img src="http://oss.20150509.cn/grafana_2.jpg" alt="Grafana-Graph"></li>
+</ul>
+<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><p>表格展示，类似于Excel表格的展现形式<br><img src="http://oss.20150509.cn/grafana_3.jpg" alt="enter image description here"></p>
+<ul>
+<li>点击 <code>- +</code> 号可以调整该模块的大小（横向伸缩）</li>
+<li>点击<code>Edit</code>可以重新编辑该模块的数据源</li>
+</ul>
+<h2 id="Single-stat"><a href="#Single-stat" class="headerlink" title="Single stat"></a>Single stat</h2><p>单统计模块，从字面意思就可以知道，该种模块仅可以展示一种数据，统计一种数据。这里需要重点说明就是<code>Option</code>选项下的参数</p>
+<p>以统计磁盘使用大小一项来举例</p>
+<ul>
+<li>Unit：要选择<code>data</code>下的<code>bytes</code>单位来统计</li>
+<li>Decimals：小数设置保持默认的auto即可</li>
+<li>Coloring：这里可以选择渲染背景色或字体色<ul>
+<li>Colors控制着三个颜色，可以自由发挥，一般绿色代表正常，黄色代表预警，红色代表警告</li>
+<li>Thresholds可以设置以逗号分隔的三个数字，分别表示三个状态的阈值</li>
+<li>Spark lines有两种显示模式，<code>Show</code>会在数据的下方展示折线；<code>Background mode</code>会在整个模块的背景展示折线</li>
+</ul>
+</li>
+</ul>
+<h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><p>这个模块很好理解，就是一个现实文字的模块，支持markdown语法，可以放在每个页面的头部，标记当前图表信息的归类。</p>
+<h2 id="Dashboards-list"><a href="#Dashboards-list" class="headerlink" title="Dashboards list"></a>Dashboards list</h2><p>这个模块是用来展示页面列表用的。举个例子，如果一个监控系统中，涉及到了多个页面展示监控图表，就会用到这个功能，这个模块会列出你需要展示的页面的列表，方便在当前页面中，快速的切换到其他监控页面。</p>
+<h2 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h2><p><img src="http://oss.20150509.cn/grafana_5.jpg" alt="Final"></p>
+<h2 id="页面自动刷新"><a href="#页面自动刷新" class="headerlink" title="页面自动刷新"></a>页面自动刷新</h2><p>点击右上角<code>Last 6 hours</code>, 在弹出的下拉框中，选择<code>Time range</code>下的<code>Refreshing every</code>选项，点击下拉框按钮，默认应该有<code>off</code> 和 <code>1m</code>两个选项。点击<code>1m</code> 然后<code>Apply</code>设置。即为每一分钟刷新一次数据的意思。<strong>设置成功后</strong>，在原来<code>Last 6 hours</code>的后面会出现<code>Refresh every 1m</code>的橙色文字！</p>
+<hr>
+<h1 id="附录：参考文档"><a href="#附录：参考文档" class="headerlink" title="附录：参考文档"></a>附录：参考文档</h1><p><a href="https://www.zabbix.com/documentation/3.0/manual/installation/requirements" target="_blank" rel="noopener">Zabbix 3.0官方文档</a></p>
+<p><a href="http://cnzhx.net/blog/remi-repository/#i-2" target="_blank" rel="noopener">Remi官方文档</a></p>
+<p><a href="http://grafana.org/" target="_blank" rel="noopener">Grafana官方网站</a></p>
+<p><a href="http://docs.grafana.org/installation/rpm/" target="_blank" rel="noopener">Grafana官方安装文档</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1148,259 +1485,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">YAML语法简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-12-03 16:15:47" itemprop="dateCreated datePublished" datetime="2015-12-03T16:15:47+08:00">2015-12-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/12/03/YAML%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/03/YAML语法简介/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="YAML的数据结构"><a href="#YAML的数据结构" class="headerlink" title="YAML的数据结构"></a>YAML的数据结构</h1><p>YAML的设计者认为在配置文件中所要表达的数据内容有三种类型</p>
-<ul>
-<li>Scalars（标量，如字符串和数字等）</li>
-<li>Sequence （序列，类似于Python中列表的概念）</li>
-<li>Mapping （类似于Python中字典的概念）</li>
-</ul>
-<h2 id="Sequence-of-Scalars"><a href="#Sequence-of-Scalars" class="headerlink" title="Sequence of Scalars"></a>Sequence of Scalars</h2><p>YAML(ball players)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'Mark McGwire'</span>, <span class="string">'Sammy Sosa'</span>, <span class="string">'Ken Griffey'</span>]</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Mapping-Scalars-to-Scalars"><a href="#Mapping-Scalars-to-Scalars" class="headerlink" title="Mapping Scalars to Scalars"></a>Mapping Scalars to Scalars</h2><p>YAML(player statistics)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hr:  65    # Home runs</span><br><span class="line">avg: 0.278 # Batting average</span><br><span class="line">rbi: 147   # Runs Batted In</span><br></pre></td></tr></table></figure>
-
-<p>Pyhton(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>, <span class="string">'rbi'</span>:<span class="number">147</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Mapping-Scalars-to-Sequences"><a href="#Mapping-Scalars-to-Sequences" class="headerlink" title="Mapping Scalars to Sequences"></a>Mapping Scalars to Sequences</h2><p>YAML(ball clubs in each league)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">american:</span><br><span class="line">  - Boston Red Sox</span><br><span class="line">  - Detroit Tigers</span><br><span class="line">  - New York Yankees</span><br><span class="line">national:</span><br><span class="line">  - New York Mets</span><br><span class="line">  - Chicago Cubs</span><br><span class="line">  - Atlanta Braves</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'american'</span>:[<span class="string">'Boston Red Sox'</span>, <span class="string">'Detroit Tigers'</span>, <span class="string">'New York Yankees'</span>], <span class="string">'national'</span>:[<span class="string">'New York Mets'</span>, <span class="string">'Chicago Cubs'</span>, <span class="string">'Atlanta Braves'</span>]&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Sequence-of-Mappings"><a href="#Sequence-of-Mappings" class="headerlink" title="Sequence of Mappings"></a>Sequence of Mappings</h2><p>YAML(players’ statistics)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-</span><br><span class="line">  name: Mark McGwire</span><br><span class="line">  hr:   65</span><br><span class="line">  avg:  0.278</span><br><span class="line">-</span><br><span class="line">  name: Sammy Sosa</span><br><span class="line">  hr:   63</span><br><span class="line">  avg:  0.288</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">'name'</span>:<span class="string">'Mark McGwire'</span>, <span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>&#125;, &#123;<span class="string">'name'</span>:<span class="string">'Sammy Sosa'</span>, <span class="string">'hr'</span>:<span class="number">63</span>, <span class="string">'avg'</span>:<span class="number">0.288</span>&#125;]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Sequence-of-Sequences"><a href="#Sequence-of-Sequences" class="headerlink" title="Sequence of Sequences"></a>Sequence of Sequences</h2><p>YAML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- [name        , hr, avg  ]</span><br><span class="line">- [Mark McGwire, 65, 0.278]</span><br><span class="line">- [Sammy Sosa  , 63, 0.288]</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="string">'name'</span>, <span class="string">'hr'</span>, <span class="string">'avg'</span>], [<span class="string">'Mark McGwire'</span>, <span class="number">65</span>, <span class="number">0.278</span>], [<span class="string">'Sammy Sosa'</span>, <span class="number">63</span>, <span class="number">0.288</span>]]</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Mapping-of-Mappings"><a href="#Mapping-of-Mappings" class="headerlink" title="Mapping of Mappings"></a>Mapping of Mappings</h2><p>YAML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mark McGwire: &#123;hr: 65, avg: 0.278&#125;</span><br><span class="line">Sammy Sosa: &#123;</span><br><span class="line">    hr: 63,</span><br><span class="line">    avg: 0.288</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'Mark McGwire'</span>:&#123;<span class="string">'hr'</span>:<span class="number">65</span>, <span class="string">'avg'</span>:<span class="number">0.278</span>&#125;, <span class="string">'Sammy Sosa'</span>:&#123;<span class="string">'hr'</span>:<span class="number">63</span>, <span class="string">'avg'</span>:<span class="number">0.288</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="YAML中的注释"><a href="#YAML中的注释" class="headerlink" title="YAML中的注释"></a>YAML中的注释</h1><p>YAML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#ball players</span><br><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="YAML中的文档"><a href="#YAML中的文档" class="headerlink" title="YAML中的文档"></a>YAML中的文档</h1><p>在单一一个YAML文件中</p>
-<ul>
-<li>使用三个下划线<code>___</code>来分隔文档</li>
-<li>使用三个句号<code>...</code>表示结束（一般在通信信道中使用）</li>
-</ul>
-<p>YAML(Two Documents in a Stream)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Ranking of 1998 home runs</span><br><span class="line">---</span><br><span class="line">- Mark McGwire</span><br><span class="line">- Sammy Sosa</span><br><span class="line">- Ken Griffey</span><br><span class="line"> </span><br><span class="line"># Team ranking</span><br><span class="line">---</span><br><span class="line">- Chicago Cubs</span><br><span class="line">- St Louis Cardinals</span><br></pre></td></tr></table></figure>
-
-<p>YAML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">time: 20:03:20</span><br><span class="line">player: Sammy Sosa</span><br><span class="line">action: strike (miss)</span><br><span class="line">...</span><br><span class="line">---</span><br><span class="line">time: 20:03:47</span><br><span class="line">player: Sammy Sosa</span><br><span class="line">action: grand slam</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>YAML</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">用YAML来描述一本书《Linux命令行与shell脚本编程大全》</span><br><span class="line"> </span><br><span class="line"># 《Linux命令行与shell脚本编程大全》描述</span><br><span class="line">---  # begin of document</span><br><span class="line">书名: &#39;Linux命令行与shell脚本编程大全&#39;</span><br><span class="line">出版社: &#39;人民邮电出版社&#39;</span><br><span class="line">原作者: [&#39;Richard Blum&#39;, &#39;Christine Bresnahan&#39;]</span><br><span class="line">译者:</span><br><span class="line">    - 武海峰</span><br><span class="line">    - 朱巍</span><br><span class="line">前二章节:</span><br><span class="line">    - 第一章: 初识Linux Shell</span><br><span class="line">    - 第二章: 走进Shell</span><br><span class="line"> </span><br><span class="line">#end of document</span><br></pre></td></tr></table></figure>
-
-<p>Python(YAML)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'书名'</span>:<span class="string">'Linux命令行与shell脚本编程大全'</span>, <span class="string">'出版社'</span>:<span class="string">'人民邮电出版社'</span>, <span class="string">'原作者'</span>:[<span class="string">'Richard Blum'</span>, <span class="string">'Christine Bresnahan'</span>], <span class="string">'译者'</span>:[<span class="string">'武海峰'</span>, <span class="string">'朱巍'</span>], <span class="string">'前二章节'</span>:&#123;<span class="string">'第一章'</span>:<span class="string">'初识Linux Shell'</span>, <span class="string">'第二章'</span>:<span class="string">'走进Shell'</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考文档：</p>
-<ul>
-<li><a href="http://yaml.org/spec/1.1/" target="_blank" rel="noopener">http://yaml.org/spec/1.1/</a></li>
-<li><a href="http://www.cnblogs.com/chwkai/archive/2009/03/01/249924.html" target="_blank" rel="noopener">http://www.cnblogs.com/chwkai/archive/2009/03/01/249924.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/" class="post-title-link" itemprop="url">salt pkg.install报错:No module named yum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-24 17:03:52" itemprop="dateCreated datePublished" datetime="2015-11-24T17:03:52+08:00">2015-11-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/11/24/salt-pkg-install%E6%8A%A5%E9%94%99-No-module-named-yum/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/24/salt-pkg-install报错-No-module-named-yum/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在使用salt进行软件管理的时候，有些节点报 No module named yum 的错误。经过排查，发现是因为升级了minion端Python版本后产生的问题</p>
-</blockquote>
-<p><strong>msater</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ salt <span class="string">'vm3.salt.com'</span> pkg.install httpd</span><br><span class="line">vm3.salt.com:</span><br><span class="line">    ERROR: Traceback (most recent call last):</span><br><span class="line">      File <span class="string">"/usr/bin/repoquery"</span>, line 34, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">        import yum</span><br><span class="line">    ImportError: No module named yum</span><br></pre></td></tr></table></figure>
-
-<p>服务器自带的Python版本是2.6.6 由于其他业务的需求，Python的版本升级到了2.7.10，升级后首先yum命令处于不可用的状态，通过修改<code>/usr/bin/yum</code>文件的第一行<code>#!/usr/bin/python</code>为<code>#!/usr/bin/python2.6</code>来修复yum命令的使用</p>
-<p>由于系统默认的Python已经由2.6.6变更到了2.7.10</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /usr/bin/python</span><br><span class="line">lrwxrwxrwx 1 root root 34 Oct  9 02:16 /usr/bin/python -&gt; /usr/<span class="built_in">local</span>/python2.7/bin/python2.7</span><br></pre></td></tr></table></figure>
-
-<p>salt master在派发任务后，minion接收到任务并在本地使用默认的Python来执行，实际使用了升级后默认的Python2.7.10，导致Python报找不到yum模块的错误</p>
-<p>在网上搜索了很多方案，全部是修改yum默认使用的Python版本来解决问题，貌似不能通过让yum来支持高版本的Python来解决问题。so，要解决salt minion本地调用yum不报错，就必须要保证其使用Python2.6.6来执行！解决方案和yum命令的修复方式相同：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ head /usr/bin/repoquery</span><br><span class="line"><span class="comment">#!/usr/bin/python -tt</span></span><br><span class="line"><span class="comment">#... ...</span></span><br><span class="line"></span><br><span class="line">$ vim /usr/bin/repoquery </span><br><span class="line"></span><br><span class="line">$ head /usr/bin/repoquery</span><br><span class="line"><span class="comment">#!/usr/bin/python2.6 -tt</span></span><br><span class="line"><span class="comment">#... ...</span></span><br></pre></td></tr></table></figure>
-<p>将<code>/usr/bin/repoquery</code>文件第一行的<code>#!/usr/bin/python -tt</code>更改为<code>#!/usr/bin/python2.6 -tt</code>即可</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1473,7 +1557,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1486,7 +1570,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

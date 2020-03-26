@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,240 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">Docker容器的时区设置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-05 14:20:33" itemprop="dateCreated datePublished" datetime="2017-06-05T14:20:33+08:00">2017-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/Docker容器的时区设置/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的使用时, 经常会 pull 下来一些官方镜像或第三方的镜像,  毕竟绝大部分自己做的镜像也是基于官方镜像而来的, 其中一些对时间比较敏感的应用可能会因为时区的问题而导致异常, 本篇文章介绍两类系统下时区的修改</p>
+</blockquote>
+<h1 id="CentOS-RedHat-Fedora"><a href="#CentOS-RedHat-Fedora" class="headerlink" title="CentOS/RedHat/Fedora"></a>CentOS/RedHat/Fedora</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<p><strong>执行命令后立即生效</strong></p>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">echo</span> <span class="string">"Asia/shanghai"</span> &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行命令后立即生效</strong></p>
+<p>#特别说明</p>
+<p>在测试中发现, Debian 系统虽然应该和 Ubuntu 划分为一类, 但是却需要使用 CentOS 的做法来修改时区</p>
+<p>到底需要使用哪种方式来修改时区可以使用以下的小技巧</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先进入到容器中</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 6170cc378e95 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不管是哪个系统版本, 先查看当前的时区配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是出现一堆"乱码" 最后还带有时区标识的就使用上面 CentOS 的方式修改时区</span></span><br><span class="line">cat /etc/localtime                                    </span><br><span class="line">xxxxxxxxxxxxxx</span><br><span class="line">UTC0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是直接出现 xxx/yyy 这种地区字符的结果, 那么就使用上面 Ubuntu 的方式修改时区</span></span><br><span class="line">cat /etc/timezone </span><br><span class="line">Asia/Shanghai</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">docker image 镜像管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-05 14:11:09" itemprop="dateCreated datePublished" datetime="2017-06-05T14:11:09+08:00">2017-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/docker-image-镜像管理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li>Docker 管理命令<ul>
+<li>容器管理</li>
+<li><strong>镜像管理</strong></li>
+<li>网络管理</li>
+<li>系统管理</li>
+<li>数据卷管理</li>
+<li>快照管理</li>
+<li>插件管理</li>
+<li>其他</li>
+<li>swarmkit 管理<ul>
+<li>模式管理</li>
+<li>节点管理</li>
+<li>秘钥管理</li>
+<li>服务管理</li>
+<li>服务栈管理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="镜像管理-image"><a href="#镜像管理-image" class="headerlink" title="镜像管理 image"></a>镜像管理 image</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>根据 dockerfile 构建镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image build -t centos2 .</span></span><br><span class="line">Sending build context to Docker daemon  19.46kB</span><br><span class="line">Step 1/2 : FROM centos</span><br><span class="line"> ---&gt; a8493f5f50ff</span><br><span class="line">Step 2/2 : LABEL author <span class="string">"lvrui"</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 9a996772de96</span><br><span class="line"> ---&gt; 61b7efba9133</span><br><span class="line">Removing intermediate container 9a996772de96</span><br><span class="line">Successfully built 61b7efba9133</span><br><span class="line">root@ubuntu:~<span class="comment"># cat dockerfile </span></span><br><span class="line">FROM centos</span><br><span class="line">LABEL author=<span class="string">"lvrui"</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">centos2             latest              61b7efba9133        About a minute ago   192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago          204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago         192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago         183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago         1.84kB</span><br></pre></td></tr></table></figure>
+
+<p>-t 的作用是打标签, 可以直接打成 Registry 的形式, 方便直接 push 到 Registry</p>
+<p>如果没有打赏 Registry 地址也没有关系,后期可以通过 tag 命令修改</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>显示镜像的历史构建信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        2 minutes ago       192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br><span class="line">root@ubuntu:~<span class="comment"># docker image history centos2</span></span><br><span class="line">IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT</span><br><span class="line">61b7efba9133        2 minutes ago       /bin/sh -c <span class="comment">#(nop)  LABEL author=lvrui           0B                  </span></span><br><span class="line">a8493f5f50ff        37 hours ago        /bin/sh -c <span class="comment">#(nop)  CMD ["/bin/bash"]            0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop)  LABEL name=CentOS Base ...   0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop) ADD file:807143da05d7013...   192MB</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="import-save-load"><a href="#import-save-load" class="headerlink" title="import/save/load"></a>import/save/load</h2><ul>
+<li>import 导入镜像, 导入 export 出来的镜像</li>
+<li>save 导出镜像</li>
+<li>load 导入镜像, 导入 save 出来的镜像</li>
+</ul>
+<h2 id="inspect"><a href="#inspect" class="headerlink" title="inspect"></a>inspect</h2><p>查看镜像详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image inspect centos2</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"sha256:61b7efba9133e4ceaf4046e76a2f455a1204a8a794f16920c7543010e2759323"</span>,</span><br><span class="line">        <span class="string">"RepoTags"</span>: [</span><br><span class="line">            <span class="string">"centos2:latest"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"RepoDigests"</span>: [],</span><br><span class="line">        <span class="string">"Parent"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">        <span class="string">"Comment"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Created"</span>: <span class="string">"2017-04-08T09:12:50.750877048Z"</span>,</span><br><span class="line">        <span class="string">"Container"</span>: <span class="string">"9a996772de96183b48460aa1f02b907d1e8d97f8d322cc41aff909d2a8a74b61"</span>,</span><br><span class="line">        <span class="string">"ContainerConfig"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/sh"</span>,</span><br><span class="line">                <span class="string">"-c"</span>,</span><br><span class="line">                <span class="string">"#(nop) "</span>,</span><br><span class="line">                <span class="string">"LABEL author=lvrui"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"DockerVersion"</span>: <span class="string">"17.04.0-ce"</span>,</span><br><span class="line">        <span class="string">"Author"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Config"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/bash"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"Architecture"</span>: <span class="string">"amd64"</span>,</span><br><span class="line">        <span class="string">"Os"</span>: <span class="string">"linux"</span>,</span><br><span class="line">        <span class="string">"Size"</span>: 192481139,</span><br><span class="line">        <span class="string">"VirtualSize"</span>: 192481139,</span><br><span class="line">        <span class="string">"GraphDriver"</span>: &#123;</span><br><span class="line">            <span class="string">"Data"</span>: null,</span><br><span class="line">            <span class="string">"Name"</span>: <span class="string">"aufs"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"RootFS"</span>: &#123;</span><br><span class="line">            <span class="string">"Type"</span>: <span class="string">"layers"</span>,</span><br><span class="line">            <span class="string">"Layers"</span>: [</span><br><span class="line">                <span class="string">"sha256:36018b5e978717a047892794aebab513ba6856dbe1bdfeb478ca1219df2c7e9c"</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>作用等同于 <code>docker images</code> 查看镜像列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        3 hours ago         192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        5 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        40 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        44 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br></pre></td></tr></table></figure>
+
+<h2 id="prune"><a href="#prune" class="headerlink" title="prune"></a>prune</h2><p>删除没有被引用的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image prune</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="tag-pull-push"><a href="#tag-pull-push" class="headerlink" title="tag/pull/push"></a>tag/pull/push</h2><ul>
+<li>tag: 打标签</li>
+<li>pull: 从远程仓库 Registry 拉取镜像</li>
+<li>push: 从本地上传镜像</li>
+</ul>
+<h4 id="从registry中拉取镜像："><a href="#从registry中拉取镜像：" class="headerlink" title="从registry中拉取镜像："></a>从registry中拉取镜像：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
+
+<h4 id="将镜像推送到registry："><a href="#将镜像推送到registry：" class="headerlink" title="将镜像推送到registry："></a>将镜像推送到registry：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker login --username=lvrui03@126.com registry.cn-beijing.aliyuncs.com</span><br><span class="line">$ sudo docker tag [ImageId] registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br><span class="line">$ sudo docker push registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
+
+<p>注意: 如果 Registry 有密码, 还需要先 login 到镜像仓库才可以上传镜像</p>
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>删除指定的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image rm centos2:latest</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -967,227 +1201,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/Swap%E7%9A%84%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/Swap%E7%9A%84%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87/" class="post-title-link" itemprop="url">Swap的使用频率</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:13:05" itemprop="dateCreated datePublished" datetime="2017-06-02T12:13:05+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/Swap%E7%9A%84%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/Swap的使用频率/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>通过调整<code>swappiness</code>的值, 可以调整系统使用 swap 的频率</p>
-<p>该值越小, 表示越大限度的使用物理内存, 最小值=0</p>
-<p>该值越大, 表示越积极的使用 swap 交换分区, 最大值=100</p>
-<h1 id="查看-swappiness-值"><a href="#查看-swappiness-值" class="headerlink" title="查看 swappiness 值"></a>查看 swappiness 值</h1><p><code>cat /proc/sys/vm/swappiness</code></p>
-<p>centos 中默认为10, Ubuntu 中默认为60</p>
-<h1 id="临时修改-重启失效"><a href="#临时修改-重启失效" class="headerlink" title="临时修改 (重启失效)"></a>临时修改 (重启失效)</h1><p> sysctl vm.swappiness=59</p>
-<h1 id="永久修改"><a href="#永久修改" class="headerlink" title="永久修改"></a>永久修改</h1><p><code>echo &quot;vm.swappiness=59&quot; &gt;&gt; /etc/sysctl.conf</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/23/docker-network-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/23/docker-network-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">docker network 网络管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-04-23 00:17:48" itemprop="dateCreated datePublished" datetime="2017-04-23T00:17:48+08:00">2017-04-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/04/23/docker-network-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/23/docker-network-网络管理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<ul>
-<li>Docker 管理命令<ul>
-<li>容器管理</li>
-<li>镜像管理</li>
-<li><strong>网络管理</strong></li>
-<li>系统管理</li>
-<li>数据卷管理</li>
-<li>快照管理</li>
-<li>插件管理</li>
-<li>其他</li>
-<li>swarmkit 管理<ul>
-<li>模式管理</li>
-<li>节点管理</li>
-<li>秘钥管理</li>
-<li>服务管理</li>
-<li>服务栈管理</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h1 id="网络管理-network"><a href="#网络管理-network" class="headerlink" title="网络管理 network"></a>网络管理 network</h1><p>Docker 的网络模式繁多, 截止至当前版本(17.04.0-ce), Docker 内置了5种网络引擎供大家使用</p>
-<ul>
-<li>bridge 默认的网桥+NAT模式</li>
-<li>host 主机模式(性能损耗最少, 但是有安全性问题, 因为容器内部可以直接修改宿主机网卡配置文件)</li>
-<li>macvlan 引入之初在于解决本宿主机的容器互联问题(1.13版本之后默认集成进来的网络插件)</li>
-<li>null 不设置任何网络引擎</li>
-<li>overlay 跨主机互联, 集群模式下使用较多</li>
-</ul>
-<h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><p>创建网络一般用于对容器内网 IP 地址段有要求的情况, 一般在集群模式下创建自定义 overlay 网络的情况较多</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker network create --driver overlay my-network</span></span><br></pre></td></tr></table></figure>
-
-<p>在集群模式中创建 overlay 网络后, 创建的服务可以指定加入到新的网络中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker service ceate --replicas 3 --network my-network --name my-web nginx</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="connect-disconnect"><a href="#connect-disconnect" class="headerlink" title="connect/disconnect"></a>connect/disconnect</h2><p>将容器加入/离开指定的网络</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network connect [OPTIONS] NETWORK CONTAINER</span><br><span class="line">docker network disconnect [OPTIONS] NETWORK CONTAINER</span><br></pre></td></tr></table></figure>
-
-<h2 id="ls-inspect"><a href="#ls-inspect" class="headerlink" title="ls/inspect"></a>ls/inspect</h2><p>查看网络配置列表/查看网络详细信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br><span class="line">docker network inspect [OPTIONS] NETWORK [NETWORK...]</span><br></pre></td></tr></table></figure>
-
-<h2 id="rm-prune"><a href="#rm-prune" class="headerlink" title="rm/prune"></a>rm/prune</h2><p>删除指定网络/删除没有引用的网络</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network rm NETWORK [NETWORK...]</span><br><span class="line">docker network prune [OPTIONS]</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1260,7 +1273,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1273,7 +1286,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

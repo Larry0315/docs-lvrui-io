@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">284</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,253 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/" class="post-title-link" itemprop="url">Python中使用Counter实现简单的计数器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 11:51:21" itemprop="dateCreated datePublished" datetime="2017-07-26T11:51:21+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E4%BD%BF%E7%94%A8Counter%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中使用Counter实现简单的计数器/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 中可以使用 collections 内置模块下的 Counter 来实现简单的统计功能</p>
+</blockquote>
+<h1 id="统计列表中的元素"><a href="#统计列表中的元素" class="headerlink" title="统计列表中的元素"></a>统计列表中的元素</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [chr(random.randint(<span class="number">97</span>, <span class="number">102</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line">print(l)</span><br><span class="line"></span><br><span class="line">result = collections.Counter(l)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'f'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'b'</span>, <span class="string">'f'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>]</span><br><span class="line">Counter(&#123;<span class="string">'f'</span>: <span class="number">6</span>, <span class="string">'e'</span>: <span class="number">6</span>, <span class="string">'c'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">2</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="统计文件中单词出现的频率"><a href="#统计文件中单词出现的频率" class="headerlink" title="统计文件中单词出现的频率"></a>统计文件中单词出现的频率</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">txt = re.split(<span class="string">'\W+'</span>, f.read())</span><br><span class="line">s = collections.Counter(txt)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Counter(&#123;<span class="string">'the'</span>: <span class="number">93</span>, <span class="string">'to'</span>: <span class="number">39</span>, <span class="string">'and'</span>: <span class="number">32</span>, <span class="string">'for'</span>: <span class="number">31</span>, <span class="string">'SSL'</span>: <span class="number">29</span>, <span class="string">'is'</span>: <span class="number">26</span>, <span class="string">'a'</span>: <span class="number">21</span>, <span class="string">'of'</span>: <span class="number">21</span>, <span class="string">'private'</span>: <span class="number">20</span>, <span class="string">'in'</span>: <span class="number">18</span>, <span class="string">'you'</span>: <span class="number">17</span>, <span class="string">'server'</span>: <span class="number">17</span>, <span class="string">'file'</span>: <span class="number">16</span>, <span class="string">'apache2'</span>: <span class="number">16</span>, <span class="string">'be'</span>: <span class="number">16</span>, <span class="string">'1'</span>: <span class="number">16</span>, <span class="string">'etc'</span>: <span class="number">15</span>, <span class="string">'certificate'</span>: <span class="number">15</span>, <span class="string">'this'</span>: <span class="number">14</span>, <span class="string">'as'</span>: <span class="number">13</span>, <span class="string">'This'</span>: <span class="number">13</span>, <span class="string">'0'</span>: <span class="number">13</span>, <span class="string">'or'</span>: <span class="number">13</span>, <span class="string">'use'</span>: <span class="number">12</span>, <span class="string">'client'</span>: <span class="number">10</span>, <span class="string">'that'</span>: <span class="number">10</span>, <span class="string">'when'</span>: <span class="number">10</span>, <span class="string">'can'</span>: <span class="number">10</span>, <span class="string">'are'</span>: <span class="number">9</span>, <span class="string">'mod_ssl'</span>: <span class="number">9</span>, <span class="string">'ciphers'</span>: <span class="number">9</span>, <span class="string">'CA'</span>: <span class="number">8</span>, <span class="string">'on'</span>: <span class="number">8</span>, <span class="string">'one'</span>: <span class="number">8</span>, <span class="string">'2'</span>: <span class="number">8</span>, <span class="string">'an'</span>: <span class="number">7</span>, <span class="string">'crt'</span>: <span class="number">7</span>, <span class="string">'standard'</span>: <span class="number">7</span>, <span class="string">'TLS'</span>: <span class="number">7</span>, <span class="string">'The'</span>: <span class="number">7</span>, <span class="string">'directives'</span>: <span class="number">7</span>, <span class="string">'ssl'</span>: <span class="number">7</span>, <span class="string">'Use'</span>: <span class="number">7</span>, <span class="string">'only'</span>: <span class="number">7</span>, <span class="string">'o'</span>: <span class="number">7</span>, <span class="string">'shutdown'</span>: <span class="number">7</span>, <span class="string">'dev'</span>: <span class="number">7</span>, <span class="string">'all'</span>: <span class="number">6</span>, <span class="string">'more'</span>: <span class="number">6</span>, <span class="string">'close'</span>: <span class="number">6</span>, <span class="string">'used'</span>: <span class="number">6</span>, <span class="string">'not'</span>: <span class="number">6</span>, <span class="string">'which'</span>: <span class="number">6</span>, <span class="string">'notify'</span>: <span class="number">6</span>, <span class="string">'key'</span>: <span class="number">6</span>, <span class="string">'default'</span>: <span class="number">6</span>, <span class="string">'certificates'</span>: <span class="number">6</span>, <span class="string">'alert'</span>: <span class="number">6</span>, <span class="string">'var'</span>: <span class="number">6</span>, <span class="string">'also'</span>: <span class="number">6</span>, <span class="string">'should'</span>: <span class="number">5</span>, <span class="string">'OpenSSL'</span>: <span class="number">5</span>, <span class="string">'SSLv3'</span>: <span class="number">5</span>, <span class="string">'PEM'</span>: <span class="number">5</span>, <span class="string">'encoded'</span>: <span class="number">5</span>, <span class="string">'clients'</span>: <span class="number">5</span>, <span class="string">'random'</span>: <span class="number">5</span>, <span class="string">'OCSP'</span>: <span class="number">5</span>, <span class="string">'containing'</span>: <span class="number">5</span>, <span class="string">'with'</span>: <span class="number">5</span>, <span class="string">'connection'</span>: <span class="number">5</span>, <span class="string">'from'</span>: <span class="number">5</span>, <span class="string">'SSLCertificateFile'</span>: <span class="number">5</span>, <span class="string">'user'</span>: <span class="number">5</span>, <span class="string">'both'</span>: <span class="number">5</span>, <span class="string">'parallel'</span>: <span class="number">4</span>, <span class="string">'variables'</span>: <span class="number">4</span>, <span class="string">'usually'</span>: <span class="number">4</span>, <span class="string">'at'</span>: <span class="number">4</span>, <span class="string">'Note'</span>: <span class="number">4</span>, <span class="string">'HIGH'</span>: <span class="number">4</span>, <span class="string">'configured'</span>: <span class="number">4</span>, </span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>以上方法在读取文件的时候, 采用了读取全部内容到内存的方法, 如果文件体积较大, 会对内存造成较大压力, 可以通过如下这种迭代的用法实现相同的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个空集合对象</span></span><br><span class="line">s = collections.Counter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代文件中的每一行</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="comment"># 将每行内容进行按单词的切割, 在切割之前去掉每行字符串的首位空格以及换行</span></span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串切割后, 拿到 res 列表, 循环迭代它</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="comment"># 如果不是空字符的话就在集合中将该键出现的次数+1</span></span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果与上面相同</p>
+<h1 id="统计后找出前三个元素"><a href="#统计后找出前三个元素" class="headerlink" title="统计后找出前三个元素"></a>统计后找出前三个元素</h1><p>在 counter 对象中, 还有一个功能可以帮我们取出指定的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = open(<span class="string">'/etc/apache2/extra/httpd-ssl.conf'</span>, <span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">s = collections.Counter()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    res = re.split(<span class="string">'\W+'</span>, line.strip())</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">        <span class="keyword">if</span> word:</span><br><span class="line">            s[word] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(s.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'the'</span>, <span class="number">93</span>), (<span class="string">'to'</span>, <span class="number">39</span>), (<span class="string">'and'</span>, <span class="number">32</span>)]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python中可迭代对象的排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 10:44:44" itemprop="dateCreated datePublished" datetime="2017-07-26T10:44:44+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中可迭代对象的排序/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 中, 提供给我们了两种排序的方式, 一种是列表对象自己的<code>.sort</code>方法, 一种是Python 内置的<code>sorted</code>函数</p>
+</blockquote>
+<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><p>列表排序有两种方式可以实现, 分别是自带的 <code>.sort</code>方法, 还有内置的<code>sorted</code>函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">16</span>, <span class="number">42</span>, <span class="number">84</span>, <span class="number">78</span>, <span class="number">22</span>, <span class="number">50</span>, <span class="number">86</span>, <span class="number">14</span>, <span class="number">95</span>, <span class="number">75</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title=".sort 方法"></a>.sort 方法</h2><p>列表对象自身的<code>.sort</code>方法执行后, 会改变原列表对象的顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.sort()</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的结果可以看出, 原列表的成员位置已经发生了变化</p>
+<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted 函数"></a>sorted 函数</h2><p>使用<code>sorted</code>函数排序后会返回新的对象, 不会在原对象中修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l2 = sorted(l)</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">14</span>, <span class="number">16</span>, <span class="number">22</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">78</span>, <span class="number">84</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="元组排序"><a href="#元组排序" class="headerlink" title="元组排序"></a>元组排序</h1><p>元组中的元素是有序的, 但是本身的元素是不可修改的, 所以元组自身没有<code>.sort</code>方法可以使用. 但是可以通过转化为列表的方式, 间接使用<code>.sort</code></p>
+<h2 id="使用类型转换得到元组"><a href="#使用类型转换得到元组" class="headerlink" title="使用类型转换得到元组"></a>使用类型转换得到元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">t = tuple(l)</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">10</span>, <span class="number">47</span>, <span class="number">33</span>, <span class="number">68</span>, <span class="number">5</span>, <span class="number">86</span>, <span class="number">95</span>, <span class="number">51</span>, <span class="number">12</span>, <span class="number">28</span>)</span><br><span class="line">[<span class="number">5</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">51</span>, <span class="number">68</span>, <span class="number">86</span>, <span class="number">95</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用生成器表达式得到元组-迭代对象"><a href="#使用生成器表达式得到元组-迭代对象" class="headerlink" title="使用生成器表达式得到元组(迭代对象)"></a>使用生成器表达式得到元组(迭代对象)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = (random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">print(t)</span><br><span class="line"></span><br><span class="line">t2 = sorted(t)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x1019962b0</span>&gt;</span><br><span class="line">[<span class="number">6</span>, <span class="number">40</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">68</span>, <span class="number">72</span>, <span class="number">88</span>, <span class="number">89</span>, <span class="number">93</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="集合排序"><a href="#集合排序" class="headerlink" title="集合排序"></a>集合排序</h1><p> 集合本身是无序的, 本身也没有<code>.sort</code>方法. 但是集合也可以间接的通过先转化为列表的方式来使用<code>.sort</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = &#123;random.randint(<span class="number">1</span>,<span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">s2 = sorted(s)</span><br><span class="line">print(s2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="number">100</span>, <span class="number">6</span>, <span class="number">71</span>, <span class="number">11</span>, <span class="number">50</span>, <span class="number">21</span>, <span class="number">62</span>, <span class="number">89</span>, <span class="number">26</span>, <span class="number">94</span>&#125;</span><br><span class="line">[<span class="number">6</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">26</span>, <span class="number">50</span>, <span class="number">62</span>, <span class="number">71</span>, <span class="number">89</span>, <span class="number">94</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="字典排序"><a href="#字典排序" class="headerlink" title="字典排序"></a>字典排序</h1><h2 id="依据-key-排序"><a href="#依据-key-排序" class="headerlink" title="依据 key 排序"></a>依据 key 排序</h2><p>使用 sorted 对一个字典进行排序, 只需要把对象传进去即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line">d2 = sorted(d)</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'m'</span>: <span class="number">11</span>, <span class="string">'s'</span>: <span class="number">18</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'n'</span>: <span class="number">15</span>, <span class="string">'v'</span>: <span class="number">17</span>, <span class="string">'a'</span>: <span class="number">4</span>, <span class="string">'h'</span>: <span class="number">6</span>, <span class="string">'i'</span>: <span class="number">20</span>, <span class="string">'l'</span>: <span class="number">10</span>&#125;</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'s'</span>, <span class="string">'v'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>当我们拿到这个排序过后的列表之后, 就可以依据列表里的”键”的顺序, 到对应的字典中取值了</p>
+<h2 id="依据-value-排序"><a href="#依据-value-排序" class="headerlink" title="依据 value 排序"></a>依据 value 排序</h2><p>依据 value 排序就需要用到 sorted 函数中的<code>key</code>参数了, <code>key</code>参数接收一个函数, 此函数即为处理迭代对象每一个元素的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;chr(random.randint(<span class="number">97</span>, <span class="number">122</span>)):random.randint(<span class="number">1</span>, <span class="number">20</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>)&#125;</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment"># 字典对象.items() 会把每个键值对转化成元组, 并把字典的最外层转化为列表</span></span><br><span class="line">print(d.items())</span><br><span class="line">d2 = sorted(d.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">print(d2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'y'</span>: <span class="number">8</span>, <span class="string">'h'</span>: <span class="number">4</span>, <span class="string">'d'</span>: <span class="number">17</span>, <span class="string">'p'</span>: <span class="number">9</span>, <span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'o'</span>: <span class="number">14</span>, <span class="string">'c'</span>: <span class="number">15</span>, <span class="string">'a'</span>: <span class="number">9</span>, <span class="string">'z'</span>: <span class="number">9</span>&#125;</span><br><span class="line">dict_items([(<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'d'</span>, <span class="number">17</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>)])</span><br><span class="line">[(<span class="string">'h'</span>, <span class="number">4</span>), (<span class="string">'y'</span>, <span class="number">8</span>), (<span class="string">'p'</span>, <span class="number">9</span>), (<span class="string">'a'</span>, <span class="number">9</span>), (<span class="string">'z'</span>, <span class="number">9</span>), (<span class="string">'x'</span>, <span class="number">10</span>), (<span class="string">'o'</span>, <span class="number">14</span>), (<span class="string">'c'</span>, <span class="number">15</span>), (<span class="string">'d'</span>, <span class="number">17</span>)]</span><br></pre></td></tr></table></figure>
+
+<p>从结果的第一行和第二行可以看出<code>字典. items()</code>的执行效果.</p>
+<p>key 后面的 lambda 函数, 将循环接收前面迭代元素的每一个值, 第一次迭代时, 第一个值 <code>(&#39;y&#39;, 8)</code>被传递给 lambda 函数的参数. lambda 函数接收这个参数, 并取这个参数值的第二位值, 也就是取得 <code>(&#39;y&#39;, 8)</code>的第二个值, 并依据此值进行排序</p>
+<h1 id="列表嵌套字典混合排序"><a href="#列表嵌套字典混合排序" class="headerlink" title="列表嵌套字典混合排序"></a>列表嵌套字典混合排序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line">dd.sort(key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd)</span><br></pre></td></tr></table></figure>
+
+<p>以上的方式是通过列表自身的<code>.sort</code>方法实现的, 修改了元列表内部元素的位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dd = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">27</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'yyy'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'ps'</span>, <span class="string">'age'</span>:<span class="number">28</span>&#125;</span><br><span class="line">]</span><br><span class="line">print(dd)</span><br><span class="line"></span><br><span class="line">dd2 = sorted(dd, key=<span class="keyword">lambda</span> x: x[<span class="string">'age'</span>])</span><br><span class="line">print(dd2)</span><br></pre></td></tr></table></figure>
+
+<p>以上则是通过<code>sorted</code>函数实现.</p>
+<p>列举这种用法主要是为了体现 sorted 函数中, key 参数的使用方法, 前面的迭代对象的中每个值, 都会依次传递给 key 中的函数, key 中的函数需要接收一个参数, 并对这个参数的值进行处理, 返回需要排序的对象</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1138,240 +1385,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">Docker容器的时区设置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-05 14:20:33" itemprop="dateCreated datePublished" datetime="2017-06-05T14:20:33+08:00">2017-06-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/05/Docker%E5%AE%B9%E5%99%A8%E7%9A%84%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/Docker容器的时区设置/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 docker 的使用时, 经常会 pull 下来一些官方镜像或第三方的镜像,  毕竟绝大部分自己做的镜像也是基于官方镜像而来的, 其中一些对时间比较敏感的应用可能会因为时区的问题而导致异常, 本篇文章介绍两类系统下时区的修改</p>
-</blockquote>
-<h1 id="CentOS-RedHat-Fedora"><a href="#CentOS-RedHat-Fedora" class="headerlink" title="CentOS/RedHat/Fedora"></a>CentOS/RedHat/Fedora</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
-<p><strong>执行命令后立即生效</strong></p>
-<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ <span class="built_in">echo</span> <span class="string">"Asia/shanghai"</span> &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
-
-<p><strong>执行命令后立即生效</strong></p>
-<p>#特别说明</p>
-<p>在测试中发现, Debian 系统虽然应该和 Ubuntu 划分为一类, 但是却需要使用 CentOS 的做法来修改时区</p>
-<p>到底需要使用哪种方式来修改时区可以使用以下的小技巧</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先进入到容器中</span></span><br><span class="line">docker <span class="built_in">exec</span> -it 6170cc378e95 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不管是哪个系统版本, 先查看当前的时区配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是出现一堆"乱码" 最后还带有时区标识的就使用上面 CentOS 的方式修改时区</span></span><br><span class="line">cat /etc/localtime                                    </span><br><span class="line">xxxxxxxxxxxxxx</span><br><span class="line">UTC0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是直接出现 xxx/yyy 这种地区字符的结果, 那么就使用上面 Ubuntu 的方式修改时区</span></span><br><span class="line">cat /etc/timezone </span><br><span class="line">Asia/Shanghai</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">docker image 镜像管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-05 14:11:09" itemprop="dateCreated datePublished" datetime="2017-06-05T14:11:09+08:00">2017-06-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/05/docker-image-%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/05/docker-image-镜像管理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<ul>
-<li>Docker 管理命令<ul>
-<li>容器管理</li>
-<li><strong>镜像管理</strong></li>
-<li>网络管理</li>
-<li>系统管理</li>
-<li>数据卷管理</li>
-<li>快照管理</li>
-<li>插件管理</li>
-<li>其他</li>
-<li>swarmkit 管理<ul>
-<li>模式管理</li>
-<li>节点管理</li>
-<li>秘钥管理</li>
-<li>服务管理</li>
-<li>服务栈管理</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h1 id="镜像管理-image"><a href="#镜像管理-image" class="headerlink" title="镜像管理 image"></a>镜像管理 image</h1><h2 id="build"><a href="#build" class="headerlink" title="build"></a>build</h2><p>根据 dockerfile 构建镜像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image build -t centos2 .</span></span><br><span class="line">Sending build context to Docker daemon  19.46kB</span><br><span class="line">Step 1/2 : FROM centos</span><br><span class="line"> ---&gt; a8493f5f50ff</span><br><span class="line">Step 2/2 : LABEL author <span class="string">"lvrui"</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 9a996772de96</span><br><span class="line"> ---&gt; 61b7efba9133</span><br><span class="line">Removing intermediate container 9a996772de96</span><br><span class="line">Successfully built 61b7efba9133</span><br><span class="line">root@ubuntu:~<span class="comment"># cat dockerfile </span></span><br><span class="line">FROM centos</span><br><span class="line">LABEL author=<span class="string">"lvrui"</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">centos2             latest              61b7efba9133        About a minute ago   192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago          204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago         192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago         183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago         1.84kB</span><br></pre></td></tr></table></figure>
-
-<p>-t 的作用是打标签, 可以直接打成 Registry 的形式, 方便直接 push 到 Registry</p>
-<p>如果没有打赏 Registry 地址也没有关系,后期可以通过 tag 命令修改</p>
-<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>显示镜像的历史构建信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        2 minutes ago       192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        2 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        37 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        41 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br><span class="line">root@ubuntu:~<span class="comment"># docker image history centos2</span></span><br><span class="line">IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT</span><br><span class="line">61b7efba9133        2 minutes ago       /bin/sh -c <span class="comment">#(nop)  LABEL author=lvrui           0B                  </span></span><br><span class="line">a8493f5f50ff        37 hours ago        /bin/sh -c <span class="comment">#(nop)  CMD ["/bin/bash"]            0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop)  LABEL name=CentOS Base ...   0B                  </span></span><br><span class="line">&lt;missing&gt;           37 hours ago        /bin/sh -c <span class="comment">#(nop) ADD file:807143da05d7013...   192MB</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="import-save-load"><a href="#import-save-load" class="headerlink" title="import/save/load"></a>import/save/load</h2><ul>
-<li>import 导入镜像, 导入 export 出来的镜像</li>
-<li>save 导出镜像</li>
-<li>load 导入镜像, 导入 save 出来的镜像</li>
-</ul>
-<h2 id="inspect"><a href="#inspect" class="headerlink" title="inspect"></a>inspect</h2><p>查看镜像详细信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image inspect centos2</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"sha256:61b7efba9133e4ceaf4046e76a2f455a1204a8a794f16920c7543010e2759323"</span>,</span><br><span class="line">        <span class="string">"RepoTags"</span>: [</span><br><span class="line">            <span class="string">"centos2:latest"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"RepoDigests"</span>: [],</span><br><span class="line">        <span class="string">"Parent"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">        <span class="string">"Comment"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Created"</span>: <span class="string">"2017-04-08T09:12:50.750877048Z"</span>,</span><br><span class="line">        <span class="string">"Container"</span>: <span class="string">"9a996772de96183b48460aa1f02b907d1e8d97f8d322cc41aff909d2a8a74b61"</span>,</span><br><span class="line">        <span class="string">"ContainerConfig"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/sh"</span>,</span><br><span class="line">                <span class="string">"-c"</span>,</span><br><span class="line">                <span class="string">"#(nop) "</span>,</span><br><span class="line">                <span class="string">"LABEL author=lvrui"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"DockerVersion"</span>: <span class="string">"17.04.0-ce"</span>,</span><br><span class="line">        <span class="string">"Author"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"Config"</span>: &#123;</span><br><span class="line">            <span class="string">"Hostname"</span>: <span class="string">"f85c553c1496"</span>,</span><br><span class="line">            <span class="string">"Domainname"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"User"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"AttachStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStdout"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"AttachStderr"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Tty"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OpenStdin"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"StdinOnce"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Env"</span>: [</span><br><span class="line">                <span class="string">"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Cmd"</span>: [</span><br><span class="line">                <span class="string">"/bin/bash"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"Image"</span>: <span class="string">"sha256:a8493f5f50ffda70c2eeb2d09090debf7d39c8ffcd63b43ff81b111ece6f28bf"</span>,</span><br><span class="line">            <span class="string">"Volumes"</span>: null,</span><br><span class="line">            <span class="string">"WorkingDir"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"Entrypoint"</span>: null,</span><br><span class="line">            <span class="string">"OnBuild"</span>: [],</span><br><span class="line">            <span class="string">"Labels"</span>: &#123;</span><br><span class="line">                <span class="string">"author"</span>: <span class="string">"lvrui"</span>,</span><br><span class="line">                <span class="string">"build-date"</span>: <span class="string">"20170406"</span>,</span><br><span class="line">                <span class="string">"license"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line">                <span class="string">"name"</span>: <span class="string">"CentOS Base Image"</span>,</span><br><span class="line">                <span class="string">"vendor"</span>: <span class="string">"CentOS"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"Architecture"</span>: <span class="string">"amd64"</span>,</span><br><span class="line">        <span class="string">"Os"</span>: <span class="string">"linux"</span>,</span><br><span class="line">        <span class="string">"Size"</span>: 192481139,</span><br><span class="line">        <span class="string">"VirtualSize"</span>: 192481139,</span><br><span class="line">        <span class="string">"GraphDriver"</span>: &#123;</span><br><span class="line">            <span class="string">"Data"</span>: null,</span><br><span class="line">            <span class="string">"Name"</span>: <span class="string">"aufs"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"RootFS"</span>: &#123;</span><br><span class="line">            <span class="string">"Type"</span>: <span class="string">"layers"</span>,</span><br><span class="line">            <span class="string">"Layers"</span>: [</span><br><span class="line">                <span class="string">"sha256:36018b5e978717a047892794aebab513ba6856dbe1bdfeb478ca1219df2c7e9c"</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>作用等同于 <code>docker images</code> 查看镜像列表</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image ls</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos2             latest              61b7efba9133        3 hours ago         192MB</span><br><span class="line">nginx2              0.1                 7cb5220c81d5        5 hours ago         204MB</span><br><span class="line">centos              latest              a8493f5f50ff        40 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        44 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br></pre></td></tr></table></figure>
-
-<h2 id="prune"><a href="#prune" class="headerlink" title="prune"></a>prune</h2><p>删除没有被引用的镜像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image prune</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="tag-pull-push"><a href="#tag-pull-push" class="headerlink" title="tag/pull/push"></a>tag/pull/push</h2><ul>
-<li>tag: 打标签</li>
-<li>pull: 从远程仓库 Registry 拉取镜像</li>
-<li>push: 从本地上传镜像</li>
-</ul>
-<h4 id="从registry中拉取镜像："><a href="#从registry中拉取镜像：" class="headerlink" title="从registry中拉取镜像："></a>从registry中拉取镜像：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
-
-<h4 id="将镜像推送到registry："><a href="#将镜像推送到registry：" class="headerlink" title="将镜像推送到registry："></a>将镜像推送到registry：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker login --username=lvrui03@126.com registry.cn-beijing.aliyuncs.com</span><br><span class="line">$ sudo docker tag [ImageId] registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br><span class="line">$ sudo docker push registry.cn-beijing.aliyuncs.com/lvreg/webconsole:[镜像版本号]</span><br></pre></td></tr></table></figure>
-
-<p>注意: 如果 Registry 有密码, 还需要先 login 到镜像仓库才可以上传镜像</p>
-<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>删除指定的镜像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker image rm centos2:latest</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1444,7 +1457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">284</span>
+          <span class="site-state-item-count">286</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1457,7 +1470,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-count">376</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

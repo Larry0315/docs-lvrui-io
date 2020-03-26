@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polar Snow Documentation">
+<meta property="og:url" content="https://docs.lvrui.io/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="etcd">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">go语言优秀的日志包zap基础自定义配置用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-23 15:03:25" itemprop="dateCreated datePublished" datetime="2020-03-23T15:03:25+08:00">2020-03-23</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/23/go语言优秀的日志包zap基础自定义配置用法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>zap 的官方案例中, 介绍了三种使用方式, 分别是 <code>AdvancedConfiguration</code> <code>BasicConfiguration</code> 和 <code>Presets</code> 本篇文章介绍 zap 包的 BasicConfiguration 用法</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/23/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E5%9F%BA%E7%A1%80%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E7%94%A8%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">go语言优秀的日志包zap预置函数用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-21 20:35:55" itemprop="dateCreated datePublished" datetime="2020-03-21T20:35:55+08:00">2020-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/21/go语言优秀的日志包zap预置函数用法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>zap 和 logrus 是 go 语言中日志包的佼佼者. 两者都推荐使用结构化的日志打印, 从速度上来说, zap 要比 logrus 快很多. zap 的官方案例中, 介绍了三种使用方式, 分别是 <code>AdvancedConfiguration</code> <code>BasicConfiguration</code> 和 <code>Presets</code> 本篇文章介绍 zap 包的 Presets 用法</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/" class="post-title-link" itemprop="url">go语言struct中的匿名字段与组合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-20 21:18:47" itemprop="dateCreated datePublished" datetime="2019-04-20T21:18:47+08:00">2019-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/20/go语言struct中的匿名字段与组合/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>很多文档中都反复强调了, go语言中没有继承, 只有组合, 活用组合的特性可以让代码更加优雅. 在go语言中, struct中的匿名字段实现了组合的特性</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88%203/" class="post-title-link" itemprop="url">go语言struct中的匿名字段与组合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-20 21:18:47" itemprop="dateCreated datePublished" datetime="2019-04-20T21:18:47+08:00">2019-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/20/go语言struct中的匿名字段与组合 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>很多文档中都反复强调了, go语言中没有继承, 只有组合, 活用组合的特性可以让代码更加优雅. 在go语言中, struct中的匿名字段实现了组合的特性</p>
+</blockquote>
+<h2 id="struct匿名字段"><a href="#struct匿名字段" class="headerlink" title="struct匿名字段"></a>struct匿名字段</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> boy <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b boy)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The boy is eating an apple"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> girl <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g girl)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The girl is eating an orange"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> human <span class="keyword">struct</span> &#123;</span><br><span class="line">	b boy</span><br><span class="line">	girl  <span class="comment">// 匿名字段 接口体重只写了数据类型的字段叫匿名字段</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> boy <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b boy)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The boy is eating an apple"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> girl <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g girl)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The girl is eating an orange"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> human <span class="keyword">struct</span> &#123;</span><br><span class="line">	b boy</span><br><span class="line">	girl  <span class="comment">// 匿名字段</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> h human</span><br><span class="line">	h.b.eat()  </span><br><span class="line">	h.girl.eat()</span><br><span class="line">	h.eat()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The boy is eating an apple</span><br><span class="line">The girl is eating an orange</span><br><span class="line">The girl is eating an orange</span><br></pre></td></tr></table></figure>
+
+<p><code>h.b.eat()</code> 的运行结果 <code>The boy is eating an apple</code> 是符合我们的预期的. </p>
+<p><code>h.girl.eat()</code> 的运行结果 <code>The girl is eating an orange</code> 也符合预期, 只不过因为<code>girl</code>匿名字段, 没有字段名称, 所以这里可以使用数据类型来调用其内部的<code>eat</code>函数</p>
+<p><code>h.eat()</code> 这个函数调用比较奇怪, 正常情况下, 应该是定义在<code>human</code>下的<code>eat</code>方法才能被我们直接调用, 但是这里, 在<code>human</code>没有直接定义<code>eat</code>方法的情况下, <code>eat</code>函数依然被执行成功, 而且输出的结果与<code>h.girl.eat()</code>的结果相同</p>
+<p>这就是组合, 使用匿名字段实现的组合. 使用组合后, 匿名字段拥有的所有方法都可以直接被调用, 而无需像<code>h.girl.eat()</code>这样写上字段类型来调用</p>
+<h2 id="重写-重载"><a href="#重写-重载" class="headerlink" title="重写/重载"></a>重写/重载</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> boy <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b boy)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The boy is eating an apple"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> girl <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g girl)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The girl is eating an orange"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> human <span class="keyword">struct</span> &#123;</span><br><span class="line">	b boy</span><br><span class="line">	girl  <span class="comment">// 匿名字段</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h human)</span> <span class="title">eat</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"The man is eating some strawberries"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> h human</span><br><span class="line">	h.b.eat()</span><br><span class="line">	h.girl.eat()</span><br><span class="line">	h.eat()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个demo仅比上个例子多了一个<code>human</code>的<code>eat</code>方法</p>
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The boy is eating an apple</span><br><span class="line">The girl is eating an orange</span><br><span class="line">The man is eating some strawberries</span><br></pre></td></tr></table></figure>
+
+<p>这次的执行结果中, <code>h.eat()</code> 的执行结果不再是 <code>The girl is eating an orange</code>, 而是 <code>The man is eating some strawberries</code>. 说明<code>human</code>下定义的<code>eat</code>方法重写了组合中同名的<code>eat</code>方法, 当该方法被直接调用时, 优先执行<code>human</code>下的<code>eat</code>方法. 此时如果还需要执行<code>girl</code>下的<code>eat</code>方法, 则需要先引用其数据类型, 再调用<code>eat</code>方法 -&gt; <code>h.girl.eat()</code></p>
+<p><img src="https://20150509.oss-cn-qingdao.aliyuncs.com/2020/02/20/15822044593973.jpg" alt=""></p>
+<p>编辑器中也会提示你下面的方法重写了上面的方法</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">go语言实现加权轮询调度算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 15:53:36" itemprop="dateCreated datePublished" datetime="2019-04-11T15:53:36+08:00">2019-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/11/go语言实现加权轮询调度算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>上篇文章中介绍了轮询调度算法, 忽略后端元素的差异性, 将请求均匀的”涂抹”到后端节点. 本篇介绍更为复杂的加权轮询调度算法, 可以根据后端节点实际承载能力, 单独调整每个节点的权重</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/" class="post-title-link" itemprop="url">go语言实现加权轮询调度算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 15:53:36" itemprop="dateCreated datePublished" datetime="2019-04-11T15:53:36+08:00">2019-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/11/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/11/go语言实现加权轮询调度算法 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>上篇文章中介绍了轮询调度算法, 忽略后端元素的差异性, 将请求均匀的”涂抹”到后端节点. 本篇介绍更为复杂的加权轮询调度算法, 可以根据后端节点实际承载能力, 单独调整每个节点的权重</p>
+</blockquote>
+<h2 id="演示思路"><a href="#演示思路" class="headerlink" title="演示思路"></a>演示思路</h2><p>在编写代码前, 先来说下实现加权轮询调度算法的思路. 加权轮询, 是在轮询的基础之上, 加上了对权重值的判断, 先看下下面的权重配置实例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          -</span><br><span class="line">          -</span><br></pre></td></tr></table></figure>
+
+<p>上面<code>a, b, c, d</code>四个后端节点, 配置的权重分别为<code>4, 4, 6, 2</code>. 也就是说, 当正好有16个请求打过来之后, 后端实际被调度的次数应该就是<code>4, 4, 6, 2</code></p>
+<p>实现加权轮询算法的核心, 依然离不开轮询调度算法, 依然需要前篇文章介绍的轮询调度算法来控制索引下标. 第一步, 我们先找出后端所有元素配置的最大权重, 结果是: 最大权重为6, 那么我们期望第一次的调度结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          -</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>通过轮询调度算法, 依次判断哪个元素<code>&gt;=</code>最大权重值<code>6</code>, 当内存循环到<code>c</code>元素时, 条件满足, 则第一次调度的结果, 在算法内部循环了3次后, 返回了<code>c</code>.  </p>
+<p>当有第二次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">-    -    -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>操作流程同上, 依次判断哪个元素的权重<code>&gt;=最大权重值</code> <code>最大权重值</code>此时<code>=8</code>, 内部开始轮询, 根据上次的索引下标继续向下轮询, 上次轮询到<code>c</code>, 本次将从<code>d</code>开始轮询, <code>d</code>的值不满足<code>&gt;=最大权重值</code>的条件, 应该回到<code>a</code>继续轮询判断, 直到符合条件为止. </p>
+<p>这里需要注意的是, 再回到<code>a</code>之前, 应该将最大权重值<code>-1</code>, 因为在上一轮的轮询中, 已经将<code>=最大权重值</code>的元素消灭, 所以需要将<code>最大权重值-1</code>, 继续轮询判断, 是否有满足条件的元素, 我们在这里临时命名为<code>当前最大权重值(后面用cw表示)</code>, <code>-1</code>操作后, <code>cw=5</code>.</p>
+<p><code>c</code>元素的权重值<code>6</code>符合<code>&gt;=5</code>的条件. 立即返回, 所以第二次的调度结果, 依然是<code>c</code>. </p>
+<p>当有第三次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️   -    -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>同上, 依次判断哪个元素的权重<code>&gt;=cw</code> <code>cw</code>此时<code>=5</code>, 开始轮询, 上次轮询到<code>c</code>, 本次从下一个元素<code>d</code>开始轮询, <code>d</code>不满足条件, 此时一整轮轮询结束🔚, 再次将<code>cw-1</code>, 此时<code>cw=4</code>. 并从<code>a</code>开始重新轮询, 发现<code>a</code>符合<code>&gt;=4</code>的条件, 立即返回, 所以第三次的调度结果为<code>a</code>.</p>
+<p>当有第四次请求到达时, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️   ✔️   -</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>同上, 此时<code>cw=4</code>, 从<code>b</code>元素开始轮询, <code>b</code>即符合条件, 立即返回, 所以第四次调度结果为<code>b</code></p>
+<p>第五次请求, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -</span><br><span class="line">✔️  ✔️   ✔️</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>此时<code>cw=4</code>, 从上次结束的下一个元素开始轮询, <code>c</code>即符合条件, 立即返回, 所以第五次调度结果为<code>c</code></p>
+<p>第六次请求, 期望结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b    c    d</span><br><span class="line">-    -    -    -</span><br><span class="line">-    -    -    -</span><br><span class="line">✔️   -    -</span><br><span class="line">✔️  ✔️   ✔️</span><br><span class="line">          ✔️</span><br><span class="line">          ✔️</span><br></pre></td></tr></table></figure>
+
+<p>此时<code>cw=4</code>, 从上次结束的下一个元素开始轮询, <code>d</code>不符合<code>&gt;=cw</code>条件, 本轮轮询结束, <code>cw-1</code>, 此时<code>cw=3</code>, 从<code>a</code>元素开始轮询, <code>a</code>即符合<code>&gt;=cw</code>条件, 所以第六次调度结果为<code>a</code></p>
+<p>以此类推~ 当所有的元素都被调度过一次之后, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a    b   c    d</span><br><span class="line">✔️  ✔️  ✔️   ✔️</span><br><span class="line">✔️  ✔️  ✔️   ✔️</span><br><span class="line">✔️  ✔️  ✔️</span><br><span class="line">✔️  ✔️  ✔️</span><br><span class="line">         ✔️</span><br><span class="line">         ✔️</span><br></pre></td></tr></table></figure>
+
+<p>需要将<code>cw</code>的重置为<code>最大权重值</code>, 以供后续请求重新调度</p>
+<p>总结: 我们总结一下上面流程的关键点</p>
+<ul>
+<li>通过<code>i = (i + 1) mod n</code>轮询每个元素(这是上一篇轮询调度算法的核心)</li>
+<li>需要取得所有元素中最大的权重值</li>
+<li>需要定义一个cw(current weight)变量, 用来记录最新的”最大权重值”</li>
+<li>每次所有的元素被轮询一次后, 都需要将<code>cw-1</code></li>
+<li>当<code>cw-1</code>之后的值<code>&lt;=0</code>时, 意味着所有的元素按照权重之比, 都已经被调度过一次了, 此时需要将<code>cw</code>的值重置为<code>最大权重值</code>, 以供后续请求重新调度</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="step-0-前期准备"><a href="#step-0-前期准备" class="headerlink" title="step 0: 前期准备"></a>step 0: 前期准备</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义带权重属性的元素结构体</span></span><br><span class="line"><span class="keyword">type</span> Volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Weight <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义元素集合类型</span></span><br><span class="line"><span class="keyword">type</span> Volumes []Volume</span><br><span class="line"><span class="comment">// GetMaxWeight 获取Slice中最大权重值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetMaxWeight</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	maxWeight := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, volume := <span class="keyword">range</span> v &#123;</span><br><span class="line">		<span class="keyword">if</span> maxWeight &lt; volume.Weight &#123;</span><br><span class="line">			maxWeight = volume.Weight</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxWeight</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调度索引</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// current weight 记录当前调度的权重值</span></span><br><span class="line"><span class="keyword">var</span> cw = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="step-1-首先实现轮询调度算法"><a href="#step-1-首先实现轮询调度算法" class="headerlink" title="step 1: 首先实现轮询调度算法"></a>step 1: 首先实现轮询调度算法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-2-每次所有的元素被轮询一次后将cw-1"><a href="#step-2-每次所有的元素被轮询一次后将cw-1" class="headerlink" title="step 2: 每次所有的元素被轮询一次后将cw-1"></a>step 2: 每次所有的元素被轮询一次后将cw-1</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-3-cw-lt-0时将cw重置为最大权重值"><a href="#step-3-cw-lt-0时将cw重置为最大权重值" class="headerlink" title="step 3: cw&lt;=0时将cw重置为最大权重值"></a>step 3: cw&lt;=0时将cw重置为最大权重值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提前算好最大权重值, 传进去</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	   <span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">	   <span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">	   <span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">	   <span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">	   <span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">	       cw = maxWeight</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-4-当索引对应的元素权重值-gt-cw时返回"><a href="#step-4-当索引对应的元素权重值-gt-cw时返回" class="headerlink" title="step 4: 当索引对应的元素权重值&gt;=cw时返回"></a>step 4: 当索引对应的元素权重值&gt;=cw时返回</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提前算好最大权重值, 传进去</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">	<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">	<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">	<span class="keyword">if</span> i  == <span class="number">0</span> &#123;</span><br><span class="line">	   <span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">	   cw = cw - <span class="number">1</span></span><br><span class="line">	   <span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">	   <span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">	   <span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">	   <span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">	   <span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">	       cw = maxWeight</span><br><span class="line">	   &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// return这里需要稍加修改, 只有元素的权重值&gt;=cw时才可以返回</span></span><br><span class="line">	<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">	   <span class="keyword">return</span> v[i].name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="内部轮询"><a href="#内部轮询" class="headerlink" title="内部轮询"></a>内部轮询</h3><p>上面的return中, 定义了只有当元素的权重值&gt;=cw时才可以返回, 那么该条件如果不符合时, 需要在函数内继续轮询元素, 直至有元素的权重值符合条件为止</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">(maxWeight <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">		<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">		<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">		<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">		<span class="keyword">if</span> i == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">// 每次轮询完一轮之后将cw-1</span></span><br><span class="line">			cw = cw - <span class="number">1</span></span><br><span class="line">			<span class="comment">// cw 为负数或0的两种特殊情况</span></span><br><span class="line">			<span class="comment">// 1. 当首次被调用时, cw的值为0, 所以执行 cw - 1 后, cw 的值为负数</span></span><br><span class="line">			<span class="comment">// 2. 当所有元素都已经被调度过一次后, cw的值将递减至0</span></span><br><span class="line">			<span class="comment">// 所以这里需要单独处理一下cw&lt;=0的情况</span></span><br><span class="line">			<span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// 将cw重置为最大权重值</span></span><br><span class="line">				cw = maxWeight</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// return这里需要稍加修改, 只有元素的权重值&gt;=cw时才可以返回</span></span><br><span class="line">		<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">			<span class="keyword">return</span> v[i].name</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优化项"><a href="#优化项" class="headerlink" title="优化项"></a>优化项</h3><ul>
+<li>性能优化: 上面的代码实现中, 所有的元素每当轮询一轮后, cw都是写死了要<code>-1</code>, 其实这里可以可以稍加优化, 预先计算出所有元素权重值得最大公约数, 每次轮询完一轮后cw可以直接<code>-最大公约数(gcd)</code>, 这样可以减少内部循环的次数, 而且调度效果更为分散. (当然配置的权重最大公约数计算之后如果也是1, 则该优化与直接每次-1的循环次数相同)</li>
+</ul>
+<p><strong>求最大公约数算法可参考前面的文章</strong></p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义带权重属性的元素结构体</span></span><br><span class="line"><span class="keyword">type</span> Volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Weight <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义元素集合类型</span></span><br><span class="line"><span class="keyword">type</span> Volumes []Volume</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调度索引</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// current weight 记录当前调度的权重值</span></span><br><span class="line"><span class="keyword">var</span> cw = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">Select</span><span class="params">(maxWeight, gcd <span class="keyword">int</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">// 轮询调度算法 i = (i + 1) mod n</span></span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">		<span class="comment">// 当 (i + 1) mod n 的余数为0时, 有两种情况</span></span><br><span class="line">		<span class="comment">// 1. 首次被调用执行时</span></span><br><span class="line">		<span class="comment">// 2. 已经轮询完一整轮, 又回到起点时</span></span><br><span class="line">		<span class="keyword">if</span> i == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">// 最新权重值 = 当前权重值 - 最大公约数</span></span><br><span class="line">			cw = cw - gcd</span><br><span class="line">			<span class="keyword">if</span> cw &lt;= <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// cw &lt;= 0 时, 有两种情况</span></span><br><span class="line">				<span class="comment">// 1. 首次被调用执行时, cw值初始化为0, 只要maxWeight最大权重数值在0以上, cw的最新值一定&lt;0</span></span><br><span class="line">				<span class="comment">// 2. 当所有的元素按照权重都被调度/选择一遍之后, cw的值一定为0</span></span><br><span class="line">				<span class="comment">// 此时需要将最大权重值(重新)赋值到cw</span></span><br><span class="line">				cw = maxWeight</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 当索引值 &gt;= 最新权重值时, 返回名称</span></span><br><span class="line">		<span class="keyword">if</span> v[i].Weight &gt;= cw &#123;</span><br><span class="line">			<span class="keyword">return</span> v[i].Name</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GetMaxWeight 获取Slice中最大权重值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetMaxWeight</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	maxWeight := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, volume := <span class="keyword">range</span> v &#123;</span><br><span class="line">		<span class="keyword">if</span> maxWeight &lt; volume.Weight &#123;</span><br><span class="line">			maxWeight = volume.Weight</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxWeight</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Gcd</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Gcd(b, a%b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GetGcd 获取Slice最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Volumes)</span> <span class="title">GetGcd</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	g := v[<span class="number">0</span>].Weight</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(v)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		g = Gcd(g, v[i+<span class="number">1</span>].Weight)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	v1 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"a"</span>,</span><br><span class="line">		Weight: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v2 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"b"</span>,</span><br><span class="line">		Weight: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v3 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"c"</span>,</span><br><span class="line">		Weight: <span class="number">6</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v4 := Volume&#123;</span><br><span class="line">		Name:   <span class="string">"d"</span>,</span><br><span class="line">		Weight: <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vo := Volumes&#123;</span><br><span class="line">		v1, v2, v3, v4,</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 获取元素集中的最大权重值</span></span><br><span class="line">	maxWeight := vo.GetMaxWeight()</span><br><span class="line">	<span class="comment">// 获取元素集中权重值的最大公约数</span></span><br><span class="line">	gcd := vo.GetGcd()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="number">18</span>; j++ &#123;</span><br><span class="line">		fmt.Println(j+<span class="number">1</span>, vo.Select(maxWeight, gcd))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1 c</span><br><span class="line">2 a</span><br><span class="line">3 b</span><br><span class="line">4 c</span><br><span class="line">5 a</span><br><span class="line">6 b</span><br><span class="line">7 c</span><br><span class="line">8 d</span><br><span class="line">9 c</span><br><span class="line">10 a</span><br><span class="line">11 b</span><br><span class="line">12 c</span><br><span class="line">13 a</span><br><span class="line">14 b</span><br><span class="line">15 c</span><br><span class="line">16 d</span><br><span class="line">17 c</span><br><span class="line">18 a</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">go语言实现轮询调度算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-10 17:06:47" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:47+08:00">2019-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/10/go语言实现轮询调度算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>实现轮询调度算法(Round-Robin/rr)的原理是通过取模拿到数组/切片的下标, 从而提取出下一次即将调度的元素. 公式为<code>i = (i + 1) mod n</code><br><code>i</code>为数组下标, <code>n</code>为数组长度<br>轮询调度算法的优点是无状态, 均匀的将请求调度到后端的每个节点, 并不关心后端每个节点的实际差异</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明后端元素的数据结构</span></span><br><span class="line"><span class="keyword">type</span> volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	quota <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明数据类型存放元素的Slice</span></span><br><span class="line"><span class="keyword">type</span> volumes []volume</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明并赋值索引下标</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 轮询调度算法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	v1 := volume&#123;</span><br><span class="line">		name:   <span class="string">"a"</span>,</span><br><span class="line">		quota: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v2 := volume&#123;</span><br><span class="line">		name:   <span class="string">"b"</span>,</span><br><span class="line">		quota: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v3 := volume&#123;</span><br><span class="line">		name:   <span class="string">"c"</span>,</span><br><span class="line">		quota: <span class="number">8</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v4 := volume&#123;</span><br><span class="line">		name:   <span class="string">"d"</span>,</span><br><span class="line">		quota: <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vo := volumes&#123;</span><br><span class="line">		v1, v2, v3, v4,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="number">20</span>; j++ &#123;</span><br><span class="line">		fmt.Println(j+<span class="number">1</span>, vo.Select())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1 a</span><br><span class="line">2 b</span><br><span class="line">3 c</span><br><span class="line">4 d</span><br><span class="line">5 a</span><br><span class="line">6 b</span><br><span class="line">7 c</span><br><span class="line">8 d</span><br><span class="line">9 a</span><br><span class="line">10 b</span><br><span class="line">11 c</span><br><span class="line">12 d</span><br><span class="line">13 a</span><br><span class="line">14 b</span><br><span class="line">15 c</span><br><span class="line">16 d</span><br><span class="line">17 a</span><br><span class="line">18 b</span><br><span class="line">19 c</span><br><span class="line">20 d</span><br></pre></td></tr></table></figure>
+
+<p>通过运行结果可以看出, 每次<code>Select</code>请求都被均匀的调度到”后端的节点”. 考虑到后端节点可能存在的差异性, 下篇文章将介绍更为复杂的加权轮询调度算法</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/" class="post-title-link" itemprop="url">go语言实现轮询调度算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-10 17:06:47" itemprop="dateCreated datePublished" datetime="2019-04-10T17:06:47+08:00">2019-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/10/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%BD%AE%E8%AF%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/10/go语言实现轮询调度算法 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>实现轮询调度算法(Round-Robin/rr)的原理是通过取模拿到数组/切片的下标, 从而提取出下一次即将调度的元素. 公式为<code>i = (i + 1) mod n</code><br><code>i</code>为数组下标, <code>n</code>为数组长度<br>轮询调度算法的优点是无状态, 均匀的将请求调度到后端的每个节点, 并不关心后端每个节点的实际差异</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明后端元素的数据结构</span></span><br><span class="line"><span class="keyword">type</span> volume <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	quota <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明数据类型存放元素的Slice</span></span><br><span class="line"><span class="keyword">type</span> volumes []volume</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明并赋值索引下标</span></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 轮询调度算法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v volumes)</span> <span class="title">Select</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="built_in">len</span>(v)</span><br><span class="line">	<span class="keyword">return</span> v[i].name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	v1 := volume&#123;</span><br><span class="line">		name:   <span class="string">"a"</span>,</span><br><span class="line">		quota: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v2 := volume&#123;</span><br><span class="line">		name:   <span class="string">"b"</span>,</span><br><span class="line">		quota: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v3 := volume&#123;</span><br><span class="line">		name:   <span class="string">"c"</span>,</span><br><span class="line">		quota: <span class="number">8</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	v4 := volume&#123;</span><br><span class="line">		name:   <span class="string">"d"</span>,</span><br><span class="line">		quota: <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	vo := volumes&#123;</span><br><span class="line">		v1, v2, v3, v4,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="number">20</span>; j++ &#123;</span><br><span class="line">		fmt.Println(j+<span class="number">1</span>, vo.Select())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1 a</span><br><span class="line">2 b</span><br><span class="line">3 c</span><br><span class="line">4 d</span><br><span class="line">5 a</span><br><span class="line">6 b</span><br><span class="line">7 c</span><br><span class="line">8 d</span><br><span class="line">9 a</span><br><span class="line">10 b</span><br><span class="line">11 c</span><br><span class="line">12 d</span><br><span class="line">13 a</span><br><span class="line">14 b</span><br><span class="line">15 c</span><br><span class="line">16 d</span><br><span class="line">17 a</span><br><span class="line">18 b</span><br><span class="line">19 c</span><br><span class="line">20 d</span><br></pre></td></tr></table></figure>
+
+<p>通过运行结果可以看出, 每次<code>Select</code>请求都被均匀的调度到”后端的节点”. 考虑到后端节点可能存在的差异性, 下篇文章将介绍更为复杂的加权轮询调度算法</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">go语言实现最大公约数算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 11:38:08" itemprop="dateCreated datePublished" datetime="2019-03-17T11:38:08+08:00">2019-03-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/17/go语言实现最大公约数算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最大公约数简介"><a href="#最大公约数简介" class="headerlink" title="最大公约数简介"></a>最大公约数简介</h2><p>最大公约数(GCD/Greatest Common Divisor)指几个整数中共有约数中最大的一个</p>
+<h2 id="欧几里德算法"><a href="#欧几里德算法" class="headerlink" title="欧几里德算法"></a>欧几里德算法</h2><p>欧几里德算法又称辗转相除法, 该算法用于计算两个整数的最大公约数. 定理如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcd(a,b) &#x3D; gcd(b,a mod b)</span><br></pre></td></tr></table></figure>
+
+<p>意思就是说: <code>a</code>和<code>b</code>的最大公约数 =  <code>b</code>和<code>a➗b的余数</code>的最大公约数</p>
+<ul>
+<li>当<code>a➗b的余数</code>为0时, 最大公约数为b</li>
+<li>当<code>a➗b的余数</code>不为0时, 则将<code>a=b</code>, <code>b=a➗b的余数</code>, 递归运算, 直到余数为<code>0</code></li>
+</ul>
+<p>具体证明的过程在此不再赘述, 如有兴趣可以自行谷歌一下, 下面直接给出基于go语言的实现代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(gcd(<span class="number">5</span>, <span class="number">10</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>解析:</p>
+<p><strong>第一次调用:</strong></p>
+<p>调用<code>gcd(5, 10)</code>则<code>a=5, b=10</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=10</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(10, 5 % 10)</code>, <code>5与10计算取余</code>商0, 余5, 则实际调用参数为<code>gcd(10, 5)</code> </p>
+<p><strong>第二次调用:</strong><br>调用<code>gcd(10, 5)</code>则<code>a=10, b=5</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=5</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(5, 10 % 5)</code>, <code>10与5计算取余</code>商2, 余0, 则实际调用参数为<code>gcd(5, 0)</code> </p>
+<p><strong>第三次调用:</strong><br>调用<code>gcd(5, 0)</code>则<code>a=5, b=0</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=0</code>, 判断条件为真, 直接返回<code>a</code> 此时<code>a</code>即为两个数的最大公约数</p>
+<h2 id="多个数求最大公约数"><a href="#多个数求最大公约数" class="headerlink" title="多个数求最大公约数"></a>多个数求最大公约数</h2><p>实现思路: 先求出头两个数的最大公约数, 再拿计算出的最大公约数依次与后面所有的数求最大公约数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetGcd</span><span class="params">(n []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// 先取得Slice中的第一个数, 并假设第一个数为最大公约数</span></span><br><span class="line">	g := n[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">// 依次与Slice中的每个数字求最大公约数</span></span><br><span class="line">	<span class="comment">// 这里i=1, 因为第0个数字已经取出并假设为最大公约数</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">1</span>; i&lt;<span class="built_in">len</span>(n)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		oldGcd := g</span><br><span class="line">		<span class="comment">// 使用两个数字比较的最大公约数函数进行计算, 得出当前两个数字的最大公约数</span></span><br><span class="line">		<span class="comment">// 循环开始后, 依次将当前最大公约数与后面的数字一一进行运算, 求最大公约数</span></span><br><span class="line">		g = gcd(g, n[i])</span><br><span class="line">		fmt.Printf(<span class="string">"第%d次运算, 当前最大公约数为%d, 与%d运算得出的新最大公约数为: %d \n"</span>, i, oldGcd, n[i], g)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nums := []<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"运算结果: \n\t数列: %v 的最大公约数为: %d"</span>, nums, GetGcd(nums))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第1次运算, 当前最大公约数为4, 与4运算得出的新最大公约数为: 4 </span><br><span class="line">第2次运算, 当前最大公约数为4, 与6运算得出的新最大公约数为: 2 </span><br><span class="line">第3次运算, 当前最大公约数为2, 与2运算得出的新最大公约数为: 2 </span><br><span class="line">第4次运算, 当前最大公约数为2, 与8运算得出的新最大公约数为: 2 </span><br><span class="line">运算结果: </span><br><span class="line">        数列: [4 4 6 2 8 10] 的最大公约数为: 2</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/" class="post-title-link" itemprop="url">go语言实现最大公约数算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 11:38:08" itemprop="dateCreated datePublished" datetime="2019-03-17T11:38:08+08:00">2019-03-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/17/go语言实现最大公约数算法 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最大公约数简介"><a href="#最大公约数简介" class="headerlink" title="最大公约数简介"></a>最大公约数简介</h2><p>最大公约数(GCD/Greatest Common Divisor)指几个整数中共有约数中最大的一个</p>
+<h2 id="欧几里德算法"><a href="#欧几里德算法" class="headerlink" title="欧几里德算法"></a>欧几里德算法</h2><p>欧几里德算法又称辗转相除法, 该算法用于计算两个整数的最大公约数. 定理如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcd(a,b) &#x3D; gcd(b,a mod b)</span><br></pre></td></tr></table></figure>
+
+<p>意思就是说: <code>a</code>和<code>b</code>的最大公约数 =  <code>b</code>和<code>a➗b的余数</code>的最大公约数</p>
+<ul>
+<li>当<code>a➗b的余数</code>为0时, 最大公约数为b</li>
+<li>当<code>a➗b的余数</code>不为0时, 则将<code>a=b</code>, <code>b=a➗b的余数</code>, 递归运算, 直到余数为<code>0</code></li>
+</ul>
+<p>具体证明的过程在此不再赘述, 如有兴趣可以自行谷歌一下, 下面直接给出基于go语言的实现代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(gcd(<span class="number">5</span>, <span class="number">10</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>解析:</p>
+<p><strong>第一次调用:</strong></p>
+<p>调用<code>gcd(5, 10)</code>则<code>a=5, b=10</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=10</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(10, 5 % 10)</code>, <code>5与10计算取余</code>商0, 余5, 则实际调用参数为<code>gcd(10, 5)</code> </p>
+<p><strong>第二次调用:</strong><br>调用<code>gcd(10, 5)</code>则<code>a=10, b=5</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=5</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(5, 10 % 5)</code>, <code>10与5计算取余</code>商2, 余0, 则实际调用参数为<code>gcd(5, 0)</code> </p>
+<p><strong>第三次调用:</strong><br>调用<code>gcd(5, 0)</code>则<code>a=5, b=0</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=0</code>, 判断条件为真, 直接返回<code>a</code> 此时<code>a</code>即为两个数的最大公约数</p>
+<h2 id="多个数求最大公约数"><a href="#多个数求最大公约数" class="headerlink" title="多个数求最大公约数"></a>多个数求最大公约数</h2><p>实现思路: 先求出头两个数的最大公约数, 再拿计算出的最大公约数依次与后面所有的数求最大公约数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetGcd</span><span class="params">(n []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// 先取得Slice中的第一个数, 并假设第一个数为最大公约数</span></span><br><span class="line">	g := n[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">// 依次与Slice中的每个数字求最大公约数</span></span><br><span class="line">	<span class="comment">// 这里i=1, 因为第0个数字已经取出并假设为最大公约数</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">1</span>; i&lt;<span class="built_in">len</span>(n)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		oldGcd := g</span><br><span class="line">		<span class="comment">// 使用两个数字比较的最大公约数函数进行计算, 得出当前两个数字的最大公约数</span></span><br><span class="line">		<span class="comment">// 循环开始后, 依次将当前最大公约数与后面的数字一一进行运算, 求最大公约数</span></span><br><span class="line">		g = gcd(g, n[i])</span><br><span class="line">		fmt.Printf(<span class="string">"第%d次运算, 当前最大公约数为%d, 与%d运算得出的新最大公约数为: %d \n"</span>, i, oldGcd, n[i], g)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nums := []<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"运算结果: \n\t数列: %v 的最大公约数为: %d"</span>, nums, GetGcd(nums))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第1次运算, 当前最大公约数为4, 与4运算得出的新最大公约数为: 4 </span><br><span class="line">第2次运算, 当前最大公约数为4, 与6运算得出的新最大公约数为: 2 </span><br><span class="line">第3次运算, 当前最大公约数为2, 与2运算得出的新最大公约数为: 2 </span><br><span class="line">第4次运算, 当前最大公约数为2, 与8运算得出的新最大公约数为: 2 </span><br><span class="line">运算结果: </span><br><span class="line">        数列: [4 4 6 2 8 10] 的最大公约数为: 2</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>
