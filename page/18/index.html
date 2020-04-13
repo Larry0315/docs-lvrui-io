@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,138 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/" class="post-title-link" itemprop="url">kvm虚拟机迁移至ESXi</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-09 14:37:55" itemprop="dateCreated datePublished" datetime="2016-09-09T14:37:55+08:00">2016-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/kvm虚拟机迁移至ESXi/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="转换步骤"><a href="#转换步骤" class="headerlink" title="转换步骤"></a>转换步骤</h1><ul>
+<li>将kvm中要迁移的虚拟机关机</li>
+<li>找到该虚拟机对应的<code>.img</code>文件</li>
+<li>使用<code>qemu-img convert</code>命令将img文件转换为<code>vmdk</code>文件</li>
+<li>把<code>vmdk</code>文件传送到<code>ESXi</code>主机上</li>
+<li>在<code>vCenter</code>中创建一个配置相同的主机，加载已存在的<code>vmdk</code>硬盘文件</li>
+<li>开启虚拟机即可</li>
+</ul>
+<h1 id="qemu-img命令的时候用"><a href="#qemu-img命令的时候用" class="headerlink" title="qemu-img命令的时候用"></a>qemu-img命令的时候用</h1><p><code>qemu-img</code>命​令​行​工​具​是​<code>Xen</code>和​<code>KVM</code>用​来​格​式​化​各​种​文​件​系​统​的​，可​使​用​<code>qemu-img</code>格​式​化​虚​拟​客​户​端​映​像​、​附​加​存​储​设​备​以​及​网​络​存​储​。还可以用来转换镜像文件</p>
+<h2 id="创建磁盘文件"><a href="#创建磁盘文件" class="headerlink" title="创建磁盘文件"></a>创建磁盘文件</h2><p><strong>创​建​新​磁​盘​映​像​文​件​名​为​ sina_kvm，格​式​为​ format</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img create [-6] [-e] [-b base_image] [-f format] filename [sina_kvm]</span><br></pre></td></tr></table></figure>
+
+<p>例如：创建一个10M的镜像文件：ps_kvm.img，文件格式为：raw</p>
+<h2 id="转换镜像格式"><a href="#转换镜像格式" class="headerlink" title="转换镜像格式"></a>转换镜像格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert [-c] [-e] [-f format] filename [-O output_format] output_filename</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert 10-71-hadoop.shennong.ren.img -O vmdk /tmp/testhdp.vmdk</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取镜像信息"><a href="#获取镜像信息" class="headerlink" title="获取镜像信息"></a>获取镜像信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img info [-f format] filename</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持的格式"><a href="#支持的格式" class="headerlink" title="支持的格式"></a>支持的格式</h2><p>映​像​格​式​通​常​是​自​动​获​取​的​。​支​持​以​下​格​式​：</p>
+<ul>
+<li>raw</li>
+</ul>
+<p>Raw 磁​盘​映​像​格​式​（默​认​）。​这​个​格​式​的​优​点​是​可​以​简​单​、​容​易​地​导​出​到​其​它​模​拟​器​中​。​如​果​您​的​文​件​系​统​支​持​中​断​（例​如​在​ Linux 中​的​ ext2 或​者​ ext3 以​及​ Windows 中​的​ NTFS），那​么​只​有​写​入​的​字​段​会​占​用​空​间​。​使​用​ qemu-img info 了​解​ Unix/Linux 中​映​像​或​者​ ls -ls 使​用​的​实​际​大​小​。​</p>
+<ul>
+<li>qcow2</li>
+</ul>
+<p>QEMU 映​像​格​式​，最​万​能​的​格​式​。​使​用​它​可​获​得​较​小​映​像​（如​果​您​的​系​统​不​支​持​中​断​，例​如​在​ Windows 中​，它​会​很​有​用​）、​额​外​的​ AES 加​密​法​、​zlib 压​缩​以​及​对​多​ VM 快​照​的​支​持​。​目前也是虚拟池一直在使用的镜像格式。<br>例如：<br>转换之前，原镜像disk size大小为8G，转换后仅仅只有2.3G。</p>
+<ul>
+<li>qcow</li>
+</ul>
+<p>旧​的​ QEMU 映​像​格​式​。​只​用​于​与​旧​版​本​兼​容​，目前虚拟池已无该格式镜像文件。​</p>
+<ul>
+<li>cow</li>
+</ul>
+<p>写​入​映​像​格​式​的​用​户​模​式​ Linux 副​本​。​包​含​ cow 格​式​的​目​的​只​是​为​了​与​前​面​的​版​本​兼​容​。​它​无​法​在​ Windows 中​使​用​，虚拟池已无该格式镜像文件。</p>
+<ul>
+<li>vmdk</li>
+</ul>
+<p>VMware 3 和​ 4 兼​容​映​像​格​式，虚拟池无该格式镜像文件​。​</p>
+<ul>
+<li>cloop</li>
+</ul>
+<p>Linux 压​缩​回​送​映​像​，只​有​在​重​复​使​用​直​接​压​缩​的​ CD-ROM 映​像​时​有​用​，比​如​在​ Knoppix CD-ROM 中​。</p>
+<hr>
+<p><em>参考文章</em></p>
+<ul>
+<li><a href="http://blog.sina.com.cn/s/blog_502c8cc40101352g.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_502c8cc40101352g.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1251,208 +1383,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/14/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/14/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">MySQL数据类型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-08-14 18:14:43" itemprop="dateCreated datePublished" datetime="2016-08-14T18:14:43+08:00">2016-08-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/08/14/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/14/MySQL数据类型/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="整形"><a href="#整形" class="headerlink" title="整形"></a>整形</h1><table>
-<thead>
-<tr>
-<th>存储类型</th>
-<th>存储空间（字节）</th>
-<th>最小值</th>
-<th>最大值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>TINYINT</td>
-<td>1</td>
-<td>-128</td>
-<td>127</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>0</td>
-<td>255</td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>2</td>
-<td>-32768</td>
-<td>32767</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>0</td>
-<td>65535</td>
-</tr>
-<tr>
-<td>MEDIUMINT</td>
-<td>3</td>
-<td>-8388608</td>
-<td>8388607</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>0</td>
-<td>16777215</td>
-</tr>
-<tr>
-<td>INT</td>
-<td>4</td>
-<td>-2147483648</td>
-<td>4147483647</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>0</td>
-<td>4294967295</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>8</td>
-<td>-9223372036854775808</td>
-<td>9223372036854775807</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>0</td>
-<td>18446744073709551615</td>
-</tr>
-</tbody></table>
-<h2 id="老生常谈的问题"><a href="#老生常谈的问题" class="headerlink" title="老生常谈的问题"></a>老生常谈的问题</h2><ul>
-<li>int(11) VS int(21) 有什么区别</li>
-</ul>
-<p>是存储空间有区别？还是存储范围有区别？</p>
-<p><strong>答案是：都没有区别,只在特性情况下显示上有些区别</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置空位补零</span></span><br><span class="line">mysql&gt; create table testint (a int(11) zerofill, b int(21) zerofill);</span><br><span class="line">Query OK, 0 rows affected (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into testint values(1,1);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from testint;</span><br><span class="line">+<span class="comment">-------------+-----------------------+</span></span><br><span class="line">| a           | b                     |</span><br><span class="line">+<span class="comment">-------------+-----------------------+</span></span><br><span class="line">| 00000000001 | 000000000000000000001 |</span><br><span class="line">+<span class="comment">-------------+-----------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下数字前面不会补零</span></span><br><span class="line">mysql&gt; create table testint (a int(11), b int(21));</span><br><span class="line">Query OK, 0 rows affected (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into testint values(1,1);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from testint;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| a    | b    |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    1 |    1 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<h1 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h1><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>存储空间（字节）</th>
-<th>精度</th>
-<th>精确性</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>FLOAT</td>
-<td>4</td>
-<td>单精度</td>
-<td>非精确</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>8</td>
-<td>双精度</td>
-<td>比FLOAT精度高</td>
-</tr>
-</tbody></table>
-<ul>
-<li>FLOAT(9,5)</li>
-<li>DOUBLE(9,5)</li>
-</ul>
-<p>指定数字的总位数最大为9，小数点后最多显示5位数</p>
-<p>FLOAT和DOUBLE都是非精确型的数据类型，非精确型的数据类型的问题是精度的丢失</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table `t` (                                                                           -&gt;   `a` int(11) default null,</span><br><span class="line">    -&gt;   `b` float(7,4) default null</span><br><span class="line">    -&gt; ) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into t values (1, 123.12345);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from t;</span><br><span class="line">+<span class="comment">------+----------+</span></span><br><span class="line">| a    | b        |</span><br><span class="line">+<span class="comment">------+----------+</span></span><br><span class="line">|    1 | 123.1235 |</span><br><span class="line">+<span class="comment">------+----------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<h2 id="精确的数字类型"><a href="#精确的数字类型" class="headerlink" title="精确的数字类型"></a>精确的数字类型</h2><p><strong>DECIMAL(9,5) 定点数-更精确的数字类型</strong></p>
-<ul>
-<li>高精度的数据类型，常用来存储交易相关的数据</li>
-<li>DECIMAL(M,N)，M代表总精度，N代表小数点右侧的位数（1 &lt; M &lt; 254; 0 &lt; N &lt; 60）</li>
-<li>和FLOAT和DOUBLE不同的是，DECIMAL的存储空间是变长的</li>
-</ul>
-<h1 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a>经验之谈</h1><ul>
-<li>存储性别、省份、类型等分类信息时选择TINYINT或者enmu</li>
-<li>BIGINT存储空间更大，INT和BIGINT之间通常选择GIBINT</li>
-<li>交易等高精度数据时选择使用DECIMAL数据类型</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1525,7 +1455,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1538,7 +1468,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

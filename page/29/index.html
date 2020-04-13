@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,152 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/" class="post-title-link" itemprop="url">CentOS与RHEL系列安装epel和rpmforce源</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-18 10:59:48" itemprop="dateCreated datePublished" datetime="2015-11-18T10:59:48+08:00">2015-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/18/CentOS%E4%B8%8ERHEL%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85epel%E5%92%8Crpmforce%E6%BA%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/18/CentOS与RHEL系列安装epel和rpmforce源/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>很多时候，使用CentOS自带的软件源并不能解决所有的软件依赖包。这里介绍在CentOS或RHEL系列中安装epel源和rpmforce源</p>
+</blockquote>
+<h1 id="安装epel源"><a href="#安装epel源" class="headerlink" title="安装epel源"></a>安装epel源</h1><hr>
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/5/i386/epel-release-5-4.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/5/x86_64/epel-release-5-4.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/6/i386/epel-release-6-8.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>7</code> Or RHEL<code>7</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://mirrors.kernel.org/fedora-epel/7/x86_64/e/epel-release-7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@rhel65-test-1 ~]<span class="comment"># yum repolist</span></span><br><span class="line">Loaded plugins: fastestmirror, security</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirror.bit.edu.cn</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.yun-idc.com</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">repo id         repo name                                         status                            </span><br><span class="line">base            CentOS-6 - Base                                   6,575                                               </span><br><span class="line">epel            Extra Packages <span class="keyword">for</span> Enterprise Linux 6 - x86_64    11,780                                              </span><br><span class="line">extras          CentOS-6 - Extras                                 43                                                  </span><br><span class="line">updates         CentOS-6 - Updates                                439                                                 </span><br><span class="line">repolist: 18,837</span><br></pre></td></tr></table></figure>
+
+<p>#安装rpmforce源</p>
+<hr>
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>5</code> Or RHEL<code>5</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>32</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm</span><br></pre></td></tr></table></figure>
+
+<p>CentOS<code>6</code> Or RHEL<code>6</code> <code>64</code>bit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@rhel65-test-1 ~]<span class="comment"># yum repolist</span></span><br><span class="line">Loaded plugins: fastestmirror, security</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirror.bit.edu.cn</span><br><span class="line"> * epel: mirrors.opencas.cn</span><br><span class="line"> * extras: mirrors.yun-idc.com</span><br><span class="line"> * rpmforge: mirrors.neusoft.edu.cn</span><br><span class="line"> * updates: mirrors.yun-idc.com</span><br><span class="line">repo id        repo name                                        status           </span><br><span class="line">base           CentOS-6 - Base                                  6,575            </span><br><span class="line">epel           Extra Packages <span class="keyword">for</span> Enterprise Linux 6 - x86_64   11,780           </span><br><span class="line">extras         CentOS-6 - Extras                                43               </span><br><span class="line">rpmforge       RHEL 6 - RPMforge.net - dag                      4,718            </span><br><span class="line">updates        CentOS-6 - Updates                               439              </span><br><span class="line">repolist: 23,555</span><br></pre></td></tr></table></figure>
+
+<p><strong>附录：内置源替换为163源</strong></p>
+<ul>
+<li><p>收录架构</p>
+<p>i386<br>x86_64<br>SRPMS</p>
+</li>
+<li><p>收录版本</p>
+<p>所有版本</p>
+</li>
+<li><p>更新时间</p>
+<p>每4小时更新一次</p>
+</li>
+<li><p>使用说明</p>
+<p>首先备份<code>/etc/yum.repos.d/CentOS-Base.repo</code></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)</li>
+</ul>
+<p><a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo" target="_blank" rel="noopener">CentOS7</a><br><a href="http://mirrors.163.com/.help/CentOS6-Base-163.repo" target="_blank" rel="noopener">CentOS6</a><br><a href="http://mirrors.163.com/.help/CentOS5-Base-163.repo" target="_blank" rel="noopener">CentOS5</a></p>
+<ul>
+<li>运行以下命令生成缓存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>相关连接：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="noopener">163yum源官方帮助</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1111,7 +1257,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1124,7 +1270,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

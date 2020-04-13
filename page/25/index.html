@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,289 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/17/Python%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E5%9D%97re/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/17/Python%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E5%9D%97re/" class="post-title-link" itemprop="url">Python的正则表达式模块re</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-17 00:39:49" itemprop="dateCreated datePublished" datetime="2016-06-17T00:39:49+08:00">2016-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/17/Python%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A8%A1%E5%9D%97re/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/Python的正则表达式模块re/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在Python中<code>re</code>模块提供了正则表达式的相关操作。其本质，RE是一种小型的，高度专业化的编程语言，通过re模块来实现其功能。正则表达式被编译成一系列字节码，然后由C编写的匹配引擎执行。</p>
+<p>我们将涉及两个重要的功能，这将被用于处理的正则表达式。但是首先：有各种各样的字符，当它们在正则表达式中使用，将有特殊的意义。为了避免在处理正则表达式的任何困惑，将使用原始字符串作为r’expression“。</p>
+<p>Python Version：3.5+</p>
+</blockquote>
+<h1 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h1><h2 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h2><ul>
+<li>.        默认匹配除换行符以外的任意字符</li>
+<li>^        匹配字符串的开始</li>
+<li>$        匹配字符串的结束</li>
+<li>[]    指定字符范围匹配</li>
+<li>|        或</li>
+<li>\        转义字符，反斜杠本身需要反斜杠去转义</li>
+<li>()    分组，去已经匹配到的数据中再去提取数据</li>
+<li>\d  匹配任何十进制数；它相当于类 [0-9]。</li>
+<li>\D  匹配任何非数字字符；它相当于类 [^0-9]。</li>
+<li>\s  匹配任何空白字符；它相当于类  [ \t\n\r\f\v]。</li>
+<li>\S  匹配任何非空白字符；它相当于类 [^ \t\n\r\f\v]。</li>
+<li>\w  匹配任何字母数字字符；它相当于类 [a-zA-Z0-9_]。</li>
+<li>\W  匹配任何非字母数字字符；它相当于类 [^a-zA-Z0-9_]</li>
+<li>\b    匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</li>
+<li>\B    匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</li>
+</ul>
+<h2 id="次数匹配"><a href="#次数匹配" class="headerlink" title="次数匹配"></a>次数匹配</h2><ul>
+<li><ul>
+<li>重复0次或多次</li>
+</ul>
+</li>
+<li><ul>
+<li>重复1次或多次</li>
+</ul>
+</li>
+<li>?        重复0次或1次</li>
+<li>{n}    重复n次</li>
+<li>{n,}    重复n次或多次</li>
+<li>{n, m}    重复n次到m次</li>
+</ul>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><ul>
+<li>re.I    使匹配对大小写不敏感</li>
+<li>re.L    做本地化识别（locale-aware）匹配</li>
+<li>re.M    多行匹配，影响 ^ 和 $</li>
+<li>re.S    使 . 匹配包括换行在内的所有字符</li>
+<li>re.U    根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.</li>
+<li>re.X    该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。</li>
+</ul>
+<h1 id="正则表达式实例"><a href="#正则表达式实例" class="headerlink" title="正则表达式实例"></a>正则表达式实例</h1><h2 id="普通字符匹配"><a href="#普通字符匹配" class="headerlink" title="普通字符匹配"></a>普通字符匹配</h2><ul>
+<li><code>python</code>    匹配 <code>python</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r"python"</span>, <span class="string">"Pythonpythoner"</span>, re.I)</span><br><span class="line">[<span class="string">'Python'</span>, <span class="string">'python'</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="锚点匹配"><a href="#锚点匹配" class="headerlink" title="锚点匹配"></a>锚点匹配</h2><ul>
+<li><code>^python$</code>     匹配以<code>python</code>开头结尾的字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r"^python$"</span>, <span class="string">"Pythonpythoner"</span>, re.I)</span><br><span class="line">[]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r"^python$"</span>, <span class="string">"Python"</span>, re.I)</span><br><span class="line">[<span class="string">'Python'</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="范围匹配"><a href="#范围匹配" class="headerlink" title="范围匹配"></a>范围匹配</h2><ul>
+<li>[Pp]ython    匹配 “Python” 或 “python”</li>
+<li>rub[ye]    匹配 “ruby” 或 “rube”</li>
+<li>[aeiou]    匹配中括号内的任意一个字母</li>
+<li>[0-9]    匹配任何数字。类似于 [0123456789]</li>
+<li>[a-z]    匹配任何小写字母</li>
+<li>[A-Z]    匹配任何大写字母</li>
+<li>[a-zA-Z0-9]    匹配任何字母及数字</li>
+<li>[^aeiou]    除了aeiou字母以外的所有字符</li>
+<li>[^0-9]    匹配除了数字外的字符</li>
+</ul>
+<h2 id="或匹配"><a href="#或匹配" class="headerlink" title="或匹配"></a>或匹配</h2><ul>
+<li><code>python|java</code>        匹配<code>python</code>或<code>java</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r"python|java"</span>, <span class="string">"Python and java"</span>, re.I)</span><br><span class="line">[<span class="string">'Python'</span>, <span class="string">'java'</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="匹配反斜杠"><a href="#匹配反斜杠" class="headerlink" title="匹配反斜杠"></a>匹配反斜杠</h2><ul>
+<li><code>\\</code> 匹配<code>\</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r"\\"</span>, <span class="string">"Python\ and java"</span>, re.I)</span><br><span class="line">[<span class="string">'\\'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>注意：在匹配的使用，如果想匹配字符串中的一个反斜杠，需要在原生字符串中写两个反斜杠。在匹配结果中，re中匹配到了一个<code>\</code>但是返回的却是<code>\\</code>，是因为Python中也需要使用两个反斜杠来表示一个反斜杠</p>
+<p>这里需要详细解释一下：<strong>Python与re之间的转义</strong></p>
+<p>在之前的笔记中，我们已经知道<code>原生字符串</code>的概念，简单来说，就是我在python中一旦在字符串前面加了<code>r</code>就表示后面这串字符串中所有的字符都当做普通字符来处理。在上面的例子中，我们已经使用了原生字符串的写法，声明字符串中的<code>\</code>已经是普通字符了，为什么到了re中，需要python给出<code>\\</code>才能匹配到<code>\</code>呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'\\'</span>)</span><br><span class="line">\</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">r'\\'</span>)</span><br><span class="line">\\</span><br></pre></td></tr></table></figure>
+
+<p>这是因为，re和Python其实是两套系统，在Python中虽然明确给出了让re去匹配<code>\</code>，但是这一个<code>\</code>传递给re时，在re中一个<code>\</code>也是特殊字符，表示转义，所以不能正确在字符串中匹配到字符<code>\</code>，为了抵消掉re中<code>\</code>的特殊含义，需要使用<code>\\</code>来匹配到一个<code>\</code>,所以从re的角度来说，就要求Python传递过去的是<code>\\</code>才能让re在字符串中匹配到<code>\</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">"\\\\"</span>, <span class="string">"Python\ and java"</span>, re.I)</span><br><span class="line">[<span class="string">'\\'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>对比一下，如果不使用原生字符串的话，re仍然需要Python传递过去<code>\\</code>才能匹配到<code>\</code>，但是Python中的字符串如果没有声明是原生字符串的话需要使用<code>\\\\</code>才能表示<code>\\</code></p>
+<h1 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h1><p>上面简单的介绍完re的基本表达式，下面就可以实际使用re的函数来操作匹配字符串啦</p>
+<h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><p>match，从起始位置开始匹配，匹配成功返回一个对象，未匹配成功返回None</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(pattern, string, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Try to apply the pattern at the start of the string, returning</span></span><br><span class="line"><span class="string">    a match object, or None if no match was found."""</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags).match(string)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li>pattern    正则表达式</li>
+<li>string    字符串</li>
+<li>flags    编译标志位，用于修改正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</li>
+</ul>
+<p><strong>匹配对象方法</strong></p>
+<ul>
+<li>group()    获取匹配到的所有结果</li>
+<li>groups()    获取模型中匹配到的分组结果</li>
+<li>groupdict() 获取模型中匹配到的分组结果</li>
+<li>start()    返回匹配开始的位置</li>
+<li>end()    返回匹配结束的位置</li>
+<li>span()    返回一个元组包含匹配 (开始,结束) 的位置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">r = re.match(<span class="string">'com'</span>, <span class="string">'comwww.runcomoob'</span>)</span><br><span class="line">print(r.group())</span><br><span class="line">print(r.groups())</span><br><span class="line">print(r.groupdict())</span><br><span class="line"></span><br><span class="line">r = re.match(<span class="string">'com'</span>, <span class="string">'Comwww.runComoob'</span>, re.I)</span><br><span class="line">print(r.group())</span><br><span class="line">print(r.groups())</span><br><span class="line">print(r.groupdict())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">com</span><br><span class="line">()</span><br><span class="line">&#123;&#125;</span><br><span class="line">Com</span><br><span class="line">()</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有分组</span></span><br><span class="line"><span class="comment"># 为何要有分组？提取匹配成功的指定内容（先匹配成功全部正则，再匹配成功的局部内容提取出来）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">r = re.match(<span class="string">'c(..)'</span>, <span class="string">'comwww.runcomoob'</span>)</span><br><span class="line">print(r.group())</span><br><span class="line">print(r.groups())</span><br><span class="line">print(r.groupdict())</span><br><span class="line"></span><br><span class="line">r = re.match(<span class="string">'c(..)'</span>, <span class="string">'Comwww.runComoob'</span>, re.I)</span><br><span class="line">print(r.group())</span><br><span class="line">print(r.groups())</span><br><span class="line">print(r.groupdict())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">com</span><br><span class="line">(<span class="string">'om'</span>,)</span><br><span class="line">&#123;&#125;</span><br><span class="line">Com</span><br><span class="line">(<span class="string">'om'</span>,)</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>观察取出来的结果，<code>groups()</code>中有了匹配结果，匹配的是<code>group()</code>中的结果。也就是说，使用分组，意味着在匹配到整个字符串中再次进行匹配并取值(取括号中的值)</p>
+<h2 id="search"><a href="#search" class="headerlink" title="search"></a>search</h2><p>search,浏览整个字符串去匹配第一个，未匹配成功返回None</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(pattern, string, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Scan through string looking for a match to the pattern, returning</span></span><br><span class="line"><span class="string">    a match object, or None if no match was found."""</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags).search(string)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li>pattern    正则表达式</li>
+<li>string    字符串</li>
+<li>flags    编译标志位，用于修改正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</li>
+</ul>
+<p><strong>匹配对象方法</strong></p>
+<ul>
+<li>group()    获取匹配到的所有结果</li>
+<li>groups()    获取模型中匹配到的分组结果</li>
+<li>groupdict() 获取模型中匹配到的分组结果</li>
+<li>start()    返回匹配开始的位置</li>
+<li>end()    返回匹配结束的位置</li>
+<li>span()    返回一个元组包含匹配 (开始,结束) 的位置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">r = re.search(<span class="string">'\dcom'</span>, <span class="string">'www.4comrunoob.5com'</span>)</span><br><span class="line">print(r.group())</span><br><span class="line">print(r.groups())</span><br><span class="line">print(r.groupdict())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">4</span>com</span><br><span class="line">()</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="re-match与re-search的区别"><a href="#re-match与re-search的区别" class="headerlink" title="re.match与re.search的区别"></a>re.match与re.search的区别</h1><p>re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span></span><br><span class="line"></span><br><span class="line">matchObj = re.match(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br><span class="line"></span><br><span class="line">matchObj = re.search(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">No match!!</span><br><span class="line">search --&gt; matchObj.group() :  dogs</span><br></pre></td></tr></table></figure>
+
+<h2 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h2><p>findall，找到 RE 匹配的所有子串，并把它们作为一个列表返回</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findall</span><span class="params">(pattern, string, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Return a list of all non-overlapping matches in the string.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If one or more capturing groups are present in the pattern, return</span></span><br><span class="line"><span class="string">    a list of groups; this will be a list of tuples if the pattern</span></span><br><span class="line"><span class="string">    has more than one group.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Empty matches are included in the result."""</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags).findall(string)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li>pattern    正则表达式</li>
+<li>string    字符串</li>
+<li>flags    编译标志位，用于修改正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">r = re.findall(<span class="string">r'\d+'</span>, <span class="string">'1one1two2three3four4'</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 有分组</span></span><br><span class="line">r = re.findall(<span class="string">r'\d+(..)'</span>, <span class="string">'1one1two2three3four4'</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'1'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>]</span><br><span class="line">[<span class="string">'on'</span>, <span class="string">'tw'</span>, <span class="string">'th'</span>, <span class="string">'fo'</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="finditer"><a href="#finditer" class="headerlink" title="finditer"></a>finditer</h2><p>找到 RE 匹配的所有子串，并把它们作为一个迭代器返回</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span></span><br><span class="line"></span><br><span class="line">r = re.finditer(<span class="string">r'\d+'</span>, <span class="string">'1one1two2three3four4'</span>)</span><br><span class="line">print(r)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> r:</span><br><span class="line">    print(i.span(), i.group(), i.groupdict())</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">&lt;callable_iterator object at <span class="number">0x101178748</span>&gt;</span><br><span class="line">(<span class="number">0</span>, <span class="number">1</span>) <span class="number">1</span> &#123;&#125;</span><br><span class="line">(<span class="number">4</span>, <span class="number">5</span>) <span class="number">1</span> &#123;&#125;</span><br><span class="line">(<span class="number">8</span>, <span class="number">9</span>) <span class="number">2</span> &#123;&#125;</span><br><span class="line">(<span class="number">14</span>, <span class="number">15</span>) <span class="number">3</span> &#123;&#125;</span><br><span class="line">(<span class="number">19</span>, <span class="number">20</span>) <span class="number">4</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="sub"><a href="#sub" class="headerlink" title="sub"></a>sub</h2><p>sub，替换匹配成功的指定位置字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(pattern, repl, string, count=<span class="number">0</span>, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Return the string obtained by replacing the leftmost</span></span><br><span class="line"><span class="string">    non-overlapping occurrences of the pattern in string by the</span></span><br><span class="line"><span class="string">    replacement repl.  repl can be either a string or a callable;</span></span><br><span class="line"><span class="string">    if a string, backslash escapes in it are processed.  If it is</span></span><br><span class="line"><span class="string">    a callable, it's passed the match object and must return</span></span><br><span class="line"><span class="string">    a replacement string to be used."""</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags).sub(repl, string, count)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li>pattern： 正则模型</li>
+<li>repl   ： 要替换的字符串或可执行对象</li>
+<li>string ： 要匹配的字符串</li>
+<li>count  ： 指定匹配个数</li>
+<li>flags  ： 匹配模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 与分组无关</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">r = re.sub(<span class="string">"a\w+"</span>, <span class="string">"18"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">2</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">hello ps bcd ps lge ps <span class="number">18</span> <span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="split"><a href="#split" class="headerlink" title="split"></a>split</h2><p>split，根据正则匹配分割字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split</span><span class="params">(pattern, string, maxsplit=<span class="number">0</span>, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Split the source string by the occurrences of the pattern,</span></span><br><span class="line"><span class="string">    returning a list containing the resulting substrings.  If</span></span><br><span class="line"><span class="string">    capturing parentheses are used in pattern, then the text of all</span></span><br><span class="line"><span class="string">    groups in the pattern are also returned as part of the resulting</span></span><br><span class="line"><span class="string">    list.  If maxsplit is nonzero, at most maxsplit splits occur,</span></span><br><span class="line"><span class="string">    and the remainder of the string is returned as the final element</span></span><br><span class="line"><span class="string">    of the list."""</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags).split(string, maxsplit)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pattern： 正则模型</li>
+<li>string ： 要匹配的字符串</li>
+<li>maxsplit：指定分割个数</li>
+<li>flags  ： 匹配模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">origin = <span class="string">"hello ps bcd ps lge ps acd 25"</span></span><br><span class="line">r = re.split(<span class="string">"ps"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">1</span>)</span><br><span class="line">print(r)</span><br><span class="line">r = re.split(<span class="string">"ps"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">2</span>)</span><br><span class="line">print(r)</span><br><span class="line">r = re.split(<span class="string">"ps"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">3</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'hello '</span>, <span class="string">' bcd ps lge ps acd 25'</span>]</span><br><span class="line">[<span class="string">'hello '</span>, <span class="string">' bcd '</span>, <span class="string">' lge ps acd 25'</span>]</span><br><span class="line">[<span class="string">'hello '</span>, <span class="string">' bcd '</span>, <span class="string">' lge '</span>, <span class="string">' acd 25'</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">origin = <span class="string">"hello ps bcd ps lge ps acd 25"</span></span><br><span class="line">r = re.split(<span class="string">"(ps)"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">1</span>)</span><br><span class="line">print(r)</span><br><span class="line">r = re.split(<span class="string">"p(s)"</span>, <span class="string">"hello ps bcd ps lge ps acd 25"</span>, <span class="number">1</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'hello '</span>, <span class="string">'ps'</span>, <span class="string">' bcd ps lge ps acd 25'</span>]</span><br><span class="line">[<span class="string">'hello '</span>, <span class="string">'s'</span>, <span class="string">' bcd ps lge ps acd 25'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>从上面的实例中可以看出，在不分组的情况下，列表的长度=maxsplit+1，匹配到的分割字符串并不会返回回来；而在分组的情况下，列表的长度=maxsplit+2，匹配到的字符串也会返回到列表中</p>
+<h2 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h2><p>compile,编译正则表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compile</span><span class="params">(pattern, flags=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"Compile a regular expression pattern, returning a pattern object."</span></span><br><span class="line">    <span class="keyword">return</span> _compile(pattern, flags)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<ul>
+<li>pattern： 正则模型</li>
+<li>flags  ： 匹配模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">p = re.compile(<span class="string">r'\d+(...)'</span>)</span><br><span class="line">print(p.findall(<span class="string">'123one134two256three378four469'</span>))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'thr'</span>, <span class="string">'fou'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>先把正则表达式编译再匹配，在遍历匹配大型文件时，效率会提高很多，免去了每次还要编译正则表达式</p>
+<h1 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h1><ul>
+<li>IP：<code>^(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$</code></li>
+<li>手机号：<code>^1[3|4|5|8][0-9]\d{8}$</code></li>
+<li>邮箱：<code>[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+</code></li>
+</ul>
+<h1 id="正则表达式计算器实例"><a href="#正则表达式计算器实例" class="headerlink" title="正则表达式计算器实例"></a>正则表达式计算器实例</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># test_expression = '12+33*(11.5+22.5)*44/2+59-(2*3)+(8*5-(10/2))'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qukuohao</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    将表达式中所有括号中的内容计算成数值,去掉表达式中所有的括号</span></span><br><span class="line"><span class="string">    :param s: 计算表达式[str]</span></span><br><span class="line"><span class="string">    :return: 没有括号的计算表达式[str]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'('</span> <span class="keyword">in</span> s:</span><br><span class="line">            r = re.split(<span class="string">r'\(([^()]*)\)'</span>, s, <span class="number">1</span>)</span><br><span class="line">            <span class="comment"># ret = eval(r[1])</span></span><br><span class="line">            ret = cal(r[<span class="number">1</span>])</span><br><span class="line">            s = r[<span class="number">0</span>] + str(ret) + r[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuhao</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    处理符号的问题</span></span><br><span class="line"><span class="string">    :param s: 计算表达式</span></span><br><span class="line"><span class="string">    :return: 计算表达式</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ss = s.replace(<span class="string">'+-'</span>, <span class="string">'-'</span>)</span><br><span class="line">    sss = ss.replace(<span class="string">'--'</span>, <span class="string">'+'</span>)</span><br><span class="line">    <span class="keyword">return</span> sss</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">chengshufajisuan</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    专门用来计算不带括号的计算表达式中的乘除法</span></span><br><span class="line"><span class="string">    :param s: 不带括号的计算表达式</span></span><br><span class="line"><span class="string">    :return: 只有加减法的计算表达式(如果不再有加减法,直接返回计算结果)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'*'</span> <span class="keyword">in</span> s <span class="keyword">or</span> <span class="string">'/'</span> <span class="keyword">in</span> s:</span><br><span class="line">            r = re.split(<span class="string">r'(\d+\.?\d*[*|/]-?\d+\.?\d*)'</span>, s, <span class="number">1</span>)</span><br><span class="line">            ss = eval(r[<span class="number">1</span>])</span><br><span class="line">            s = r[<span class="number">0</span>] + str(ss) + r[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jiajianfajisuan</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    专门用来计算不带括号的计算表示式中的加减法</span></span><br><span class="line"><span class="string">    :param s: 不带括号且只有加减法的表达式</span></span><br><span class="line"><span class="string">    :return: 最终的计算结果</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    s = fuhao(s)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    	<span class="comment"># 5-9的情况；-5-9的情况都需要额外考虑</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'+'</span> <span class="keyword">in</span> s <span class="keyword">or</span> s.count(<span class="string">'-'</span>) &gt; <span class="number">1</span> <span class="keyword">or</span> (s.count(<span class="string">'-'</span>) == <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> s.startswith(<span class="string">'-'</span>)):</span><br><span class="line">            r = re.split(<span class="string">r'(-?\d+\.?\d*[+|-]\d+\.?\d*)'</span>, s, <span class="number">1</span>)</span><br><span class="line">            ss = eval(r[<span class="number">1</span>])</span><br><span class="line">            s = r[<span class="number">0</span>]+str(ss)+r[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    + - * / 混合运算</span></span><br><span class="line"><span class="string">    :param s:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">'*'</span> <span class="keyword">in</span> s <span class="keyword">or</span> <span class="string">'/'</span> <span class="keyword">in</span> s:</span><br><span class="line">        s = chengshufajisuan(s)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'+'</span> <span class="keyword">in</span> s <span class="keyword">or</span> s.count(<span class="string">'-'</span>) &gt; <span class="number">1</span>:</span><br><span class="line">            s = jiajianfajisuan(s)</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line">    <span class="keyword">elif</span> <span class="string">'+'</span> <span class="keyword">in</span> s <span class="keyword">or</span> s.count(<span class="string">'-'</span>) &gt; <span class="number">1</span> <span class="keyword">or</span> (s.count(<span class="string">'-'</span>) == <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> s.startswith(<span class="string">'-'</span>)):</span><br><span class="line">        s = jiajianfajisuan(s)</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(cal(qukuohao(test_expression)))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            e = input(<span class="string">'输入计算表达式&gt; '</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'('</span> <span class="keyword">in</span> e:</span><br><span class="line">                print(cal(qukuohao(e)))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(cal(e))</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        print(<span class="string">'Bye'</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文档：</p>
+<ul>
+<li><a href="http://wiki.ubuntu.org.cn/Python正则表达式操作指南" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/Python正则表达式操作指南</a></li>
+<li><a href="http://www.cnblogs.com/wupeiqi/articles/5501365.html" target="_blank" rel="noopener">http://www.cnblogs.com/wupeiqi/articles/5501365.html</a></li>
+</ul>
+<p>在线正则匹配工具：</p>
+<ul>
+<li><a href="http://tool.chinaz.com/regex?jdfwkey=6iptw" target="_blank" rel="noopener">http://tool.chinaz.com/regex?jdfwkey=6iptw</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1547,113 +1830,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/07/Python%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/07/Python%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/" class="post-title-link" itemprop="url">Python的迭代器和生成器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-07 03:21:59" itemprop="dateCreated datePublished" datetime="2016-06-07T03:21:59+08:00">2016-06-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/07/Python%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/07/Python的迭代器和生成器/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python Version：3.5+</p>
-</blockquote>
-<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><p>一个函数调用时返回一个迭代器（可迭代的对象），那这个函数就叫做生成器（generator）；如果函数中包含yield语法，那这个函数就会变成生成器；</p>
-<p>在函数中，有return语句，在执行函数的时候，一旦执行到return语句，函数会立即返回结果并退出函数；而如果使用了yield语句，当函数执行到yield时，会立即将yield后的值返回，并等待下一次调用。</p>
-<p>形象点来说，return相当于按下了停止键；而yield相当于按下了暂停键。他们之间的区别就在于，暂停键是可以继续播放的，而停止了之后再播放需要从头播放。</p>
-<p><strong>感受一下生成器</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line">f = func()</span><br><span class="line"></span><br><span class="line">print(type(f))</span><br><span class="line">print(f.__next__())</span><br><span class="line">print(f.__next__())</span><br><span class="line">print(f.__next__())</span><br><span class="line">print(f.__next__())</span><br><span class="line">print(f.__next__())</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"/Users/lvrui/PycharmProjects/untitled/5/test.py"</span>, line <span class="number">85</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print(f.__next__())</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
-
-<p>这里的<code>f.__next__()</code>就相当于“播放”键，每执行一次，都会让函数从上次停止的位置继续执行。函数中，定义了一共可以有四次暂停键，而我在调用时，按了五次播放键，到最后，抛出了StopIteration异常，说明该迭代对象已经遍历完毕。</p>
-<p>实例：将列表进行拆分，例如[1, 2, 3]拆分成[1, 2] [2, 3]</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mylist</span><span class="params">(li)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(li) - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">yield</span> (li[i], li[i + <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">li = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">generator_list = mylist(li)</span><br><span class="line">print(generator_list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> generator_list:</span><br><span class="line">    print(i)</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">&lt;generator object mylist at <span class="number">0x101380888</span>&gt;</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">(<span class="number">5</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>迭代器是访问集合元素的一种方式。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退，不过这也没什么，因为人们很少在迭代途中往后退。另外，迭代器的一大优点是不要求事先准备好整个迭代过程中所有的元素。迭代器仅仅在迭代到某个元素时才计算该元素，而在这之前或之后，元素可以不存在或者被销毁。这个特点使得它特别适合用于遍历一些巨大的或是无限的集合，比如几个G的文件</p>
-<p><strong>特点：</strong></p>
-<ul>
-<li>访问者不需要关心迭代器内部的结构，仅需通过next()方法不断去取下一个内容</li>
-<li>不能随机访问集合中的某个值 ，只能从头到尾依次访问</li>
-<li>访问到一半时不能往回退</li>
-<li>便于循环比较大的数据集合，节省内存</li>
-</ul>
-<h2 id="如何判断是否是可迭代对象"><a href="#如何判断是否是可迭代对象" class="headerlink" title="如何判断是否是可迭代对象"></a>如何判断是否是可迭代对象</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>i = iter([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>i</span><br><span class="line">&lt;list_iterator object at <span class="number">0x1032fa390</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(i)</span><br><span class="line">[<span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__iter__'</span>, <span class="string">'__le__'</span>, <span class="string">'__length_hint__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__next__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__setstate__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>]</span><br></pre></td></tr></table></figure>
-
-<p>一个对象中，同时拥有<code>__iter__</code> <code>__next__</code>这两个方法的对象就是可迭代对象。</p>
-<p>迭代对象靠什么迭代？靠<code>__next__</code>方法进行迭代。而Python中的for循环语句，内部帮我们调用了对象的<code>__next__</code>方法，而且帮我们自动捕获了StopIteration异常。So <code>for</code>循环就是Python中的迭代器</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1726,7 +1902,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1739,7 +1915,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

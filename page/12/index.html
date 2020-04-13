@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" class="post-title-link" itemprop="url">nginx配置http强制跳转https</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-01 14:44:11" itemprop="dateCreated datePublished" datetime="2017-04-01T14:44:11+08:00">2017-04-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/01/nginx配置http强制跳转https/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>很多网站虽然支持 https, 但是直接在浏览器地址栏输入网址后, 默认仍是以 http 协议去访问的, http 强制跳转 https 的需求应运而生, 以下介绍三种实现的方式</p>
+</blockquote>
+<h1 id="rewrite-方法"><a href="#rewrite-方法" class="headerlink" title="rewrite 方法"></a>rewrite 方法</h1><p>这是最常用的实现方法, 将所有 http 请求通过 rewrite 重定向到 https 即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen  80;</span><br><span class="line">    server_name docs.lvrui.io</span><br><span class="line">      </span><br><span class="line">    rewrite ^(.*)$  https:&#x2F;&#x2F;$host$1 permanent;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="497-状态码"><a href="#497-状态码" class="headerlink" title="497 状态码"></a>497 状态码</h1><p>error code 497: normal request was sent to HTTPS</p>
+<p>在一个站点只允许 https 访问时, 如果使用 http 访问会报出497错误码</p>
+<p>利用497状态码重定向到 https</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name docs.lvrui.io</span><br><span class="line">    </span><br><span class="line">    error_page 497  https:&#x2F;&#x2F;$host$uri?$args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="index-html-刷新网页"><a href="#index-html-刷新网页" class="headerlink" title="index.html 刷新网页"></a>index.html 刷新网页</h1><p>上面两种方法均会耗费服务器资源, 我们使用 <code>curl</code> 来看下百度是如何实现的 <code>baidu.com</code> 向 <code>www.baidu.com</code> 的跳转</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ curl baidu.com -vv </span><br><span class="line">* Rebuilt URL to: baidu.com/</span><br><span class="line">*   Trying 220.181.57.217...</span><br><span class="line">* TCP_NODELAY <span class="built_in">set</span></span><br><span class="line">* Connected to baidu.com (220.181.57.217) port 80 (<span class="comment">#0)</span></span><br><span class="line">&gt; GET / HTTP/1.1</span><br><span class="line">&gt; Host: baidu.com</span><br><span class="line">&gt; User-Agent: curl/7.51.0</span><br><span class="line">&gt; Accept: */*</span><br><span class="line">&gt; </span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Date: Sat, 01 Apr 2017 06:32:35 GMT</span><br><span class="line">&lt; Server: Apache</span><br><span class="line">&lt; Last-Modified: Tue, 12 Jan 2010 13:48:00 GMT</span><br><span class="line">&lt; ETag: <span class="string">"51-47cf7e6ee8400"</span></span><br><span class="line">&lt; Accept-Ranges: bytes</span><br><span class="line">&lt; Content-Length: 81</span><br><span class="line">&lt; Cache-Control: max-age=86400</span><br><span class="line">&lt; Expires: Sun, 02 Apr 2017 06:32:35 GMT</span><br><span class="line">&lt; Connection: Keep-Alive</span><br><span class="line">&lt; Content-Type: text/html</span><br><span class="line">&lt; </span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">"refresh"</span> content=<span class="string">"0;url=http://www.baidu.com/"</span>&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">* Curl_http_done: called premature == 0</span><br><span class="line">* Connection <span class="comment">#0 to host baidu.com left intact</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到百度很巧妙的利用meta的刷新作用，将baidu.com跳转到<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<p>同理, 我们也可以用这个特性来实现 http 向 https 的跳转</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># index.html</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"0;url=https://docs.lvrui.io/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    </span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        # 将 index.html 文件放到下面的目录下</span><br><span class="line">        root &#x2F;var&#x2F;www&#x2F;html&#x2F;refresh&#x2F;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name docs.lvrui.io;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;docs.log  main;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.crt;</span><br><span class="line">    ssl_certificate_key  &#x2F;etc&#x2F;ssl&#x2F;docs.20150509.cn.key;</span><br><span class="line">    error_page 404 &#x2F;404.html;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">	    root &#x2F;var&#x2F;www&#x2F;html&#x2F;docs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1397,184 +1498,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/20/Docker-For-Ubuntu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/20/Docker-For-Ubuntu/" class="post-title-link" itemprop="url">Docker For Ubuntu</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-20 23:39:54" itemprop="dateCreated datePublished" datetime="2017-03-20T23:39:54+08:00">2017-03-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/20/Docker-For-Ubuntu/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/20/Docker-For-Ubuntu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Ubuntu 是 docker 第一个支持的系统发行版, 截止到目前, 我们也依然推荐在生产环境中使用 Ubuntu 系统. 虽然我也很喜欢 CentOS, 但是在 docker 这件事儿中, Ubuntu 确实是最合适的系统选择</p>
-</blockquote>
-<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
-<li>64bit Yakkety 16.10</li>
-</ul>
-<ul>
-<li>64bit Xenial 16.04 (LTS)    &lt;== 个人推荐使用此版本的 Ubuntu 发行版</li>
-<li>64bit Trusty 14.04 (LTS)</li>
-</ul>
-<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine</span><br></pre></td></tr></table></figure>
-
-<p>需要 <code>apt-get</code> 命令的回显显示没有相关的软件包被安装</p>
-<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
-<h2 id="Ubuntu-Trusty-14-04-额外安装的软件包"><a href="#Ubuntu-Trusty-14-04-额外安装的软件包" class="headerlink" title="Ubuntu Trusty 14.04 额外安装的软件包"></a>Ubuntu Trusty 14.04 额外安装的软件包</h2><p>在官方文档中, 强烈推荐 Ubuntu14.04版本如果使用<code>aufs</code> 存储引擎, 那么一定要安装以下软件包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><h3 id="从软件源中安装-Docker"><a href="#从软件源中安装-Docker" class="headerlink" title="从软件源中安装 Docker"></a>从软件源中安装 Docker</h3><h4 id="配置软件仓库-Docker-CE"><a href="#配置软件仓库-Docker-CE" class="headerlink" title="配置软件仓库 Docker-CE"></a>配置软件仓库 Docker-CE</h4><ul>
-<li>安装软件包, 以允许<code>apt</code>命令可以通过 https 协议使用软件源(repository)</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 Docker 官方 GPG key</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>配置 <code>stable</code> 版本的软件源</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository \</span><br><span class="line">   &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu \</span><br><span class="line">   $(lsb_release -cs) \</span><br><span class="line">   stable&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h4><ul>
-<li>更新系统软件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装最新版本的 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在生产环境, 你可能需要安装指定版本的 Docker,</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-ce=&lt;VERSION&gt;</span><br></pre></td></tr></table></figure>
-
-<p><em>docker-ce 在安装好后自动启动</em></p>
-<ul>
-<li>启动 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>添加用户到 Docker 组</li>
-</ul>
-<p>在生产环境中, 不是每个人登录都是使用 root 用户, 可能需要给普通用户操作 docker 的权限, 那么将该用户添加到 docker 组是简单方便的方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>升级 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="使用软件包直接安装"><a href="#使用软件包直接安装" class="headerlink" title="使用软件包直接安装"></a>使用软件包直接安装</h3><ul>
-<li>下载对应版本的 <code>.deb</code> 软件包</li>
-</ul>
-<p>Docker CE: Go to <a href="https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/pool/stable-17.03/amd64/</a> and download the .deb </p>
-<ul>
-<li>安装软件包</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i /path/to/package.deb</span><br></pre></td></tr></table></figure>
-
-<p>The Docker daemon starts automatically.</p>
-<ul>
-<li>验证 Docker 服务正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="卸载-Docker-CE"><a href="#卸载-Docker-CE" class="headerlink" title="卸载 Docker CE"></a>卸载 Docker CE</h2><ul>
-<li>卸载 Docker CE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge docker-ce</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>镜像/容器/数据卷和自定义配置文件不会随着卸载而自动删除, 你需要手动去清除他们</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1647,7 +1570,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1660,7 +1583,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,103 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/21/urllib2%E6%8A%A5%E9%94%99-SSL-CERTIFICATE-VERIFY-FAILED/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/21/urllib2%E6%8A%A5%E9%94%99-SSL-CERTIFICATE-VERIFY-FAILED/" class="post-title-link" itemprop="url">urllib2报错[SSL:CERTIFICATE_VERIFY_FAILED]</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-21 00:18:13" itemprop="dateCreated datePublished" datetime="2016-03-21T00:18:13+08:00">2016-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/21/urllib2%E6%8A%A5%E9%94%99-SSL-CERTIFICATE-VERIFY-FAILED/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/21/urllib2报错-SSL-CERTIFICATE-VERIFY-FAILED/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在python中使用urllib2库去访问一个自签名的网站时，会出现如下报错： <code>urllib2.URLError: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)&gt;</code></p>
+</blockquote>
+<p>出现以上错误的原因是因为python的版本问题，在python2.6（含2.6）以下版本中，在访问HTTPS的网站时，TLS握手期间不会检查服务器X509的证书签名是否是CA的可信任根证书。这种局面在python2.7 3.4 和 3.5版本中得到了修改。</p>
+<h3 id="所以，以下代码在python2-6版本中测试是完全没有问题的"><a href="#所以，以下代码在python2-6版本中测试是完全没有问题的" class="headerlink" title="所以，以下代码在python2.6版本中测试是完全没有问题的"></a>所以，以下代码在python2.6版本中测试是完全没有问题的</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">url=<span class="string">'https://www.20150509.cn:1559'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">  </span><br><span class="line">  pre_data = [&#123;<span class="string">"client"</span>:<span class="string">"local"</span>, <span class="string">"tgt"</span>:<span class="string">"*"</span>, <span class="string">"fun"</span>:<span class="string">"test.ping"</span>&#125;]</span><br><span class="line"></span><br><span class="line">  json_data = json.dumps(pre_data)</span><br><span class="line">  </span><br><span class="line">  header = &#123;<span class="string">"Content-Type"</span>:<span class="string">"application/json"</span>, <span class="string">"Accept"</span>:<span class="string">"application/json"</span>, <span class="string">"X-Auth-Token"</span>:<span class="string">"b91e7uj86g4f97cc**********b92778ujh4kedf"</span>&#125;</span><br><span class="line"></span><br><span class="line">  request = urllib2.Request(url, json_data, header)</span><br><span class="line"></span><br><span class="line">  response = urllib2.urlopen(request)</span><br><span class="line"></span><br><span class="line">  html = response.read()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">print</span> html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">  test()</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; python sa.py </span><br><span class="line">&#123;<span class="string">"return"</span>: [&#123;<span class="string">"vm3.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm2.salt.com"</span>: <span class="literal">true</span>, <span class="string">"ph1.salt.com"</span>: <span class="literal">true</span>, <span class="string">"ph2.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm1.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm4.salt.com"</span>: <span class="literal">true</span>, <span class="string">"localhost"</span>: <span class="literal">true</span>, <span class="string">"vm7.salt.com"</span>: <span class="literal">true</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="在python2-7-版本就会报上述错误"><a href="#在python2-7-版本就会报上述错误" class="headerlink" title="在python2.7+版本就会报上述错误"></a>在python2.7+版本就会报上述错误</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; python sa.py </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"sa.py"</span>, line 25, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="built_in">test</span>()</span><br><span class="line">  File <span class="string">"sa.py"</span>, line 17, <span class="keyword">in</span> <span class="built_in">test</span></span><br><span class="line">    response = urllib2.urlopen(request)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 154, <span class="keyword">in</span> urlopen</span><br><span class="line">    <span class="built_in">return</span> opener.open(url, data, timeout)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 431, <span class="keyword">in</span> open</span><br><span class="line">    response = self._open(req, data)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 449, <span class="keyword">in</span> _open</span><br><span class="line">    <span class="string">'_open'</span>, req)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 409, <span class="keyword">in</span> _call_chain</span><br><span class="line">    result = func(*args)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 1240, <span class="keyword">in</span> https_open</span><br><span class="line">    context=self._context)</span><br><span class="line">  File <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py"</span>, line 1197, <span class="keyword">in</span> do_open</span><br><span class="line">    raise URLError(err)</span><br><span class="line">urllib2.URLError: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> ssl   <span class="comment">#add line 1</span></span><br><span class="line"></span><br><span class="line">ssl._create_default_https_context = ssl._create_unverified_context  <span class="comment">#add line 2</span></span><br><span class="line"></span><br><span class="line">url=<span class="string">'https://www.20150509.cn:1559'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">  </span><br><span class="line">  pre_data = [&#123;<span class="string">"client"</span>:<span class="string">"local"</span>, <span class="string">"tgt"</span>:<span class="string">"*"</span>, <span class="string">"fun"</span>:<span class="string">"test.ping"</span>&#125;]</span><br><span class="line"></span><br><span class="line">  json_data = json.dumps(pre_data)</span><br><span class="line">  </span><br><span class="line">  header = &#123;<span class="string">"Content-Type"</span>:<span class="string">"application/json"</span>, <span class="string">"Accept"</span>:<span class="string">"application/json"</span>, <span class="string">"X-Auth-Token"</span>:<span class="string">"b91e7uj86g4f97cc**********b92778ujh4kedf"</span>&#125;</span><br><span class="line"></span><br><span class="line">  request = urllib2.Request(url, json_data, header)</span><br><span class="line"></span><br><span class="line">  response = urllib2.urlopen(request)</span><br><span class="line"></span><br><span class="line">  html = response.read()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">print</span> html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">  test()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h3><p><a href="http://https://www.python.org/dev/peps/pep-0476/" target="_blank" rel="noopener">http://https://www.python.org/dev/peps/pep-0476/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1272,104 +1369,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/12/07/Python%E4%B8%8B%E8%A7%A3%E6%9E%90YAML%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/07/Python%E4%B8%8B%E8%A7%A3%E6%9E%90YAML%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Python下解析YAML文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-12-07 11:47:56" itemprop="dateCreated datePublished" datetime="2015-12-07T11:47:56+08:00">2015-12-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/12/07/Python%E4%B8%8B%E8%A7%A3%E6%9E%90YAML%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/07/Python下解析YAML文件/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python中解析YAML文件主要使用到两个方法，load()和dump()方法，使用方式类似于Python的pickle。熟悉在Python中解析YAML文件，对使用Python做saltstack自定义插件开发时会有很大的帮助</p>
-</blockquote>
-<h1 id="load"><a href="#load" class="headerlink" title="load"></a>load</h1><p><strong>测试</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@PolarSnow saltstack]<span class="comment"># cat eg.yaml </span></span><br><span class="line">name: Tom Smith</span><br><span class="line">age: 37</span><br><span class="line">spouse:</span><br><span class="line">  name: Jane Smith</span><br><span class="line">  age: 25</span><br><span class="line">children:</span><br><span class="line">  - name: Jimmy Smith</span><br><span class="line">    age: 15</span><br><span class="line">  - name1: Jenny Smith</span><br><span class="line">    age1: 12</span><br><span class="line"></span><br><span class="line">[root@PolarSnow saltstack]<span class="comment"># cat py_yaml.py</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">with open(<span class="string">'eg.yaml'</span>, <span class="string">'r'</span>) as loadfile:</span><br><span class="line">    <span class="built_in">print</span> yaml.load(loadfile)</span><br><span class="line"></span><br><span class="line">[root@PolarSnow saltstack]<span class="comment"># python py_yaml.py</span></span><br><span class="line">&#123;<span class="string">'age'</span>: 37, <span class="string">'spouse'</span>: &#123;<span class="string">'age'</span>: 25, <span class="string">'name'</span>: <span class="string">'Jane Smith'</span>&#125;, <span class="string">'name'</span>: <span class="string">'Tom Smith'</span>, <span class="string">'children'</span>: [&#123;<span class="string">'age'</span>: 15, <span class="string">'name'</span>: <span class="string">'Jimmy Smith'</span>&#125;, &#123;<span class="string">'age1'</span>: 12, <span class="string">'name1'</span>: <span class="string">'Jenny Smith'</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>关键代码</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'eg.yaml'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> loadfile:</span><br><span class="line">    <span class="keyword">print</span> yaml.load(loadfile)</span><br></pre></td></tr></table></figure>
-
-<h1 id="dump"><a href="#dump" class="headerlink" title="dump"></a>dump</h1><p><strong>测试</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@PolarSnow saltstack]<span class="comment"># cat eg.yaml </span></span><br><span class="line">name: Tom Smith</span><br><span class="line">age: 37</span><br><span class="line">spouse:</span><br><span class="line">  name: Jane Smith</span><br><span class="line">  age: 25</span><br><span class="line">children:</span><br><span class="line">  - name: Jimmy Smith</span><br><span class="line">    age: 15</span><br><span class="line">  - name1: Jenny Smith</span><br><span class="line">    age1: 12</span><br><span class="line"></span><br><span class="line">[root@PolarSnow saltstack]<span class="comment"># cat py_yaml.py </span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">import yaml</span><br><span class="line">with open(<span class="string">'eg.yaml'</span>, <span class="string">'r'</span>) as loadfile:</span><br><span class="line">    y = yaml.load(loadfile)</span><br><span class="line">    <span class="built_in">print</span> y</span><br><span class="line">with open(<span class="string">'eg1.yaml'</span>,<span class="string">'w'</span>) as dumpfile:</span><br><span class="line">    dumpfile.write(yaml.dump(y))</span><br><span class="line">    <span class="built_in">print</span> yaml.dump(y)</span><br><span class="line"></span><br><span class="line">[root@PolarSnow saltstack]<span class="comment"># python py_yaml.py </span></span><br><span class="line">&#123;<span class="string">'age'</span>: 37, <span class="string">'spouse'</span>: &#123;<span class="string">'age'</span>: 25, <span class="string">'name'</span>: <span class="string">'Jane Smith'</span>&#125;, <span class="string">'name'</span>: <span class="string">'Tom Smith'</span>, <span class="string">'children'</span>: [&#123;<span class="string">'age'</span>: 15, <span class="string">'name'</span>: <span class="string">'Jimmy Smith'</span>&#125;, &#123;<span class="string">'age1'</span>: 12, <span class="string">'name1'</span>: <span class="string">'Jenny Smith'</span>&#125;]&#125;</span><br><span class="line">age: 37</span><br><span class="line">children:</span><br><span class="line">- &#123;age: 15, name: Jimmy Smith&#125;</span><br><span class="line">- &#123;age1: 12, name1: Jenny Smith&#125;</span><br><span class="line">name: Tom Smith</span><br><span class="line">spouse: &#123;age: 25, name: Jane Smith&#125;</span><br><span class="line"></span><br><span class="line">[root@PolarSnow saltstack]<span class="comment"># cat eg1.yaml </span></span><br><span class="line">age: 37</span><br><span class="line">children:</span><br><span class="line">- &#123;age: 15, name: Jimmy Smith&#125;</span><br><span class="line">- &#123;age1: 12, name1: Jenny Smith&#125;</span><br><span class="line">name: Tom Smith</span><br><span class="line">spouse: &#123;age: 25, name: Jane Smith&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>关键代码</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开一个yaml文件将其解析，再将解析后的结构再转成yaml写入到新的文件</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'eg.yaml'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> loadfile:</span><br><span class="line">    y = yaml.load(loadfile)</span><br><span class="line">    <span class="keyword">print</span> y</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'eg1.yaml'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> dumpfile:</span><br><span class="line">    dumpfile.write(yaml.dump(y))</span><br><span class="line">    <span class="keyword">print</span> yaml.dump(y)</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1442,7 +1441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1455,7 +1454,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

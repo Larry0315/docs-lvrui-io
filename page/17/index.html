@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,119 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/" class="post-title-link" itemprop="url">MySQL的主从切换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:30:22" itemprop="dateCreated datePublished" datetime="2016-12-12T13:30:22+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/MySQL%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL的主从切换/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本篇文章不再赘述 MySQL 主从搭建的过程, 只介绍主从切换的过程</p>
+</blockquote>
+<p>MySQL 的主从切换分成两种情况</p>
+<ul>
+<li>一种情况是主从高可用, 主从切换后, 原主库还要继续同步原从库的数据</li>
+<li>另一种情况是一主一从, 主从切换后, 主库下线, 不需要原主库再去同步原从库</li>
+</ul>
+<h1 id="第一种情况的主从切换"><a href="#第一种情况的主从切换" class="headerlink" title="第一种情况的主从切换"></a>第一种情况的主从切换</h1><h2 id="分别查看主从状态"><a href="#分别查看主从状态" class="headerlink" title="分别查看主从状态"></a>分别查看主从状态</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># slave 中查看从库的状态</span></span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># master 中查看主库的状态</span></span><br><span class="line">mysql&gt; show slave hosts;</span><br></pre></td></tr></table></figure>
+
+<h2 id="停止从库的-IO-THREAD-线程"><a href="#停止从库的-IO-THREAD-线程" class="headerlink" title="停止从库的 IO_THREAD 线程"></a>停止从库的 IO_THREAD 线程</h2><p>先停止 IO_THREAD 线程, 即断开了从主库的 sql 消息接收, 有利于当前数据库完成剩余的数据同步</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># slave</span></span><br><span class="line">mysql&gt; stop slave IO_THREAD;</span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
+
+<p>检查是否是如下状态;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Slave_IO_Running: No</span><br><span class="line">Slave_SQL_Running: Yes</span><br></pre></td></tr></table></figure>
+
+<h2 id="激活从库"><a href="#激活从库" class="headerlink" title="激活从库"></a>激活从库</h2><p>在停止 IO_THREAD 线程后, 看到 <code>Slave_SQL_Running_State: Slave has read all relay log; waiting for the slave I/O thread to update it</code>这个状态后,  就可以操作完全停止从库,并激活为主库啦</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; stop slave;  # 完全停止 slave 复制 </span><br><span class="line">mysql&gt; reset slave all; # 完全清空 slave 复制信息</span><br><span class="line">msyql&gt; reset master; # 清空本机上 master 的位置信息(给原主库同步此原从库做准备)</span><br><span class="line">mysql&gt; show binary logs; # 查看当前数据库的 binlog 信息</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br><span class="line">| Log_name       | File_size |</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br><span class="line">| bin-log.000001 |       120 |</span><br><span class="line">+<span class="comment">----------------+-----------+</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="将原主库变为从库"><a href="#将原主库变为从库" class="headerlink" title="将原主库变为从库"></a>将原主库变为从库</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># master</span></span><br><span class="line">mysql&gt; CHANGE MASTER TO</span><br><span class="line">   MASTER_HOST='192.168.10.59',</span><br><span class="line">   MASTER_PORT=3306,</span><br><span class="line">   MASTER_USER='repl',</span><br><span class="line">   MASTER_PASSWORD='12345678',</span><br><span class="line">   MASTER_LOG_FILE='bin-log.000001',</span><br><span class="line">   MASTER_LOG_POS=120;</span><br><span class="line">mysql&gt; start slave;</span><br><span class="line">mysql&gt; show slave status\G</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="第二种情况的主从切换"><a href="#第二种情况的主从切换" class="headerlink" title="第二种情况的主从切换"></a>第二种情况的主从切换</h1><p>第二种情况的主从切换, 切换后, 主库不需要再去同步之前的从库(新主库), 有下线的需求, 这种情况下, 操作流程跟以上差不多, 只不过可以省去如下步骤:</p>
+<ul>
+<li>从库中不需要执行<code>reset master</code>了, 因为原主库(现从库)不要再找点啦(Position)</li>
+<li>主库直接下线就行了, 不需要执行最后把主库变为从库的操作了</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1199,138 +1312,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/" class="post-title-link" itemprop="url">kvm虚拟机迁移至ESXi</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-09-09 14:37:55" itemprop="dateCreated datePublished" datetime="2016-09-09T14:37:55+08:00">2016-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/kvm虚拟机迁移至ESXi/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="转换步骤"><a href="#转换步骤" class="headerlink" title="转换步骤"></a>转换步骤</h1><ul>
-<li>将kvm中要迁移的虚拟机关机</li>
-<li>找到该虚拟机对应的<code>.img</code>文件</li>
-<li>使用<code>qemu-img convert</code>命令将img文件转换为<code>vmdk</code>文件</li>
-<li>把<code>vmdk</code>文件传送到<code>ESXi</code>主机上</li>
-<li>在<code>vCenter</code>中创建一个配置相同的主机，加载已存在的<code>vmdk</code>硬盘文件</li>
-<li>开启虚拟机即可</li>
-</ul>
-<h1 id="qemu-img命令的时候用"><a href="#qemu-img命令的时候用" class="headerlink" title="qemu-img命令的时候用"></a>qemu-img命令的时候用</h1><p><code>qemu-img</code>命​令​行​工​具​是​<code>Xen</code>和​<code>KVM</code>用​来​格​式​化​各​种​文​件​系​统​的​，可​使​用​<code>qemu-img</code>格​式​化​虚​拟​客​户​端​映​像​、​附​加​存​储​设​备​以​及​网​络​存​储​。还可以用来转换镜像文件</p>
-<h2 id="创建磁盘文件"><a href="#创建磁盘文件" class="headerlink" title="创建磁盘文件"></a>创建磁盘文件</h2><p><strong>创​建​新​磁​盘​映​像​文​件​名​为​ sina_kvm，格​式​为​ format</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img create [-6] [-e] [-b base_image] [-f format] filename [sina_kvm]</span><br></pre></td></tr></table></figure>
-
-<p>例如：创建一个10M的镜像文件：ps_kvm.img，文件格式为：raw</p>
-<h2 id="转换镜像格式"><a href="#转换镜像格式" class="headerlink" title="转换镜像格式"></a>转换镜像格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert [-c] [-e] [-f format] filename [-O output_format] output_filename</span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert 10-71-hadoop.shennong.ren.img -O vmdk /tmp/testhdp.vmdk</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取镜像信息"><a href="#获取镜像信息" class="headerlink" title="获取镜像信息"></a>获取镜像信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img info [-f format] filename</span><br></pre></td></tr></table></figure>
-
-<h2 id="支持的格式"><a href="#支持的格式" class="headerlink" title="支持的格式"></a>支持的格式</h2><p>映​像​格​式​通​常​是​自​动​获​取​的​。​支​持​以​下​格​式​：</p>
-<ul>
-<li>raw</li>
-</ul>
-<p>Raw 磁​盘​映​像​格​式​（默​认​）。​这​个​格​式​的​优​点​是​可​以​简​单​、​容​易​地​导​出​到​其​它​模​拟​器​中​。​如​果​您​的​文​件​系​统​支​持​中​断​（例​如​在​ Linux 中​的​ ext2 或​者​ ext3 以​及​ Windows 中​的​ NTFS），那​么​只​有​写​入​的​字​段​会​占​用​空​间​。​使​用​ qemu-img info 了​解​ Unix/Linux 中​映​像​或​者​ ls -ls 使​用​的​实​际​大​小​。​</p>
-<ul>
-<li>qcow2</li>
-</ul>
-<p>QEMU 映​像​格​式​，最​万​能​的​格​式​。​使​用​它​可​获​得​较​小​映​像​（如​果​您​的​系​统​不​支​持​中​断​，例​如​在​ Windows 中​，它​会​很​有​用​）、​额​外​的​ AES 加​密​法​、​zlib 压​缩​以​及​对​多​ VM 快​照​的​支​持​。​目前也是虚拟池一直在使用的镜像格式。<br>例如：<br>转换之前，原镜像disk size大小为8G，转换后仅仅只有2.3G。</p>
-<ul>
-<li>qcow</li>
-</ul>
-<p>旧​的​ QEMU 映​像​格​式​。​只​用​于​与​旧​版​本​兼​容​，目前虚拟池已无该格式镜像文件。​</p>
-<ul>
-<li>cow</li>
-</ul>
-<p>写​入​映​像​格​式​的​用​户​模​式​ Linux 副​本​。​包​含​ cow 格​式​的​目​的​只​是​为​了​与​前​面​的​版​本​兼​容​。​它​无​法​在​ Windows 中​使​用​，虚拟池已无该格式镜像文件。</p>
-<ul>
-<li>vmdk</li>
-</ul>
-<p>VMware 3 和​ 4 兼​容​映​像​格​式，虚拟池无该格式镜像文件​。​</p>
-<ul>
-<li>cloop</li>
-</ul>
-<p>Linux 压​缩​回​送​映​像​，只​有​在​重​复​使​用​直​接​压​缩​的​ CD-ROM 映​像​时​有​用​，比​如​在​ Knoppix CD-ROM 中​。</p>
-<hr>
-<p><em>参考文章</em></p>
-<ul>
-<li><a href="http://blog.sina.com.cn/s/blog_502c8cc40101352g.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_502c8cc40101352g.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1403,7 +1384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1416,7 +1397,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

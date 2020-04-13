@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,99 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/" class="post-title-link" itemprop="url">Python中的有序字典</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-26 16:56:08" itemprop="dateCreated datePublished" datetime="2017-07-26T16:56:08+08:00">2017-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/26/Python%E4%B8%AD%E7%9A%84%E6%9C%89%E5%BA%8F%E5%AD%97%E5%85%B8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/Python中的有序字典/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 Python 3.5版本(含3.5)之前, 默认的字典是无序的. 在最新的3.6版本中, 字典变成了有序字典, 本篇文章将介绍3.5版本及之前版本中有序字典的使用和3.6版本原生有序字典的使用</p>
+</blockquote>
+<h1 id="3-5"><a href="#3-5" class="headerlink" title="3.5-"></a>3.5-</h1><p>3.5版本及之前的版本中, 需要借助<code>collections</code>模块中的<code>OrderedDict</code>来实现有序字典的声明和使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">od = OrderedDict()</span><br><span class="line">d = &#123;&#125;</span><br><span class="line"></span><br><span class="line">od[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">od[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">od[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line">d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line">d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"></span><br><span class="line">print(od)</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'lvrui'</span>), (<span class="string">'age'</span>, <span class="number">26</span>), (<span class="string">'city'</span>, <span class="string">'HeBei'</span>)])</span><br><span class="line">&#123;<span class="string">'city'</span>: <span class="string">'HeBei'</span>, <span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-6"><a href="#3-6" class="headerlink" title="3.6+"></a>3.6+</h1><p>在 Python3.6+ 版本中, 内置字典默认就是有序的😆 爽~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3<span class="number">.6</span></span><br><span class="line">Python <span class="number">3.6</span><span class="number">.2</span> (v3<span class="number">.6</span><span class="number">.2</span>:<span class="number">5</span>fd33b5926, Jul <span class="number">16</span> <span class="number">2017</span>, <span class="number">20</span>:<span class="number">11</span>:<span class="number">06</span>) </span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> (Apple Inc. build <span class="number">5666</span>) (dot <span class="number">3</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'name'</span>] = <span class="string">'lvrui'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'age'</span>] = <span class="number">26</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'city'</span>] = <span class="string">'HeBei'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'lvrui'</span>, <span class="string">'age'</span>: <span class="number">26</span>, <span class="string">'city'</span>: <span class="string">'HeBei'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1269,135 +1362,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
-<ul>
-<li>character-set-client-handshake = FALSE</li>
-<li>character-set-server = utf8mb4</li>
-<li>collation-server = utf8mb4_unicode_ci</li>
-<li>init_connect=’SET NAMES utf8mb4’</li>
-</ul>
-</blockquote>
-<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
-<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
-<ul>
-<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
-<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考文章:</p>
-<ul>
-<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
-<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
-<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
-<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1470,7 +1434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1483,7 +1447,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

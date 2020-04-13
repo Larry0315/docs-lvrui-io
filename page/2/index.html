@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,119 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">go语言实现最大公约数算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 11:38:08" itemprop="dateCreated datePublished" datetime="2019-03-17T11:38:08+08:00">2019-03-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/03/17/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/17/go语言实现最大公约数算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最大公约数简介"><a href="#最大公约数简介" class="headerlink" title="最大公约数简介"></a>最大公约数简介</h2><p>最大公约数(GCD/Greatest Common Divisor)指几个整数中共有约数中最大的一个</p>
+<h2 id="欧几里德算法"><a href="#欧几里德算法" class="headerlink" title="欧几里德算法"></a>欧几里德算法</h2><p>欧几里德算法又称辗转相除法, 该算法用于计算两个整数的最大公约数. 定理如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcd(a,b) &#x3D; gcd(b,a mod b)</span><br></pre></td></tr></table></figure>
+
+<p>意思就是说: <code>a</code>和<code>b</code>的最大公约数 =  <code>b</code>和<code>a➗b的余数</code>的最大公约数</p>
+<ul>
+<li>当<code>a➗b的余数</code>为0时, 最大公约数为b</li>
+<li>当<code>a➗b的余数</code>不为0时, 则将<code>a=b</code>, <code>b=a➗b的余数</code>, 递归运算, 直到余数为<code>0</code></li>
+</ul>
+<p>具体证明的过程在此不再赘述, 如有兴趣可以自行谷歌一下, 下面直接给出基于go语言的实现代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(gcd(<span class="number">5</span>, <span class="number">10</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>解析:</p>
+<p><strong>第一次调用:</strong></p>
+<p>调用<code>gcd(5, 10)</code>则<code>a=5, b=10</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=10</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(10, 5 % 10)</code>, <code>5与10计算取余</code>商0, 余5, 则实际调用参数为<code>gcd(10, 5)</code> </p>
+<p><strong>第二次调用:</strong><br>调用<code>gcd(10, 5)</code>则<code>a=10, b=5</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=5</code>, 判断条件为假, 递归调用<code>gcd(b, a % b)</code>, 此时实际值为 <code>gcd(5, 10 % 5)</code>, <code>10与5计算取余</code>商2, 余0, 则实际调用参数为<code>gcd(5, 0)</code> </p>
+<p><strong>第三次调用:</strong><br>调用<code>gcd(5, 0)</code>则<code>a=5, b=0</code>, 进入函数后判断<code>if b == 0</code>, 此时<code>b=0</code>, 判断条件为真, 直接返回<code>a</code> 此时<code>a</code>即为两个数的最大公约数</p>
+<h2 id="多个数求最大公约数"><a href="#多个数求最大公约数" class="headerlink" title="多个数求最大公约数"></a>多个数求最大公约数</h2><p>实现思路: 先求出头两个数的最大公约数, 再拿计算出的最大公约数依次与后面所有的数求最大公约数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gcd</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> gcd(b, a % b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetGcd</span><span class="params">(n []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// 先取得Slice中的第一个数, 并假设第一个数为最大公约数</span></span><br><span class="line">	g := n[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">// 依次与Slice中的每个数字求最大公约数</span></span><br><span class="line">	<span class="comment">// 这里i=1, 因为第0个数字已经取出并假设为最大公约数</span></span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">1</span>; i&lt;<span class="built_in">len</span>(n)<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		oldGcd := g</span><br><span class="line">		<span class="comment">// 使用两个数字比较的最大公约数函数进行计算, 得出当前两个数字的最大公约数</span></span><br><span class="line">		<span class="comment">// 循环开始后, 依次将当前最大公约数与后面的数字一一进行运算, 求最大公约数</span></span><br><span class="line">		g = gcd(g, n[i])</span><br><span class="line">		fmt.Printf(<span class="string">"第%d次运算, 当前最大公约数为%d, 与%d运算得出的新最大公约数为: %d \n"</span>, i, oldGcd, n[i], g)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> g</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nums := []<span class="keyword">int</span>&#123;<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">10</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"运算结果: \n\t数列: %v 的最大公约数为: %d"</span>, nums, GetGcd(nums))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第1次运算, 当前最大公约数为4, 与4运算得出的新最大公约数为: 4 </span><br><span class="line">第2次运算, 当前最大公约数为4, 与6运算得出的新最大公约数为: 2 </span><br><span class="line">第3次运算, 当前最大公约数为2, 与2运算得出的新最大公约数为: 2 </span><br><span class="line">第4次运算, 当前最大公约数为2, 与8运算得出的新最大公约数为: 2 </span><br><span class="line">运算结果: </span><br><span class="line">        数列: [4 4 6 2 8 10] 的最大公约数为: 2</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1362,111 +1475,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/22/systemd-journal-Suppressed-N-messages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/22/systemd-journal-Suppressed-N-messages/" class="post-title-link" itemprop="url">systemd-journal: Suppressed N messages</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-22 16:53:11" itemprop="dateCreated datePublished" datetime="2018-11-22T16:53:11+08:00">2018-11-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/11/22/systemd-journal-Suppressed-N-messages/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/22/systemd-journal-Suppressed-N-messages/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>问题现象: docker container logs 查看容器日志却没有任何返回结果. 开始以为是程序没有 stdout 标准输出, 但是后来测试, 将<code>echo &quot;log&quot;</code>作为死循环运行在容器中, 再次执行<code>docker container logs</code>依然没有任何日志输出. 找到一台”干净的”docker 服务器测试却可以正常显示日志</p>
-</blockquote>
-<p>这台无法查看日志回显的服务器, Docker 的日志引擎配置为<code>journald</code>, 查看 journald 服务日志发现大量类似日志:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemd-journal: Suppressed 9567 messages from &#x2F;system.slice&#x2F;</span><br><span class="line">systemd-journal: Suppressed 6735 messages from &#x2F;system.slice&#x2F;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p>根据字面意思理解就是日志被丢弃了, 看来是由于 journald 服务的问题导致的日志问题</p>
-<p>在 journald 中, 有如下两个参数跟此问题相关:</p>
-<ul>
-<li>RateLimitInterval</li>
-<li>RateLimitBurst</li>
-</ul>
-<p><code>RateLimitInterval</code>是指定时间间隔, 意思就是说, 在<code>RateLimitInterval</code>这段时间内的日志总量(总条数)控制在<code>RateLimitBurst</code>以内. 这两个参数搭配使用可以用来控制日志速率, 避免由于大量日志输出导致的一系列性能问题.</p>
-<p>该问题的根源在于该主机目前日志输出的速率超出了 journald 默认的配置, 你可以自定定义该速率, 也可以将<code>RateLimitInterval</code>设置为<code>0</code>, 以禁用速率控制</p>
-<p>接下来重启 journald 以生效配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart systemd-journald</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意: 重启 journald 服务可能会引发一个 systemd 的 bug, 详情请参考下篇文章&lt;systemd-journald的SIGPIPE信号BUG&gt;</strong></p>
-<p>参考文档:</p>
-<ul>
-<li><a href="https://www.freedesktop.org/software/systemd/man/journald.conf.html" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journald.conf.html</a></li>
-<li><a href="https://bani.com.br/2015/06/systemd-journal-what-does-systemd-journal-suppressed-n-messages-from-system-slice-mean/" target="_blank" rel="noopener">https://bani.com.br/2015/06/systemd-journal-what-does-systemd-journal-suppressed-n-messages-from-system-slice-mean/</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1539,7 +1547,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">288</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1552,7 +1560,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">378</span>
+        <span class="site-state-item-count">379</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
