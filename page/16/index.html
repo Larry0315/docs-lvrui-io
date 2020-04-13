@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,94 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/TimeWait%E7%8A%B6%E6%80%81%E8%BF%9E%E6%8E%A5%E5%BF%AB%E9%80%9F%E5%9B%9E%E6%94%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/TimeWait%E7%8A%B6%E6%80%81%E8%BF%9E%E6%8E%A5%E5%BF%AB%E9%80%9F%E5%9B%9E%E6%94%B6/" class="post-title-link" itemprop="url">TimeWait状态连接快速回收</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 14:05:08" itemprop="dateCreated datePublished" datetime="2016-12-12T14:05:08+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/TimeWait%E7%8A%B6%E6%80%81%E8%BF%9E%E6%8E%A5%E5%BF%AB%E9%80%9F%E5%9B%9E%E6%94%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/TimeWait状态连接快速回收/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>vi /etc/sysctl.conf</code></p>
+<p>编辑文件，加入以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_tw_recycle = 1</span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br></pre></td></tr></table></figure>
+
+
+<p>然后执行<code>/sbin/sysctl -p</code>让参数生效。</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1040,133 +1128,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/" class="post-title-link" itemprop="url">Linux中使用ShadowSocks+Privoxy代理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-12-12 13:33:00" itemprop="dateCreated datePublished" datetime="2016-12-12T13:33:00+08:00">2016-12-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/12/12/Linux%E4%B8%AD%E4%BD%BF%E7%94%A8ShadowSocks-Privoxy%E4%BB%A3%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/Linux中使用ShadowSocks-Privoxy代理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>ShadowSocks 最近几年大火, 其简单的配置和优秀的速度让大陆地区的墙内用户爱不释手<br>本篇文章不讨论Mac &amp; Windows 等图形界面下的应用, 而是让 linux 在命令行界面下, http/https 访问也能登上梯子, 看一看外面的大千世界</p>
-</blockquote>
-<p>最近公司的服务器连接 docker hub <a href="http://hub.docker.com" target="_blank" rel="noopener">hub.docker.com</a> 仓库和 node.js <a href="http://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> 仓库极其缓慢, 使用了各种国内的各种加速服务才勉强解决了燃眉之急(分别使用了 daocloud 的镜像加速和淘宝的加速服务)</p>
-<p>本篇文章就是介绍如何实现 Linux 中的 http/https 请求翻墙的需求</p>
-<h1 id="安装-ss-客户端"><a href="#安装-ss-客户端" class="headerlink" title="安装 ss 客户端"></a>安装 ss 客户端</h1><p><em>shadowsocks安装时是不分客户端还是服务器端的, 只不过安装后有两个脚本一个是sslocal代表以客户端模式工作，一个是ssserver代表以服务器端模式工作</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install python-pip</span><br><span class="line">&gt; pip install shadowsocks</span><br></pre></td></tr></table></figure>
-
-<h2 id="在后台启动-ss-客户端"><a href="#在后台启动-ss-客户端" class="headerlink" title="在后台启动 ss 客户端"></a>在后台启动 ss 客户端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -s your_server_ip -p your_server_port -l 1080 -k your_server_passwd -t 600 -m rc4-md5 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意:</strong></p>
-<ul>
-<li>使用的是 <code>sslocal</code> 这个命令，表示 <code>shadowsocks</code> 以客户端模式工作 </li>
-<li>将上述命令里的 <code>your_server_ip</code>, <code>your_server_port</code>, <code>your_server_passwd</code> 换成自己的, 这三个分别代表服务器ip, 服务器上 <code>shadowsocks</code> 的端口以及密码.后面的 <code>rc4-md5</code> 加密方式也要换成跟 <code>server</code> 端一致。 </li>
-<li>前面的nohub 和最后的 &amp; 表示后台执行且关闭 session 后仍然在后台执行，否则将会阻塞shell端口.<br>为了更方便, 建议新建一个.json的文件, 将上述信息放里面,如新建/etc/shadowsocks.json文件, 内容为：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;your_server_ip&quot;,      #ss服务器IP</span><br><span class="line">    &quot;server_port&quot;:your_server_port, #端口</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,   #本地ip</span><br><span class="line">    &quot;local_port&quot;:1080,              #本地端口</span><br><span class="line">    &quot;password&quot;:&quot;your_server_passwd&quot;,#连接ss密码</span><br><span class="line">    &quot;timeout&quot;:300,                  #等待超时</span><br><span class="line">    &quot;method&quot;:&quot;rc4-md5&quot;,             #加密方式</span><br><span class="line">    &quot;fast_open&quot;: false,             # true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span><br><span class="line">    &quot;workers&quot;: 1                    # 工作线程数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后运行一下命令启动shadowsocks </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果想增加开启自动启动，执行：echo “ nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;” /etc/rc.local </li>
-<li>执行ps aux |grep sslocal |grep -v “grep”查看后台sslocal是否运行</li>
-</ul>
-<h1 id="安装Privoxy"><a href="#安装Privoxy" class="headerlink" title="安装Privoxy"></a>安装Privoxy</h1><p>上述安好了<code>shadowsocks</code>，但它是 <code>socks5</code> 代理，我门在 <code>shell</code> 里执行的命令，发起的网络请求现在还不支持 <code>socks5</code> 代理，只支持 <code>http/https</code> 代理。为了我门需要安装 <code>privoxy</code> 代理，它能把电脑上所有http请求转发给 <code>shadowsocks</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum install privoxy -y</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查看 <code>vim /usr/local/etc/privoxy/config</code> 文件，<br>先搜索关键字 <code>listen-address</code> 找到 <code>listen-address 127.0.0.1:8118</code> 这一句，保证这一句没有注释，8118就是将来http代理要输入的端口。<br>然后搜索 <code>forward-socks5t</code>, 将 <code>#forward-socks5t / 127.0.0.1:1080 .</code> 此句前面的注释去掉, 意思是转发流量到本地的1080端口, 而1080端口正是 ss 监听的端口</li>
-</ul>
-<h2 id="启动privoxy"><a href="#启动privoxy" class="headerlink" title="启动privoxy"></a>启动privoxy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; systemctl restart privoxy </span><br><span class="line">&gt; systemctl <span class="built_in">enable</span> privoxy</span><br></pre></td></tr></table></figure>
-
-<h1 id="转发配置"><a href="#转发配置" class="headerlink" title="转发配置"></a>转发配置</h1><p>写在 profile 中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/profile</span><br><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:8118</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:8118</span><br><span class="line">&gt; <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-
-<p>在当前 session 执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:8118</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:8118</span><br></pre></td></tr></table></figure>
-
-<h1 id="测试翻墙"><a href="#测试翻墙" class="headerlink" title="测试翻墙"></a>测试翻墙</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl www.google.com</span><br></pre></td></tr></table></figure>
-
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>如果不能访问, 请重启机器, 依次打开shadowsocks和privoxy再测试</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">&gt; privoxy --user privoxy /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/QQ20161208-1@2x.png" alt=""></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1239,7 +1200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

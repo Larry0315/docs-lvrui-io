@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,108 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">CentOS下Python的升级-pip以及fabric的安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-11-19 10:09:36" itemprop="dateCreated datePublished" datetime="2015-11-19T10:09:36+08:00">2015-11-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2015/11/19/CentOS%E4%B8%8BPython%E7%9A%84%E5%8D%87%E7%BA%A7-pip%E4%BB%A5%E5%8F%8Afabric%E7%9A%84%E5%AE%89%E8%A3%85/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/19/CentOS下Python的升级-pip以及fabric的安装/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文介绍在CentOS系统下升级Python，安装pip, fabric的操作</p>
+</blockquote>
+<h1 id="安装Python部分"><a href="#安装Python部分" class="headerlink" title="安装Python部分"></a>安装Python部分</h1><ol>
+<li>第一步当然是下载最新版本的Python了！<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz</span><br></pre></td></tr></table></figure></li>
+<li>解压、编译、安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line">tar -xvzf Python-2.7.8.tgz</span><br><span class="line"><span class="built_in">cd</span> Python2.7.8</span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/python2.7</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></li>
+<li>创建链接使系统默认的Python变成Python2.7<br><code>ln -fs /usr/local/python2.7/bin/python2.7 /usr/bin/python</code></li>
+<li>查看一下Python的版本<br><code>python -V</code></li>
+<li>修改yum配置（否则更新了默认Python后的yum无法正常运行）<br><code>vim /usr/bin/yum</code></li>
+</ol>
+<p><strong>将第一行#!/usr/bin/python 修改为原有的Python2.6版本</strong><br><code>#!/usr/bin/python2.6</code><br>—&gt; <em>CentOS系统升级Python成功完成</em></p>
+<h1 id="安装pip部分"><a href="#安装pip部分" class="headerlink" title="安装pip部分"></a>安装pip部分</h1><ol start="6">
+<li>下载自动安装pip的脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/</span><br><span class="line">wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py</span><br></pre></td></tr></table></figure></li>
+<li>执行安装pip的命令<br><code>python get-pip.py</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">第一次执行pythonget-pip.py报错：</span><br><span class="line">zipimport.ZipImportError: can&#39;t decompress data; zlib not available</span><br><span class="line"></span><br><span class="line">解决zlib的问题：</span><br><span class="line"># yum install zlib zlib-devel</span><br><span class="line">然后重新编译Python（.&#x2F;configure&amp;&amp; make &amp;&amp; make install）</span><br><span class="line">    </span><br><span class="line">第二次执行python get-pip.py报错：</span><br><span class="line">ImportError: cannot import name HTTPSHandler</span><br><span class="line"></span><br><span class="line"># yum install openssl openssl-devel</span><br><span class="line">然后重新编译Python（.&#x2F;configure&amp;&amp; make &amp;&amp; make install）</span><br></pre></td></tr></table></figure></li>
+<li>创建使用pip的链接<br><code>ln -s /usr/local/python2.7/bin/pip /usr/bin/pip</code></li>
+</ol>
+<h2 id="安装fabric部分"><a href="#安装fabric部分" class="headerlink" title="安装fabric部分"></a>安装fabric部分</h2><ol start="9">
+<li>执行安装fabric的命令<br><code>pip install fabric</code></li>
+<li>创建使用fab命令的链接<br><code>ln -s /usr/local/python2.7/bin/fab /usr/bin/fab</code></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1257,7 +1359,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

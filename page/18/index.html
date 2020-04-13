@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,142 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">CentOS下添加静态路由</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-12 10:42:11" itemprop="dateCreated datePublished" datetime="2016-10-12T10:42:11+08:00">2016-10-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/CentOS下添加静态路由/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看当前路由表"><a href="#查看当前路由表" class="headerlink" title="查看当前路由表"></a>查看当前路由表</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         localhost       0.0.0.0         UG    100    0        0 eno16780032</span><br><span class="line">172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0</span><br><span class="line">192.168.10.0    0.0.0.0         255.255.255.0   U     100    0        0 eno16780032</span><br></pre></td></tr></table></figure>
+
+<p><em>macOS 中使用 <code>netstat -nr</code> 命令来查看当前路由表</em></p>
+<ul>
+<li>Destination 目标网路</li>
+<li>Gateway 网关</li>
+<li>Genmask 掩码</li>
+<li>Flags 标识<ul>
+<li>U 路由已经启动</li>
+<li>H 路由目标为主机</li>
+<li>G 使用网关</li>
+<li>R 为动态路由复原路由表</li>
+<li>D 由守护进程或间接动态安装</li>
+<li>M 被路由守护进程或间接修改</li>
+<li>A 通过addrconf修改</li>
+<li>C 缓存条目</li>
+<li>! 拒绝路由</li>
+</ul>
+</li>
+<li>Metric 路由开销, 到目标的‘距离’（通常基于跳数统计）</li>
+<li>Ref 参考此路由的数量</li>
+<li>Use 路由查找计数。依赖与使用-F 还是-C选项，这个值要么是路由缓存未命中数要么是命中数</li>
+<li>Iface 此路由数据包发送到的网络接口</li>
+</ul>
+<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="添加到主机的路由"><a href="#添加到主机的路由" class="headerlink" title="添加到主机的路由"></a>添加到主机的路由</h2><p><code>route add –host 192.168.59.2 dev eth1</code></p>
+<p><code>route add –host 192.168.59.2 gw 192.168.10.85</code></p>
+<h2 id="添加到网络的路由"><a href="#添加到网络的路由" class="headerlink" title="添加到网络的路由"></a>添加到网络的路由</h2><p><code>route add -net 192.168.248.0/24 gw 192.168.10.85</code></p>
+<p><code>route add –net 192.168.248.0 netmask 255.255.255.0 gw 192.168.10.85</code></p>
+<p><code>route add –net 192.168.248.0 netmask 255.255.255.0 dev eth1</code></p>
+<h2 id="添加默认网关"><a href="#添加默认网关" class="headerlink" title="添加默认网关"></a>添加默认网关</h2><p><code>route add default gw 192.168.10.85</code></p>
+<p><code>route add -net 0.0.0.0 gw 192.168.10.85</code></p>
+<p><strong>使用route 命令添加的路由，机器重启或者网卡重启后路由就失效了</strong></p>
+<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><p><code>route del –host 192.168.10.85 dev eth1</code></p>
+<p><em>怎么 add 的就怎么 del 掉. 但是 del 的时候可以不写网关</em></p>
+<h1 id="永久添加路由"><a href="#永久添加路由" class="headerlink" title="永久添加路由"></a>永久添加路由</h1><ul>
+<li>在<code>/etc/rc.local</code>里添加路由信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.247.0&#x2F;24 dev eth1</span><br><span class="line">route add -net 192.168.110.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>/etc/sysconfig/network</code>里添加到末尾<code>GATEWAY=gw-ip 或者 GATEWAY=gw-dev</code></li>
+<li>在<code>/etc/sysconfig/static-router</code>添加<code>any net x.x.x.x/24 gw y.y.y.y</code></li>
+</ul>
+<h2 id="永久添加路由更新-2018-10-12"><a href="#永久添加路由更新-2018-10-12" class="headerlink" title="永久添加路由更新 2018-10-12"></a>永久添加路由更新 2018-10-12</h2><p><strong>CentOS7下推荐使用上面第三种方法添加永久静态路由</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># vi /etc/sysconfig/network-scripts/route-enp0s3</span></span><br><span class="line">10.15.150.0/24 via 192.168.150.253 dev enp0s3</span><br><span class="line">10.25.250.0/24 via 192.168.150.253 dev enp0s3</span><br></pre></td></tr></table></figure>
+
+<p>将永久静态路由需要写到 /etc/sysconfig/network-scripts/route-interface 文件中</p>
+<p>注意:</p>
+<p><strong>ifcfg-enp0s3 文件改名为 ifcfg-eth0 后，route-enp0s3 文件也要改名为 route-eth0</strong></p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://www.cnblogs.com/panblack/p/Centos7_Static_Routes.html" target="_blank" rel="noopener">https://www.cnblogs.com/panblack/p/Centos7_Static_Routes.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1281,108 +1417,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/19/CentOS7%E5%AE%89%E8%A3%85MySQL5-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/19/CentOS7%E5%AE%89%E8%A3%85MySQL5-7/" class="post-title-link" itemprop="url">CentOS7安装MySQL5.7</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-08-19 21:29:52" itemprop="dateCreated datePublished" datetime="2016-08-19T21:29:52+08:00">2016-08-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/08/19/CentOS7%E5%AE%89%E8%A3%85MySQL5-7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/19/CentOS7安装MySQL5-7/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>这里使用yum的方式安装mysql5.7，仅为测试使用，生产环境中，还是建议使用cmake编译安装mysql    </p>
-</blockquote>
-<h1 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum remove -y mysql</span><br><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/</span><br><span class="line">&gt; wget http://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm</span><br><span class="line">&gt; rpm -ivh mysql57-community-release-el7-8.noarch.rpm </span><br><span class="line">警告：mysql57-community-release-el7-8.noarch.rpm: 头V3 DSA/SHA1 Signature, 密钥 ID 5072e1f5: NOKEY</span><br><span class="line">准备中...                          <span class="comment">################################# [100%]</span></span><br><span class="line">正在升级/安装...</span><br><span class="line">   1:mysql57-community-release-el7-8  <span class="comment">################################# [100%]</span></span><br><span class="line">&gt; yum install -y mysql-server</span><br><span class="line">&gt; systemctl start mysqld</span><br><span class="line">&gt; systemctl status mysqld</span><br><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2016-08-19 09:30:24 EDT; 29s ago</span><br><span class="line">  Process: 105136 ExecStart=/usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid <span class="variable">$MYSQLD_OPTS</span> (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 105049 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 105138 (mysqld)</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─105138 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid</span><br><span class="line"></span><br><span class="line">8月 19 09:30:16 localhost.localdomain systemd[1]: Starting MySQL Server...</span><br><span class="line">8月 19 09:30:24 localhost.localdomain systemd[1]: Started MySQL Server.</span><br><span class="line">&gt; cat /var/<span class="built_in">log</span>/mysqld.log| grep <span class="string">"temporary password"</span></span><br><span class="line">2016-08-19T13:30:20.547835Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: TVu7ouUi&gt;55l</span><br><span class="line">&gt; mysql -uroot -p</span><br><span class="line">Enter password:TVu7ouUi&gt;55l</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.14</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">'help;'</span> or <span class="string">'\h'</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置root用户密码"><a href="#设置root用户密码" class="headerlink" title="设置root用户密码"></a>设置root用户密码</h1><p>MySQL5.7默认的密码复杂度为：大小写字母+数字+特殊符号</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter user user() identified by 'w&#123;YQW6L;Dsf6vw';</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; </span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE 'validate_password%';</span><br><span class="line">+<span class="comment">--------------------------------------+--------+</span></span><br><span class="line">| Variable_name                        | Value  |</span><br><span class="line">+<span class="comment">--------------------------------------+--------+</span></span><br><span class="line">| validate_password_dictionary_file    |        |</span><br><span class="line">| validate_password_length             | 8      |</span><br><span class="line">| validate_password_mixed_case_count   | 1      |</span><br><span class="line">| validate_password_number_count       | 1      |</span><br><span class="line">| validate_password_policy             | MEDIUM |</span><br><span class="line">| validate_password_special_char_count | 1      |</span><br><span class="line">+<span class="comment">--------------------------------------+--------+</span></span><br><span class="line">6 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
-
-<p>mysql对于密码有3种检验策略，默认<code>validate_password_policy</code>为<code>MEDIUM</code></p>
-<ul>
-<li>LOW policy tests password length only. Passwords must be at least 8 characters long.</li>
-<li>MEDIUM policy adds the conditions that passwords must contain at least 1 numeric character, 1 lowercase and uppercase character, and 1 special (nonalphanumeric) character.</li>
-<li>STRONG policy adds the condition that password substrings of length 4 or longer must not match words</li>
-</ul>
-<p>在默认<code>MEDIUM</code>的策略下，修改密码为：12345678会报错</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter user user() identified by '12345678';</span><br><span class="line">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><br></pre></td></tr></table></figure>
-
-<h1 id="修改MySQL密码检查策略"><a href="#修改MySQL密码检查策略" class="headerlink" title="修改MySQL密码检查策略"></a>修改MySQL密码检查策略</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET GLOBAL validate_password_policy = LOW;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter user user() identified by '12345678';</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1455,7 +1489,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

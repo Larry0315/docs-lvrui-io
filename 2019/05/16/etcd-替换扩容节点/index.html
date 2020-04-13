@@ -28,7 +28,7 @@
 <meta property="og:description" content="etcd 替换节点的本质就是添加一个新的实例, 再删除一个已有实例, 以完成替换. 如果替换的是一台已经无法正常运行的主机, 你需要先删除掉故障节点, 然后再正常添加一个节点.  实验环境1234567+----------------------------+------------------+---------+---------+-----------+-----------+-----">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-16T10:00:15.000Z">
-<meta property="article:modified_time" content="2020-04-13T10:02:03.368Z">
+<meta property="article:modified_time" content="2020-04-13T10:06:58.038Z">
 <meta property="article:author" content="极地瑞雪">
 <meta property="article:tag" content="etcd">
 <meta property="article:tag" content="替换">
@@ -147,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -303,6 +303,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">removed member e6f45ed7d9402b75 from cluster 2c25150e88501a13</span><br><span class="line">...</span><br><span class="line">the member has been permanently removed from the cluster</span><br></pre></td></tr></table></figure>
 
 <p>此时, 你需要保证该节点的etcd不会自动启动, 开机启动, 重新启动. (虽然即使启动也不会再次成功加入到集群, 但是为了避免不必要的错误, 还是需要保证挂的彻底一些, 最好将数据目录也一并删除)</p>
+<h2 id="替换故障节点"><a href="#替换故障节点" class="headerlink" title="替换故障节点"></a>替换故障节点</h2><p>以上的操作, 前提是集群节点全部正常的情况下, 才能执行member的操作, 当其中一个节点故障时, 你将无法直接新增节点, 你需要先删除故障节点, 然后再执行新增节点的操作</p>
 
     </div>
 
@@ -314,6 +315,9 @@
   <ul class="popular-posts">
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2019/05/13/etcd-节点迁移/" rel="bookmark">etcd 节点迁移</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/06/01/etcd-添加之前已删除过的节点/" rel="bookmark">etcd 添加之前已删除过的节点</a></div>
     </li>
   </ul>
 
@@ -355,8 +359,8 @@
       <i class="fa fa-chevron-left"></i> etcd 节点迁移
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/03/21/go%E8%AF%AD%E8%A8%80%E4%BC%98%E7%A7%80%E7%9A%84%E6%97%A5%E5%BF%97%E5%8C%85zap%E9%A2%84%E7%BD%AE%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95/" rel="next" title="go语言优秀的日志包zap预置函数用法">
-      go语言优秀的日志包zap预置函数用法 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/06/01/etcd-%E6%B7%BB%E5%8A%A0%E4%B9%8B%E5%89%8D%E5%B7%B2%E5%88%A0%E9%99%A4%E8%BF%87%E7%9A%84%E8%8A%82%E7%82%B9/" rel="next" title="etcd 添加之前已删除过的节点">
+      etcd 添加之前已删除过的节点 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -424,7 +428,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">1.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换总体步骤-先添加-后删除"><span class="nav-number">2.</span> <span class="nav-text">替换总体步骤(先添加, 后删除)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-执行运行时配置-添加节点"><span class="nav-number">2.1.</span> <span class="nav-text">Step 1: 执行运行时配置, 添加节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-根据回显参数-启动服务"><span class="nav-number">2.2.</span> <span class="nav-text">Step 2: 根据回显参数, 启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-删除需要替换的节点"><span class="nav-number">2.3.</span> <span class="nav-text">Step 3: 删除需要替换的节点</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">1.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换总体步骤-先添加-后删除"><span class="nav-number">2.</span> <span class="nav-text">替换总体步骤(先添加, 后删除)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-执行运行时配置-添加节点"><span class="nav-number">2.1.</span> <span class="nav-text">Step 1: 执行运行时配置, 添加节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-根据回显参数-启动服务"><span class="nav-number">2.2.</span> <span class="nav-text">Step 2: 根据回显参数, 启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-删除需要替换的节点"><span class="nav-number">2.3.</span> <span class="nav-text">Step 3: 删除需要替换的节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换故障节点"><span class="nav-number">3.</span> <span class="nav-text">替换故障节点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,7 +444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

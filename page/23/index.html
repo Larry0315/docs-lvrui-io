@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Python网络编程之socket基础语法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-06 01:51:51" itemprop="dateCreated datePublished" datetime="2016-07-06T01:51:51+08:00">2016-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/06/Python网络编程之socket基础语法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>TCP/IP协议是一门非常古老的协议，我们在网络编程的时候，不可能花几个月时候去研究TCP/IP协议，socket就是网络编程的救星，由socket来提供一系列符合TCP/IP协议的接口，我们的应用程序只需要与socket交互，即可实现通过TCP/IP协议在网络中收发数据。需要注意的一点是，socket抽象层本身不负责收发数据，数据收发仍然是依赖四层模型中的传输层、网络层和链路层</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<h1 id="socket简介"><a href="#socket简介" class="headerlink" title="socket简介"></a>socket简介</h1><p>socket通常也称作”套接字”，用于描述IP地址和端口，是一个通信链的句柄，应用程序通常通过”套接字”向网络发出请求或者应答网络请求。</p>
+<p>socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，对于文件用【打开】【读写】【关闭】模式来操作。socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）</p>
+<p>socket和file的区别：</p>
+<ul>
+<li>file模块是针对某个指定文件进行【打开】【读写】【关闭】</li>
+<li>socket模块是针对 服务器端 和 客户端Socket 进行【打开】【读写】【关闭】</li>
+</ul>
+<h1 id="socket网络编程中的四层协议"><a href="#socket网络编程中的四层协议" class="headerlink" title="socket网络编程中的四层协议"></a>socket网络编程中的四层协议</h1><p><img src="http://oss.20150509.cn/QQ201607060223_0.png" alt=""></p>
+<p>下面是socket编程中的一个简单实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># server.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待客户端的连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">conn, addr = s.accept()</span><br><span class="line"><span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line"><span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 接收消息</span></span><br><span class="line">recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 6: 发送消息</span></span><br><span class="line">send_data = recv_data.upper()</span><br><span class="line">conn.send(send_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 7: 断开连接</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># client.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 连接服务端</span></span><br><span class="line">s.connect(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 发送消息</span></span><br><span class="line">send_data = <span class="string">"hello"</span></span><br><span class="line"><span class="comment"># 这里注意,和服务端不同的是,服务端找到对端是通过conn对象,而客户端是s对象</span></span><br><span class="line"><span class="comment"># 在Python3.x中,socket对象发送对象必须是字节类型(2.7中可以是字符串)</span></span><br><span class="line">s.send(bytes(send_data, encoding=<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 4: 收消息</span></span><br><span class="line">recv_data = s.recv(<span class="number">1024</span>)</span><br><span class="line">print(recv_data, <span class="string">"---&gt;"</span>, type(recv_data), str(recv_data))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 断开连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>先启动server.py</p>
+<p>在启动client.py</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 客户端终端回显</span></span><br><span class="line">b'HELLO' ---&gt; &lt;class 'bytes'&gt; b'HELLO'</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1259,102 +1360,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%A4%9A%E6%80%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%A4%9A%E6%80%81/" class="post-title-link" itemprop="url">Python面向对象基础篇之多态</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-03 10:52:03" itemprop="dateCreated datePublished" datetime="2016-07-03T10:52:03+08:00">2016-07-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/03/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%A4%9A%E6%80%81/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/03/Python面向对象基础篇之多态/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Python是否支持多态的问题争论已久，在面向对象语言中，有三大特性（封装 继承 多态）Python作为典型的面向对象语言，怎么可能会不支持多态呢</p>
-</blockquote>
-<p>产生这个问题的原因在于Python是一门动态编程语言，在运行的时候可以更改自己的结构。在java等面向对象语言中，定义一个变量，强制要求首先声明他的数据类型；而在Python中，这个步骤是完全可以忽略的。由于Python动态语言的特性，Python天生就支持多态，不需要像其他面向对象的语言那样使用了多态语法来实现多态的特性。大家争论Python是否支持多态，其实都是纠结在Python没有多态的语法。</p>
-<ul>
-<li><p>在java中，如果一个变量被声明是int类型，如果被赋值为一个字符串对象，那一定会报错。在像Java这种强类型的语言中，一个变量被声明数据类型时候，只允许被这个类或这个类的派生类赋值。</p>
-</li>
-<li><p>而在Python中，声明一个变量，你可以给他赋任何类型的值（对象）</p>
-</li>
-</ul>
-<p>多态可以简单的理解为多种形态，多种类型。在Python中，不需要特殊的多态语法来实现多态的特性。</p>
-<p><strong>动态语言的优势与劣势</strong></p>
-<p>毋庸置疑，动态语言带来的便捷是显而易见的，我们不需要关心变量的数据类型，因为在赋值的过程中，Python会动态的改变自己的结构。</p>
-<p>由于Python动态语言的特性，一个变量可以被任何数据类型赋值，也造成了一个困扰，就是在读别人源码的时候，如果参数只写了一个<code>arg</code>,那我们是不知道它具体是需要传递什么样类型的参数的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1427,7 +1432,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

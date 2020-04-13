@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,89 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/24/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/24/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89/" class="post-title-link" itemprop="url">Go基础之变量的定义</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-24 00:27:19" itemprop="dateCreated datePublished" datetime="2018-07-24T00:27:19+08:00">2018-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/07/24/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/24/Go基础之变量的定义/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在func外面定义的变量, 必须使用var关键字声明, 不用使用 := 的简写方式</span></span><br><span class="line"><span class="comment">//变量作用域为包内</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明变量</span></span><br><span class="line"><span class="comment">//声明的包变量只能在函数内被赋值, 包内不允许被赋值</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">string</span></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">bool</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	d <span class="keyword">int</span></span><br><span class="line">	e <span class="keyword">int</span></span><br><span class="line">	f <span class="keyword">int</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明并赋值</span></span><br><span class="line"><span class="comment">//可以在变量后声明数据类型</span></span><br><span class="line"><span class="keyword">var</span> name1 <span class="keyword">int</span> = <span class="number">9</span></span><br><span class="line"><span class="comment">//也可以让Go自动去判断数据类型</span></span><br><span class="line"><span class="keyword">var</span> name2 = <span class="string">"ps"</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	age <span class="keyword">int</span> = <span class="number">28</span></span><br><span class="line">	address = <span class="string">"China"</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> g, h, i = <span class="number">78</span>, <span class="string">"uu"</span>, <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//函数内变量</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//声明</span></span><br><span class="line">	<span class="keyword">var</span> j <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">var</span> (</span><br><span class="line">		k <span class="keyword">int</span></span><br><span class="line">		l <span class="keyword">string</span></span><br><span class="line">	)</span><br><span class="line">	<span class="comment">//x y z 全部为bool类型</span></span><br><span class="line">	<span class="keyword">var</span> x, y, z <span class="keyword">bool</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//赋值</span></span><br><span class="line">	j = <span class="number">2</span></span><br><span class="line">	k = <span class="number">78</span></span><br><span class="line">	l = <span class="string">"BJ"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//声明并赋值</span></span><br><span class="line">	<span class="comment">//Go编译器自动决定变量类型</span></span><br><span class="line">	<span class="keyword">var</span> m, n = <span class="number">56</span>, <span class="string">"SOHO"</span></span><br><span class="line">	<span class="comment">//r s t 全部为string类型</span></span><br><span class="line">	<span class="keyword">var</span> r, s, t <span class="keyword">string</span> = <span class="string">"hehe"</span>, <span class="string">"heihei"</span>, <span class="string">"haha"</span></span><br><span class="line">	<span class="comment">//包内的变量声明并赋值可以使用简写方式</span></span><br><span class="line">	o, p, q := <span class="literal">true</span>, <span class="literal">false</span>, <span class="number">87</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(j, k, l, x, y, z, m, n, r, s, t, o, q, p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(a, b, c, d, e, f, g, h, i, name1, name2, age, address)</span><br><span class="line">	test()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1023,89 +1106,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/01/25/import-httplib-ImportError-No-module-named-httplib/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/" class="post-title-link" itemprop="url">import httplib ImportError: No module named httplib</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-01-25 09:25:00" itemprop="dateCreated datePublished" datetime="2018-01-25T09:25:00+08:00">2018-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/01/25/import-httplib-ImportError-No-module-named-httplib/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/import-httplib-ImportError-No-module-named-httplib/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python2的代码中<code>import httplib</code>是没有问题的, 到了Python3, 这个模块的导入名称变成了<code>http.client</code>, 所以在如果你使用的是Python3, 需要导入这个模块, <code>import http.client</code>就可以了</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1178,7 +1178,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

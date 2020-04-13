@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,98 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/02/resize2fs-Bad-magic-number-in-super-block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/02/resize2fs-Bad-magic-number-in-super-block/" class="post-title-link" itemprop="url">resize2fs: Bad magic number in super-block</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-02 14:32:44" itemprop="dateCreated datePublished" datetime="2016-08-02T14:32:44+08:00">2016-08-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/08/02/resize2fs-Bad-magic-number-in-super-block/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/02/resize2fs-Bad-magic-number-in-super-block/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在扩充了LVM一个卷的空间之后，执行resize2fs报错：resize2fs: Bad magic number in super-block</p>
+</blockquote>
+<p>查看你的文件系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; mount</span><br><span class="line">/dev/sda1 on /boot <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br><span class="line">tmpfs on /run/user/0 <span class="built_in">type</span> tmpfs (rw,nosuid,nodev,relatime,size=186872k,mode=700)</span><br><span class="line">/dev/mapper/centos-root on /var/lib/docker/devicemapper <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br><span class="line">proc on /run/docker/netns/default <span class="built_in">type</span> proc (rw,nosuid,nodev,noexec,relatime)</span><br></pre></td></tr></table></figure>
+
+<p>原来是<code>xfs</code>的文件系统，在<code>ext4</code>年代，执行<code>resize2fs</code>是没有问题的，但是到了<code>xfs</code>文件系统年代，就不能使用<code>resize2fs</code>了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; xfs_growfs /dev/centos/root</span><br></pre></td></tr></table></figure>
+
+<p><code>xfs</code>文件系统下扩充<code>lvm卷</code>，需要使用<code>xfs_growfs</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1539,95 +1631,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/24/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%AD%E7%9A%84run%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/24/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%AD%E7%9A%84run%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Python多进程中的run方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-24 13:45:42" itemprop="dateCreated datePublished" datetime="2016-07-24T13:45:42+08:00">2016-07-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/24/Python%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%AD%E7%9A%84run%E6%96%B9%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/24/Python多进程中的run方法/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在多线程的介绍中，介绍了可以自定义多线程类，并且重写多线程类的run方法，实现了第二种使用多线程的方式</p>
-<p>在多进程中，也可以自定义多进程类，是通过重写多进程类的run方法</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyProcess</span><span class="params">(multiprocessing.Process)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, func, args)</span>:</span></span><br><span class="line">        <span class="comment"># 将函数名和参数封装到本类中</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        <span class="comment"># 为保证继承的类正常运行，这里需要执行父类的构造方法</span></span><br><span class="line">        <span class="comment"># 但是没有给父类的构造方法传递任何参数</span></span><br><span class="line">        <span class="comment"># 而对象寻找参数时，也是最先从本类中寻找</span></span><br><span class="line">        super(MyProcess, self).__init__()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 执行参数中的函数</span></span><br><span class="line">        self.func(*self.args)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义一个需要子进程运行的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(*args)</span>:</span></span><br><span class="line">    print(args)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用自定义的进程对象执行</span></span><br><span class="line">p = MyProcess(func=f, args=(<span class="number">59</span>,<span class="number">15</span>))</span><br><span class="line">p.start()</span><br></pre></td></tr></table></figure>
-
-<p><strong>进程p调用start()时，自动调用run()</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1700,7 +1703,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,151 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/15/%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/15/%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85Docker/" class="post-title-link" itemprop="url">快速安装Docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-15 10:43:38" itemprop="dateCreated datePublished" datetime="2017-04-15T10:43:38+08:00">2017-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/04/15/%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85Docker/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/15/快速安装Docker/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 公网通用</span></span><br><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 阿里云专用</span></span><br><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet | sh -</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="安装完成后的结束信息"><a href="#安装完成后的结束信息" class="headerlink" title="安装完成后的结束信息:"></a>安装完成后的结束信息:</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">+ sh -c docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:      17.04.0-ce</span><br><span class="line"> API version:  1.28</span><br><span class="line"> Go version:   go1.7.5</span><br><span class="line"> Git commit:   4845c56</span><br><span class="line"> Built:        Mon Apr  3 18:07:42 2017</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      17.04.0-ce</span><br><span class="line"> API version:  1.28 (minimum version 1.12)</span><br><span class="line"> Go version:   go1.7.5</span><br><span class="line"> Git commit:   4845c56</span><br><span class="line"> Built:        Mon Apr  3 18:07:42 2017</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"> Experimental: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">If you would like to use Docker as a non-root user, you should now consider</span><br><span class="line">adding your user to the <span class="string">"docker"</span> group with something like:</span><br><span class="line"></span><br><span class="line">  sudo usermod -aG docker your-user</span><br><span class="line"></span><br><span class="line">Remember that you will have to <span class="built_in">log</span> out and back <span class="keyword">in</span> <span class="keyword">for</span> this to take effect!</span><br></pre></td></tr></table></figure>
+
+<p>重点注意: <code>sudo usermod -aG docker your-user</code></p>
+<p>在 Ubuntu 系统中, 使用普通用户登录的情况很多, 如果普通用户需要直接有权限控制 docker 所有的操作的话, 需要将该普通用户加入到 docker 组中.</p>
+<p>Docker 是 C/S 架构, 一般情况下, C 和 S 是在安装在一台主机上的, 本地的 C 控制本地的 S, 后期控制大规模 Docker 的时候, 需要开放Docker API 来远程控制 Docker Server 端</p>
+<h1 id="检查-Docker-运行状态"><a href="#检查-Docker-运行状态" class="headerlink" title="检查 Docker 运行状态"></a>检查 Docker 运行状态</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># systemctl status docker</span></span><br><span class="line">● docker.service - Docker Application Container Engine</span><br><span class="line">   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Fri 2017-04-07 20:43:48 PDT; 9min ago</span><br><span class="line">     Docs: https://docs.docker.com</span><br><span class="line"> Main PID: 4082 (dockerd)</span><br><span class="line">   CGroup: /system.slice/docker.service</span><br><span class="line">           ├─4082 /usr/bin/dockerd -H fd://</span><br><span class="line">           └─4095 docker-containerd -l unix:///var/run/docker/libcontainerd/docker-containerd.sock --metri</span><br><span class="line"></span><br><span class="line">Apr 07 20:43:48 ubuntu dockerd[4082]: time=<span class="string">"2017-04-07T20:43:48.175051418-07:00"</span> level=warning msg=<span class="string">"Your k</span></span><br><span class="line"><span class="string">Apr 07 20:43:48 ubuntu dockerd[4082]: time="</span>2017-04-07T20:43:48.175185511-07:00<span class="string">" level=warning msg="</span>Your k</span><br><span class="line">Apr 07 20:43:48 ubuntu dockerd[4082]: time=<span class="string">"2017-04-07T20:43:48.175683715-07:00"</span> level=info msg=<span class="string">"Loading c</span></span><br><span class="line"><span class="string">Apr 07 20:43:48 ubuntu dockerd[4082]: time="</span>2017-04-07T20:43:48.228757745-07:00<span class="string">" level=info msg="</span>Firewalld</span><br><span class="line">Apr 07 20:43:48 ubuntu dockerd[4082]: time=<span class="string">"2017-04-07T20:43:48.327388388-07:00"</span> level=info msg=<span class="string">"Default b</span></span><br><span class="line"><span class="string">Apr 07 20:43:48 ubuntu dockerd[4082]: time="</span>2017-04-07T20:43:48.383792709-07:00<span class="string">" level=info msg="</span>Loading c</span><br><span class="line">Apr 07 20:43:48 ubuntu dockerd[4082]: time=<span class="string">"2017-04-07T20:43:48.420530516-07:00"</span> level=info msg=<span class="string">"Daemon ha</span></span><br><span class="line"><span class="string">Apr 07 20:43:48 ubuntu dockerd[4082]: time="</span>2017-04-07T20:43:48.420807227-07:00<span class="string">" level=info msg="</span>Docker da</span><br><span class="line">Apr 07 20:43:48 ubuntu systemd[1]: Started Docker Application Container Engine.</span><br><span class="line">Apr 07 20:43:48 ubuntu dockerd[4082]: time=<span class="string">"2017-04-07T20:43:48.434958396-07:00"</span> level=info msg=<span class="string">"API liste</span></span><br><span class="line"><span class="string">lines 1-19/19 (END)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作-Docker-进程"><a href="#操作-Docker-进程" class="headerlink" title="操作 Docker 进程"></a>操作 Docker 进程</h2><ul>
+<li>关闭 Docker 服务 <code>systemctl stop docker</code></li>
+<li>重启 Docker 服务 <code>systemctl restart docker</code></li>
+<li>开启 Docker 服务 <code>systemctl start docker</code></li>
+<li>开机启动 Docker <code>systemctl enable docker</code></li>
+</ul>
+<h1 id="检查-Docker-服务"><a href="#检查-Docker-服务" class="headerlink" title="检查 Docker 服务"></a>检查 Docker 服务</h1><ul>
+<li>Docker 服务运行正常的回显</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker info</span></span><br><span class="line">Containers: 0</span><br><span class="line"> Running: 0</span><br><span class="line"> Paused: 0</span><br><span class="line"> Stopped: 0</span><br><span class="line">Images: 0</span><br><span class="line">Server Version: 17.04.0-ce</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 0</span><br><span class="line"> Dirperm1 Supported: <span class="literal">true</span></span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Cgroup Driver: cgroupfs</span><br><span class="line">Plugins: </span><br><span class="line"> Volume: <span class="built_in">local</span></span><br><span class="line"> Network: bridge host macvlan null overlay</span><br><span class="line">Swarm: inactive</span><br><span class="line">Runtimes: runc</span><br><span class="line">Default Runtime: runc</span><br><span class="line">Init Binary: </span><br><span class="line">containerd version: 422e31ce907fd9c3833a38d7b8fdd023e5a76e73</span><br><span class="line">runc version: 9c2d8d184e5da67c95d601382adf14862e4f2228</span><br><span class="line">init version: 949e6fa</span><br><span class="line">Security Options:</span><br><span class="line"> apparmor</span><br><span class="line"> seccomp</span><br><span class="line">  Profile: default</span><br><span class="line">Kernel Version: 4.4.0-21-generic</span><br><span class="line">Operating System: Ubuntu 16.04 LTS</span><br><span class="line">OSType: linux</span><br><span class="line">Architecture: x86_64</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 975.1MiB</span><br><span class="line">Name: ubuntu</span><br><span class="line">ID: VK2Y:PFFS:OEDA:7RIL:PLF5:SA4F:RJNS:7VEF:ODLG:LX6M:OVY4:BECX</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br><span class="line">Debug Mode (client): <span class="literal">false</span></span><br><span class="line">Debug Mode (server): <span class="literal">false</span></span><br><span class="line">Registry: https://index.docker.io/v1/</span><br><span class="line">Experimental: <span class="literal">false</span></span><br><span class="line">Insecure Registries:</span><br><span class="line"> 127.0.0.0/8</span><br><span class="line">Live Restore Enabled: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Docker 服务运行异常的回显(普通用户如果没有加入到 docker 组中, 执行 docker 命令也会出现以下的报错)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker info</span></span><br><span class="line">Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>还有一种情况, 可能由于某些原因导致终端阻塞, 大多数情况下, 即使使用 <code>systemctl</code> 关闭 Docker 服务也无法正常关闭, 只能重启服务器宿主机</li>
+</ul>
+<h1 id="Docker-信息解读"><a href="#Docker-信息解读" class="headerlink" title="Docker 信息解读"></a>Docker 信息解读</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker info</span></span><br><span class="line">Containers: 0   <span class="comment"># 总容器数量</span></span><br><span class="line"> Running: 0     <span class="comment"># 运行中的容器数量</span></span><br><span class="line"> Paused: 0      <span class="comment"># 暂停的容器数量</span></span><br><span class="line"> Stopped: 0     <span class="comment"># 停止的容器数量</span></span><br><span class="line">Images: 0       <span class="comment"># 总镜像数量</span></span><br><span class="line">Server Version: 17.04.0-ce      <span class="comment"># Docker Server 版本</span></span><br><span class="line">Storage Driver: aufs            <span class="comment"># 存储引擎</span></span><br><span class="line"> Root Dir: /var/lib/docker/aufs <span class="comment"># 存储引擎根目录</span></span><br><span class="line"> Backing Filesystem: extfs      <span class="comment"># 后端文件系统类型</span></span><br><span class="line"> Dirs: 0                        <span class="comment"># aufs 的属性</span></span><br><span class="line"> Dirperm1 Supported: <span class="literal">true</span>       <span class="comment"># aufs 的属性</span></span><br><span class="line">Logging Driver: json-file       <span class="comment"># 日志引擎</span></span><br><span class="line">Cgroup Driver: cgroupfs         <span class="comment"># Cgroup 引擎</span></span><br><span class="line">Plugins:        <span class="comment"># 插件信息</span></span><br><span class="line"> Volume: <span class="built_in">local</span>  <span class="comment"># 数据卷插件</span></span><br><span class="line"> Network: bridge host macvlan null overlay <span class="comment"># 网络插件</span></span><br><span class="line">Swarm: inactive <span class="comment"># swarmkit 模式状态</span></span><br><span class="line">Runtimes: runc  <span class="comment"># 容器执行引擎</span></span><br><span class="line">Default Runtime: runc           <span class="comment"># 默认容器执行引擎</span></span><br><span class="line">Init Binary: </span><br><span class="line">containerd version: 422e31ce907fd9c3833a38d7b8fdd023e5a76e73</span><br><span class="line">runc version: 9c2d8d184e5da67c95d601382adf14862e4f2228</span><br><span class="line">init version: 949e6fa</span><br><span class="line">Security Options:       <span class="comment"># 安全项</span></span><br><span class="line"> apparmor       <span class="comment"># Linux内核中的强制访问控制系统</span></span><br><span class="line"> seccomp        <span class="comment"># Linux kernel(2.6.23版本之后)所支持的一种简洁的沙箱机制</span></span><br><span class="line">  Profile: default</span><br><span class="line">Kernel Version: 4.4.0-21-generic    <span class="comment"># 宿主机内核版本</span></span><br><span class="line">Operating System: Ubuntu 16.04 LTS  <span class="comment"># 宿主机系统发行版</span></span><br><span class="line">OSType: linux           <span class="comment"># 宿主机系统类型</span></span><br><span class="line">Architecture: x86_64    <span class="comment"># 宿主机 CPU 架构</span></span><br><span class="line">CPUs: 1                 <span class="comment"># 宿主机总 CPU 容量</span></span><br><span class="line">Total Memory: 975.1MiB  <span class="comment"># 宿主机总内存容量</span></span><br><span class="line">Name: ubuntu            <span class="comment"># 宿主机系统名称</span></span><br><span class="line">ID: VK2Y:PFFS:OEDA:7RIL:PLF5:SA4F:RJNS:7VEF:ODLG:LX6M:OVY4:BECX</span><br><span class="line">Docker Root Dir: /var/lib/docker    <span class="comment"># Docker 家目录</span></span><br><span class="line">Debug Mode (client): <span class="literal">false</span>          <span class="comment"># 客户端是否开启 debug 模式</span></span><br><span class="line">Debug Mode (server): <span class="literal">false</span>          <span class="comment"># 服务端是否开启 debug 模式</span></span><br><span class="line">Registry: https://index.docker.io/v1/   <span class="comment"># 默认仓库地址</span></span><br><span class="line">Experimental: <span class="literal">false</span>     <span class="comment"># 是否是体验版 Docker(edge)</span></span><br><span class="line">Insecure Registries:    <span class="comment"># 不安全的仓库</span></span><br><span class="line"> 127.0.0.0/8</span><br><span class="line">Live Restore Enabled: <span class="literal">false</span>  <span class="comment"># 在线恢复/热恢复</span></span><br><span class="line"></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support  <span class="comment"># cgroups中的swap account没有开启</span></span><br></pre></td></tr></table></figure>
+
+<p>注意: 生产环境中, 依据自己的需要, 可以适当调整<code>swap limit support</code>的支持情况. </p>
+<p>宁宕勿慢, 宁慢勿宕, 两个考量系统健壮性的思路, 没有最好的方案, 各有利弊, 需要综合自己的实际情况考量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Edit the /etc/default/grub file.</span><br><span class="line">Set the GRUB_CMDLINE_LINUX value as follows:</span><br><span class="line"></span><br><span class="line">GRUB_CMDLINE_LINUX=<span class="string">"cgroup_enable=memory swapaccount=1"</span></span><br><span class="line">Save and close the file.</span><br><span class="line"></span><br><span class="line">Update GRUB.</span><br><span class="line"></span><br><span class="line">$ sudo update-grub</span><br><span class="line">Reboot your system.</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="运行-hello-word容器"><a href="#运行-hello-word容器" class="headerlink" title="运行 hello word容器"></a>运行 hello word容器</h1><h2 id="添加代理仓库-daocloud"><a href="#添加代理仓库-daocloud" class="headerlink" title="添加代理仓库-daocloud"></a>添加代理仓库-daocloud</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://172d594a.m.daocloud.io</span></span><br><span class="line">docker version &gt;= 1.12</span><br><span class="line">&#123;<span class="string">"registry-mirrors"</span>: [<span class="string">"http://172d594a.m.daocloud.io"</span>]&#125;</span><br><span class="line">Success.</span><br><span class="line">You need to restart docker to take effect: sudo systemctl restart docker.service</span><br><span class="line">root@ubuntu:~<span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看代理信息"><a href="#查看代理信息" class="headerlink" title="查看代理信息"></a>查看代理信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker info</span></span><br><span class="line">Containers: 0</span><br><span class="line"> Running: 0</span><br><span class="line"> Paused: 0</span><br><span class="line"> Stopped: 0</span><br><span class="line">Images: 0</span><br><span class="line">Server Version: 17.04.0-ce</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 0</span><br><span class="line"> Dirperm1 Supported: <span class="literal">true</span></span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Cgroup Driver: cgroupfs</span><br><span class="line">Plugins: </span><br><span class="line"> Volume: <span class="built_in">local</span></span><br><span class="line"> Network: bridge host macvlan null overlay</span><br><span class="line">Swarm: inactive</span><br><span class="line">Runtimes: runc</span><br><span class="line">Default Runtime: runc</span><br><span class="line">Init Binary: </span><br><span class="line">containerd version: 422e31ce907fd9c3833a38d7b8fdd023e5a76e73</span><br><span class="line">runc version: 9c2d8d184e5da67c95d601382adf14862e4f2228</span><br><span class="line">init version: 949e6fa</span><br><span class="line">Security Options:</span><br><span class="line"> apparmor</span><br><span class="line"> seccomp</span><br><span class="line">  Profile: default</span><br><span class="line">Kernel Version: 4.4.0-21-generic</span><br><span class="line">Operating System: Ubuntu 16.04 LTS</span><br><span class="line">OSType: linux</span><br><span class="line">Architecture: x86_64</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 975.1MiB</span><br><span class="line">Name: ubuntu</span><br><span class="line">ID: VK2Y:PFFS:OEDA:7RIL:PLF5:SA4F:RJNS:7VEF:ODLG:LX6M:OVY4:BECX</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br><span class="line">Debug Mode (client): <span class="literal">false</span></span><br><span class="line">Debug Mode (server): <span class="literal">false</span></span><br><span class="line">Registry: https://index.docker.io/v1/</span><br><span class="line">Experimental: <span class="literal">false</span></span><br><span class="line">Insecure Registries:</span><br><span class="line"> 127.0.0.0/8</span><br><span class="line">Registry Mirrors:       <span class="comment"># 镜像代理</span></span><br><span class="line"> http://172d594a.m.daocloud.io/</span><br><span class="line">Live Restore Enabled: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行-hello-world-容器"><a href="#运行-hello-world-容器" class="headerlink" title="运行 hello-world 容器"></a>运行 hello-world 容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run hello-world</span></span><br><span class="line">Unable to find image <span class="string">'hello-world:latest'</span> locally   <span class="comment"># 在本地没有找到该镜像</span></span><br><span class="line">latest: Pulling from library/hello-world        <span class="comment"># 在远程仓库中查找镜像</span></span><br><span class="line">78445dd45222: Pull complete         <span class="comment"># 拉取镜像</span></span><br><span class="line">Digest: sha256:c5515758d4c5e1e838e9cd307f6c6a0d620b5e07e6f927b07d05f6d12a1ac8d7</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> hello-world:latest <span class="comment"># 镜像拉取完毕</span></span><br><span class="line"><span class="comment">#  ------以下内容是运行容器时打印到屏幕的内容------</span></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">"hello-world"</span> image from the Docker Hub.</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://cloud.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/engine/userguide/</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="查看容器状态"><a href="#查看容器状态" class="headerlink" title="查看容器状态"></a>查看容器状态</h1><h2 id="查看运行状态的容器"><a href="#查看运行状态的容器" class="headerlink" title="查看运行状态的容器"></a>查看运行状态的容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">root@ubuntu:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>查看所有状态的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">9c6fd12bef22        hello-world         <span class="string">"/hello"</span>            4 minutes ago       Exited (0) 4 minutes ago                       wizardly_mccarthy</span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="更改容器名称"><a href="#更改容器名称" class="headerlink" title="更改容器名称"></a>更改容器名称</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run --name "sayHi" hello-world</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">a74123af6f47        hello-world         <span class="string">"/hello"</span>            5 seconds ago       Exited (0) 4 seconds ago                       sayHi</span><br><span class="line">9c6fd12bef22        hello-world         <span class="string">"/hello"</span>            7 minutes ago       Exited (0) 7 minutes ago                       wizardly_mccarthy</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1356,148 +1501,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/Docker-For-RHEL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/21/Docker-For-RHEL/" class="post-title-link" itemprop="url">Docker For RHEL</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-21 00:01:22" itemprop="dateCreated datePublished" datetime="2017-03-21T00:01:22+08:00">2017-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/21/Docker-For-RHEL/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/Docker-For-RHEL/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>RHEL 也是大力支持 Docker 的系统发行版, 但是由于 Docker 最开始使用的 AUFS 存储引擎在 RHEL 上并不支持, 所以 RHEL 自主研发了 <code>device mapper</code> 存储引擎专门适配自己的系统. 这个东西确实很牛 X, 但是实际用起来有多不爽恐怕只有用过才会知道吧. </p>
-</blockquote>
-<p><strong>最重要的是: Docker 官方声明, RHEL 7 不支持 Docker CE, 在 RHEL 系统上, 只能安装 Docker EE 版本, 所以本篇不做详细介绍</strong></p>
-<h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ul>
-<li>64bit RHEL7</li>
-</ul>
-<h2 id="卸载老版本-Docker-Engine"><a href="#卸载老版本-Docker-Engine" class="headerlink" title="卸载老版本 Docker Engine"></a>卸载老版本 Docker Engine</h2><p>老版本的 Docker 被叫做 <code>docker</code> 或 <code>docker-engine</code> 如果系统当前有这些版本的系统, 那么你需要先卸载他们 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  container-selinux \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-<p>需要 <code>yum</code> 命令的回显显示没有相关的软件包被安装</p>
-<p>在 <code>/var/lib/docker</code> 目录下, 包含了<code>镜像</code>, <code>容器</code>, <code>数据卷</code>和 <code>网络配置</code></p>
-<h2 id="安装-Docker-EE"><a href="#安装-Docker-EE" class="headerlink" title="安装 Docker EE"></a>安装 Docker EE</h2><h3 id="设置软件源"><a href="#设置软件源" class="headerlink" title="设置软件源"></a>设置软件源</h3><ul>
-<li>在 <code>/etc/yum.repos.d/</code> 下清除所有跟 docker 相关的软件仓库配置</li>
-</ul>
-<ul>
-<li>在 <code>/etc/yum/vars/</code> 下创建两个变量<ul>
-<li>Docker EE 的 URL</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">'echo "&lt;DOCKER-EE-URL&gt;" &gt; /etc/yum/vars/dockerurl'</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>- RHEL 的版本 </code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="string">'echo "&lt;VERSION-STRING&gt;" &gt; /etc/yum/vars/dockerosversion'</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 yum 工具集<code>yum-utils</code> 以得到 <code>yum-config-manager</code>命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>配置软件源</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    &lt;DOCKER-EE-URL&gt;/docker-ee.repo</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-Docker-EE-1"><a href="#安装-Docker-EE-1" class="headerlink" title="安装 Docker EE"></a>安装 Docker EE</h3><ul>
-<li>更新 yum 软件源索引</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装 Docker EE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum -y install docker-ee</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>启动 Docker EE</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证 Docker EE 正常运行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考官方文档:</p>
-<ul>
-<li><a href="https://docs.docker.com/engine/installation/linux/rhel/#install-using-the-repository" target="_blank" rel="noopener">https://docs.docker.com/engine/installation/linux/rhel/#install-using-the-repository</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1570,7 +1573,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

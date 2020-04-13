@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,195 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/17/socketserver%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/17/socketserver%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="post-title-link" itemprop="url">socketserver源码阅读</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-17 00:06:04" itemprop="dateCreated datePublished" datetime="2016-07-17T00:06:04+08:00">2016-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/17/socketserver%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/17/socketserver源码阅读/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本篇socketserver源码阅读主要目的是熟悉Python中的继承模式</p>
+</blockquote>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socketserver</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">(socketserver.BaseRequestHandler)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">obj = socketserver.ThreadingTCPServer((<span class="string">'127.0.0.1'</span>, <span class="number">1559</span>), MyClass)</span><br><span class="line">obj.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<h1 id="阅读入口"><a href="#阅读入口" class="headerlink" title="阅读入口"></a>阅读入口</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = socketserver.ThreadingTCPServer((<span class="string">'127.0.0.1'</span>, <span class="number">1559</span>), MyClass)</span><br></pre></td></tr></table></figure>
+
+<p>从以上这一行代码中可以看出，执行了<code>ThreadingTCPServer</code>类中的<code>__init__</code>方法（实例化了这个类的对象，就从这里为入口点来阅读）</p>
+<h1 id="ThreadingTCPServer类图"><a href="#ThreadingTCPServer类图" class="headerlink" title="ThreadingTCPServer类图"></a>ThreadingTCPServer类图</h1><p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/20160717000559.png" alt=""></p>
+<h1 id="step-by-step"><a href="#step-by-step" class="headerlink" title="step by step"></a>step by step</h1><h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>首先，从实例化<code>ThreadingTCPServer</code>这个类的对象可以得知，是执行了这个对象的<code>__init__</code>构造方法，但是我们查看这个类的源码发现，只有一个<code>pass</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingTCPServer</span><span class="params">(ThreadingMixIn, TCPServer)</span>:</span> <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个类继承了两个父类，那么必然是执行了父类的<code>__init__</code>方法。在查找父类<code>__init__</code>方法的时候，首先从左边的父类开始查找</p>
+<h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p><code>ThreadingTCPServer</code>继承的第一个父类中<code>ThreadingMixIn</code>，没有找到<code>__init__</code>构造方法，接着，Python会去<code>ThreadingTCPServer</code>继承的第二个父类总去查找</p>
+<h2 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h2><p>在<code>ThreadingTCPServer</code>继承的第二个父类<code>TCPServer</code>找到了<code>__init__</code>构造方法并执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, server_address, RequestHandlerClass, bind_and_activate=True)</span>:</span></span><br><span class="line">    <span class="string">"""Constructor.  May be extended, do not override."""</span></span><br><span class="line">    BaseServer.__init__(self, server_address, RequestHandlerClass)</span><br><span class="line">    self.socket = socket.socket(self.address_family,</span><br><span class="line">                                self.socket_type)</span><br><span class="line">    <span class="keyword">if</span> bind_and_activate:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.server_bind()</span><br><span class="line">            self.server_activate()</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.server_close()</span><br><span class="line">            <span class="keyword">raise</span></span><br></pre></td></tr></table></figure>
+
+<p>在这段构造方法中，前三个参数对应了示例代码中，创建<code>ThreadingTCPServer</code>对象时的三个参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = socketserver.ThreadingTCPServer((<span class="string">'127.0.0.1'</span>, <span class="number">1559</span>), MyClass)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, server_address, RequestHandlerClass, bind_and_activate=True)</span>:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>self —&gt; obj</li>
+<li>server_address —&gt; (‘127.0.0.1’, 1559)</li>
+<li>RequestHandlerClass —&gt; MyClass</li>
+</ul>
+<p>在<code>TCPServer</code>的构造方法拿到这几个参数之后，紧接着又调用了父类的<code>__init__</code>构造方法</p>
+<h3 id="step-3-1"><a href="#step-3-1" class="headerlink" title="step 3.1"></a>step 3.1</h3><p>在<code>TCPServer</code>的父类<code>BaseServer</code>中，<code>__init__</code>构造方法执行了以下内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, server_address, RequestHandlerClass)</span>:</span></span><br><span class="line">    <span class="string">"""Constructor.  May be extended, do not override."""</span></span><br><span class="line">    self.server_address = server_address</span><br><span class="line">    self.RequestHandlerClass = RequestHandlerClass</span><br><span class="line">    self.__is_shut_down = threading.Event()</span><br><span class="line">    self.__shutdown_request = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>创建了两个公有变量和两个私有变量，并且</p>
+<ul>
+<li>RequestHandlerClass —&gt; MyClass</li>
+</ul>
+<h2 id="step-4"><a href="#step-4" class="headerlink" title="step 4"></a>step 4</h2><p><code>TCPServer</code>在执行完父类的构造方法封装了四个字段后，继续向下执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.socket = socket.socket(self.address_family,</span><br><span class="line">                                    self.socket_type)</span><br></pre></td></tr></table></figure>
+
+<p>创建了一个socket对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> bind_and_activate:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.server_bind()</span><br><span class="line">        self.server_activate()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        self.server_close()</span><br><span class="line">        <span class="keyword">raise</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="step-4-1"><a href="#step-4-1" class="headerlink" title="step 4.1"></a>step 4.1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">server_bind</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Called by constructor to bind the socket.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    May be overridden.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> self.allow_reuse_address:</span><br><span class="line">        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line">    self.socket.bind(self.server_address)</span><br><span class="line">    self.server_address = self.socket.getsockname()</span><br></pre></td></tr></table></figure>
+
+<p>绑定了IP和端口号，<code>self.server_address</code>的值是在执行父类<code>BaseServer</code>的构造方法时创建的</p>
+<h3 id="step-4-2"><a href="#step-4-2" class="headerlink" title="step 4.2"></a>step 4.2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">server_activate</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Called by constructor to activate the server.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    May be overridden.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    self.socket.listen(self.request_queue_size)</span><br></pre></td></tr></table></figure>
+
+<p>监听socket</p>
+<p>至此，<code>TCPServer</code>中的<code>__init__</code>构造方法执行完毕，构造方法执行完毕，就意味着示例代码中的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = socketserver.ThreadingTCPServer((<span class="string">'127.0.0.1'</span>, <span class="number">1559</span>), MyClass)</span><br></pre></td></tr></table></figure>
+
+<p>这一句就执行完毕了</p>
+<h2 id="step-5"><a href="#step-5" class="headerlink" title="step 5"></a>step 5</h2><p>接下来测试代码走到第10行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<p><code>ThreadingTCPServer</code>首先在自己的代码块中查找，没有</p>
+<p>根据继承的规则，再去左边的父类<code>ThreadingMixIn</code>中查找，没有</p>
+<p>之后再去右边的父类<code>TCPServer</code>中查找，没有</p>
+<p>最后在<code>TCPServer</code>的父类<code>BaseServer</code>中找到了<code>serve_forever</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">serve_forever</span><span class="params">(self, poll_interval=<span class="number">0.5</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Handle one request at a time until shutdown.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Polls for shutdown every poll_interval seconds. Ignores</span></span><br><span class="line"><span class="string">    self.timeout. If you need to do periodic tasks, do them in</span></span><br><span class="line"><span class="string">    another thread.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    self.__is_shut_down.clear()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># <span class="doctag">XXX:</span> Consider using another file descriptor or connecting to the</span></span><br><span class="line">        <span class="comment"># socket to wake this up instead of polling. Polling reduces our</span></span><br><span class="line">        <span class="comment"># responsiveness to a shutdown request and wastes cpu at all other</span></span><br><span class="line">        <span class="comment"># times.</span></span><br><span class="line">        <span class="keyword">with</span> _ServerSelector() <span class="keyword">as</span> selector:</span><br><span class="line">            selector.register(self, selectors.EVENT_READ)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> <span class="keyword">not</span> self.__shutdown_request:</span><br><span class="line">                ready = selector.select(poll_interval)  <span class="comment"># IO多路复用</span></span><br><span class="line">                <span class="keyword">if</span> ready:  <span class="comment"># 如果有新的客户端连接，ready就会有值</span></span><br><span class="line">                    self._handle_request_noblock()</span><br><span class="line"></span><br><span class="line">                self.service_actions()</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        self.__shutdown_request = <span class="literal">False</span></span><br><span class="line">        self.__is_shut_down.set()</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-5-1"><a href="#step-5-1" class="headerlink" title="step 5.1"></a>step 5.1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ready = selector.select(poll_interval)</span><br></pre></td></tr></table></figure>
+
+<p>IO多路复用，这里没有使用self来调，而是使用selector对象来调select方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select</span><span class="params">(self, timeout=None)</span>:</span></span><br><span class="line">    timeout = <span class="literal">None</span> <span class="keyword">if</span> timeout <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> max(timeout, <span class="number">0</span>)</span><br><span class="line">    ready = []</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r, w, _ = self._select(self._readers, self._writers, [], timeout)</span><br><span class="line">    <span class="keyword">except</span> InterruptedError:</span><br><span class="line">        <span class="keyword">return</span> ready</span><br><span class="line">    r = set(r)</span><br><span class="line">    w = set(w)</span><br><span class="line">    <span class="keyword">for</span> fd <span class="keyword">in</span> r | w:</span><br><span class="line">        events = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> fd <span class="keyword">in</span> r:</span><br><span class="line">            events |= EVENT_READ</span><br><span class="line">        <span class="keyword">if</span> fd <span class="keyword">in</span> w:</span><br><span class="line">            events |= EVENT_WRITE</span><br><span class="line"></span><br><span class="line">        key = self._key_from_fd(fd)</span><br><span class="line">        <span class="keyword">if</span> key:</span><br><span class="line">            ready.append((key, events &amp; key.events))</span><br><span class="line">    <span class="keyword">return</span> ready</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="step-5-2"><a href="#step-5-2" class="headerlink" title="step 5.2"></a>step 5.2</h3><p>在有客户端连接进来的时候，ready就有有值，为真，会执行<code>self._handle_request_noblock</code>方法</p>
+<p>因为是self.来调用的，根据继承规则，就要回到最开始的类中，再逐级向上查找，所以回到<code>ThreadingTCPServer</code>中查找，没有</p>
+<p>根据继承的规则，再去左边的父类<code>ThreadingMixIn</code>中查找，没有</p>
+<p>之后再去右边的父类<code>TCPServer</code>中查找，没有</p>
+<p>最后在<code>TCPServer</code>的父类<code>BaseServer</code>中找到了<code>_handle_request_noblock</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_handle_request_noblock</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Handle one request, without blocking.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    I assume that selector.select() has returned that the socket is</span></span><br><span class="line"><span class="string">    readable before this function was called, so there should be no risk of</span></span><br><span class="line"><span class="string">    blocking in get_request().</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        request, client_address = self.get_request() <span class="comment"># 获取到客户端连接对象socket，和客户端地址</span></span><br><span class="line">    <span class="keyword">except</span> OSError:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> self.verify_request(request, client_address):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.process_request(request, client_address)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handle_error(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br></pre></td></tr></table></figure>
+
+<h3 id="step-5-3"><a href="#step-5-3" class="headerlink" title="step 5.3"></a>step 5.3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request, client_address = self.get_request()</span><br></pre></td></tr></table></figure>
+
+<p>根据类图查找，在TCPServer类中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_request</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""Get the request and client address from the socket.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    May be overridden.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> self.socket.accept()</span><br></pre></td></tr></table></figure>
+
+<p>接受客户端连接请求</p>
+<h2 id="step-6"><a href="#step-6" class="headerlink" title="step 6"></a>step 6</h2><p>在<code>_handle_request_noblock</code>方法中又执行了<code>self.process_request</code>方法</p>
+<p>回到<code>ThreadingTCPServer</code>中查找，没有</p>
+<p>根据继承的规则，在左边的父类<code>ThreadingMixIn</code>中找到该方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">    <span class="string">"""Start a new thread to process the request."""</span></span><br><span class="line">    t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                         args = (request, client_address))</span><br><span class="line">    t.daemon = self.daemon_threads</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
+
+<p>在这个方法中，使用了多线程去执行<code>self.process_request_thread</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                         args = (request, client_address))</span><br></pre></td></tr></table></figure>
+
+<p>使用了self调用，还是要从头查找</p>
+<h2 id="step-7"><a href="#step-7" class="headerlink" title="step 7"></a>step 7</h2><p>在<code>ThreadingMixIn</code>类中找到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_request_thread</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">    <span class="string">"""Same as in BaseServer but as a thread.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    In addition, exception handling is done here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.finish_request(request, client_address)</span><br><span class="line">        self.shutdown_request(request)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        self.handle_error(request, client_address)</span><br><span class="line">        self.shutdown_request(request)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法应该是用来接收客户端发来的请求以及给客户端发送消息</p>
+<h2 id="step-8"><a href="#step-8" class="headerlink" title="step 8"></a>step 8</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.finish_request(request, client_address)</span><br></pre></td></tr></table></figure>
+
+<p>根据类图，在<code>BaseServer</code>中找到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">finish_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">    <span class="string">"""Finish one request by instantiating RequestHandlerClass."""</span></span><br><span class="line">    self.RequestHandlerClass(request, client_address, self)</span><br></pre></td></tr></table></figure>
+
+<p>在<code>step3</code>中已经封装了<code>RequestHandlerClass = MyClass</code></p>
+<p>相当于执行了MyClass的构造方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyClass(request, client_address, self)</span><br></pre></td></tr></table></figure>
+
+<h2 id="step-9"><a href="#step-9" class="headerlink" title="step 9"></a>step 9</h2><p>MyClass中没有定义构造方法，在MyClass继承的父类<code>socketserver.BaseRequestHandler</code>中查找，找到了构造方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, request, client_address, server)</span>:</span></span><br><span class="line">    self.request = request</span><br><span class="line">    self.client_address = client_address</span><br><span class="line">    self.server = server</span><br><span class="line">    self.setup()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.handle()</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        self.finish()</span><br></pre></td></tr></table></figure>
+
+<p>执行了<code>self.handle()</code></p>
+<h2 id="step-10"><a href="#step-10" class="headerlink" title="step 10"></a>step 10</h2><p>执行<code>self.handle()</code>方法时，就会执行MyClass中定义的<code>handle</code>方法</p>
+<p>在示例代码中，我们已经自定义了一个方法去实现与客户端的交互，</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1366,107 +1555,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Python网络编程之socket基础语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-06 01:51:51" itemprop="dateCreated datePublished" datetime="2016-07-06T01:51:51+08:00">2016-07-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/06/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/06/Python网络编程之socket基础语法/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>TCP/IP协议是一门非常古老的协议，我们在网络编程的时候，不可能花几个月时候去研究TCP/IP协议，socket就是网络编程的救星，由socket来提供一系列符合TCP/IP协议的接口，我们的应用程序只需要与socket交互，即可实现通过TCP/IP协议在网络中收发数据。需要注意的一点是，socket抽象层本身不负责收发数据，数据收发仍然是依赖四层模型中的传输层、网络层和链路层</p>
-<p>Python Version: 3.5+</p>
-</blockquote>
-<h1 id="socket简介"><a href="#socket简介" class="headerlink" title="socket简介"></a>socket简介</h1><p>socket通常也称作”套接字”，用于描述IP地址和端口，是一个通信链的句柄，应用程序通常通过”套接字”向网络发出请求或者应答网络请求。</p>
-<p>socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，对于文件用【打开】【读写】【关闭】模式来操作。socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）</p>
-<p>socket和file的区别：</p>
-<ul>
-<li>file模块是针对某个指定文件进行【打开】【读写】【关闭】</li>
-<li>socket模块是针对 服务器端 和 客户端Socket 进行【打开】【读写】【关闭】</li>
-</ul>
-<h1 id="socket网络编程中的四层协议"><a href="#socket网络编程中的四层协议" class="headerlink" title="socket网络编程中的四层协议"></a>socket网络编程中的四层协议</h1><p><img src="http://oss.20150509.cn/QQ201607060223_0.png" alt=""></p>
-<p>下面是socket编程中的一个简单实例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># server.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待客户端的连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">conn, addr = s.accept()</span><br><span class="line"><span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line"><span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 接收消息</span></span><br><span class="line">recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 6: 发送消息</span></span><br><span class="line">send_data = recv_data.upper()</span><br><span class="line">conn.send(send_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 7: 断开连接</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># client.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 连接服务端</span></span><br><span class="line">s.connect(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 发送消息</span></span><br><span class="line">send_data = <span class="string">"hello"</span></span><br><span class="line"><span class="comment"># 这里注意,和服务端不同的是,服务端找到对端是通过conn对象,而客户端是s对象</span></span><br><span class="line"><span class="comment"># 在Python3.x中,socket对象发送对象必须是字节类型(2.7中可以是字符串)</span></span><br><span class="line">s.send(bytes(send_data, encoding=<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 4: 收消息</span></span><br><span class="line">recv_data = s.recv(<span class="number">1024</span>)</span><br><span class="line">print(recv_data, <span class="string">"---&gt;"</span>, type(recv_data), str(recv_data))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 断开连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
-<p>先启动server.py</p>
-<p>在启动client.py</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 客户端终端回显</span></span><br><span class="line">b'HELLO' ---&gt; &lt;class 'bytes'&gt; b'HELLO'</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1539,7 +1627,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

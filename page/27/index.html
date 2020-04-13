@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">288</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,169 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/21/SaltStack-RESTful-API%E7%9A%84%E8%B0%83%E7%94%A8-salt-api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/21/SaltStack-RESTful-API%E7%9A%84%E8%B0%83%E7%94%A8-salt-api/" class="post-title-link" itemprop="url">SaltStack RESTful API的调用[salt-api]</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-21 02:49:09" itemprop="dateCreated datePublished" datetime="2016-03-21T02:49:09+08:00">2016-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SaltStack/" itemprop="url" rel="index"><span itemprop="name">SaltStack</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/21/SaltStack-RESTful-API%E7%9A%84%E8%B0%83%E7%94%A8-salt-api/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/21/SaltStack-RESTful-API的调用-salt-api/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>如果需要通过第三方来调用SaltStack时，使用SaltStack自带的Python API并不能很好的满足需求。可以通过使用SaltStack基于RESTful风格的HTTP API。该API模块并不是内置的，需要单独安装。</p>
+</blockquote>
+<h1 id="Salt-REST-API简介"><a href="#Salt-REST-API简介" class="headerlink" title="Salt REST API简介"></a>Salt REST API简介</h1><p><em>这里简单的说明下，SaltStack官方支持三种REST API，分别是rest_cherry; rest_tonado和rest_wsgi</em></p>
+<ul>
+<li>rest_cherry和rest_tonado两个模块支持监听所有IP的指定端口接收请求</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; lsof -i:1559</span><br><span class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</span><br><span class="line">salt-api 13443 root   14u  IPv4 21888585      0t0  TCP *:web2host (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rest_wsgi只支持本机访问，只绑定了127.0.0.1</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; lsof -i:1559</span><br><span class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</span><br><span class="line">salt-api 13443 root   14u  IPv4 21888585      0t0  TCP 127.0.0.1:web2host (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://oss.20150509.cn/Snip20160321_1.png" alt="image"></p>
+<p><strong>本文选择使用rest_cherry模块来实现SaltStack的HTTP API</strong></p>
+<h1 id="安装Salt-API服务"><a href="#安装Salt-API服务" class="headerlink" title="安装Salt-API服务"></a>安装Salt-API服务</h1><p><em>一般情况下，salt-api会使用HTTPS，首次配置成功后，使用用户名和密码登陆，获得Token，Token创建后，默认有效期是12小时，在有效期之内，使用该Token可以代替使用用户名和密码来访问API（该有效时间可在salt-master配置文件中修改）</em></p>
+<h2 id="必备安装包"><a href="#必备安装包" class="headerlink" title="必备安装包"></a>必备安装包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum -y install gcc make python-devel libffi-devel</span><br><span class="line">shell&gt; pip install pyOpenSSL==0.15.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="借助salt工具来生成证书"><a href="#借助salt工具来生成证书" class="headerlink" title="借助salt工具来生成证书"></a>借助salt工具来生成证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; salt-call --<span class="built_in">local</span> tls.create_self_signed_cert</span><br><span class="line"><span class="built_in">local</span>:</span><br><span class="line">    Created Private Key: <span class="string">"/etc/pki/tls/certs/localhost.key."</span> Created Certificate: <span class="string">"/etc/pki/tls/certs/localhost.crt."</span></span><br></pre></td></tr></table></figure>
+
+<p><em>salt-call是salt-minion的工具，如果没有这个命令，可以在master端安装minion，然后再执行以上命令</em></p>
+<h2 id="安装salt-api"><a href="#安装salt-api" class="headerlink" title="安装salt-api"></a>安装salt-api</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum -y install salt-api</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="配置用户及权限"><a href="#配置用户及权限" class="headerlink" title="配置用户及权限"></a>配置用户及权限</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; useradd -M -s /sbin/nologin sa</span><br><span class="line">shell&gt; <span class="built_in">echo</span> <span class="string">"sapassword"</span> | passwd sa --stdin</span><br></pre></td></tr></table></figure>
+
+<p>在salt-master的配置文件最后添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">external_auth:</span><br><span class="line">  pam:  #认证模式，pam指的是用Linux本身的用户认证模式</span><br><span class="line">    sa:  #Linux系统中真实存在的用户名</span><br><span class="line">      - &#39;*&#39;:  #设置用户的权限，允许该用户操作哪些主机，*代表全部</span><br><span class="line">        - test.*  #允许操作的模块及方法</span><br><span class="line">        - cmd.*</span><br></pre></td></tr></table></figure>
+
+<p>其他认证模式可以参考官方文档：<a href="http://docs.saltstack.com/en/latest/topics/eauth/index.html" target="_blank" rel="noopener">http://docs.saltstack.com/en/latest/topics/eauth/index.html</a></p>
+<h2 id="配置示例一-多用户（官方文档）"><a href="#配置示例一-多用户（官方文档）" class="headerlink" title="配置示例一:多用户（官方文档）"></a>配置示例一:多用户（官方文档）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">external_auth:</span><br><span class="line">  pam:</span><br><span class="line">    thatch:</span><br><span class="line">      - &#39;web*&#39;:</span><br><span class="line">        - test.*</span><br><span class="line">        - network.*</span><br><span class="line">    steve:</span><br><span class="line">      - .*</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置示例二：指定用户组（官方文档）"><a href="#配置示例二：指定用户组（官方文档）" class="headerlink" title="配置示例二：指定用户组（官方文档）"></a>配置示例二：指定用户组（官方文档）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">external_auth:</span><br><span class="line">  pam:</span><br><span class="line">    admins%:</span><br><span class="line">      - &#39;*&#39;:</span><br><span class="line">        - &#39;pkg.*&#39;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>%</code>来表示用户组</p>
+<h2 id="配置示例三：操作模块组（官方文档）"><a href="#配置示例三：操作模块组（官方文档）" class="headerlink" title="配置示例三：操作模块组（官方文档）"></a>配置示例三：操作模块组（官方文档）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">external_auth:</span><br><span class="line">  pam:</span><br><span class="line">    thatch:</span><br><span class="line">      - &#39;@wheel&#39;   # to allow access to all wheel modules</span><br><span class="line">      - &#39;@runner&#39;  # to allow access to all runner modules</span><br><span class="line">      - &#39;@jobs&#39;    # to allow access to the jobs runner and&#x2F;or wheel module</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.saltstack.com/en/latest/ref/wheel/all/index.html#all-salt-wheel" target="_blank" rel="noopener">点此查看wheel modules完整列表</a></p>
+<p><a href="https://docs.saltstack.com/en/latest/ref/runners/all/index.html#all-salt-runners" target="_blank" rel="noopener">点此查看runner modules完整列表</a></p>
+<hr>
+<h1 id="配置salt-api服务"><a href="#配置salt-api服务" class="headerlink" title="配置salt-api服务"></a>配置salt-api服务</h1><p>在salt-master的配置文件最后添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rest_cherrypy:</span><br><span class="line">  port: 1559  #默认监听所有IP的1559端口</span><br><span class="line">  ssl_crt: &#x2F;etc&#x2F;pki&#x2F;tls&#x2F;certs&#x2F;localhost.crt  #引用的正是前面创建的证书</span><br><span class="line">  ssl_key: &#x2F;etc&#x2F;pki&#x2F;tls&#x2F;certs&#x2F;localhost.key</span><br></pre></td></tr></table></figure>
+
+<p>其他配置参数可以参考官方文档：<a href="https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html" target="_blank" rel="noopener">https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html</a></p>
+<hr>
+<h1 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; service salt-api start</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="登陆获得Token"><a href="#登陆获得Token" class="headerlink" title="登陆获得Token"></a>登陆获得Token</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -sSk https://www.20150509.cn:1559/login \</span><br><span class="line">    -H <span class="string">'Accept: application/x-yaml'</span> \</span><br><span class="line">    -d username=sa \</span><br><span class="line">    -d password=sapassword \</span><br><span class="line">    -d eauth=pam</span><br></pre></td></tr></table></figure>
+
+<p>复制得到的Token</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -sSk https://localhost:8000 \</span><br><span class="line">    -H <span class="string">'Accept: application/x-yaml'</span> \</span><br><span class="line">    -H <span class="string">'X-Auth-Token: 697adbdc8fe971d09ae4c2a3add7248859c87079'</span>\</span><br><span class="line">    -d client=<span class="built_in">local</span> \</span><br><span class="line">    -d tgt=<span class="string">'*'</span> \</span><br><span class="line">    -d fun=test.ping</span><br></pre></td></tr></table></figure>
+
+<p><em>除了支持Token以外还支持使用cookies.txt文件来访问API，详情可查看官方文档</em></p>
+<hr>
+<h1 id="使用Python脚本来访问API"><a href="#使用Python脚本来访问API" class="headerlink" title="使用Python脚本来访问API"></a>使用Python脚本来访问API</h1><p><strong>在salt-api官方文档中，对python访问API给出了如下的格式要求</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    <span class="string">"client"</span>: <span class="string">"local"</span>,</span><br><span class="line">    <span class="string">"tgt"</span>: <span class="string">"*"</span>,</span><br><span class="line">    <span class="string">"fun"</span>: <span class="string">"test.fib"</span>,</span><br><span class="line">    <span class="string">"arg"</span>: [<span class="string">"10"</span>]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"client"</span>: <span class="string">"runner"</span>,</span><br><span class="line">    <span class="string">"fun"</span>: <span class="string">"jobs.lookup_jid"</span>,</span><br><span class="line">    <span class="string">"jid"</span>: <span class="string">"20130603122505459265"</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>以上的JSON代码中，指定了API去执行两个命令，一个模块命令，一个runner命令。Python代码实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line"> <span class="comment">#在python2.6x中，以下两行不是必须的</span></span><br><span class="line"><span class="keyword">import</span> ssl </span><br><span class="line">ssl._create_default_https_context = ssl._create_unverified_context</span><br><span class="line"></span><br><span class="line">url=<span class="string">'https://www.20150509.cn:1559'</span>  <span class="comment">#salt-api所在的“坐标”</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">  pre_data = [&#123;<span class="string">"client"</span>:<span class="string">"local"</span>, <span class="string">"tgt"</span>:<span class="string">"*"</span>, <span class="string">"fun"</span>:<span class="string">"test.ping"</span>&#125;]   <span class="comment">#根据上面官方文档的要求组成数组嵌套字典的形式</span></span><br><span class="line">  json_data = json.dumps(pre_data)    <span class="comment">#将其转化为json格式</span></span><br><span class="line">  </span><br><span class="line">  header = &#123;<span class="string">"Content-Type"</span>:<span class="string">"application/json"</span>, <span class="string">"Accept"</span>:<span class="string">"application/json"</span>, <span class="string">"X-Auth-Token"</span>:<span class="string">"697adbdc8fe971d09ae4c2a3add7248859c87079"</span>&#125;</span><br><span class="line">  <span class="comment">#这里说明下，Content-Type是声明传递给API的数据是什么格式的，这里指定了json，是因为上面的pre_data数据被我转化成了json格式</span></span><br><span class="line">  <span class="comment">#Accept是声明返回结果以什么样的格式显示，这里也指定了json格式来显示返回结果</span></span><br><span class="line"></span><br><span class="line">  request = urllib2.Request(url, json_data, header)    <span class="comment">#构造一次请求</span></span><br><span class="line">  response = urllib2.urlopen(request)    <span class="comment">#构造一次HTTP访问</span></span><br><span class="line"></span><br><span class="line">  html = response.read()</span><br><span class="line">  <span class="keyword">print</span> html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">  test()</span><br></pre></td></tr></table></figure>
+
+<p>指定<code>Accept</code>为<code>application/json</code>执行结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; python sa.py </span><br><span class="line">&#123;<span class="string">"return"</span>: [&#123;<span class="string">"vm3.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm2.salt.com"</span>: <span class="literal">true</span>, <span class="string">"ph1.salt.com"</span>: <span class="literal">true</span>, <span class="string">"ph2.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm1.salt.com"</span>: <span class="literal">true</span>, <span class="string">"vm4.salt.com"</span>: <span class="literal">true</span>, <span class="string">"localhost"</span>: <span class="literal">true</span>, <span class="string">"vm7.salt.com"</span>: <span class="literal">true</span>&#125;]&#125;</span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>指定<code>Accept</code>为<code>application/x-yaml</code>执行结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; python sa.py </span><br><span class="line"><span class="built_in">return</span>:</span><br><span class="line">- localhost: <span class="literal">true</span></span><br><span class="line">  ph1.salt.com: <span class="literal">true</span></span><br><span class="line">  ph2.salt.com: <span class="literal">true</span></span><br><span class="line">  vm1.salt.com: <span class="literal">true</span></span><br><span class="line">  vm2.salt.com: <span class="literal">true</span></span><br><span class="line">  vm3.salt.com: <span class="literal">true</span></span><br><span class="line">  vm4.salt.com: <span class="literal">true</span></span><br><span class="line">  vm7.salt.com: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="RESTful-API的日常操作"><a href="#RESTful-API的日常操作" class="headerlink" title="RESTful API的日常操作"></a>RESTful API的日常操作</h2><ul>
+<li>运行远程模块</li>
+<li>查询指定job</li>
+<li>运行runner</li>
+</ul>
+<p><strong>稍后有时间会分别详细举出几个使用案例</strong></p>
+<h2 id="REST-URI-参考"><a href="#REST-URI-参考" class="headerlink" title="REST URI 参考"></a>REST URI 参考</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;</span><br><span class="line">&#x2F;login</span><br><span class="line">&#x2F;logout</span><br><span class="line">&#x2F;minions</span><br><span class="line">&#x2F;jobs</span><br><span class="line">&#x2F;run</span><br><span class="line">&#x2F;events</span><br><span class="line">&#x2F;hook</span><br><span class="line">&#x2F;keys</span><br><span class="line">&#x2F;ws</span><br><span class="line">&#x2F;stats</span><br></pre></td></tr></table></figure>
+
+<p><em>详细用法可参考salt-api rest_cherry官方文档</em></p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>salt-api：<a href="https://github.com/saltstack/salt-api" target="_blank" rel="noopener">https://github.com/saltstack/salt-api</a></p>
+<p>rest_cherrypy：<a href="https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html" target="_blank" rel="noopener">https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html</a></p>
+<p>认证模式：<a href="http://docs.saltstack.com/en/latest/topics/eauth/index.html" target="_blank" rel="noopener">http://docs.saltstack.com/en/latest/topics/eauth/index.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1234,141 +1397,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/12/08/Python%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/12/08/Python%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Python函数笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-12-08 11:53:36" itemprop="dateCreated datePublished" datetime="2015-12-08T11:53:36+08:00">2015-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/12/08/Python%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/08/Python函数笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h1><h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_fun</span><span class="params">(arg)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"run function"</span></span><br><span class="line">    <span class="keyword">return</span> arg * arg</span><br></pre></td></tr></table></figure>
-
-<p>如果没有写<code>return</code>语句，函数执行之后会返回<code>None</code></p>
-<h2 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h2><p>可以有多个返回值，但是多个返回值默认是以元组的方式返回，相当于返回了一个元组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">my_fun3</span><span class="params">(arg1, arg2)</span>:</span></span><br><span class="line"><span class="meta">... </span>    x = arg1 + <span class="number">59</span></span><br><span class="line"><span class="meta">... </span>    y = arg2 + <span class="number">59</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x,y</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = my_fun3(<span class="number">12</span>,<span class="number">78</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(r)</span><br><span class="line">&lt;type <span class="string">'tuple'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> r</span><br><span class="line">(<span class="number">71</span>, <span class="number">137</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r, t = my_fun3(<span class="number">56</span>, <span class="number">89</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> r,t</span><br><span class="line"><span class="number">115</span> <span class="number">148</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="空函数"><a href="#空函数" class="headerlink" title="空函数"></a>空函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_fun2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h1><p><code>function_name()</code>是调用函数的基本语法</p>
-<ul>
-<li>function_name 是函数的名字（可以使自定义函数，可以使内置函数，可以使第三方模块中的函数）</li>
-<li>() 括号里放的是该函数的参数，如果没有参数，可以为空</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">my_fun4</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">"hello"</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">"world"</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_fun4()</span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line"><span class="comment"># my_fun4函数里面只有两行打印语句，没有定义返回值，所以返回值默认为空（None）</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = my_fun4()</span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> s</span><br><span class="line"><span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;type <span class="string">'NoneType'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">my_fun5</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="string">"hello world"</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="comment"># my_fun5函数里面定义了返回值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ss = my_fun5()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> ss</span><br><span class="line">hello world</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(ss)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h1><h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>拿一个简单的幂运算举例<br><code>n=2</code>即为默认参数，在调用该函数时，如果只指定了一个参数，那变量<code>n</code>将默认等于<code>2</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">my_fun6</span><span class="params">(x, n=<span class="number">2</span>)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x ** n</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_fun6(<span class="number">3</span>)</span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_fun6(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"><span class="number">27</span></span><br></pre></td></tr></table></figure>
-
-<p>也可以将两个参数都设置有默认变量，这样该函数即使不传参，也能正常工作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_fun6()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: my_fun6() takes at least <span class="number">1</span> argument (<span class="number">0</span> given)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">my_fun7</span><span class="params">(x=<span class="number">3</span>,n=<span class="number">2</span>)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x ** n</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_fun7()</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用默认参数的注意事项"><a href="#使用默认参数的注意事项" class="headerlink" title="使用默认参数的注意事项"></a>使用默认参数的注意事项</h3><ul>
-<li><p>必选参数在前，默认参数在后，否则Python解释器会报错</p>
-</li>
-<li><p>当函数需要多个参数的时候，将变化较大的参数放在前面，变化小的放在后面作为默认参数</p>
-</li>
-<li><p>默认参数必须指向不可变对象（eg: int, string, float）</p>
-</li>
-</ul>
-<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><p>可以折衷地使用列表或元组实现可变长参数<br><em>(以下交互终端使用了ipython)</em></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(numbers)</span>:</span></span><br><span class="line">   ...:     sum = <span class="number">0</span></span><br><span class="line">   ...:     <span class="keyword">for</span> i <span class="keyword">in</span> numbers:</span><br><span class="line">   ...:         sum = sum + i</span><br><span class="line">   ...:     <span class="keyword">return</span> sum</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: cal([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">Out[<span class="number">2</span>]: <span class="number">6</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: cal((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">Out[<span class="number">3</span>]: <span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-<p>可变参数的关键字为<code>*</code>星号。在设置函数的接收参数时，前面加上一个星号，则函数内部接收到的所有参数会自动转化为一个元组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(*numbers)</span>:</span></span><br><span class="line">   ...:     sum = <span class="number">0</span></span><br><span class="line">   ...:     <span class="keyword">for</span> i <span class="keyword">in</span> numbers:</span><br><span class="line">   ...:         sum = sum + i</span><br><span class="line">   ...:     <span class="keyword">return</span> sum</span><br><span class="line">   ...: </span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: cal(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">6</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: cal()</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: cal(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">21</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">9</span>]: <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(*numbers)</span>:</span></span><br><span class="line">   ...:     <span class="keyword">return</span> type(numbers)</span><br><span class="line">   ...: </span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: cal()</span><br><span class="line">Out[<span class="number">10</span>]: tuple</span><br></pre></td></tr></table></figure>
-
-<h2 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h2><p>可变长参数传入到函数内部会自动转换成一个<code>元组</code>；而关键字参数传入到函数内部会自动转换成一个<code>字典</code><br>关键字参数的关键字是<code>**</code>两个星号</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">12</span>]: <span class="function"><span class="keyword">def</span> <span class="title">person</span><span class="params">(name, age, **otherkeyword)</span>:</span></span><br><span class="line">   ....:     <span class="keyword">print</span> <span class="string">'name: '</span>, name, <span class="string">'\n'</span>, <span class="string">'age: '</span>, age, <span class="string">'\n'</span>, <span class="string">'otherInfo: '</span>, otherkeyword</span><br><span class="line">   ....:    </span><br><span class="line"> </span><br><span class="line">In [<span class="number">13</span>]: person(<span class="string">'ps'</span>,<span class="number">24</span>)</span><br><span class="line">name:  ps</span><br><span class="line">age:  <span class="number">24</span></span><br><span class="line">otherInfo:  &#123;&#125;</span><br><span class="line"> </span><br><span class="line">In [<span class="number">14</span>]: person(<span class="string">'ps'</span>,<span class="number">24</span>,city=<span class="string">'BJ'</span>)</span><br><span class="line">name:  ps</span><br><span class="line">age:  <span class="number">24</span></span><br><span class="line">otherInfo:  &#123;<span class="string">'city'</span>: <span class="string">'BJ'</span>&#125;</span><br><span class="line"> </span><br><span class="line">In [<span class="number">15</span>]: person(<span class="string">'ps'</span>,<span class="number">24</span>,city=<span class="string">'BJ'</span>,job=<span class="string">'Engineer'</span>)</span><br><span class="line">name:  ps</span><br><span class="line">age:  <span class="number">24</span></span><br><span class="line">otherInfo:  &#123;<span class="string">'city'</span>: <span class="string">'BJ'</span>, <span class="string">'job'</span>: <span class="string">'Engineer'</span>&#125;</span><br><span class="line"> </span><br><span class="line">In [<span class="number">16</span>]: dict_kw = &#123;<span class="string">'city'</span>: <span class="string">'BJ'</span>, <span class="string">'job'</span>: <span class="string">'Engineer'</span>&#125;</span><br><span class="line"> </span><br><span class="line">In [<span class="number">17</span>]: dict_kw</span><br><span class="line">Out[<span class="number">17</span>]: &#123;<span class="string">'city'</span>: <span class="string">'BJ'</span>, <span class="string">'job'</span>: <span class="string">'Engineer'</span>&#125;</span><br><span class="line"> </span><br><span class="line">In [<span class="number">18</span>]: person(<span class="string">'ps'</span>,<span class="number">24</span>,**dict_kw)</span><br><span class="line">name:  ps</span><br><span class="line">age:  <span class="number">24</span></span><br><span class="line">otherInfo:  &#123;<span class="string">'city'</span>: <span class="string">'BJ'</span>, <span class="string">'job'</span>: <span class="string">'Engineer'</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参数组合"><a href="#参数组合" class="headerlink" title="参数组合"></a>参数组合</h2><p>上面提到了四种参数（必选参数、默认参数、可变参数、关键字参数），这四种参数可以一起使用。<br>参数定义的顺序必须是：必须参数、默认参数、可变参数、关键字参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">21</span>]: <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a, b, c=<span class="number">0</span>, *args, **kw)</span>:</span></span><br><span class="line">   ....:     <span class="keyword">print</span> <span class="string">'a:'</span>, a, <span class="string">'\n'</span>, <span class="string">'b:'</span>, b, <span class="string">'\n'</span>, <span class="string">'c:'</span>, c, <span class="string">'\n'</span>, <span class="string">'tuple_args:'</span>, args, <span class="string">'\n'</span>, <span class="string">'dict_kw:'</span>, kw</span><br><span class="line">   ....:     </span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: func(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">a: <span class="number">1</span> </span><br><span class="line">b: <span class="number">2</span> </span><br><span class="line">c: <span class="number">0</span> </span><br><span class="line">tuple_args: () </span><br><span class="line">dict_kw: &#123;&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: func(<span class="number">1</span>,<span class="number">2</span>,c=<span class="number">3</span>)</span><br><span class="line">a: <span class="number">1</span> </span><br><span class="line">b: <span class="number">2</span> </span><br><span class="line">c: <span class="number">3</span> </span><br><span class="line">tuple_args: () </span><br><span class="line">dict_kw: &#123;&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: func(<span class="number">1</span>,<span class="number">2</span>,c=<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">  File <span class="string">"&lt;ipython-input-24-9272b7482bc9&gt;"</span>, line <span class="number">1</span></span><br><span class="line">SyntaxError: non-keyword arg after keyword arg</span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: func(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">a: <span class="number">1</span> </span><br><span class="line">b: <span class="number">2</span> </span><br><span class="line">c: <span class="number">3</span> </span><br><span class="line">tuple_args: (<span class="number">4</span>, <span class="number">5</span>) </span><br><span class="line">dict_kw: &#123;&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]: func(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,x=<span class="number">59</span>)</span><br><span class="line">a: <span class="number">1</span> </span><br><span class="line">b: <span class="number">2</span> </span><br><span class="line">c: <span class="number">3</span> </span><br><span class="line">tuple_args: (<span class="number">4</span>, <span class="number">5</span>) </span><br><span class="line">dict_kw: &#123;<span class="string">'x'</span>: <span class="number">59</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li><p>*args是可变参数，接收一个tuple</p>
-</li>
-<li><p>**kw是关键字参数，接收一个dict</p>
-</li>
-<li><p>在必选参数，默认参数，可变长参数和关键字参数混合使用时，默认参数在复制时不要指定参数名，如上例的<code>c=3</code> 否则会报错</p>
-</li>
-</ul>
-<h1 id="常用内置函数"><a href="#常用内置函数" class="headerlink" title="常用内置函数"></a>常用内置函数</h1><h2 id="isinstance"><a href="#isinstance" class="headerlink" title="isinstance"></a>isinstance</h2><p><strong>isinstance函数判断对象类型</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">obj1</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o = obj1()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'b'</span>:<span class="number">2</span>,<span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'string'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>i = <span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="number">5.9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(o, obj1)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(t, tuple)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(l, list)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(d, dict)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(s, str)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(i, int)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> isinstance(f, float)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1441,7 +1469,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">288</span>
+          <span class="site-state-item-count">289</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
