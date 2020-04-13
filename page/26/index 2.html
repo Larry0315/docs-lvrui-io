@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Polar Snow Documentation">
+<meta property="og:url" content="https://docs.lvrui.io/page/26/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="极地瑞雪的个人技术博客. &quot;取之开源 用之开源&quot;, 分享自己的经验之谈&quot;.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="etcd">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/page/26/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/" class="post-title-link" itemprop="url">mysqldump 错误2013 Lost connection</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:14:57" itemprop="dateCreated datePublished" datetime="2017-02-19T21:14:57+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/mysqldump-错误2013-Lost-connection/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>导出数据库的时候报如下错误 <code>mysqldump: Error 2013: Lost connection to MySQL server during query when dumping table</code>mail<code>at row: 2637433</code></p>
+</blockquote>
+<p><strong>查询资料</strong></p>
+<p>大概说是因为mysqldump来不及接受mysql server端发送过来的数据，Server端的数据就会积压在内存中等待发送，这个等待不是无限期的，当Server的等待时间超过net_write_timeout（默认是60秒）时它就失去了耐心，mysqldump的连接会被断开，同时抛出错误Got error: 2013: Lost connection。</p>
+<p><strong>解决方案一</strong></p>
+<p>增加net_write_timeout可以解决上述的问题的。在实践中发现，在增大 net_write_timeout后，Server端会消耗更多的内存，有时甚至会导致swap的使用（并不确定是不是修改 net_write_timeout所至）。建议在mysqldump之前修改net_write_timeout为一个较大的值（如1800），在 mysqldump结束后，在将这个值修改到默认的60。</p>
+<p>在sql命令行里面设置临时全局生效用类似如下命令：<br>SET GLOBAL net_write_timeout=1800;</p>
+<p>修改了这个参数后再备份，不再报错<br>注意，这个参数不是mysqldump选项，而是mysql的一个配置参数</p>
+<p><strong>解决方案二</strong></p>
+<p>在执行 mysqldump 的时候可以通过添加 <code>--quick</code> 的参数来避免出现这样的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> --quick，-q</span><br><span class="line"></span><br><span class="line">该选项用于转储大的表。它强制mysqldump从服务器一次一行地检索表中的行而不是检索所有行并在输出前将它缓存到内存中。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>参考文档</strong></p>
+<p><a href="http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html" target="_blank" rel="noopener">http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html</a></p>
+<p><a href="http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html" target="_blank" rel="noopener">http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection%205/" class="post-title-link" itemprop="url">mysqldump 错误2013 Lost connection</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:14:57" itemprop="dateCreated datePublished" datetime="2017-02-19T21:14:57+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/mysqldump-%E9%94%99%E8%AF%AF2013-Lost-connection%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/mysqldump-错误2013-Lost-connection 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>导出数据库的时候报如下错误 <code>mysqldump: Error 2013: Lost connection to MySQL server during query when dumping table</code>mail<code>at row: 2637433</code></p>
+</blockquote>
+<p><strong>查询资料</strong></p>
+<p>大概说是因为mysqldump来不及接受mysql server端发送过来的数据，Server端的数据就会积压在内存中等待发送，这个等待不是无限期的，当Server的等待时间超过net_write_timeout（默认是60秒）时它就失去了耐心，mysqldump的连接会被断开，同时抛出错误Got error: 2013: Lost connection。</p>
+<p><strong>解决方案一</strong></p>
+<p>增加net_write_timeout可以解决上述的问题的。在实践中发现，在增大 net_write_timeout后，Server端会消耗更多的内存，有时甚至会导致swap的使用（并不确定是不是修改 net_write_timeout所至）。建议在mysqldump之前修改net_write_timeout为一个较大的值（如1800），在 mysqldump结束后，在将这个值修改到默认的60。</p>
+<p>在sql命令行里面设置临时全局生效用类似如下命令：<br>SET GLOBAL net_write_timeout=1800;</p>
+<p>修改了这个参数后再备份，不再报错<br>注意，这个参数不是mysqldump选项，而是mysql的一个配置参数</p>
+<p><strong>解决方案二</strong></p>
+<p>在执行 mysqldump 的时候可以通过添加 <code>--quick</code> 的参数来避免出现这样的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> --quick，-q</span><br><span class="line"></span><br><span class="line">该选项用于转储大的表。它强制mysqldump从服务器一次一行地检索表中的行而不是检索所有行并在输出前将它缓存到内存中。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>参考文档</strong></p>
+<p><a href="http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html" target="_blank" rel="noopener">http://www.linuxyw.com/linux/yunweiguzhang/20130609/566.html</a></p>
+<p><a href="http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html" target="_blank" rel="noopener">http://www.cnblogs.com/haven/archive/2012/10/27/2742141.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">MySQL常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:12:28" itemprop="dateCreated datePublished" datetime="2017-02-19T21:12:28+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/MySQL常用命令/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>查看全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables;</span><br><span class="line">mysql&gt; show global variables like '%timeout';</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global innodb_ft_min_token_size=1;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%205/" class="post-title-link" itemprop="url">MySQL常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:12:28" itemprop="dateCreated datePublished" datetime="2017-02-19T21:12:28+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/MySQL常用命令 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>查看全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables;</span><br><span class="line">mysql&gt; show global variables like '%timeout';</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置全局变量</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global innodb_ft_min_token_size=1;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" class="post-title-link" itemprop="url">docker中的导入导出</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:08:11" itemprop="dateCreated datePublished" datetime="2017-02-19T21:08:11+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/docker的导入导出/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的概念中, 有两套导入导出的概念. 分别是<code>export 和 import</code>还有<code>save 和 load</code> 百度搜索🔍它们的区别, 有一篇被引用了很多次的文章虽然讲的很详细, 还加入了一些实验验证, 但是试验中为了实现同一个效果而使用了 commit 命令更改了镜像内容. 理解和使用起来可能会有些偏差, 本文将以最简单明了的方式介绍 docker 中的两套导入导出功能</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">export&amp;import</th>
+<th align="center">save&amp;load</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操作对象</td>
+<td align="center">容器</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">导出对象</td>
+<td align="center">tar 文件</td>
+<td align="center">tar 文件</td>
+</tr>
+<tr>
+<td align="center">导入对象</td>
+<td align="center">镜像</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">镜像层数</td>
+<td align="center">一层</td>
+<td align="center">多层</td>
+</tr>
+</tbody></table>
+<p><strong>下面我们来一行一行的解释</strong></p>
+<h1 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h1><p>操作的对象不同, export 和 import 是用来导入导出容器用的, 而 save 和 load 是用来导入导出镜像用的.</p>
+<p>例如: 你需要把 <code>A</code> 机器上的 <code>甲</code> 容器迁移到 <code>B</code> 机器, 且 <code>甲</code> 容器中有重要的数据需要随之一起迁移的, 就可以使用 <code>export 和 import</code> 参数来导入和导出</p>
+<p>例如: 你的服务器不能 pull 下来某个镜像, 但是你有一台海外的机器, 你可以在海外的那台机器上把需要的镜像 pull 下来, 然后把该镜像通过 <code>save</code> 命令导出为一个 tar 包, 再将 tar 包拉回到本地导入</p>
+<p>所以, 从功能定位上, 你就记住 <code>save 和 load</code>参数是用来迁移镜像的这个场景就行了, 另外的 <code>export 和 import</code>当然就是用来迁容器的</p>
+<h1 id="导出对象"><a href="#导出对象" class="headerlink" title="导出对象"></a>导出对象</h1><p>在导出对象这一点, <code>export</code> 和 <code>save</code> 导出的文件形式都是一样的, 两者都是导出为一个 tar 包</p>
+<h1 id="导入对象"><a href="#导入对象" class="headerlink" title="导入对象"></a>导入对象</h1><p>在导入上, <code>import</code> 和 <code>load</code> 通过 tar 包导入的都是一个镜像</p>
+<h1 id="导入的镜像层数"><a href="#导入的镜像层数" class="headerlink" title="导入的镜像层数"></a>导入的镜像层数</h1><p>最大的区别就在这里, 通过<code>export 和 import</code>导出的容器形成镜像时, 该镜像只有一层</p>
+<p>通过<code>save</code> 和 <code>load</code> 导出的镜像保留了原镜像所有的层次结构, 导出时原镜像有几层, 导入的时候就还是有几层</p>
+<h1 id="想导出容器-但是还想保留层次结构怎么办"><a href="#想导出容器-但是还想保留层次结构怎么办" class="headerlink" title="想导出容器, 但是还想保留层次结构怎么办?"></a>想导出容器, 但是还想保留层次结构怎么办?</h1><p>导出容器, 很快就想到唯一一个可以导出容器的工具 <code>export</code></p>
+<p>但是又想保留底层镜像的层次结构, 那么 <code>export</code> 就不符合需求了</p>
+<p>想想导出带层次结构的工具就只有镜像导出工具 <code>save</code> 了, 但是容器在镜像层之上还有一层新的数据怎么一起导出去呢? </p>
+<p>这个时候就需要引入一个新的参数 <code>commit</code>, 用来保存容器现有的状态为一个新的镜像 </p>
+<p>比如在 <code>A</code> 机器上运行的 <code>甲</code> 容器是基于 <code>甲方乙方</code> 这个镜像跑起来的, 那么我就可以通过 <code>commit</code> 参数, 将 <code>甲</code> 容器的所有内容保存为一个新的镜像, 名字叫 <code>私人订制</code> (内含一梗哦😆) 最后我再通过镜像导出工具 <code>save</code> 就可以完整的将 <code>私人订制</code>镜像(也就是 <code>甲容器</code> )导出为一个 tar 包了</p>
+<p>而且包含了 X+1 层镜像, X 层是原镜像 <code>甲方乙方</code> 的所有镜像层数, 1是容器 <code>甲</code> 多的那一层可写层的镜像</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结来说我也希望大家使用 docker 能遵循 docker 的设计初衷, 运行一个无状态的容器. 如果是无状态的容器, 就不会产生 <code>想导出容器, 但是还想保留层次结构怎么办?</code> 这样的奇葩问题了. </p>
+<p>所以最后还是要再次强调:</p>
+<ul>
+<li>export 和 import 是用来导出导入容器用的, 导出的是容器的文件系统, 导出后的镜像只有一层</li>
+<li>save 和 load 是用来导出导入镜像用的, 导出后保持着原镜像的层次结构</li>
+</ul>
+<p>这里我没有详细介绍这四个参数的具体用法, 因为网上已经有很详细的文章介绍啦, 一下就是百度经常能搜到的关于 docker 导入导出的文章</p>
+<p><a href="https://my.oschina.net/zjzhai/blog/225112" target="_blank" rel="noopener">https://my.oschina.net/zjzhai/blog/225112</a></p>
+<p>具体用法可以参考以上文章, 但是概念理解, 我还是觉得自己写的比较清楚😆, 因为我没有故意构造出导出容器和导出镜像结果相同的场景</p>
+<hr>
+<p>参考文档</p>
+<p>docker export 官方文档<a href="https://docs.docker.com/engine/reference/commandline/export/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/export/</a></p>
+<p>docker save 官方文档<a href="https://docs.docker.com/engine/reference/commandline/save/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/save/</a></p>
+<p>docker commit 官方文档<a href="https://docs.docker.com/engine/reference/commandline/commit/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/commit/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%203/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%203/" class="post-title-link" itemprop="url">docker中的导入导出</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:08:11" itemprop="dateCreated datePublished" datetime="2017-02-19T21:08:11+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/docker%E7%9A%84%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/docker的导入导出 3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的概念中, 有两套导入导出的概念. 分别是<code>export 和 import</code>还有<code>save 和 load</code> 百度搜索🔍它们的区别, 有一篇被引用了很多次的文章虽然讲的很详细, 还加入了一些实验验证, 但是试验中为了实现同一个效果而使用了 commit 命令更改了镜像内容. 理解和使用起来可能会有些偏差, 本文将以最简单明了的方式介绍 docker 中的两套导入导出功能</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">export&amp;import</th>
+<th align="center">save&amp;load</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操作对象</td>
+<td align="center">容器</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">导出对象</td>
+<td align="center">tar 文件</td>
+<td align="center">tar 文件</td>
+</tr>
+<tr>
+<td align="center">导入对象</td>
+<td align="center">镜像</td>
+<td align="center">镜像</td>
+</tr>
+<tr>
+<td align="center">镜像层数</td>
+<td align="center">一层</td>
+<td align="center">多层</td>
+</tr>
+</tbody></table>
+<p><strong>下面我们来一行一行的解释</strong></p>
+<h1 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h1><p>操作的对象不同, export 和 import 是用来导入导出容器用的, 而 save 和 load 是用来导入导出镜像用的.</p>
+<p>例如: 你需要把 <code>A</code> 机器上的 <code>甲</code> 容器迁移到 <code>B</code> 机器, 且 <code>甲</code> 容器中有重要的数据需要随之一起迁移的, 就可以使用 <code>export 和 import</code> 参数来导入和导出</p>
+<p>例如: 你的服务器不能 pull 下来某个镜像, 但是你有一台海外的机器, 你可以在海外的那台机器上把需要的镜像 pull 下来, 然后把该镜像通过 <code>save</code> 命令导出为一个 tar 包, 再将 tar 包拉回到本地导入</p>
+<p>所以, 从功能定位上, 你就记住 <code>save 和 load</code>参数是用来迁移镜像的这个场景就行了, 另外的 <code>export 和 import</code>当然就是用来迁容器的</p>
+<h1 id="导出对象"><a href="#导出对象" class="headerlink" title="导出对象"></a>导出对象</h1><p>在导出对象这一点, <code>export</code> 和 <code>save</code> 导出的文件形式都是一样的, 两者都是导出为一个 tar 包</p>
+<h1 id="导入对象"><a href="#导入对象" class="headerlink" title="导入对象"></a>导入对象</h1><p>在导入上, <code>import</code> 和 <code>load</code> 通过 tar 包导入的都是一个镜像</p>
+<h1 id="导入的镜像层数"><a href="#导入的镜像层数" class="headerlink" title="导入的镜像层数"></a>导入的镜像层数</h1><p>最大的区别就在这里, 通过<code>export 和 import</code>导出的容器形成镜像时, 该镜像只有一层</p>
+<p>通过<code>save</code> 和 <code>load</code> 导出的镜像保留了原镜像所有的层次结构, 导出时原镜像有几层, 导入的时候就还是有几层</p>
+<h1 id="想导出容器-但是还想保留层次结构怎么办"><a href="#想导出容器-但是还想保留层次结构怎么办" class="headerlink" title="想导出容器, 但是还想保留层次结构怎么办?"></a>想导出容器, 但是还想保留层次结构怎么办?</h1><p>导出容器, 很快就想到唯一一个可以导出容器的工具 <code>export</code></p>
+<p>但是又想保留底层镜像的层次结构, 那么 <code>export</code> 就不符合需求了</p>
+<p>想想导出带层次结构的工具就只有镜像导出工具 <code>save</code> 了, 但是容器在镜像层之上还有一层新的数据怎么一起导出去呢? </p>
+<p>这个时候就需要引入一个新的参数 <code>commit</code>, 用来保存容器现有的状态为一个新的镜像 </p>
+<p>比如在 <code>A</code> 机器上运行的 <code>甲</code> 容器是基于 <code>甲方乙方</code> 这个镜像跑起来的, 那么我就可以通过 <code>commit</code> 参数, 将 <code>甲</code> 容器的所有内容保存为一个新的镜像, 名字叫 <code>私人订制</code> (内含一梗哦😆) 最后我再通过镜像导出工具 <code>save</code> 就可以完整的将 <code>私人订制</code>镜像(也就是 <code>甲容器</code> )导出为一个 tar 包了</p>
+<p>而且包含了 X+1 层镜像, X 层是原镜像 <code>甲方乙方</code> 的所有镜像层数, 1是容器 <code>甲</code> 多的那一层可写层的镜像</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结来说我也希望大家使用 docker 能遵循 docker 的设计初衷, 运行一个无状态的容器. 如果是无状态的容器, 就不会产生 <code>想导出容器, 但是还想保留层次结构怎么办?</code> 这样的奇葩问题了. </p>
+<p>所以最后还是要再次强调:</p>
+<ul>
+<li>export 和 import 是用来导出导入容器用的, 导出的是容器的文件系统, 导出后的镜像只有一层</li>
+<li>save 和 load 是用来导出导入镜像用的, 导出后保持着原镜像的层次结构</li>
+</ul>
+<p>这里我没有详细介绍这四个参数的具体用法, 因为网上已经有很详细的文章介绍啦, 一下就是百度经常能搜到的关于 docker 导入导出的文章</p>
+<p><a href="https://my.oschina.net/zjzhai/blog/225112" target="_blank" rel="noopener">https://my.oschina.net/zjzhai/blog/225112</a></p>
+<p>具体用法可以参考以上文章, 但是概念理解, 我还是觉得自己写的比较清楚😆, 因为我没有故意构造出导出容器和导出镜像结果相同的场景</p>
+<hr>
+<p>参考文档</p>
+<p>docker export 官方文档<a href="https://docs.docker.com/engine/reference/commandline/export/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/export/</a></p>
+<p>docker save 官方文档<a href="https://docs.docker.com/engine/reference/commandline/save/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/save/</a></p>
+<p>docker commit 官方文档<a href="https://docs.docker.com/engine/reference/commandline/commit/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/commit/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald/" class="post-title-link" itemprop="url">更改docker的日志引擎为 journald</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:06:39" itemprop="dateCreated datePublished" datetime="2017-02-19T21:06:39+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/更改docker的日志引擎为-journald/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 原生支持的众多日志引擎中, 结合实际生产环境的需求, 最终选择了众多linux 发行版都默认支持的 journald 日志系统, journald 日志系统是 systemd 自带的服务, 在实际使用过程中, 上手很快, 而且很符合线上查看 docker 日志的习惯与需求</p>
+</blockquote>
+<h1 id="docker原生支持的日志引擎"><a href="#docker原生支持的日志引擎" class="headerlink" title="docker原生支持的日志引擎"></a>docker原生支持的日志引擎</h1><ul>
+<li>none <strong>关闭 docker 的回显日志, docker logs 看不到任何输出</strong></li>
+<li>json-file <strong>把每个 container 的回显日志打到每个 container 的内部, 形式为json 文件</strong></li>
+<li>syslog <strong>把所有 container 的回显日志打到系统的 syslog 中</strong></li>
+<li>journald <strong>把所有 container 的回显日志打到系统的 journald 服务中</strong></li>
+<li>fluentd <strong>把所有 container 的回显日志打到 fluentd 服务中</strong></li>
+<li>gelf <strong>把所有 container 的回显日志打到支持 GELF(Graylog Extended Log Format) 格式的服务中, 比如 Graylog 或 Logstash</strong></li>
+</ul>
+<p>以上原生的日志引擎是最常用的6种,其中 <code>json-file</code> 是 docker 默认使用的日志系统</p>
+<h1 id="为什么选择了journald"><a href="#为什么选择了journald" class="headerlink" title="为什么选择了journald"></a>为什么选择了journald</h1><ul>
+<li>首先排除了 <code>none</code> 的日志引擎, 因为它抛弃了宿主机中所有 container 的回显日志</li>
+<li>之所有排除 <code>json-file</code> 是因为在实际使用中, 有的 container 在启动后有大量的回显日志, 尤其在程序内部报错时打出的日志信息尤其巨大, 而该 json 文件会放到磁盘对应该 container 的文件夹中越来越大, 常常因为某几个 container 的 json 日志而撑爆整个宿主机的磁盘</li>
+<li>syslog 日志收集的方式我在使用 harbor 私有镜像服务的时候见过, harbor 官方提供的部署方式中, 所有的 container 的日志都集中收集在某一个 container 中, 执行 docker logs 的时候会提示你 <code>&quot;logs&quot; command is supported only for &quot;json-file&quot; and &quot;journald&quot; logging drivers (got: syslog)</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syslog 在 harbor 中的应用解析</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#harbor 服务由多了 container 组成, 其中有一个 container 的名字叫 "harbor-log" 这个就是整个 harbor 服务日志的大本营</span></span><br><span class="line"></span><br><span class="line">CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS              PORTS                                            NAMES</span><br><span class="line">55917fe77a5d        nginx:1.11.5                     <span class="string">"nginx -g 'daemon off"</span>   5 weeks ago         Up 5 weeks          0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp         nginx</span><br><span class="line">66a5f3fd3c41        vmware/harbor-jobservice:0.5.0   <span class="string">"/harbor/harbor_jobse"</span>   5 weeks ago         Up 5 weeks                                                           harbor-jobservice</span><br><span class="line">732e69978f61        vmware/harbor-ui:0.5.0           <span class="string">"/harbor/harbor_ui"</span>      5 weeks ago         Up 5 weeks                                                           harbor-ui</span><br><span class="line">61678dddbc21        library/registry:2.5.0           <span class="string">"/entrypoint.sh serve"</span>   5 weeks ago         Up 5 weeks          5000/tcp                                         registry</span><br><span class="line">18a49a051913        vmware/harbor-db:0.5.0           <span class="string">"docker-entrypoint.sh"</span>   5 weeks ago         Up 5 weeks          3306/tcp                                         harbor-db</span><br><span class="line">aac08df72abb        vmware/harbor-log:0.5.0          <span class="string">"/bin/sh -c 'crond &amp;&amp;"</span>   5 weeks ago         Up 5 weeks          0.0.0.0:1514-&gt;514/tcp                            harbor-log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 除了 "harbor-log" 这个容器之外, 所有容器的日志类型都是如下指定的</span></span><br><span class="line"></span><br><span class="line"><span class="string">"LogConfig"</span>: &#123;</span><br><span class="line">    <span class="string">"Type"</span>: <span class="string">"syslog"</span>,</span><br><span class="line">        <span class="string">"Config"</span>: &#123;</span><br><span class="line">            <span class="string">"syslog-address"</span>: <span class="string">"tcp://127.0.0.1:1514"</span>,</span><br><span class="line">            <span class="string">"tag"</span>: <span class="string">"proxy"</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有容器的回显日志都发送到了 "127.0.0.1:1514" 这个地址, 而这个地址就是 "harbor-log" 容器对外映射的端口</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以看出 harbor 的用法是单独创建一个容器用来收集所有相关容器的日志</span></span><br></pre></td></tr></table></figure>
+
+<p>这个模式在我们生产环境中并不适用, 因为无法通过 <code>docker logs</code> 直接查看日志, 而是需要到指定的容器中去找, 这对于研发查看日志拍错来说无疑是个巨大的麻烦.所以这个日志引擎也不适用于我们的生产环境</p>
+<ul>
+<li>fluentd 和 gelf 这两个日志服务类型一般是配合 elasticsearch/kibana 来一起使用, 因为回显日志是程序回显, 不是业务日志回显, 所以没有进入到 elasticsearch 分析的需求, 业务日志一部分在 nginx 那一层就分析了, 还有的是通过把日志目录挂载出来, 让宿主机的 Log 服务去处理的. 因为规模比较小, 所以暂时用不到这个重的日志服务. 如果你需要分析很多 container 的日志, 可以考虑使用 fluentd 或 logstash</li>
+</ul>
+<p><strong>小结:</strong> 因为量级不够大, 用不到 fluentd 和 logstash; 因为研发有需求通过 <code>docker logs</code> 快速查看日志, 所以不能用 syslog; 因为 json-file 有让日志文件无止境变大的问题, 而清掉这个日志只能通过停止⏹docker 服务后才能<code>echo &gt; filename</code>被重定向掉, 否则会引起 docker 服务的崩溃; 最终选择了现在大多数 Linux 发行版默认支持的 journald 日志服务.</p>
+<h1 id="更改-docker-的默认存储引擎"><a href="#更改-docker-的默认存储引擎" class="headerlink" title="更改 docker 的默认存储引擎"></a>更改 docker 的默认存储引擎</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim &#x2F;etc&#x2F;docker&#x2F;daemon.js</span><br><span class="line">&#123;</span><br><span class="line">    &quot;log-driver&quot;: &quot;journald&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需在 json 配置文件中加入一行日志引擎的配置即可, 最后重启 docker 服务</p>
+<p>可以通过 <code>docker info</code> 查看更改后的日志引擎</p>
+<h1 id="指定-container-启动时的存储引擎"><a href="#指定-container-启动时的存储引擎" class="headerlink" title="指定 container 启动时的存储引擎"></a>指定 container 启动时的存储引擎</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">         --<span class="built_in">log</span>-driver=journald \</span><br><span class="line">         alpine ash</span><br></pre></td></tr></table></figure>
+
+<p>更换为 journald 日志引擎后, 所有使用 journald 引擎的 container 依然可以通过 <code>docker logs containerName</code> 的方式查看回显日志, 也可以在宿主机中使用 <code>journalctl</code> 命令来查看日志的集合,以下是 journalctl 的常用配置及用法简介</p>
+<h1 id="journald-配置文件"><a href="#journald-配置文件" class="headerlink" title="journald 配置文件"></a>journald 配置文件</h1><p>journald 的配置文件存放在 <code>/etc/systemd/journald.conf</code></p>
+<p>默认的内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[Journal]</span><br><span class="line">#Storage&#x3D;auto  存储为自动模式, 其他模式有无日志模式, 纯内存模式和纯磁盘模式</span><br><span class="line">#Compress&#x3D;yes  默认启动压缩功能</span><br><span class="line">#Seal&#x3D;yes   默认加密, 日志文件为二进制文件, 无法 vim或tail 查看</span><br><span class="line">#SplitMode&#x3D;uid</span><br><span class="line">#SyncIntervalSec&#x3D;5m</span><br><span class="line">#RateLimitIntervalSec&#x3D;30s</span><br><span class="line">#RateLimitBurst&#x3D;1000</span><br><span class="line">#SystemMaxUse&#x3D;  精确设置日志可以占用的最大磁盘空间</span><br><span class="line">#SystemKeepFree&#x3D;  保证系统剩余的空间大小</span><br><span class="line">#SystemMaxFileSize&#x3D;</span><br><span class="line">#SystemMaxFiles&#x3D;100</span><br><span class="line">#RuntimeMaxUse&#x3D;</span><br><span class="line">#RuntimeKeepFree&#x3D;</span><br><span class="line">#RuntimeMaxFileSize&#x3D;</span><br><span class="line">#RuntimeMaxFiles&#x3D;100</span><br><span class="line">#MaxRetentionSec&#x3D;</span><br><span class="line">#MaxFileSec&#x3D;1month</span><br><span class="line">#ForwardToSyslog&#x3D;no</span><br><span class="line">#ForwardToKMsg&#x3D;no</span><br><span class="line">#ForwardToConsole&#x3D;no</span><br><span class="line">#ForwardToWall&#x3D;yes</span><br><span class="line">#TTYPath&#x3D;&#x2F;dev&#x2F;console</span><br><span class="line">#MaxLevelStore&#x3D;debug</span><br><span class="line">#MaxLevelSyslog&#x3D;debug</span><br><span class="line">#MaxLevelKMsg&#x3D;notice</span><br><span class="line">#MaxLevelConsole&#x3D;info</span><br><span class="line">#MaxLevelWall&#x3D;emerg</span><br></pre></td></tr></table></figure>
+
+<p>journald 默认配置下, 默认日志最大限制为所在文件系统容量的 10%</p>
+<p>默认配置下, journald 的日志存放在 <code>/var/log/journal</code> 下, 如果该目录在根分区下, 且根分区空间大小为10G, 那么 journald 存放日志最大的大小为1G, 超出1G 后将删除最早的日志</p>
+<p>也可以精确指定占用的空间大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SystemMaxUse&#x3D;50M</span><br></pre></td></tr></table></figure>
+
+<p>其他 journald 的配置也没有细研究过, 主要还是没有需求<del>~</del> 😆</p>
+<h1 id="journalctl-的使用"><a href="#journalctl-的使用" class="headerlink" title="journalctl 的使用"></a>journalctl 的使用</h1><ul>
+<li><code>journalctl</code> 从头查看所有日志</li>
+<li><code>journalctl -b</code> 查看本次开机后的所有系统引导日志 <code>journalctl -b -1</code> 显示上次开机后的系统引导日志, 以此类推</li>
+<li><code>journalctl -f</code> 类似于 <code>tail -f</code>或<code>tailf</code></li>
+<li><code>journalctl /usr/bin/dockerd</code> 后加程序的绝对路径,可以显示该程序的所有日志信息</li>
+<li><code>journalctl -xe</code> systemd 启动程序失败时会提示你使用这个命令查看错误信息, 其中<code>x</code> 表示在日志输出中增加一些解释性的短文本, <code>e</code>表示立即跳转至日志的尾部</li>
+</ul>
+<h1 id="journald-使用注意事项"><a href="#journald-使用注意事项" class="headerlink" title="journald 使用注意事项"></a>journald 使用注意事项</h1><p>在 journald 日志引擎的实际使用中, 我们发现了另一个问题, 就是 journald 的默认配置文件中的一个问题. 在 journald 默认的配置文件中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">root@larry-ali:~<span class="comment"># cat /etc/systemd/journald.conf</span></span><br><span class="line"><span class="comment">#  This file is part of systemd.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  systemd is free software; you can redistribute it and/or modify it</span></span><br><span class="line"><span class="comment">#  under the terms of the GNU Lesser General Public License as published by</span></span><br><span class="line"><span class="comment">#  the Free Software Foundation; either version 2.1 of the License, or</span></span><br><span class="line"><span class="comment">#  (at your option) any later version.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Entries in this file show the compile time defaults.</span></span><br><span class="line"><span class="comment"># You can change settings by editing this file.</span></span><br><span class="line"><span class="comment"># Defaults can be restored by simply deleting this file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See journald.conf(5) for details.</span></span><br><span class="line"></span><br><span class="line">[Journal]</span><br><span class="line"><span class="comment">#Storage=auto</span></span><br><span class="line"><span class="comment">#Compress=yes</span></span><br><span class="line"><span class="comment">#Seal=yes</span></span><br><span class="line"><span class="comment">#SplitMode=uid</span></span><br><span class="line"><span class="comment">#SyncIntervalSec=5m</span></span><br><span class="line"><span class="comment">#RateLimitInterval=30s</span></span><br><span class="line"><span class="comment">#RateLimitBurst=1000</span></span><br><span class="line"><span class="comment">#SystemMaxUse=</span></span><br><span class="line"><span class="comment">#SystemKeepFree=</span></span><br><span class="line"><span class="comment">#SystemMaxFileSize=</span></span><br><span class="line"><span class="comment">#SystemMaxFiles=100</span></span><br><span class="line"><span class="comment">#RuntimeMaxUse=</span></span><br><span class="line"><span class="comment">#RuntimeKeepFree=</span></span><br><span class="line"><span class="comment">#RuntimeMaxFileSize=</span></span><br><span class="line"><span class="comment">#RuntimeMaxFiles=100</span></span><br><span class="line"><span class="comment">#MaxRetentionSec=</span></span><br><span class="line"><span class="comment">#MaxFileSec=1month</span></span><br><span class="line"><span class="comment">#ForwardToSyslog=yes</span></span><br><span class="line"><span class="comment">#ForwardToKMsg=no</span></span><br><span class="line"><span class="comment">#ForwardToConsole=no</span></span><br><span class="line"><span class="comment">#ForwardToWall=yes</span></span><br><span class="line"><span class="comment">#TTYPath=/dev/console</span></span><br><span class="line"><span class="comment">#MaxLevelStore=debug</span></span><br><span class="line"><span class="comment">#MaxLevelSyslog=debug</span></span><br><span class="line"><span class="comment">#MaxLevelKMsg=notice</span></span><br><span class="line"><span class="comment">#MaxLevelConsole=info</span></span><br><span class="line"><span class="comment">#MaxLevelWall=emerg</span></span><br></pre></td></tr></table></figure>
+
+<p>有以下几个非常重要的优化项目</p>
+<ul>
+<li><code>ForwardToSyslog=yes</code></li>
+<li><code>ForwardToWall=yes</code></li>
+</ul>
+<p>以上两个参数默认都是 <code>yes</code> 意味着 journald 收集日志后还会转发到 syslog 中</p>
+<p>由此造成的影响是: journald 虽然可以乖乖的按照上面的配置进行日志的清理, 但是 syslog 却不在 journald 的控制范围之内</p>
+<p>在日志量很大的情况下, 我们发现 syslog 中的日志量也变得巨大, 而且里面都是容器的日志, 所以我们需要把上面两个参数的值改为<code>no</code></p>
+<p>禁止🚫journald 收到日志后转发给 syslog</p>
+<p>更改完配置文件后, 重启 journald 服务 <code>systemctl restart systemd-journald.service</code></p>
+<hr>
+<p><strong>参考文档</strong></p>
+<p>docker 日志引擎官方文档: <a href="https://docs.docker.com/engine/admin/logging/overview/" target="_blank" rel="noopener">https://docs.docker.com/engine/admin/logging/overview/</a></p>
+<p>journald 配置文件官方文档: <a href="https://www.freedesktop.org/software/systemd/man/journald.conf.html#" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journald.conf.html#</a></p>
+<p>journalctl 命令官方文档: <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html#" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journalctl.html#</a></p>
+<p>journalctl 中文man手册:<a href="http://www.jinbuguo.com/systemd/journalctl.html" target="_blank" rel="noopener">http://www.jinbuguo.com/systemd/journalctl.html</a></p>
+<p>journald.conf 中文手册:<a href="http://www.jinbuguo.com/systemd/journald.conf.html" target="_blank" rel="noopener">http://www.jinbuguo.com/systemd/journald.conf.html</a></p>
+<p>journald 初级指南:<a href="http://os.51cto.com/art/201405/440886.htm" target="_blank" rel="noopener">http://os.51cto.com/art/201405/440886.htm</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald%205/" class="post-title-link" itemprop="url">更改docker的日志引擎为 journald</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:06:39" itemprop="dateCreated datePublished" datetime="2017-02-19T21:06:39+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E7%9A%84%E6%97%A5%E5%BF%97%E5%BC%95%E6%93%8E%E4%B8%BA-journald%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/更改docker的日志引擎为-journald 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 原生支持的众多日志引擎中, 结合实际生产环境的需求, 最终选择了众多linux 发行版都默认支持的 journald 日志系统, journald 日志系统是 systemd 自带的服务, 在实际使用过程中, 上手很快, 而且很符合线上查看 docker 日志的习惯与需求</p>
+</blockquote>
+<h1 id="docker原生支持的日志引擎"><a href="#docker原生支持的日志引擎" class="headerlink" title="docker原生支持的日志引擎"></a>docker原生支持的日志引擎</h1><ul>
+<li>none <strong>关闭 docker 的回显日志, docker logs 看不到任何输出</strong></li>
+<li>json-file <strong>把每个 container 的回显日志打到每个 container 的内部, 形式为json 文件</strong></li>
+<li>syslog <strong>把所有 container 的回显日志打到系统的 syslog 中</strong></li>
+<li>journald <strong>把所有 container 的回显日志打到系统的 journald 服务中</strong></li>
+<li>fluentd <strong>把所有 container 的回显日志打到 fluentd 服务中</strong></li>
+<li>gelf <strong>把所有 container 的回显日志打到支持 GELF(Graylog Extended Log Format) 格式的服务中, 比如 Graylog 或 Logstash</strong></li>
+</ul>
+<p>以上原生的日志引擎是最常用的6种,其中 <code>json-file</code> 是 docker 默认使用的日志系统</p>
+<h1 id="为什么选择了journald"><a href="#为什么选择了journald" class="headerlink" title="为什么选择了journald"></a>为什么选择了journald</h1><ul>
+<li>首先排除了 <code>none</code> 的日志引擎, 因为它抛弃了宿主机中所有 container 的回显日志</li>
+<li>之所有排除 <code>json-file</code> 是因为在实际使用中, 有的 container 在启动后有大量的回显日志, 尤其在程序内部报错时打出的日志信息尤其巨大, 而该 json 文件会放到磁盘对应该 container 的文件夹中越来越大, 常常因为某几个 container 的 json 日志而撑爆整个宿主机的磁盘</li>
+<li>syslog 日志收集的方式我在使用 harbor 私有镜像服务的时候见过, harbor 官方提供的部署方式中, 所有的 container 的日志都集中收集在某一个 container 中, 执行 docker logs 的时候会提示你 <code>&quot;logs&quot; command is supported only for &quot;json-file&quot; and &quot;journald&quot; logging drivers (got: syslog)</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syslog 在 harbor 中的应用解析</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#harbor 服务由多了 container 组成, 其中有一个 container 的名字叫 "harbor-log" 这个就是整个 harbor 服务日志的大本营</span></span><br><span class="line"></span><br><span class="line">CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS              PORTS                                            NAMES</span><br><span class="line">55917fe77a5d        nginx:1.11.5                     <span class="string">"nginx -g 'daemon off"</span>   5 weeks ago         Up 5 weeks          0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp         nginx</span><br><span class="line">66a5f3fd3c41        vmware/harbor-jobservice:0.5.0   <span class="string">"/harbor/harbor_jobse"</span>   5 weeks ago         Up 5 weeks                                                           harbor-jobservice</span><br><span class="line">732e69978f61        vmware/harbor-ui:0.5.0           <span class="string">"/harbor/harbor_ui"</span>      5 weeks ago         Up 5 weeks                                                           harbor-ui</span><br><span class="line">61678dddbc21        library/registry:2.5.0           <span class="string">"/entrypoint.sh serve"</span>   5 weeks ago         Up 5 weeks          5000/tcp                                         registry</span><br><span class="line">18a49a051913        vmware/harbor-db:0.5.0           <span class="string">"docker-entrypoint.sh"</span>   5 weeks ago         Up 5 weeks          3306/tcp                                         harbor-db</span><br><span class="line">aac08df72abb        vmware/harbor-log:0.5.0          <span class="string">"/bin/sh -c 'crond &amp;&amp;"</span>   5 weeks ago         Up 5 weeks          0.0.0.0:1514-&gt;514/tcp                            harbor-log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 除了 "harbor-log" 这个容器之外, 所有容器的日志类型都是如下指定的</span></span><br><span class="line"></span><br><span class="line"><span class="string">"LogConfig"</span>: &#123;</span><br><span class="line">    <span class="string">"Type"</span>: <span class="string">"syslog"</span>,</span><br><span class="line">        <span class="string">"Config"</span>: &#123;</span><br><span class="line">            <span class="string">"syslog-address"</span>: <span class="string">"tcp://127.0.0.1:1514"</span>,</span><br><span class="line">            <span class="string">"tag"</span>: <span class="string">"proxy"</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有容器的回显日志都发送到了 "127.0.0.1:1514" 这个地址, 而这个地址就是 "harbor-log" 容器对外映射的端口</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以看出 harbor 的用法是单独创建一个容器用来收集所有相关容器的日志</span></span><br></pre></td></tr></table></figure>
+
+<p>这个模式在我们生产环境中并不适用, 因为无法通过 <code>docker logs</code> 直接查看日志, 而是需要到指定的容器中去找, 这对于研发查看日志拍错来说无疑是个巨大的麻烦.所以这个日志引擎也不适用于我们的生产环境</p>
+<ul>
+<li>fluentd 和 gelf 这两个日志服务类型一般是配合 elasticsearch/kibana 来一起使用, 因为回显日志是程序回显, 不是业务日志回显, 所以没有进入到 elasticsearch 分析的需求, 业务日志一部分在 nginx 那一层就分析了, 还有的是通过把日志目录挂载出来, 让宿主机的 Log 服务去处理的. 因为规模比较小, 所以暂时用不到这个重的日志服务. 如果你需要分析很多 container 的日志, 可以考虑使用 fluentd 或 logstash</li>
+</ul>
+<p><strong>小结:</strong> 因为量级不够大, 用不到 fluentd 和 logstash; 因为研发有需求通过 <code>docker logs</code> 快速查看日志, 所以不能用 syslog; 因为 json-file 有让日志文件无止境变大的问题, 而清掉这个日志只能通过停止⏹docker 服务后才能<code>echo &gt; filename</code>被重定向掉, 否则会引起 docker 服务的崩溃; 最终选择了现在大多数 Linux 发行版默认支持的 journald 日志服务.</p>
+<h1 id="更改-docker-的默认存储引擎"><a href="#更改-docker-的默认存储引擎" class="headerlink" title="更改 docker 的默认存储引擎"></a>更改 docker 的默认存储引擎</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim &#x2F;etc&#x2F;docker&#x2F;daemon.js</span><br><span class="line">&#123;</span><br><span class="line">    &quot;log-driver&quot;: &quot;journald&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需在 json 配置文件中加入一行日志引擎的配置即可, 最后重启 docker 服务</p>
+<p>可以通过 <code>docker info</code> 查看更改后的日志引擎</p>
+<h1 id="指定-container-启动时的存储引擎"><a href="#指定-container-启动时的存储引擎" class="headerlink" title="指定 container 启动时的存储引擎"></a>指定 container 启动时的存储引擎</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">         --<span class="built_in">log</span>-driver=journald \</span><br><span class="line">         alpine ash</span><br></pre></td></tr></table></figure>
+
+<p>更换为 journald 日志引擎后, 所有使用 journald 引擎的 container 依然可以通过 <code>docker logs containerName</code> 的方式查看回显日志, 也可以在宿主机中使用 <code>journalctl</code> 命令来查看日志的集合,以下是 journalctl 的常用配置及用法简介</p>
+<h1 id="journald-配置文件"><a href="#journald-配置文件" class="headerlink" title="journald 配置文件"></a>journald 配置文件</h1><p>journald 的配置文件存放在 <code>/etc/systemd/journald.conf</code></p>
+<p>默认的内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[Journal]</span><br><span class="line">#Storage&#x3D;auto  存储为自动模式, 其他模式有无日志模式, 纯内存模式和纯磁盘模式</span><br><span class="line">#Compress&#x3D;yes  默认启动压缩功能</span><br><span class="line">#Seal&#x3D;yes   默认加密, 日志文件为二进制文件, 无法 vim或tail 查看</span><br><span class="line">#SplitMode&#x3D;uid</span><br><span class="line">#SyncIntervalSec&#x3D;5m</span><br><span class="line">#RateLimitIntervalSec&#x3D;30s</span><br><span class="line">#RateLimitBurst&#x3D;1000</span><br><span class="line">#SystemMaxUse&#x3D;  精确设置日志可以占用的最大磁盘空间</span><br><span class="line">#SystemKeepFree&#x3D;  保证系统剩余的空间大小</span><br><span class="line">#SystemMaxFileSize&#x3D;</span><br><span class="line">#SystemMaxFiles&#x3D;100</span><br><span class="line">#RuntimeMaxUse&#x3D;</span><br><span class="line">#RuntimeKeepFree&#x3D;</span><br><span class="line">#RuntimeMaxFileSize&#x3D;</span><br><span class="line">#RuntimeMaxFiles&#x3D;100</span><br><span class="line">#MaxRetentionSec&#x3D;</span><br><span class="line">#MaxFileSec&#x3D;1month</span><br><span class="line">#ForwardToSyslog&#x3D;no</span><br><span class="line">#ForwardToKMsg&#x3D;no</span><br><span class="line">#ForwardToConsole&#x3D;no</span><br><span class="line">#ForwardToWall&#x3D;yes</span><br><span class="line">#TTYPath&#x3D;&#x2F;dev&#x2F;console</span><br><span class="line">#MaxLevelStore&#x3D;debug</span><br><span class="line">#MaxLevelSyslog&#x3D;debug</span><br><span class="line">#MaxLevelKMsg&#x3D;notice</span><br><span class="line">#MaxLevelConsole&#x3D;info</span><br><span class="line">#MaxLevelWall&#x3D;emerg</span><br></pre></td></tr></table></figure>
+
+<p>journald 默认配置下, 默认日志最大限制为所在文件系统容量的 10%</p>
+<p>默认配置下, journald 的日志存放在 <code>/var/log/journal</code> 下, 如果该目录在根分区下, 且根分区空间大小为10G, 那么 journald 存放日志最大的大小为1G, 超出1G 后将删除最早的日志</p>
+<p>也可以精确指定占用的空间大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SystemMaxUse&#x3D;50M</span><br></pre></td></tr></table></figure>
+
+<p>其他 journald 的配置也没有细研究过, 主要还是没有需求<del>~</del> 😆</p>
+<h1 id="journalctl-的使用"><a href="#journalctl-的使用" class="headerlink" title="journalctl 的使用"></a>journalctl 的使用</h1><ul>
+<li><code>journalctl</code> 从头查看所有日志</li>
+<li><code>journalctl -b</code> 查看本次开机后的所有系统引导日志 <code>journalctl -b -1</code> 显示上次开机后的系统引导日志, 以此类推</li>
+<li><code>journalctl -f</code> 类似于 <code>tail -f</code>或<code>tailf</code></li>
+<li><code>journalctl /usr/bin/dockerd</code> 后加程序的绝对路径,可以显示该程序的所有日志信息</li>
+<li><code>journalctl -xe</code> systemd 启动程序失败时会提示你使用这个命令查看错误信息, 其中<code>x</code> 表示在日志输出中增加一些解释性的短文本, <code>e</code>表示立即跳转至日志的尾部</li>
+</ul>
+<h1 id="journald-使用注意事项"><a href="#journald-使用注意事项" class="headerlink" title="journald 使用注意事项"></a>journald 使用注意事项</h1><p>在 journald 日志引擎的实际使用中, 我们发现了另一个问题, 就是 journald 的默认配置文件中的一个问题. 在 journald 默认的配置文件中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">root@larry-ali:~<span class="comment"># cat /etc/systemd/journald.conf</span></span><br><span class="line"><span class="comment">#  This file is part of systemd.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  systemd is free software; you can redistribute it and/or modify it</span></span><br><span class="line"><span class="comment">#  under the terms of the GNU Lesser General Public License as published by</span></span><br><span class="line"><span class="comment">#  the Free Software Foundation; either version 2.1 of the License, or</span></span><br><span class="line"><span class="comment">#  (at your option) any later version.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Entries in this file show the compile time defaults.</span></span><br><span class="line"><span class="comment"># You can change settings by editing this file.</span></span><br><span class="line"><span class="comment"># Defaults can be restored by simply deleting this file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See journald.conf(5) for details.</span></span><br><span class="line"></span><br><span class="line">[Journal]</span><br><span class="line"><span class="comment">#Storage=auto</span></span><br><span class="line"><span class="comment">#Compress=yes</span></span><br><span class="line"><span class="comment">#Seal=yes</span></span><br><span class="line"><span class="comment">#SplitMode=uid</span></span><br><span class="line"><span class="comment">#SyncIntervalSec=5m</span></span><br><span class="line"><span class="comment">#RateLimitInterval=30s</span></span><br><span class="line"><span class="comment">#RateLimitBurst=1000</span></span><br><span class="line"><span class="comment">#SystemMaxUse=</span></span><br><span class="line"><span class="comment">#SystemKeepFree=</span></span><br><span class="line"><span class="comment">#SystemMaxFileSize=</span></span><br><span class="line"><span class="comment">#SystemMaxFiles=100</span></span><br><span class="line"><span class="comment">#RuntimeMaxUse=</span></span><br><span class="line"><span class="comment">#RuntimeKeepFree=</span></span><br><span class="line"><span class="comment">#RuntimeMaxFileSize=</span></span><br><span class="line"><span class="comment">#RuntimeMaxFiles=100</span></span><br><span class="line"><span class="comment">#MaxRetentionSec=</span></span><br><span class="line"><span class="comment">#MaxFileSec=1month</span></span><br><span class="line"><span class="comment">#ForwardToSyslog=yes</span></span><br><span class="line"><span class="comment">#ForwardToKMsg=no</span></span><br><span class="line"><span class="comment">#ForwardToConsole=no</span></span><br><span class="line"><span class="comment">#ForwardToWall=yes</span></span><br><span class="line"><span class="comment">#TTYPath=/dev/console</span></span><br><span class="line"><span class="comment">#MaxLevelStore=debug</span></span><br><span class="line"><span class="comment">#MaxLevelSyslog=debug</span></span><br><span class="line"><span class="comment">#MaxLevelKMsg=notice</span></span><br><span class="line"><span class="comment">#MaxLevelConsole=info</span></span><br><span class="line"><span class="comment">#MaxLevelWall=emerg</span></span><br></pre></td></tr></table></figure>
+
+<p>有以下几个非常重要的优化项目</p>
+<ul>
+<li><code>ForwardToSyslog=yes</code></li>
+<li><code>ForwardToWall=yes</code></li>
+</ul>
+<p>以上两个参数默认都是 <code>yes</code> 意味着 journald 收集日志后还会转发到 syslog 中</p>
+<p>由此造成的影响是: journald 虽然可以乖乖的按照上面的配置进行日志的清理, 但是 syslog 却不在 journald 的控制范围之内</p>
+<p>在日志量很大的情况下, 我们发现 syslog 中的日志量也变得巨大, 而且里面都是容器的日志, 所以我们需要把上面两个参数的值改为<code>no</code></p>
+<p>禁止🚫journald 收到日志后转发给 syslog</p>
+<p>更改完配置文件后, 重启 journald 服务 <code>systemctl restart systemd-journald.service</code></p>
+<hr>
+<p><strong>参考文档</strong></p>
+<p>docker 日志引擎官方文档: <a href="https://docs.docker.com/engine/admin/logging/overview/" target="_blank" rel="noopener">https://docs.docker.com/engine/admin/logging/overview/</a></p>
+<p>journald 配置文件官方文档: <a href="https://www.freedesktop.org/software/systemd/man/journald.conf.html#" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journald.conf.html#</a></p>
+<p>journalctl 命令官方文档: <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html#" target="_blank" rel="noopener">https://www.freedesktop.org/software/systemd/man/journalctl.html#</a></p>
+<p>journalctl 中文man手册:<a href="http://www.jinbuguo.com/systemd/journalctl.html" target="_blank" rel="noopener">http://www.jinbuguo.com/systemd/journalctl.html</a></p>
+<p>journald.conf 中文手册:<a href="http://www.jinbuguo.com/systemd/journald.conf.html" target="_blank" rel="noopener">http://www.jinbuguo.com/systemd/journald.conf.html</a></p>
+<p>journald 初级指南:<a href="http://os.51cto.com/art/201405/440886.htm" target="_blank" rel="noopener">http://os.51cto.com/art/201405/440886.htm</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2/" class="post-title-link" itemprop="url">更改docker存储引擎为overlayfs2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:05:11" itemprop="dateCreated datePublished" datetime="2017-02-19T21:05:11+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/更改docker存储引擎为overlayfs2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 1.13版本发布后, 在众多的存储引擎中, overlayfs2 脱颖而出, 即将用作为未来主要的存储引擎. 本篇文章介绍如何更改 docker 的存储引擎为 overlayfs2</p>
+</blockquote>
+<h1 id="require"><a href="#require" class="headerlink" title="require"></a>require</h1><ul>
+<li>kernel 4.0+</li>
+</ul>
+<p>overlayfs 的使用需要保证内核版本不低于3.8, 但是如果使用 overlayfs2 则需要保证内核版本不低于 4.0 </p>
+<p><strong>overlayfs2 相比较于 overlayfs 有大量的性能优化和新的特性, 建议使用 overlayfs2</strong></p>
+<ul>
+<li>Ubuntu 16.04 LTS 中的内核版本为 4.4+</li>
+<li>Fedora 25 server 中的内核版本为 4.8+</li>
+<li>CentOS 7+ 中的内核版本为 3.10+ 可以使用 yum 安装长期支持版的内核 4.4+ (亲测可用, 但是线上环境慎用)</li>
+</ul>
+<h1 id="指定存储引擎"><a href="#指定存储引擎" class="headerlink" title="指定存储引擎"></a>指定存储引擎</h1><p>Ubuntu 安装好 docker 后, docker 默认还是使用了 aufs 存储引擎.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/docker/daemon.js</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 docker 的 js 配置文件中, 添加以上一行配置即可, 如果已经有其他配置选项, 记得添加逗号<del>~</del></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">        <span class="string">"http://172d594a.m.daocloud.io"</span></span><br><span class="line">    ],     <span class="comment"># &lt;--- 一定要注意这个逗号, json 的格式不用再多说了吧...</span></span><br><span class="line">    <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2%205/" class="post-title-link" itemprop="url">更改docker存储引擎为overlayfs2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-19 21:05:11" itemprop="dateCreated datePublished" datetime="2017-02-19T21:05:11+08:00">2017-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/19/%E6%9B%B4%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%BAoverlayfs2%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/19/更改docker存储引擎为overlayfs2 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 1.13版本发布后, 在众多的存储引擎中, overlayfs2 脱颖而出, 即将用作为未来主要的存储引擎. 本篇文章介绍如何更改 docker 的存储引擎为 overlayfs2</p>
+</blockquote>
+<h1 id="require"><a href="#require" class="headerlink" title="require"></a>require</h1><ul>
+<li>kernel 4.0+</li>
+</ul>
+<p>overlayfs 的使用需要保证内核版本不低于3.8, 但是如果使用 overlayfs2 则需要保证内核版本不低于 4.0 </p>
+<p><strong>overlayfs2 相比较于 overlayfs 有大量的性能优化和新的特性, 建议使用 overlayfs2</strong></p>
+<ul>
+<li>Ubuntu 16.04 LTS 中的内核版本为 4.4+</li>
+<li>Fedora 25 server 中的内核版本为 4.8+</li>
+<li>CentOS 7+ 中的内核版本为 3.10+ 可以使用 yum 安装长期支持版的内核 4.4+ (亲测可用, 但是线上环境慎用)</li>
+</ul>
+<h1 id="指定存储引擎"><a href="#指定存储引擎" class="headerlink" title="指定存储引擎"></a>指定存储引擎</h1><p>Ubuntu 安装好 docker 后, docker 默认还是使用了 aufs 存储引擎.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/docker/daemon.js</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 docker 的 js 配置文件中, 添加以上一行配置即可, 如果已经有其他配置选项, 记得添加逗号<del>~</del></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">        <span class="string">"http://172d594a.m.daocloud.io"</span></span><br><span class="line">    ],     <span class="comment"># &lt;--- 一定要注意这个逗号, json 的格式不用再多说了吧...</span></span><br><span class="line">    <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>

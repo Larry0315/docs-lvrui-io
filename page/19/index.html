@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,94 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/08/10/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E5%86%8D%E6%8F%90%E7%A4%BA%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%8C%87%E7%BA%B9%E4%BF%A1%E6%81%AF%E5%88%B0known-hosts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/08/10/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E5%86%8D%E6%8F%90%E7%A4%BA%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%8C%87%E7%BA%B9%E4%BF%A1%E6%81%AF%E5%88%B0known-hosts/" class="post-title-link" itemprop="url">ssh连接不再提示是否添加指纹信息到known_hosts</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-10 13:43:16" itemprop="dateCreated datePublished" datetime="2016-08-10T13:43:16+08:00">2016-08-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/08/10/ssh%E8%BF%9E%E6%8E%A5%E4%B8%8D%E5%86%8D%E6%8F%90%E7%A4%BA%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%8C%87%E7%BA%B9%E4%BF%A1%E6%81%AF%E5%88%B0known-hosts/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/10/ssh连接不再提示是否添加指纹信息到known-hosts/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在使用ssh客户端连接远程主机时，如果远程主机是首次访问，会提示添加远程主机的指纹信息；如果远程主机的信息发生变更，则不能连接建立连接，报<code>REMOTE HOST IDENTIFICATION HAS CHANGED!</code>的错误，此时需要手动去<code>~/.ssh/known_hosts</code>中删除相关主机的指纹信息，重新保存才可建立连接</p>
+</blockquote>
+<p>这里提供两种方式，强制ssh保存所有的主机指纹信息，即使远程主机信息发生变更，则替换<code>~/.ssh/known_hosts</code>文件中的相关条目</p>
+<h1 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/ssh/ssh_config</span><br><span class="line"><span class="comment">#   StrictHostKeyChecking ask</span></span><br><span class="line">    StrictHostKeyChecking no</span><br></pre></td></tr></table></figure>
+
+<h1 id="用户配置"><a href="#用户配置" class="headerlink" title="用户配置"></a>用户配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim ~/.ssh/config</span><br><span class="line">StrictHostKeyChecking no</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1115,91 +1203,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">查看MySQL编译参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-27 13:15:25" itemprop="dateCreated datePublished" datetime="2016-07-27T13:15:25+08:00">2016-07-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/27/%E6%9F%A5%E7%9C%8BMySQL%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/27/查看MySQL编译参数/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">path=<span class="string">"你安装MySQL的绝对路径"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置你系统中存在的编辑器，没有vim的用vi</span></span><br><span class="line">&gt; VISUAL=vim; <span class="built_in">export</span> VISUAL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行mysqlbug命令</span></span><br><span class="line">&gt; <span class="variable">$path</span>/bin/mysqlbug</span><br><span class="line"><span class="built_in">test</span> -x /usr/bin/vim</span><br><span class="line">Using editor /usr/bin/vim</span><br><span class="line">You can change editor by setting the environment variable VISUAL.</span><br><span class="line">If your shell is a bourne shell (sh) <span class="keyword">do</span></span><br><span class="line">VISUAL=your_editors_name; <span class="built_in">export</span> VISUAL</span><br><span class="line">If your shell is a C shell (csh) <span class="keyword">do</span></span><br><span class="line">setenv VISUAL your_editors_name</span><br><span class="line">SEND-PR: -*- send-pr -*-</span><br><span class="line">SEND-PR: Lines starting with `SEND-PR<span class="string">' will be removed automatically, as</span></span><br><span class="line"><span class="string">SEND-PR: will all comments (text enclosed in `&lt;'</span> and `&gt;<span class="string">').</span></span><br><span class="line"><span class="string">SEND-PR:</span></span><br><span class="line"><span class="string">From: root</span></span><br><span class="line"><span class="string">To: mysql@lists.mysql.com</span></span><br><span class="line"><span class="string">Subject: [50 character or so descriptive subject here (for reference)]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">......</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 在打开的文件中，最后部分会有编译的参数</span></span><br><span class="line"><span class="string">Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib</span></span><br><span class="line"><span class="string">--enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-mu</span></span><br><span class="line"><span class="string">ltifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux</span></span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1272,20 +1275,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

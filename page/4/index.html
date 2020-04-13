@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,95 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">ca证书验证</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-09 16:25:09" itemprop="dateCreated datePublished" datetime="2018-10-09T16:25:09+08:00">2018-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/09/ca%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/09/ca证书验证/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="验证证书是否是某-ca-机构颁发"><a href="#验证证书是否是某-ca-机构颁发" class="headerlink" title="验证证书是否是某 ca 机构颁发"></a>验证证书是否是某 ca 机构颁发</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:/var/lib/kubelet/pki<span class="comment"># openssl verify -CAfile /etc/kubernetes/pki/ca.crt kubelet-client-current.pem</span></span><br><span class="line">kubelet-client-current.pem: OK</span><br></pre></td></tr></table></figure>
+
+<p><code>kubelet-client-current.pem</code> 证书是 <code>/etc/kubernetes/pki/ca.crt</code> 该 ca 机构颁发</p>
+<h1 id="查看证书详情"><a href="#查看证书详情" class="headerlink" title="查看证书详情"></a>查看证书详情</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master:~/ssl/admin<span class="comment"># openssl x509 -in /etc/kubernetes/pki/front-proxy-client.crt -text -noout</span></span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 3 (0x2)</span><br><span class="line">        Serial Number: 8005382448281716991 (0x6f18d4ec20fa88ff)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: CN=kubernetes</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Sep 11 15:15:40 2018 GMT</span><br><span class="line">            Not After : Sep 11 15:15:40 2019 GMT</span><br><span class="line">        Subject: CN=front-proxy-client</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (2048 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:c5:b4:21:b9:ad:4e:19:25:e2:12:78:5b:e3:75:</span><br><span class="line">                    3f:41:70:8d:05:f6:30:7f:72:8d:e7:cb:8b:82:de:</span><br><span class="line">                    be:be:fb:5b:57:fd:4f:7d:12:b7:e3:a8:d3:05:02:</span><br><span class="line">                    59:83:95:dd:14:19:c9:13:cf:96:80:1e:f0:70:39:</span><br><span class="line">                    30:4c:b6:a4:5b:47:83:14:04:fd:b7:b9:6d:4b:3d:</span><br><span class="line">                    a0:f1:e3:39:68:5d:b4:7d:af:3e:99:aa:43:30:d9:</span><br><span class="line">                    e9:45:87:47:c2:4f:61:81:0b:d3:f7:83:bb:98:5c:</span><br><span class="line">                    8e:e5:97:16:8e:23:a3:03:28:19:58:ee:3a:6b:de:</span><br><span class="line">                    ad:bf:54:42:90:80:4f:8f:28:76:bc:49:8d:35:d1:</span><br><span class="line">                    2e:e5:37:8a:aa:d2:be:ec:be:12:d6:b8:88:0b:85:</span><br><span class="line">                    88:1b:7d:1e:23:37:25:2d:c0:ea:d6:4e:6b:5f:81:</span><br><span class="line">                    93:26:6e:be:69:a1:67:e5:75:9a:85:db:a4:56:30:</span><br><span class="line">                    54:13:21:c5:41:46:9a:fd:c9:41:11:13:b9:b8:77:</span><br><span class="line">                    ba:74:26:85:5c:e2:78:b6:61:3b:5f:3c:bc:1a:00:</span><br><span class="line">                    3a:e7:e7:2d:a7:3a:04:17:46:86:66:c3:6c:25:3a:</span><br><span class="line">                    f5:b5:fa:d6:28:cc:7c:6e:08:47:2f:0e:08:f2:8a:</span><br><span class="line">                    46:33:e1:00:d7:9a:ce:e8:fe:80:e9:80:c4:58:53:</span><br><span class="line">                    c4:f1</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Key Usage: critical</span><br><span class="line">                Digital Signature, Key Encipherment</span><br><span class="line">            X509v3 Extended Key Usage:</span><br><span class="line">                TLS Web Client Authentication</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         41:0b:22:92:b5:33:4a:57:76:2f:69:51:12:d1:64:46:4d:f9:</span><br><span class="line">         72:1d:bb:32:2a:f4:c1:e4:58:ae:a3:53:be:8b:b3:da:6b:10:</span><br><span class="line">         ee:4a:15:4d:ad:71:27:6b:d5:dc:ff:12:56:a8:b7:8e:fd:b3:</span><br><span class="line">         ae:90:07:26:6b:e3:16:11:c7:56:79:db:04:f8:09:ca:c5:19:</span><br><span class="line">         c9:0c:54:8e:84:d0:09:e2:34:ed:9b:9c:b4:e8:6a:ae:6a:d1:</span><br><span class="line">         b2:b6:51:22:1c:c0:67:da:9d:1b:06:da:b7:cf:42:2a:98:38:</span><br><span class="line">         d0:48:93:4d:ef:71:73:60:6c:09:19:1d:d9:4e:f1:2d:d2:d4:</span><br><span class="line">         a5:e9:2c:a9:5a:b1:39:54:27:07:09:81:29:54:f8:37:20:db:</span><br><span class="line">         70:8e:7d:16:23:4f:5b:21:a3:02:df:a6:a9:87:f6:a0:10:4a:</span><br><span class="line">         43:73:97:4d:14:b7:4b:06:00:1c:c6:a8:45:d8:97:df:0e:1e:</span><br><span class="line">         70:87:98:ee:08:1f:31:e7:cf:6d:9d:06:05:47:8f:6a:e6:10:</span><br><span class="line">         c8:d7:0a:d3:7a:36:42:a5:05:ef:ba:bb:26:58:aa:ac:<span class="built_in">fc</span>:8d:</span><br><span class="line">         e4:11:45:12:ef:49:b9:fb:7a:f1:74:c7:41:d5:2f:1b:c2:15:</span><br><span class="line">         7d:87:e1:28:7d:05:e5:59:dc:1d:16:0f:e5:ac:a0:07:e4:f0:</span><br><span class="line">         cf:21:42:a4</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1354,128 +1443,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Python使用sorted对字典的key或value排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-08 16:45:03" itemprop="dateCreated datePublished" datetime="2018-08-08T16:45:03+08:00">2018-08-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/08/08/Python%E4%BD%BF%E7%94%A8sorted%E5%AF%B9%E5%AD%97%E5%85%B8%E7%9A%84key%E6%88%96value%E6%8E%92%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/08/Python使用sorted对字典的key或value排序/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="sorted函数"><a href="#sorted函数" class="headerlink" title="sorted函数"></a>sorted函数</h2><p>sorted(iterable,key,reverse)</p>
-<ul>
-<li>iterable 待排序的可迭代对象</li>
-<li>key 对应的是个函数, 该函数用来决定选取用哪些值来进行排序</li>
-<li>reverse 反转排序</li>
-</ul>
-<h2 id="对key排序"><a href="#对key排序" class="headerlink" title="对key排序"></a>对key排序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.keys())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#39;a&#39;, &#39;o&#39;, &#39;p&#39;, &#39;s&#39;, &#39;z&#39;]</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="对value排序"><a href="#对value排序" class="headerlink" title="对value排序"></a>对value排序</h2><p>在对value之前, 先来回炉一下Python的lambda表达式</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="keyword">lambda</span> x: x+<span class="number">1</span></span><br><span class="line">print(f(<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x+<span class="number">1</span></span><br><span class="line">print(ff(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
-
-<p>以上两种方式是等价的, lambda表达式写法更简洁, 一般当做匿名表达式/匿名函数使用</p>
-<p><code>lambda x:y</code> </p>
-<ul>
-<li>x 为入参</li>
-<li>y 为计算表达式, 运算后返回</li>
-</ul>
-<p>接下来进入到对字典的value排序正题, 这里就需要使用到lambda表达式</p>
-<h3 id="直接对值排序"><a href="#直接对值排序" class="headerlink" title="直接对值排序"></a>直接对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.values())</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5, 9, 18, 20, 59]</span><br></pre></td></tr></table></figure>
-
-<h3 id="在包含Key的情况下对值排序"><a href="#在包含Key的情况下对值排序" class="headerlink" title="在包含Key的情况下对值排序"></a>在包含Key的情况下对值排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d: dict = &#123;<span class="string">"p"</span>: <span class="number">59</span>, <span class="string">"o"</span>: <span class="number">9</span>, <span class="string">"s"</span>: <span class="number">5</span>, <span class="string">"a"</span>: <span class="number">20</span>, <span class="string">"z"</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">li: list = sorted(d.items(), key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">print(li)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(&#39;s&#39;, 5), (&#39;o&#39;, 9), (&#39;z&#39;, 18), (&#39;a&#39;, 20), (&#39;p&#39;, 59)]</span><br></pre></td></tr></table></figure>
-
-
-
-<p><code>d.items()</code> 返回以元组形式构成的列表 <code>dict_items([(&#39;p&#39;, 59), (&#39;o&#39;, 9), (&#39;s&#39;, 5), (&#39;a&#39;, 20), (&#39;z&#39;, 18)])</code>  (列表为可迭代对象)</p>
-<p><code>lambda x: x[1]</code> lambda表达式中, x为入参, 每次x的值为一个<code>d.items()</code>中的元素(一个元组), 第一个入参为<code>(&#39;p&#39;, 59)</code> 冒号后面的x[1]是运算表达式, 意思是取元组中的第二个元素返回(索引为1), 返回的元素即为排序的依据. 所以如果需要对key进行排序, 也可以在表达式里写 <code>x[0]</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1548,20 +1515,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

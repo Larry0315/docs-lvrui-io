@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -221,7 +221,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/" class="post-title-link" itemprop="url">mysql修改sql_mode</a>
+            <a href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">Python在列表中根据条件筛选数据</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-10-12 15:53:28" itemprop="dateCreated datePublished" datetime="2016-10-12T15:53:28+08:00">2016-10-12</time>
+              <time title="创建时间：2017-07-25 01:16:28" itemprop="dateCreated datePublished" datetime="2017-07-25T01:16:28+08:00">2017-07-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -252,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2016/10/12/mysql%E4%BF%AE%E6%94%B9sql-mode/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysql修改sql-mode/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在列表中根据条件筛选数据/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,653 +268,778 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="sql-mode"><a href="#sql-mode" class="headerlink" title="sql_mode"></a>sql_mode</h1><ul>
-<li></li>
-<li>ANSI</li>
-<li>TRADITIONAL</li>
-<li>STRICT_TRANS_TABLES</li>
-</ul>
-<h2 id="sql-mode为空"><a href="#sql-mode为空" class="headerlink" title="sql_mode为空"></a>sql_mode为空</h2><p>最宽松的模式, 即使有错误既不会报错也不会有警告⚠️</p>
-<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>宽松模式，对插入数据进行校验，如果不符合定义类型或长度，对数据类型调整或截断保存，报warning警告</p>
-<h2 id="TRADITIONAL"><a href="#TRADITIONAL" class="headerlink" title="TRADITIONAL"></a>TRADITIONAL</h2><p>严格模式，当向mysql数据库插入数据时，进行数据的严格校验，保证错误数据不能插入，报error错误。用于事物时，会进行事物的回滚</p>
-<h2 id="STRICT-TRANS-TABLES"><a href="#STRICT-TRANS-TABLES" class="headerlink" title="STRICT_TRANS_TABLES"></a>STRICT_TRANS_TABLES</h2><p>严格模式，进行数据的严格校验，错误数据不能插入，报error错误</p>
-<h2 id="NO-ENGINE-SUBSTITUTION"><a href="#NO-ENGINE-SUBSTITUTION" class="headerlink" title="NO_ENGINE_SUBSTITUTION"></a>NO_ENGINE_SUBSTITUTION</h2><p>no_engine_subtitution的作用：mysql 在create table 时可以指定engine子句(指定存储引擎),如果把引擎指定成一个并不存在的引擎, 这个时候mysql可以有两种行为供选择</p>
-<ul>
-<li>直接报错</li>
-<li>把表的存储引擎替换成innodb</li>
-</ul>
-<p>如果 sql_mode 存在 no_engine_subtitution 的时候 ===&gt; 直接报错</p>
-<p>如果 sql_mode 不存在 no_engine_subtitution 的时候 ===&gt; 把表的存储引擎替换成innodb</p>
-<h1 id="查询-sql-mode"><a href="#查询-sql-mode" class="headerlink" title="查询 sql_mode"></a>查询 sql_mode</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select @@sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@sql_mode             |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@global.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@global.sql_mode      |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> @@session.sql_mode;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| @@session.sql_mode     |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+          <p>首先我们创建一个列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
 
-<h1 id="在线修改-sql-mode"><a href="#在线修改-sql-mode" class="headerlink" title="在线修改 sql_mode"></a>在线修改 sql_mode</h1><p><code>SET [GLOBAL|SESSION] sql_mode=&#39;modes&#39;</code></p>
-<h2 id="当前-session-生效"><a href="#当前-session-生效" class="headerlink" title="当前 session 生效"></a>当前 session 生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`;</span><br></pre></td></tr></table></figure>
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-1, 0, 8, 3, 5, 0, 4, 0, -2, 5]</span><br></pre></td></tr></table></figure>
 
-<h2 id="全局生效"><a href="#全局生效" class="headerlink" title="全局生效"></a>全局生效</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global sql_mode=`NO_FIELD_OPTIONS,HIGH_NOT_PRECEDENCE`</span><br></pre></td></tr></table></figure>
+<p>现有一个需求, 需要在这个列表中筛选出大于0的数字, 以下给出四种实现方式</p>
+<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">l2 = []</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> l:</span><br><span class="line">    <span class="keyword">if</span> item &gt; <span class="number">0</span>:</span><br><span class="line">        l2.append(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
 
-<h1 id="离线修改-sql-mode"><a href="#离线修改-sql-mode" class="headerlink" title="离线修改 sql_mode"></a>离线修改 sql_mode</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.146998</span><br><span class="line">1500915233.147016</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
 
-<hr>
-<p>参考文档: </p>
-<ul>
-<li>no_engine_subtitution: <a href="http://www.cnblogs.com/JiangLe/p/5621856.html" target="_blank" rel="noopener">http://www.cnblogs.com/JiangLe/p/5621856.html</a></li>
-</ul>
+<p>得到结果需要的时间为<code>0.000018</code></p>
+<h2 id="第二种方法-filter函数"><a href="#第二种方法-filter函数" class="headerlink" title="第二种方法: filter函数"></a>第二种方法: filter函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l3 = list(filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, l))</span><br><span class="line">print(time.time())</span><br><span class="line">print(l3)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.147029</span><br><span class="line">1500915233.147039</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      
+<p>得到结果需要的时间为<code>0.000010</code></p>
+<h2 id="第三种方法-列表解析式"><a href="#第三种方法-列表解析式" class="headerlink" title="第三种方法: 列表解析式"></a>第三种方法: 列表解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l4 = [item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>]</span><br><span class="line">print(time.time())</span><br><span class="line">print(l4)</span><br></pre></td></tr></table></figure>
 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.14705</span><br><span class="line">1500915233.147056</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysql5-7%E6%96%B0%E7%89%B9%E6%80%A7%E7%9A%84%E5%9B%B0%E6%89%B0ibtmp1%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7/">
+<p>得到结果需要的时间为<code>0.000006</code></p>
+<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><p>如果列表数据量巨大, 应该考虑的不是使用列表解析器, 而是生成器表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l5 = (item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">print(type(l5))</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500916299.74144</span><br><span class="line">1500916299.741445</span><br><span class="line">&lt;class &#39;generator&#39;&gt;</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/mysql5-7%E6%96%B0%E7%89%B9%E6%80%A7%E7%9A%84%E5%9B%B0%E6%89%B0ibtmp1%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7/" class="post-title-link" itemprop="url">mysql5.7新特性的困扰ibtmp1文件过大</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 15:20:08" itemprop="dateCreated datePublished" datetime="2016-10-12T15:20:08+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/mysql5-7%E6%96%B0%E7%89%B9%E6%80%A7%E7%9A%84%E5%9B%B0%E6%89%B0ibtmp1%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysql5-7新特性的困扰ibtmp1文件过大/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在一台 MySQL5.7 的服务器上磁盘使用空间突然爆满, 查看 mysql 数据目录下的文件发现,有个叫<code>ibtmp1</code>的文件大小达到了160GB. </p>
-</blockquote>
-<p>后经过查询得知, <code>ibtmp1</code>文件是 MySQL5.7的新特性,MySQL5.7使用了独立的临时表空间来存储临时表数据，但不能是压缩表。临时表空间在实例启动的时候进行创建，shutdown的时候进行删除。即为所有非压缩的innodb临时表提供一个独立的表空间，默认的临时表空间文件为ibtmp1，位于数据目录。我们可通过innodb_temp_data_file_path参数指定临时表空间的路径和大小，默认12M。只有重启实例才能回收临时表空间文件ibtmp1的大小。create temporary table和using temporary table将共用这个临时表空间</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like 'innodb_temp_data_file_path';</span><br><span class="line">+<span class="comment">----------------------------+-----------------------+</span></span><br><span class="line">| Variable_name              | Value                 |</span><br><span class="line">+<span class="comment">----------------------------+-----------------------+</span></span><br><span class="line">| innodb_temp_data_file_path | ibtmp1:12M:autoextend |</span><br><span class="line">+<span class="comment">----------------------------+-----------------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<p>物理文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ du -sh ibtmp1 </span><br><span class="line">160G    ibtmp1</span><br></pre></td></tr></table></figure>
-
-<p><strong>释放这个临时表空间的唯一办法是重启数据库</strong></p>
-<hr>
-<p>官方文档: <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_temp_data_file_path" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_temp_data_file_path</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysqlbinlog%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bbinglog-format-row%E7%9A%84%E6%97%A5%E5%BF%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/mysqlbinlog%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bbinglog-format-row%E7%9A%84%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">mysqlbinlog命令查看binglog_format=row的日志</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 15:06:30" itemprop="dateCreated datePublished" datetime="2016-10-12T15:06:30+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/mysqlbinlog%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bbinglog-format-row%E7%9A%84%E6%97%A5%E5%BF%97/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysqlbinlog命令查看binglog-format-row的日志/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在配置文件中配置有<code>binglog_format=row</code>的数据库产生的 binglog 日志是不能以正常的<code>mysqlbinlog logfile</code>的方式打开的, 默认情况下只能看到一些经过base-64编码的信息</p>
-</blockquote>
-<ul>
-<li>从MySQL 5.1.28开始，mysqlbinlog多了个参数–verbose(或-v)，将改动生成带注释的语句，如果使用两次这个参数(如-v -v)，会生成字段的类型、长度、是否为null等属性信息</li>
-<li>加–base64-output=DECODE-ROWS参数还可以去掉BINLOG开头的信息</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v -v <span class="comment">--base64-output=DECODE-ROWS mysql-bin.000003</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/mysqlbinlog%E6%8A%A5%E9%94%99-unknown-variable-default-character-set-utf8mb4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/mysqlbinlog%E6%8A%A5%E9%94%99-unknown-variable-default-character-set-utf8mb4/" class="post-title-link" itemprop="url">mysqlbinlog报错:unknown variable default-character-set=utf8mb4</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 14:36:28" itemprop="dateCreated datePublished" datetime="2016-10-12T14:36:28+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/mysqlbinlog%E6%8A%A5%E9%94%99-unknown-variable-default-character-set-utf8mb4/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/mysqlbinlog报错-unknown-variable-default-character-set-utf8mb4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>使用 mysqlbinlog 命令查看 binlog 日志时出现<code>mysqlbinlog: unknown variable &#39;default-character-set=utf8mb4&#39;</code>的报错, 原因是在 mysql 的配置文件中, 我设置默认字符集为<code>utf8mb4</code>此字符集为 utf8 的扩展字符集,支持保存 emoji😈 表情, 解决方案如下</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mysqlbinlog mysql-bin.000256</span><br><span class="line">mysqlbinlog: unknown variable <span class="string">'default-character-set=utf8mb4'</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>原因是mysqlbinlog这个工具无法识别binlog中的配置中的default-character-set=utf8这个指令</strong></p>
-<p>解决的办法有两个:</p>
-<ol>
-<li>将<code>/etc/my.cnf</code>中配置的<code>default-character-set = utf8mb4</code>修改为<code>character-set-server = utf8mb4</code> 但是这种修改方法需要重启数据库, 在线上业务库中使用这种方法查看 binlog 日志并不划算~</li>
-<li><code>mysqlbinlog --no-defaults mysql-bin.000256</code> 完美解决~</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA/" class="post-title-link" itemprop="url">开启/关闭SWAP功能+制作SWAP文件/分区</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 12:10:31" itemprop="dateCreated datePublished" datetime="2016-10-12T12:10:31+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/%E5%BC%80%E5%90%AF-%E5%85%B3%E9%97%ADSWAP%E5%8A%9F%E8%83%BD-%E5%88%B6%E4%BD%9CSWAP%E6%96%87%E4%BB%B6-%E5%88%86%E5%8C%BA/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/开启-关闭SWAP功能-制作SWAP文件-分区/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 linux 中可以使用<code>free -m</code>命令来查看内存的使用情况(包括 swap 交换分区的使用情况)关于 swap 存在的意义不再讨论, 有的人在某些情况下需要开启 swap 功能以保证程序不会崩溃; 有的人在某些情况下需要关闭 swap 功能以保证”宁宕毋慢”.</p>
-</blockquote>
-<h1 id="开启-关闭-swap-功能"><a href="#开启-关闭-swap-功能" class="headerlink" title="开启/关闭 swap 功能"></a>开启/关闭 swap 功能</h1><h2 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h2><ul>
-<li>swap 文件: <code>swapon /opt/swapfile</code></li>
-<li>swap 分区: <code>swapon /dev/sdb1</code></li>
-</ul>
-<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><ul>
-<li>swap 文件: <code>swapoff /opt/swapfile</code></li>
-<li>swap 分区: <code>swapoff /dev/sdb1</code></li>
-</ul>
-<p>如果是系统在安装时设置了 swap, 在后期想要关闭 swap 功能,可以去修改<code>/etc/fstab</code>文件</p>
-<p>将包含有 swap 信息的这一行注释掉<code>/dev/mapper/centos-swap swap                    swap    defaults        0 0</code></p>
-<h1 id="增加-swap-空间"><a href="#增加-swap-空间" class="headerlink" title="增加 swap 空间"></a>增加 swap 空间</h1><h2 id="制作-swap-文件"><a href="#制作-swap-文件" class="headerlink" title="制作 swap 文件"></a>制作 swap 文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个1G的文件作为交换分区使用</span></span><br><span class="line">➜  ~ dd <span class="keyword">if</span>=/dev/zero of=/opt/swapfile bs=1M count=1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成swap分区</span></span><br><span class="line">➜  ~ mkswap /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开swap分区</span></span><br><span class="line">➜  ~ swapon /opt/swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<h2 id="制作-swap-分区"><a href="#制作-swap-分区" class="headerlink" title="制作 swap 分区"></a>制作 swap 分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个 swap 分区</span></span><br><span class="line">➜  ~ fdisk /dev/sdb</span><br><span class="line">		<span class="comment"># 新建一个分区</span></span><br><span class="line">		n</span><br><span class="line">		p</span><br><span class="line">		default</span><br><span class="line">		default</span><br><span class="line">		...</span><br><span class="line">		<span class="comment"># 修改分区 id 为swap</span></span><br><span class="line">		t</span><br><span class="line">		82</span><br><span class="line">		<span class="comment"># 写入分区表</span></span><br><span class="line">		w</span><br><span class="line">		</span><br><span class="line"><span class="comment"># 同步内存和分区表信息</span></span><br><span class="line">➜  ~  partprobe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化成 swap 分区</span></span><br><span class="line">➜  ~  mkswap /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 swap 分区</span></span><br><span class="line">➜  ~  swapon /dev/sdb1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在/etc/fstab中增加一条记录如下</span></span><br><span class="line">/opt/swapfile    swap   swap defaults 0 0</span><br></pre></td></tr></table></figure>
-
-<p><em>Tips: 如果本机已有2G swap 交换分区,又制作了一个8G 的 swap 分区文件, 那么在执行<code>swapon</code>命令之后, swap 空间将为10G(swap 空间会累加)</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/" class="post-title-link" itemprop="url">检测TCP/UDP端口是否可用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 11:50:18" itemprop="dateCreated datePublished" datetime="2016-10-12T11:50:18+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/检测TCP-UDP端口是否可用/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在日常运维中,我们常常需要检查远程服务器的某个端口是否可用,是否可以连通. 如果远程服务器是使用了 TCP 协议监听了端口, 我们可以使用 telnet 命令来测试端口的连通性; 如果远程服务器使用的了 UDP 协议监听了端口, 我们可以使用 nc 命令来测试端口的连通性. 下面就对这两个命令做简单的使用介绍</p>
-</blockquote>
-<h1 id="telnet-gt-TCP"><a href="#telnet-gt-TCP" class="headerlink" title="telnet ===&gt; TCP"></a>telnet ===&gt; TCP</h1><p>telnet 命令的常用语法: <code>telnet IP port</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ telnet 192.168.10.159 22</span><br><span class="line">Trying 192.168.10.159...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is <span class="string">'^]'</span>.</span><br><span class="line">SSH-2.0-OpenSSH_6.6.1</span><br></pre></td></tr></table></figure>
-
-<p>以上测试即为可以连通,而且显示出了应用的名称<code>SSH</code></p>
-<p>退出 telnet 可是按 <code>Ctrl+]</code> 组合键, 得到 <code>&gt;</code> 命令终端后,再输入 <code>quit</code> 退出终端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ telnet 192.168.10.159 22</span><br><span class="line">Trying 192.168.10.159...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is <span class="string">'^]'</span>.</span><br><span class="line">SSH-2.0-OpenSSH_6.6.1</span><br><span class="line">^]</span><br><span class="line">telnet&gt; quit</span><br><span class="line">Connection closed.</span><br></pre></td></tr></table></figure>
-
-<p><em>telnet 的其他用法请自行百度一下/谷歌一下</em>😆</p>
-<h1 id="nc-gt-UDP"><a href="#nc-gt-UDP" class="headerlink" title="nc ===&gt; UDP"></a>nc ===&gt; UDP</h1><p>udp 协议监听的端口是不能用 telnet 命令来测试的,这里用到了 nc 命令</p>
-<p>nc 命令的常用语法: <code>nc -zuv IP port</code></p>
-<ul>
-<li>z 将输入输出关闭</li>
-<li>u 开启 UDP 模式</li>
-<li>v 得到详细输出</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nc -zuv 192.168.10.159 4500</span><br><span class="line">found 0 associations</span><br><span class="line">found 1 connections:</span><br><span class="line">     1:	flags=82&lt;CONNECTED,PREFERRED&gt;</span><br><span class="line">	outif (null)</span><br><span class="line">	src 10.1.100.12 port 53092</span><br><span class="line">	dst 192.168.10.159 port 4500</span><br><span class="line">	rank info not available</span><br><span class="line"></span><br><span class="line">Connection to 192.168.10.159 port 4500 [udp/ipsec-msft] succeeded!</span><br></pre></td></tr></table></figure>
-
-<p>nc 是一个强大的网络工具, 功能不仅限于此</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">CentOS下添加静态路由</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 10:42:11" itemprop="dateCreated datePublished" datetime="2016-10-12T10:42:11+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/CentOS%E4%B8%8B%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/CentOS下添加静态路由/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="查看当前路由表"><a href="#查看当前路由表" class="headerlink" title="查看当前路由表"></a>查看当前路由表</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         localhost       0.0.0.0         UG    100    0        0 eno16780032</span><br><span class="line">172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0</span><br><span class="line">192.168.10.0    0.0.0.0         255.255.255.0   U     100    0        0 eno16780032</span><br></pre></td></tr></table></figure>
-
-<p><em>macOS 中使用 <code>netstat -nr</code> 命令来查看当前路由表</em></p>
-<ul>
-<li>Destination 目标网路</li>
-<li>Gateway 网关</li>
-<li>Genmask 掩码</li>
-<li>Flags 标识<ul>
-<li>U 路由已经启动</li>
-<li>H 路由目标为主机</li>
-<li>G 使用网关</li>
-<li>R 为动态路由复原路由表</li>
-<li>D 由守护进程或间接动态安装</li>
-<li>M 被路由守护进程或间接修改</li>
-<li>A 通过addrconf修改</li>
-<li>C 缓存条目</li>
-<li>! 拒绝路由</li>
-</ul>
+<p>得到结果需要的时间为<code>0.000005</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>通过以上的四种实践方式得出, 使用循环迭代的方式性能最低, 小数据量时, 使用列表解析式是最好的选择; 如果数据量巨大, 应该使用生成器表达式生成一个可迭代对象提供使用</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注:"></a>备注:</h2><ul>
+<li><p>列表解析 <code>[expr for iter_var in iterable if cond_expr]</code></p>
 </li>
-<li>Metric 路由开销, 到目标的‘距离’（通常基于跳数统计）</li>
-<li>Ref 参考此路由的数量</li>
-<li>Use 路由查找计数。依赖与使用-F 还是-C选项，这个值要么是路由缓存未命中数要么是命中数</li>
-<li>Iface 此路由数据包发送到的网络接口</li>
+<li><p>生成器表达式 <code>(expr for iter_var in iterable if cond_expr)</code></p>
+</li>
 </ul>
-<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="添加到主机的路由"><a href="#添加到主机的路由" class="headerlink" title="添加到主机的路由"></a>添加到主机的路由</h2><p><code>route add –host 192.168.59.2 dev eth1</code></p>
-<p><code>route add –host 192.168.59.2 gw 192.168.10.85</code></p>
-<h2 id="添加到网络的路由"><a href="#添加到网络的路由" class="headerlink" title="添加到网络的路由"></a>添加到网络的路由</h2><p><code>route add -net 192.168.248.0/24 gw 192.168.10.85</code></p>
-<p><code>route add –net 192.168.248.0 netmask 255.255.255.0 gw 192.168.10.85</code></p>
-<p><code>route add –net 192.168.248.0 netmask 255.255.255.0 dev eth1</code></p>
-<h2 id="添加默认网关"><a href="#添加默认网关" class="headerlink" title="添加默认网关"></a>添加默认网关</h2><p><code>route add default gw 192.168.10.85</code></p>
-<p><code>route add -net 0.0.0.0 gw 192.168.10.85</code></p>
-<p><strong>使用route 命令添加的路由，机器重启或者网卡重启后路由就失效了</strong></p>
-<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><p><code>route del –host 192.168.10.85 dev eth1</code></p>
-<p><em>怎么 add 的就怎么 del 掉. 但是 del 的时候可以不写网关</em></p>
-<h1 id="永久添加路由"><a href="#永久添加路由" class="headerlink" title="永久添加路由"></a>永久添加路由</h1><ul>
-<li>在<code>/etc/rc.local</code>里添加路由信息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.247.0&#x2F;24 dev eth1</span><br><span class="line">route add -net 192.168.110.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+<p>两者的语法非常相似, 但生成器表达式返回的不是一个列表类型对象, 而是一个生成器对象, 生成器是一个内存使用友好的结构</p>
 
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/" class="post-title-link" itemprop="url">Python在列表中根据条件筛选数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 01:16:28" itemprop="dateCreated datePublished" datetime="2017-07-25T01:16:28+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/25/Python%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89%E6%95%B0%E6%8D%AE%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/25/Python在列表中根据条件筛选数据 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先我们创建一个列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">l = [random.randint(<span class="number">-10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(l)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-1, 0, 8, 3, 5, 0, 4, 0, -2, 5]</span><br></pre></td></tr></table></figure>
+
+<p>现有一个需求, 需要在这个列表中筛选出大于0的数字, 以下给出四种实现方式</p>
+<h2 id="第一种方法-循环迭代"><a href="#第一种方法-循环迭代" class="headerlink" title="第一种方法: 循环迭代"></a>第一种方法: 循环迭代</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">l2 = []</span><br><span class="line">print(time.time())</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> l:</span><br><span class="line">    <span class="keyword">if</span> item &gt; <span class="number">0</span>:</span><br><span class="line">        l2.append(item)</span><br><span class="line">print(time.time())</span><br><span class="line">print(l2)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.146998</span><br><span class="line">1500915233.147016</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000018</code></p>
+<h2 id="第二种方法-filter函数"><a href="#第二种方法-filter函数" class="headerlink" title="第二种方法: filter函数"></a>第二种方法: filter函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l3 = list(filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">0</span>, l))</span><br><span class="line">print(time.time())</span><br><span class="line">print(l3)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.147029</span><br><span class="line">1500915233.147039</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000010</code></p>
+<h2 id="第三种方法-列表解析式"><a href="#第三种方法-列表解析式" class="headerlink" title="第三种方法: 列表解析式"></a>第三种方法: 列表解析式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l4 = [item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>]</span><br><span class="line">print(time.time())</span><br><span class="line">print(l4)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500915233.14705</span><br><span class="line">1500915233.147056</span><br><span class="line">[8, 3, 5, 4, 5]</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000006</code></p>
+<h2 id="第四种方法-生成器表达式"><a href="#第四种方法-生成器表达式" class="headerlink" title="第四种方法: 生成器表达式"></a>第四种方法: 生成器表达式</h2><p>如果列表数据量巨大, 应该考虑的不是使用列表解析器, 而是生成器表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(time.time())</span><br><span class="line">l5 = (item <span class="keyword">for</span> item <span class="keyword">in</span> l <span class="keyword">if</span> item &gt; <span class="number">0</span>)</span><br><span class="line">print(time.time())</span><br><span class="line">print(type(l5))</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1500916299.74144</span><br><span class="line">1500916299.741445</span><br><span class="line">&lt;class &#39;generator&#39;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到结果需要的时间为<code>0.000005</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>通过以上的四种实践方式得出, 使用循环迭代的方式性能最低, 小数据量时, 使用列表解析式是最好的选择; 如果数据量巨大, 应该使用生成器表达式生成一个可迭代对象提供使用</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注:"></a>备注:</h2><ul>
+<li><p>列表解析 <code>[expr for iter_var in iterable if cond_expr]</code></p>
+</li>
+<li><p>生成器表达式 <code>(expr for iter_var in iterable if cond_expr)</code></p>
+</li>
+</ul>
+<p>两者的语法非常相似, 但生成器表达式返回的不是一个列表类型对象, 而是一个生成器对象, 生成器是一个内存使用友好的结构</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">Python类中资源的访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-20 14:13:16" itemprop="dateCreated datePublished" datetime="2017-07-20T14:13:16+08:00">2017-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/20/Python类中资源的访问/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python 的类中有三种资源类型, 分别为字段, 方法和属性. </p>
+<p>字段又分为静态字段和普通字段</p>
+<p>方法分为静态方法,  普通方法和类方法</p>
+<p>而字段和方法又能有私有字段和私有方法的形态</p>
+<p>本篇文章就来介绍 Python 类中各个资源的访问规则</p>
+</blockquote>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><h2 id="公有静态字段"><a href="#公有静态字段" class="headerlink" title="公有静态字段"></a>公有静态字段</h2><ul>
+<li>在类的外部使用对象名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是使用实例化后的对象去访问的静态字段, 一般情况下, 最好用对象去访问对象自己的普通字段, 不要用对象来访问静态字段</p>
 <ul>
-<li>在<code>/etc/sysconfig/network</code>里添加到末尾<code>GATEWAY=gw-ip 或者 GATEWAY=gw-dev</code></li>
-<li>在<code>/etc/sysconfig/static-router</code>添加<code>any net x.x.x.x/24 gw y.y.y.y</code></li>
+<li>在类的外部使用类名访问</li>
 </ul>
-<h2 id="永久添加路由更新-2018-10-12"><a href="#永久添加路由更新-2018-10-12" class="headerlink" title="永久添加路由更新 2018-10-12"></a>永久添加路由更新 2018-10-12</h2><p><strong>CentOS7下推荐使用上面第三种方法添加永久静态路由</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># vi /etc/sysconfig/network-scripts/route-enp0s3</span></span><br><span class="line">10.15.150.0/24 via 192.168.150.253 dev enp0s3</span><br><span class="line">10.25.250.0/24 via 192.168.150.253 dev enp0s3</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">print(A.name)</span><br></pre></td></tr></table></figure>
 
-<p>将永久静态路由需要写到 /etc/sysconfig/network-scripts/route-interface 文件中</p>
-<p>注意:</p>
-<p><strong>ifcfg-enp0s3 文件改名为 ifcfg-eth0 后，route-enp0s3 文件也要改名为 route-eth0</strong></p>
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是一般情况下, 正确访问类中静态字段的方式, 即使用类名访问</p>
+<ul>
+<li>在类的内部使用对象访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>此种情况是在类的内部, 通过一个方法来获取类中静态字段的值, 在方法中, 使用了对象的名字去调用获取了类中静态字段的值, 一般情况下, 上面也说了, 对于类中对静态字段的访问, 需要使用类名去实现, 不推荐使用对象名去调用</p>
+<ul>
+<li>在类的内部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此种情况下, 我通过两种方式, 用类名获取了静态字段的值. 如果使用普通方法的话, 默认方法内的形参只传递了对象的名字, 如果想显示地调用类中的静态字段的话, 需要明确地指定类名; 但是如果是用对象方法的话, 对象方法默认帮我们传递了对象的名字, 所以我们可以使用<code>cls</code>变量直接调用静态字段</p>
+<h2 id="私有静态字段"><a href="#私有静态字段" class="headerlink" title="私有静态字段"></a>私有静态字段</h2><ul>
+<li>在类的内部使用类方法访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    __name = <span class="string">'polarsnow'</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>私有的静态字段, 不能在外部使用对象或类名调用, 只能通过在类的内部访问. 上面的例子提供了两种方式来访问私有的静态字段. 一种是在普通方法内通过显示指定来访问, 一种是在类方法中, 通过形参, 隐式地通过<code>cls</code>类名来访问</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="公有方法"><a href="#公有方法" class="headerlink" title="公有方法"></a>公有方法</h2><ul>
+<li>静态方法</li>
+<li>普通方法</li>
+<li>类方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br><span class="line">print(a.f3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>在普通方法中, python 隐式传递了对象名; 在类方法总, python 隐式传递了类名; 而静态方法的本质既没有用到对象也没有用到类, 如果静态方法拿到外面来, 就是 python 中普通的函数而已, 之所以把这种函数也放到类中,  是为了方便类中相关操作的聚合, 同一类的操作放到同一个类下</p>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__f3()</span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.ff())</span><br><span class="line">print(a.ff2())</span><br><span class="line">print(a.ff3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>每种类型的方法访问均可以访问自己的私有方法. 在共有静态方法调用私有静态方法时需要注意, 只能使用类名去访问私有静态方法</p>
+<p>在实际使用中, 对于私有方法的访问, 也可以跨类型访问, 比如我可以用一个普通方法去调用一个私有的类方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">n</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.n)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%205/" class="post-title-link" itemprop="url">Python类中资源的访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-20 14:13:16" itemprop="dateCreated datePublished" datetime="2017-07-20T14:13:16+08:00">2017-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/20/Python类中资源的访问 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python 的类中有三种资源类型, 分别为字段, 方法和属性. </p>
+<p>字段又分为静态字段和普通字段</p>
+<p>方法分为静态方法,  普通方法和类方法</p>
+<p>而字段和方法又能有私有字段和私有方法的形态</p>
+<p>本篇文章就来介绍 Python 类中各个资源的访问规则</p>
+</blockquote>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><h2 id="公有静态字段"><a href="#公有静态字段" class="headerlink" title="公有静态字段"></a>公有静态字段</h2><ul>
+<li>在类的外部使用对象名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是使用实例化后的对象去访问的静态字段, 一般情况下, 最好用对象去访问对象自己的普通字段, 不要用对象来访问静态字段</p>
+<ul>
+<li>在类的外部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">print(A.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是一般情况下, 正确访问类中静态字段的方式, 即使用类名访问</p>
+<ul>
+<li>在类的内部使用对象访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>此种情况是在类的内部, 通过一个方法来获取类中静态字段的值, 在方法中, 使用了对象的名字去调用获取了类中静态字段的值, 一般情况下, 上面也说了, 对于类中对静态字段的访问, 需要使用类名去实现, 不推荐使用对象名去调用</p>
+<ul>
+<li>在类的内部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此种情况下, 我通过两种方式, 用类名获取了静态字段的值. 如果使用普通方法的话, 默认方法内的形参只传递了对象的名字, 如果想显示地调用类中的静态字段的话, 需要明确地指定类名; 但是如果是用对象方法的话, 对象方法默认帮我们传递了对象的名字, 所以我们可以使用<code>cls</code>变量直接调用静态字段</p>
+<h2 id="私有静态字段"><a href="#私有静态字段" class="headerlink" title="私有静态字段"></a>私有静态字段</h2><ul>
+<li>在类的内部使用类方法访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    __name = <span class="string">'polarsnow'</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>私有的静态字段, 不能在外部使用对象或类名调用, 只能通过在类的内部访问. 上面的例子提供了两种方式来访问私有的静态字段. 一种是在普通方法内通过显示指定来访问, 一种是在类方法中, 通过形参, 隐式地通过<code>cls</code>类名来访问</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="公有方法"><a href="#公有方法" class="headerlink" title="公有方法"></a>公有方法</h2><ul>
+<li>静态方法</li>
+<li>普通方法</li>
+<li>类方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br><span class="line">print(a.f3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>在普通方法中, python 隐式传递了对象名; 在类方法总, python 隐式传递了类名; 而静态方法的本质既没有用到对象也没有用到类, 如果静态方法拿到外面来, 就是 python 中普通的函数而已, 之所以把这种函数也放到类中,  是为了方便类中相关操作的聚合, 同一类的操作放到同一个类下</p>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__f3()</span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.ff())</span><br><span class="line">print(a.ff2())</span><br><span class="line">print(a.ff3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>每种类型的方法访问均可以访问自己的私有方法. 在共有静态方法调用私有静态方法时需要注意, 只能使用类名去访问私有静态方法</p>
+<p>在实际使用中, 对于私有方法的访问, 也可以跨类型访问, 比如我可以用一个普通方法去调用一个私有的类方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">n</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.n)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">修改gitlab管理员账户密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-11 14:44:30" itemprop="dateCreated datePublished" datetime="2017-07-11T14:44:30+08:00">2017-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/11/修改gitlab管理员账户密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@cord-gitlab-128-92 ~]<span class="comment"># gitlab-rails console production</span></span><br><span class="line">Loading production environment (Rails 4.2.7.1)</span><br><span class="line">irb(main):001:0&gt; u = User.where(id: 1).first</span><br><span class="line">=&gt; <span class="comment">#&lt;User id: 1, email: "admin@example.com", created_at: "2016-11-03 10:17:48", updated_at: "2017-07-11 03:21:27", name: "Administrator", admin: true, projects_limit: 10, skype: "", linkedin: "", twitter: "", authentication_token: "eTsFFy-5tb7qXAKLS1jf", theme_id: 2, bio: nil, username: "root", can_create_group: true, can_create_team: false, state: "active", color_scheme_id: 1, password_expires_at: nil, created_by_id: nil, last_credential_check_at: nil, avatar: nil, hide_no_ssh_key: false, website_url: "", notification_email: "admin@example.com", hide_no_password: false, password_automatically_set: false, location: nil, encrypted_otp_secret: nil, encrypted_otp_secret_iv: nil, encrypted_otp_secret_salt: nil, otp_required_for_login: false, otp_backup_codes: nil, public_email: "", dashboard: 0, project_view: 0, consumed_timestep: nil, layout: 0, hide_project_limit: false, otp_grace_period_started_at: nil, ldap_email: false, external: false, organization: nil&gt;</span></span><br><span class="line">irb(main):002:0&gt; u.password = <span class="string">'NewPassword2017'</span></span><br><span class="line">=&gt; <span class="string">"NewPassword2017"</span></span><br><span class="line">irb(main):003:0&gt; u.save!</span><br><span class="line">Enqueued ActionMailer::DeliveryJob (Job ID: 6b4cf332-80c1-4b3e-a158-efb04e66940c) to Sidekiq(mailers) with arguments: <span class="string">"DeviseMailer"</span>, <span class="string">"password_change"</span>, <span class="string">"deliver_now"</span>, gid://gitlab/User/1</span><br><span class="line">=&gt; <span class="literal">true</span></span><br><span class="line">irb(main):004:0&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81%205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81%205/" class="post-title-link" itemprop="url">修改gitlab管理员账户密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-11 14:44:30" itemprop="dateCreated datePublished" datetime="2017-07-11T14:44:30+08:00">2017-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/11/%E4%BF%AE%E6%94%B9gitlab%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/11/修改gitlab管理员账户密码 5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@cord-gitlab-128-92 ~]<span class="comment"># gitlab-rails console production</span></span><br><span class="line">Loading production environment (Rails 4.2.7.1)</span><br><span class="line">irb(main):001:0&gt; u = User.where(id: 1).first</span><br><span class="line">=&gt; <span class="comment">#&lt;User id: 1, email: "admin@example.com", created_at: "2016-11-03 10:17:48", updated_at: "2017-07-11 03:21:27", name: "Administrator", admin: true, projects_limit: 10, skype: "", linkedin: "", twitter: "", authentication_token: "eTsFFy-5tb7qXAKLS1jf", theme_id: 2, bio: nil, username: "root", can_create_group: true, can_create_team: false, state: "active", color_scheme_id: 1, password_expires_at: nil, created_by_id: nil, last_credential_check_at: nil, avatar: nil, hide_no_ssh_key: false, website_url: "", notification_email: "admin@example.com", hide_no_password: false, password_automatically_set: false, location: nil, encrypted_otp_secret: nil, encrypted_otp_secret_iv: nil, encrypted_otp_secret_salt: nil, otp_required_for_login: false, otp_backup_codes: nil, public_email: "", dashboard: 0, project_view: 0, consumed_timestep: nil, layout: 0, hide_project_limit: false, otp_grace_period_started_at: nil, ldap_email: false, external: false, organization: nil&gt;</span></span><br><span class="line">irb(main):002:0&gt; u.password = <span class="string">'NewPassword2017'</span></span><br><span class="line">=&gt; <span class="string">"NewPassword2017"</span></span><br><span class="line">irb(main):003:0&gt; u.save!</span><br><span class="line">Enqueued ActionMailer::DeliveryJob (Job ID: 6b4cf332-80c1-4b3e-a158-efb04e66940c) to Sidekiq(mailers) with arguments: <span class="string">"DeviseMailer"</span>, <span class="string">"password_change"</span>, <span class="string">"deliver_now"</span>, gid://gitlab/User/1</span><br><span class="line">=&gt; <span class="literal">true</span></span><br><span class="line">irb(main):004:0&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">编写 docker-entrypoint.sh 入口文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-09 18:13:49" itemprop="dateCreated datePublished" datetime="2017-06-09T18:13:49+08:00">2017-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/09/编写docker-entrypoint-sh入口文件/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在 docker 的官方 Registry 中(store.docker.com) 流行的第三方应用在自己的页面中都提供了 dockerfile 的链接. 而很多 dockerfile 的 ENTRYPOINT 命令都是这么写的 <code>[&quot;docker-entrypoint.sh&quot;]</code> 本篇文章就扫盲下 docker-entrypoint.sh 的特殊用法和设计逻辑</p>
+</blockquote>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><p>你写的每个脚本都应该在文件开头加上<code>set -e</code>, 这句语句告诉bash如果任何语句的执行结果不是<code>true</code>则应该退出. 这样的好处是防止错误像滚雪球般变大导致一个致命的错误, 而这些错误本应该在之前就被处理掉. 如果要增加可读性, 可以使用<code>set -o errexit</code>, 它的作用与<code>set -e</code>相同</p>
+<h2 id="set-o-pipefail"><a href="#set-o-pipefail" class="headerlink" title="set -o pipefail"></a>set -o pipefail</h2><p>设计用途同上, 就是希望在执行错误之后立即退出, 不要再向下执行了. 而 <code>-o pipefail</code> 的作用域是管道, 也就是说在 Linux 脚本中的管道, 如果前面的命令执行出了问题, 应该立即退出</p>
+<h2 id="shopt-s-nullglob"><a href="#shopt-s-nullglob" class="headerlink" title="shopt -s nullglob"></a>shopt -s nullglob</h2><p>在使用 Linux 中的通配符时 <code>* ?等</code> 如果没有匹配到任何文件, 不会报 <code>No such file or directory</code> 而是将命令后面的参数去掉执行</p>
+<h2 id="if-“-1-0-1-”-‘-‘-then…"><a href="#if-“-1-0-1-”-‘-‘-then…" class="headerlink" title="if [ “${1:0:1}” = ‘-‘ ]; then…"></a>if [ “${1:0:1}” = ‘-‘ ]; then…</h2><p>这是一个判断语句, 在官方文件中, 上一行已经给出了注释: <code>if command starts with an option, prepend mysqld</code></p>
+<p>这个判断语句是 <code>${1:0:1}</code> 意思是判断 $1(调用该脚本的第一个参数), 偏移量0(不偏移), 取一个字符(取字符串的长度)</p>
+<p>如果判断出来调用这个脚本后面所跟的参数第一个字符是<code>-</code>中横线的话, 就认为后面的所有字符串都是 mysqld 的启动参数</p>
+<p>上面的这个操作类似于 Python 的字符串切片</p>
+<h2 id="set-–-mysqld-“-”"><a href="#set-–-mysqld-“-”" class="headerlink" title="set – mysqld “$@”"></a>set – mysqld “$@”</h2><p>在上面判断完第一个参数是<code>-</code>开头之后,  紧接着就执行了 <code>set -- mysqld &quot;$@&quot;</code> 这个命令. 使用了 <code>set --</code> 的用法. <code>set —</code>会将他后面所有以空格区分的字符串, 按顺序分别存储到$1, $2, $3 变量中, 其中新的<code>$@</code> 为 <code>set —</code> 后面的全部内容</p>
+<p>举例来说: <code>bash docker-entrypoint.sh -f xxx.conf</code></p>
+<p>在这种情况下, <code>set -- mysqld &quot;$@&quot;</code> 中的 <code>$@</code> 的值为 <code>-f xxx.conf</code></p>
+<p>当执行完 <code>set -- mysqld &quot;$@&quot;</code> 这条命令后:</p>
+<ul>
+<li><code>$1=mysqld</code></li>
+<li><code>$2=-f</code></li>
+<li><code>$3=xxx.conf</code></li>
+<li><code>$@=mysqld -f xxx.conf</code></li>
+</ul>
+<p>可以看到, 当执行 <code>docker-entrypoint.sh</code>脚本的时候后面加了 <code>-x</code>形式的参数之后, $@的值发生的改变, 在原有$@值的基础之上, 在前面又预添加了 mysqld 命令</p>
+<h2 id="exec-“-”"><a href="#exec-“-”" class="headerlink" title="exec “$@”"></a>exec “$@”</h2><p>几乎在每个 <code>docker-entrypoint.sh</code> 脚本的最后一行, 执行的都是 <code>exec &quot;$@&quot;</code>命令</p>
+<p>这个命令的意义在于你已经为你的镜像预想到了应该有的调用情况, 当实际使用镜像的人执行了你没有预料到的可执行命令时, 将会走到脚本的这最后一行, 去执行用户新的可执行命令</p>
+<h2 id="情况判断"><a href="#情况判断" class="headerlink" title="情况判断"></a>情况判断</h2><p>上面直接说了脚本的最后一行, 在之前的脚本中, 需要充分的去考虑你自己的脚本可能会被调用的情况. 还是拿 MySQL 官方的 dockerfile 来说, 他判断以下情况:</p>
+<ul>
+<li>开头是 <code>-</code> , 认为是参数的情况</li>
+<li>开头是 <code>mysqld</code>, 且用户 id 为0 (root 用户) 的情况</li>
+<li>开头是 <code>mysqld</code> 的情况</li>
+</ul>
+<p>判断完自己应用的所有调用形态之后, 最后应该加上<code>exec &quot;$@&quot;</code> 命令兜底</p>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="${mysql[@]}"></a>${mysql[@]}</h2><p>Shell 中的数组, 直接执行 <code>${mysql[@]}</code> 会把这个数组当做可执行程序来执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  /tmp mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=<span class="string">"<span class="variable">$&#123;SOCKET&#125;</span>"</span> )</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[1]&#125;</span></span><br><span class="line">mysql</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[2]&#125;</span></span><br><span class="line">--protocol=socket</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[3]&#125;</span></span><br><span class="line">-uroot</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[4]&#125;</span></span><br><span class="line">-hlocalhost</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[@]&#125;</span></span><br><span class="line">mysql --protocol=socket -uroot -hlocalhost --socket=</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="exec-gosu-mysql-“-BASH-SOURCE”-“-”"><a href="#exec-gosu-mysql-“-BASH-SOURCE”-“-”" class="headerlink" title="exec gosu mysql “$BASH_SOURCE” “$@”"></a>exec gosu mysql “$BASH_SOURCE” “$@”</h2><p>这里的 gosu 命令, 是 Linux 中 sudo 命令的轻量级”替代品”</p>
+<p>gosu 是一个 golang 语言开发的工具, 用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题. 如果仅仅为了使用特定的用户运行程序, 使用 su 或 sudo 显得太重了, 为此 gosu 应运而生.</p>
+<p>gosu 直接借用了 libcontainer 在容器中启动应用程序的原理, 使用 <code>/etc/passwd</code> 处理应用程序. gosu 首先找出指定的用户或用户组, 然后切换到该用户或用户组. 接下来, 使用 exec 启动应用程序. 到此为止, gosu 完成了它的工作, 不会参与到应用程序后面的声明周期中. 使用这种方式避免了 gosu 处理 TTY 和转发信号量的问题, 把这两个工作直接交给了应用程序去完成</p>
 <hr>
 <p>参考文档:</p>
 <ul>
-<li><a href="https://www.cnblogs.com/panblack/p/Centos7_Static_Routes.html" target="_blank" rel="noopener">https://www.cnblogs.com/panblack/p/Centos7_Static_Routes.html</a></li>
+<li>set -e: <a href="http://blog.csdn.net/todd911/article/details/9954961" target="_blank" rel="noopener">http://blog.csdn.net/todd911/article/details/9954961</a></li>
+<li>set -o pipefail: <a href="http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html</a></li>
+<li>shopt -s nullglob: <a href="http://mywiki.wooledge.org/glob#nullglob" target="_blank" rel="noopener">http://mywiki.wooledge.org/glob#nullglob</a></li>
 </ul>
 
       
@@ -937,7 +1062,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%205/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -951,7 +1076,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/" class="post-title-link" itemprop="url">kvm虚拟机迁移至ESXi</a>
+            <a href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%205/" class="post-title-link" itemprop="url">编写 docker-entrypoint.sh 入口文件</a>
         </h2>
 
         <div class="post-meta">
@@ -961,7 +1086,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-09-09 14:37:55" itemprop="dateCreated datePublished" datetime="2016-09-09T14:37:55+08:00">2016-09-09</time>
+              <time title="创建时间：2017-06-09 18:13:49" itemprop="dateCreated datePublished" datetime="2017-06-09T18:13:49+08:00">2017-06-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -969,7 +1094,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
                 </span>
             </span>
 
@@ -982,8 +1107,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2016/09/09/kvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E8%87%B3ESXi/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/kvm虚拟机迁移至ESXi/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%205/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/09/编写docker-entrypoint-sh入口文件 5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -998,55 +1123,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="转换步骤"><a href="#转换步骤" class="headerlink" title="转换步骤"></a>转换步骤</h1><ul>
-<li>将kvm中要迁移的虚拟机关机</li>
-<li>找到该虚拟机对应的<code>.img</code>文件</li>
-<li>使用<code>qemu-img convert</code>命令将img文件转换为<code>vmdk</code>文件</li>
-<li>把<code>vmdk</code>文件传送到<code>ESXi</code>主机上</li>
-<li>在<code>vCenter</code>中创建一个配置相同的主机，加载已存在的<code>vmdk</code>硬盘文件</li>
-<li>开启虚拟机即可</li>
+          <blockquote>
+<p>在 docker 的官方 Registry 中(store.docker.com) 流行的第三方应用在自己的页面中都提供了 dockerfile 的链接. 而很多 dockerfile 的 ENTRYPOINT 命令都是这么写的 <code>[&quot;docker-entrypoint.sh&quot;]</code> 本篇文章就扫盲下 docker-entrypoint.sh 的特殊用法和设计逻辑</p>
+</blockquote>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h2 id="set-e"><a href="#set-e" class="headerlink" title="set -e"></a>set -e</h2><p>你写的每个脚本都应该在文件开头加上<code>set -e</code>, 这句语句告诉bash如果任何语句的执行结果不是<code>true</code>则应该退出. 这样的好处是防止错误像滚雪球般变大导致一个致命的错误, 而这些错误本应该在之前就被处理掉. 如果要增加可读性, 可以使用<code>set -o errexit</code>, 它的作用与<code>set -e</code>相同</p>
+<h2 id="set-o-pipefail"><a href="#set-o-pipefail" class="headerlink" title="set -o pipefail"></a>set -o pipefail</h2><p>设计用途同上, 就是希望在执行错误之后立即退出, 不要再向下执行了. 而 <code>-o pipefail</code> 的作用域是管道, 也就是说在 Linux 脚本中的管道, 如果前面的命令执行出了问题, 应该立即退出</p>
+<h2 id="shopt-s-nullglob"><a href="#shopt-s-nullglob" class="headerlink" title="shopt -s nullglob"></a>shopt -s nullglob</h2><p>在使用 Linux 中的通配符时 <code>* ?等</code> 如果没有匹配到任何文件, 不会报 <code>No such file or directory</code> 而是将命令后面的参数去掉执行</p>
+<h2 id="if-“-1-0-1-”-‘-‘-then…"><a href="#if-“-1-0-1-”-‘-‘-then…" class="headerlink" title="if [ “${1:0:1}” = ‘-‘ ]; then…"></a>if [ “${1:0:1}” = ‘-‘ ]; then…</h2><p>这是一个判断语句, 在官方文件中, 上一行已经给出了注释: <code>if command starts with an option, prepend mysqld</code></p>
+<p>这个判断语句是 <code>${1:0:1}</code> 意思是判断 $1(调用该脚本的第一个参数), 偏移量0(不偏移), 取一个字符(取字符串的长度)</p>
+<p>如果判断出来调用这个脚本后面所跟的参数第一个字符是<code>-</code>中横线的话, 就认为后面的所有字符串都是 mysqld 的启动参数</p>
+<p>上面的这个操作类似于 Python 的字符串切片</p>
+<h2 id="set-–-mysqld-“-”"><a href="#set-–-mysqld-“-”" class="headerlink" title="set – mysqld “$@”"></a>set – mysqld “$@”</h2><p>在上面判断完第一个参数是<code>-</code>开头之后,  紧接着就执行了 <code>set -- mysqld &quot;$@&quot;</code> 这个命令. 使用了 <code>set --</code> 的用法. <code>set —</code>会将他后面所有以空格区分的字符串, 按顺序分别存储到$1, $2, $3 变量中, 其中新的<code>$@</code> 为 <code>set —</code> 后面的全部内容</p>
+<p>举例来说: <code>bash docker-entrypoint.sh -f xxx.conf</code></p>
+<p>在这种情况下, <code>set -- mysqld &quot;$@&quot;</code> 中的 <code>$@</code> 的值为 <code>-f xxx.conf</code></p>
+<p>当执行完 <code>set -- mysqld &quot;$@&quot;</code> 这条命令后:</p>
+<ul>
+<li><code>$1=mysqld</code></li>
+<li><code>$2=-f</code></li>
+<li><code>$3=xxx.conf</code></li>
+<li><code>$@=mysqld -f xxx.conf</code></li>
 </ul>
-<h1 id="qemu-img命令的时候用"><a href="#qemu-img命令的时候用" class="headerlink" title="qemu-img命令的时候用"></a>qemu-img命令的时候用</h1><p><code>qemu-img</code>命​令​行​工​具​是​<code>Xen</code>和​<code>KVM</code>用​来​格​式​化​各​种​文​件​系​统​的​，可​使​用​<code>qemu-img</code>格​式​化​虚​拟​客​户​端​映​像​、​附​加​存​储​设​备​以​及​网​络​存​储​。还可以用来转换镜像文件</p>
-<h2 id="创建磁盘文件"><a href="#创建磁盘文件" class="headerlink" title="创建磁盘文件"></a>创建磁盘文件</h2><p><strong>创​建​新​磁​盘​映​像​文​件​名​为​ sina_kvm，格​式​为​ format</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img create [-6] [-e] [-b base_image] [-f format] filename [sina_kvm]</span><br></pre></td></tr></table></figure>
+<p>可以看到, 当执行 <code>docker-entrypoint.sh</code>脚本的时候后面加了 <code>-x</code>形式的参数之后, $@的值发生的改变, 在原有$@值的基础之上, 在前面又预添加了 mysqld 命令</p>
+<h2 id="exec-“-”"><a href="#exec-“-”" class="headerlink" title="exec “$@”"></a>exec “$@”</h2><p>几乎在每个 <code>docker-entrypoint.sh</code> 脚本的最后一行, 执行的都是 <code>exec &quot;$@&quot;</code>命令</p>
+<p>这个命令的意义在于你已经为你的镜像预想到了应该有的调用情况, 当实际使用镜像的人执行了你没有预料到的可执行命令时, 将会走到脚本的这最后一行, 去执行用户新的可执行命令</p>
+<h2 id="情况判断"><a href="#情况判断" class="headerlink" title="情况判断"></a>情况判断</h2><p>上面直接说了脚本的最后一行, 在之前的脚本中, 需要充分的去考虑你自己的脚本可能会被调用的情况. 还是拿 MySQL 官方的 dockerfile 来说, 他判断以下情况:</p>
+<ul>
+<li>开头是 <code>-</code> , 认为是参数的情况</li>
+<li>开头是 <code>mysqld</code>, 且用户 id 为0 (root 用户) 的情况</li>
+<li>开头是 <code>mysqld</code> 的情况</li>
+</ul>
+<p>判断完自己应用的所有调用形态之后, 最后应该加上<code>exec &quot;$@&quot;</code> 命令兜底</p>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="${mysql[@]}"></a>${mysql[@]}</h2><p>Shell 中的数组, 直接执行 <code>${mysql[@]}</code> 会把这个数组当做可执行程序来执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜  /tmp mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=<span class="string">"<span class="variable">$&#123;SOCKET&#125;</span>"</span> )</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[1]&#125;</span></span><br><span class="line">mysql</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[2]&#125;</span></span><br><span class="line">--protocol=socket</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[3]&#125;</span></span><br><span class="line">-uroot</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[4]&#125;</span></span><br><span class="line">-hlocalhost</span><br><span class="line">➜  /tmp <span class="built_in">echo</span> <span class="variable">$&#123;mysql[@]&#125;</span></span><br><span class="line">mysql --protocol=socket -uroot -hlocalhost --socket=</span><br></pre></td></tr></table></figure>
 
-<p>例如：创建一个10M的镜像文件：ps_kvm.img，文件格式为：raw</p>
-<h2 id="转换镜像格式"><a href="#转换镜像格式" class="headerlink" title="转换镜像格式"></a>转换镜像格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert [-c] [-e] [-f format] filename [-O output_format] output_filename</span><br></pre></td></tr></table></figure>
 
-<p>例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert 10-71-hadoop.shennong.ren.img -O vmdk /tmp/testhdp.vmdk</span><br></pre></td></tr></table></figure>
 
-<h2 id="获取镜像信息"><a href="#获取镜像信息" class="headerlink" title="获取镜像信息"></a>获取镜像信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img info [-f format] filename</span><br></pre></td></tr></table></figure>
-
-<h2 id="支持的格式"><a href="#支持的格式" class="headerlink" title="支持的格式"></a>支持的格式</h2><p>映​像​格​式​通​常​是​自​动​获​取​的​。​支​持​以​下​格​式​：</p>
-<ul>
-<li>raw</li>
-</ul>
-<p>Raw 磁​盘​映​像​格​式​（默​认​）。​这​个​格​式​的​优​点​是​可​以​简​单​、​容​易​地​导​出​到​其​它​模​拟​器​中​。​如​果​您​的​文​件​系​统​支​持​中​断​（例​如​在​ Linux 中​的​ ext2 或​者​ ext3 以​及​ Windows 中​的​ NTFS），那​么​只​有​写​入​的​字​段​会​占​用​空​间​。​使​用​ qemu-img info 了​解​ Unix/Linux 中​映​像​或​者​ ls -ls 使​用​的​实​际​大​小​。​</p>
-<ul>
-<li>qcow2</li>
-</ul>
-<p>QEMU 映​像​格​式​，最​万​能​的​格​式​。​使​用​它​可​获​得​较​小​映​像​（如​果​您​的​系​统​不​支​持​中​断​，例​如​在​ Windows 中​，它​会​很​有​用​）、​额​外​的​ AES 加​密​法​、​zlib 压​缩​以​及​对​多​ VM 快​照​的​支​持​。​目前也是虚拟池一直在使用的镜像格式。<br>例如：<br>转换之前，原镜像disk size大小为8G，转换后仅仅只有2.3G。</p>
-<ul>
-<li>qcow</li>
-</ul>
-<p>旧​的​ QEMU 映​像​格​式​。​只​用​于​与​旧​版​本​兼​容​，目前虚拟池已无该格式镜像文件。​</p>
-<ul>
-<li>cow</li>
-</ul>
-<p>写​入​映​像​格​式​的​用​户​模​式​ Linux 副​本​。​包​含​ cow 格​式​的​目​的​只​是​为​了​与​前​面​的​版​本​兼​容​。​它​无​法​在​ Windows 中​使​用​，虚拟池已无该格式镜像文件。</p>
-<ul>
-<li>vmdk</li>
-</ul>
-<p>VMware 3 和​ 4 兼​容​映​像​格​式，虚拟池无该格式镜像文件​。​</p>
-<ul>
-<li>cloop</li>
-</ul>
-<p>Linux 压​缩​回​送​映​像​，只​有​在​重​复​使​用​直​接​压​缩​的​ CD-ROM 映​像​时​有​用​，比​如​在​ Knoppix CD-ROM 中​。</p>
+<h2 id="exec-gosu-mysql-“-BASH-SOURCE”-“-”"><a href="#exec-gosu-mysql-“-BASH-SOURCE”-“-”" class="headerlink" title="exec gosu mysql “$BASH_SOURCE” “$@”"></a>exec gosu mysql “$BASH_SOURCE” “$@”</h2><p>这里的 gosu 命令, 是 Linux 中 sudo 命令的轻量级”替代品”</p>
+<p>gosu 是一个 golang 语言开发的工具, 用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题. 如果仅仅为了使用特定的用户运行程序, 使用 su 或 sudo 显得太重了, 为此 gosu 应运而生.</p>
+<p>gosu 直接借用了 libcontainer 在容器中启动应用程序的原理, 使用 <code>/etc/passwd</code> 处理应用程序. gosu 首先找出指定的用户或用户组, 然后切换到该用户或用户组. 接下来, 使用 exec 启动应用程序. 到此为止, gosu 完成了它的工作, 不会参与到应用程序后面的声明周期中. 使用这种方式避免了 gosu 处理 TTY 和转发信号量的问题, 把这两个工作直接交给了应用程序去完成</p>
 <hr>
-<p><em>参考文章</em></p>
+<p>参考文档:</p>
 <ul>
-<li><a href="http://blog.sina.com.cn/s/blog_502c8cc40101352g.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_502c8cc40101352g.html</a></li>
+<li>set -e: <a href="http://blog.csdn.net/todd911/article/details/9954961" target="_blank" rel="noopener">http://blog.csdn.net/todd911/article/details/9954961</a></li>
+<li>set -o pipefail: <a href="http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_8bb0a3bd010171cp.html</a></li>
+<li>shopt -s nullglob: <a href="http://mywiki.wooledge.org/glob#nullglob" target="_blank" rel="noopener">http://mywiki.wooledge.org/glob#nullglob</a></li>
 </ul>
 
       
@@ -1069,7 +1189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/Linux%E8%BF%9E%E6%8E%A5PPTP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1083,7 +1203,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/09/09/Linux%E8%BF%9E%E6%8E%A5PPTP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN/" class="post-title-link" itemprop="url">Linux连接PPTP协议的VPN</a>
+            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
         </h2>
 
         <div class="post-meta">
@@ -1093,7 +1213,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-09-09 11:15:51" itemprop="dateCreated datePublished" datetime="2016-09-09T11:15:51+08:00">2016-09-09</time>
+              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1101,7 +1221,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -1114,8 +1234,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2016/09/09/Linux%E8%BF%9E%E6%8E%A5PPTP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/Linux连接PPTP协议的VPN/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1130,56 +1250,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ppp pptp pptp-setup</span><br></pre></td></tr></table></figure>
-
-<h1 id="创建VPN连接"><a href="#创建VPN连接" class="headerlink" title="创建VPN连接"></a>创建VPN连接</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pptpsetup  --create vpnname --server x.x.x.x  --username uaername --password XXXXXX --encrypt --start</span><br></pre></td></tr></table></figure>
-
+          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
 <ul>
-<li>create是创建的连接名称</li>
-<li>server是vpn的ip地址</li>
-<li>username是用户名</li>
-<li>password是密码，也可以没这个参数，命令稍后会自动询问。这样可以保证账号安全</li>
-<li>encrypt 是表示需要加密，不必指定加密方式，命令会读取配置文件中的加密方式（默认使用require-mppe-128加密）</li>
-<li>start是表示创建连接完后马上连接</li>
+<li>character-set-client-handshake = FALSE</li>
+<li>character-set-server = utf8mb4</li>
+<li>collation-server = utf8mb4_unicode_ci</li>
+<li>init_connect=’SET NAMES utf8mb4’</li>
 </ul>
-<h1 id="连接已有的VPN配置"><a href="#连接已有的VPN配置" class="headerlink" title="连接已有的VPN配置"></a>连接已有的VPN配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pon vpnname</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
 
-<p>这个命令在系统中bin目录中找不到，在pptd的安装目录下的script目录下，如果不清楚这个命令具体在哪里的可以执行以下命令查找</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name <span class="string">"poff"</span> -<span class="built_in">type</span> f</span><br></pre></td></tr></table></figure>
 
-<p>我使用yum安装的软件，可以参考去以下路径查找</p>
-<p><code>/usr/share/doc/ppp-2.4.5/scripts/</code></p>
-<h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><p>连接成功后会在本地创建一个虚拟网口<code>ppp0</code></p>
-<p>相关的路由也会加在路由表中，可以通过<code>route -n</code>和<code>ifconfig</code>命令查看</p>
-<p>VPN连通后，可以指定本地所有流量都走VPN，也可以指定某几个网段的流量走VPN</p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
+<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
 <ul>
-<li>所有流量都走VPN，设置为默认路由</li>
+<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
+<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route add -net 0.0.0.0 dev ppp0</span><br><span class="line">或</span><br><span class="line">route add default dev ppp0</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
 
-<p>删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route del -net 0.0.0.0 dev ppp0</span><br><span class="line">或</span><br><span class="line">route del default</span><br></pre></td></tr></table></figure>
 
+
+<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文章:</p>
 <ul>
-<li>指定网段的流量走VPN</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.168.0/24 dev ppp0</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：重启网卡也会清除VPN通道</strong></p>
-<h1 id="关闭VPN通道"><a href="#关闭VPN通道" class="headerlink" title="关闭VPN通道"></a>关闭VPN通道</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poff vpnname (全部下线poff -a)</span><br></pre></td></tr></table></figure>
-
-<p>这个命令在系统中bin目录中找不到，在pptd的安装目录下的script目录下，如果不清楚这个命令具体在哪里的可以执行以下命令查找</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name <span class="string">"poff"</span> -<span class="built_in">type</span> f</span><br></pre></td></tr></table></figure>
-
-<p>我使用yum安装的软件，可以参考去以下路径查找</p>
-<p><code>/usr/share/doc/ppp-2.4.5/scripts/</code></p>
-<h1 id="相关目录"><a href="#相关目录" class="headerlink" title="相关目录"></a>相关目录</h1><ul>
-<li>/etc/ppp/peers/  存放用户创建的vpnname配置文件的地方</li>
-<li>/etc/ppp/chap-secrets  用户名密码存放的地方（明文的）</li>
-</ul>
-<h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><ul>
-<li>注1： pon 和 poff命令可在ppp源码目录下的scripts目录中找到。</li>
-<li>注2： 要想使用vpn通道，需要根据需要在本地添加静态路由</li>
+<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
+<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
+<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
+<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
 </ul>
 
       
@@ -1202,7 +1318,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.JPG">
@@ -1216,7 +1332,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">添加/删除路由</a>
+            <a href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/" class="post-title-link" itemprop="url">MySQL5.7 字符集设置</a>
         </h2>
 
         <div class="post-meta">
@@ -1226,7 +1342,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-09-09 11:09:16" itemprop="dateCreated datePublished" datetime="2016-09-09T11:09:16+08:00">2016-09-09</time>
+              <time title="创建时间：2017-06-07 15:11:57" itemprop="dateCreated datePublished" datetime="2017-06-07T15:11:57+08:00">2017-06-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1234,7 +1350,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
                 </span>
             </span>
 
@@ -1247,8 +1363,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2016/09/09/%E6%B7%BB%E5%8A%A0-%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/09/添加-删除路由/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2017/06/07/MySQL57%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE%203/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/07/MySQL57字符集设置 3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1263,15 +1379,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="查看路由"><a href="#查看路由" class="headerlink" title="查看路由"></a>查看路由</h1><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">0.0.0.0         192.168.3.1     0.0.0.0         UG    100    0        0 eth0</span><br><span class="line">192.168.3.0     0.0.0.0         255.255.255.0   U     100    0        0 eth0</span><br></pre></td></tr></table></figure>
+          <h1 id="MySQL5-7-字符集设置"><a href="#MySQL5-7-字符集设置" class="headerlink" title="MySQL5.7 字符集设置"></a>MySQL5.7 字符集设置</h1><blockquote>
+<ul>
+<li>character-set-client-handshake = FALSE</li>
+<li>character-set-server = utf8mb4</li>
+<li>collation-server = utf8mb4_unicode_ci</li>
+<li>init_connect=’SET NAMES utf8mb4’</li>
+</ul>
+</blockquote>
+<h1 id="character-set-client-handshake"><a href="#character-set-client-handshake" class="headerlink" title="character-set-client-handshake"></a>character-set-client-handshake</h1><p>用来控制客户端声明使用字符集和服务端声明使用的字符集在不一致的情况下的兼容性.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置为 False, 在客户端字符集和服务端字符集不同的时候将拒绝连接到服务端执行任何操作</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt; netstat -nr</span><br><span class="line">Routing tables</span><br><span class="line"></span><br><span class="line">Internet:</span><br><span class="line">Destination        Gateway            Flags        Refs      Use   Netif Expire</span><br><span class="line">default            10.1.101.254       UGSc          214      718     en0</span><br><span class="line">10.1.100/23        link<span class="comment">#4             UCS            11        0     en0</span></span><br><span class="line">10.1.100.22        link<span class="comment">#4             UHLWIi          1        1     en0</span></span><br><span class="line">10.1.100.65/32     link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.100.65        60:3:8:a5:3b:9e    UHLWIi          1        3     lo0</span><br><span class="line">10.1.100.88        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.94        link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.100.99        link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.100       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.121       link<span class="comment">#4             UHLWIi          1        3     en0</span></span><br><span class="line">10.1.100.146       90:b6:86:d8:d:24   UHLWIi          1        1     en0    867</span><br><span class="line">10.1.101.128       link<span class="comment">#4             UHLWIi          1        2     en0</span></span><br><span class="line">10.1.101.164       c8:25:e1:61:70:2e  UHLWIi          1        1     en0   1004</span><br><span class="line">10.1.101.254/32    link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">10.1.101.254       b0:aa:77:1a:b0:58  UHLWIir       215       16     en0    782</span><br><span class="line">10.1.101.255       link<span class="comment">#4             UHLWbI          1      142     en0</span></span><br><span class="line">10.255.1/24        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">10.255.1.65        10.255.1.66        UH              3        0   utun0</span><br><span class="line">10.255.99/24       10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">10.255.99.49       10.255.99.50       UH             13        0   utun1</span><br><span class="line">10.255.100/24      10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">10.255.100.41      10.255.100.42      UH             13        0   utun2</span><br><span class="line">111.202.124.222/32 192.168.1.1        UGSc            2        0     en0</span><br><span class="line">127                127.0.0.1          UCS             1        0     lo0</span><br><span class="line">127.0.0.1          127.0.0.1          UH             27    57535     lo0</span><br><span class="line">169.254            link<span class="comment">#4             UCS             1        0     en0</span></span><br><span class="line">192.168.2          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.3          10.255.99.49       UGSc            2        0   utun1</span><br><span class="line">192.168.4          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.7          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.8          10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.89         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.90         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.91         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.95         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.99         10.255.99.49       UGSc            1        0   utun1</span><br><span class="line">192.168.101        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.103        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.105        10.255.100.41      UGSc            2        0   utun2</span><br><span class="line">192.168.110        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.111        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.168        10.255.1.65        UGSc            1        0   utun0</span><br><span class="line">192.168.247        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.248        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.251        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.252        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">192.168.253        10.255.100.41      UGSc            1        0   utun2</span><br><span class="line">224.0.0            link<span class="comment">#4             UmCS            2        0     en0</span></span><br><span class="line">224.0.0.251        1:0:5e:0:0:fb      UHmLWI          1        0     en0</span><br><span class="line">255.255.255.255/32 link<span class="comment">#4             UCS             2        0     en0</span></span><br><span class="line">255.255.255.255    link<span class="comment">#4             UHLWbI          1      133     en0</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><h2 id="通过出口IP添加"><a href="#通过出口IP添加" class="headerlink" title="通过出口IP添加"></a>通过出口IP添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.2.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.8.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.168.0/24 gw 192.168.10.85</span><br><span class="line">route add -net 192.168.100.0/24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
 
-<h2 id="通过出口设备添加"><a href="#通过出口设备添加" class="headerlink" title="通过出口设备添加"></a>通过出口设备添加</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 0.0.0.0 dev ppp0 //添加默认路由</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认为 true</span></span><br><span class="line">character-set-client-handshake = <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置为 True, 即使客户端字符集和服务端字符集不同, 也允许客户端连接</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="删除路由"><a href="#删除路由" class="headerlink" title="删除路由"></a>删除路由</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route del -net 192.168.2.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.8.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.168.0&#x2F;24 gw 192.168.10.85</span><br><span class="line">route del -net 192.168.100.0&#x2F;24 gw 192.168.10.85</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="character-set-server"><a href="#character-set-server" class="headerlink" title="character-set-server"></a>character-set-server</h1><p>声明服务端的字符编码, 推荐使用<code>utf8mb4</code> , 该字符虽然占用空间会比较大, 但是可以兼容 emoji 😈 表情的存储</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">character-set-server = utf8mb4</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="collation-server"><a href="#collation-server" class="headerlink" title="collation-server"></a>collation-server</h1><p>声明服务端的字符集, 字符编码和字符集一一对应, 既然使用了<code>utf8mb4</code>的字符集, 就要声明使用对应的字符编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="init-connect"><a href="#init-connect" class="headerlink" title="init_connect"></a>init_connect</h1><p><code>init_connect</code> 是用户登录到数据库上之后, 在执行第一次查询之前执行里面的内容. 如果 <code>init_connect</code> 的内容有语法错误, 导致执行失败, 会导致用户无法执行查询, 从mysql 退出</p>
+<p>使用 <code>init_connect</code> 执行 <code>SET NAMES utf8mb4</code> 意为:</p>
+<ul>
+<li>声明自己(客户端)使用的是 <code>utf8mb4</code> 的字符编码</li>
+<li>希望服务器返回给自己 <code>utf8mb4</code> 的查询结果</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="完整配置"><a href="#完整配置" class="headerlink" title="完整配置"></a>完整配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">character-set-client-handshake = FALSE</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">init_connect = <span class="string">'SET NAMES utf8mb4'</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考文章:</p>
+<ul>
+<li><a href="http://www.jb51.net/article/29576.htm" target="_blank" rel="noopener">http://www.jb51.net/article/29576.htm</a></li>
+<li><a href="http://www.jb51.net/article/52511.htm" target="_blank" rel="noopener">http://www.jb51.net/article/52511.htm</a></li>
+<li><a href="http://www.tuicool.com/articles/2IRVV3" target="_blank" rel="noopener">http://www.tuicool.com/articles/2IRVV3</a></li>
+<li><a href="http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html" target="_blank" rel="noopener">http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html</a></li>
+</ul>
+
       
     </div>
 
@@ -1292,7 +1447,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1360,7 +1515,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">572</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,98 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/Linux%E7%B3%BB%E7%BB%9F%E5%BC%80%E6%9C%BA%E6%97%B6%E5%8A%A0%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/06/02/Linux%E7%B3%BB%E7%BB%9F%E5%BC%80%E6%9C%BA%E6%97%B6%E5%8A%A0%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%A8%A1%E5%9D%97/" class="post-title-link" itemprop="url">Linux系统开机时加载指定模块</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-02 12:14:25" itemprop="dateCreated datePublished" datetime="2017-06-02T12:14:25+08:00">2017-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/06/02/Linux%E7%B3%BB%E7%BB%9F%E5%BC%80%E6%9C%BA%E6%97%B6%E5%8A%A0%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%A8%A1%E5%9D%97/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/Linux系统开机时加载指定模块/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第一种方式"><a href="#第一种方式" class="headerlink" title="第一种方式"></a>第一种方式</h1><p>在 <code>/etc/sysconfig/modules/</code> 下创建 <code>*.modules</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/sysconfig/modules/my.modules</span><br><span class="line"></span><br><span class="line">modprobe overlay</span><br><span class="line"></span><br><span class="line">&gt; chmod 755 /etc/sysconfig/modules/my.modules</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二种方式"><a href="#第二种方式" class="headerlink" title="第二种方式"></a>第二种方式</h1><p>在 <code>/etc/rc.modules</code> 里面加上 <code>modprobe fuse</code>, 没有的话创建该文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/rc.modules</span><br><span class="line"></span><br><span class="line">modprobe overlay</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>reboot</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lsmod | grep over</span><br><span class="line">overlay                42451  0</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三种方式"><a href="#第三种方式" class="headerlink" title="第三种方式"></a>第三种方式</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"overlay"</span> &gt; /etc/modules-load.d/overlay.conf</span><br><span class="line"></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1927,91 +2019,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/01/%E6%89%BE%E5%9B%9EJenkins%E5%AF%86%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/01/%E6%89%BE%E5%9B%9EJenkins%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">找回Jenkins密码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-04-01 14:12:42" itemprop="dateCreated datePublished" datetime="2017-04-01T14:12:42+08:00">2017-04-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/04/01/%E6%89%BE%E5%9B%9EJenkins%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/01/找回Jenkins密码/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>通过修改 Jenkins 的配置文件, 将登录需要密码验证的功能临时取消, 重启 Jenkins, 无密码登录后再修改对应用户的密码, 最后可以改回密码验证模式</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 Jenkins 家目录</span></span><br><span class="line">$ <span class="built_in">cd</span> /var/lib/jenkins/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份配置文件</span></span><br><span class="line">$ cp config.xml config.xml.20170401</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改配置文件</span></span><br><span class="line">vim config.xml</span><br><span class="line"></span><br><span class="line">&lt;useSecurity&gt;<span class="literal">true</span>&lt;/useSecurity&gt;  </span><br><span class="line"><span class="comment"># 修改成  </span></span><br><span class="line">&lt;useSecurity&gt;<span class="literal">false</span>&lt;/useSecurity&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Jenkins 即可无密码登录</span></span><br><span class="line">systemctl restart jenkins</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2084,20 +2091,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

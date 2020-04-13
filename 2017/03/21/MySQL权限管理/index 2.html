@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"docs.lvrui.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="语法grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;; 主机的表示方式 192.168.10.85  单主机授权方式 localhost 本地授权 方式 % 不限制远程主机的 IP 地址 192.168.10.% 网段批量授权  权限列表   权限 说明    usage 连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予usage权限">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL权限管理">
+<meta property="og:url" content="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Polar Snow Documentation">
+<meta property="og:description" content="语法grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;; 主机的表示方式 192.168.10.85  单主机授权方式 localhost 本地授权 方式 % 不限制远程主机的 IP 地址 192.168.10.% 网段批量授权  权限列表   权限 说明    usage 连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予usage权限">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-21T02:08:30.000Z">
+<meta property="article:modified_time" content="2020-03-22T06:36:47.961Z">
+<meta property="article:author" content="极地瑞雪">
+<meta property="article:tag" content="权限管理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>MySQL权限管理 | Polar Snow Documentation</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?963aa068438aaf077b5ce5d3b8d51c95";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Polar Snow Documentation</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">花有重开日 人无再少年</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">372</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">572</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Larry0315" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL权限管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-21 10:08:30" itemprop="dateCreated datePublished" datetime="2017-03-21T10:08:30+08:00">2017-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL权限管理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;;</code></p>
+<h2 id="主机的表示方式"><a href="#主机的表示方式" class="headerlink" title="主机的表示方式"></a>主机的表示方式</h2><ul>
+<li>192.168.10.85  单主机授权方式</li>
+<li>localhost 本地授权 方式</li>
+<li>% 不限制远程主机的 IP 地址</li>
+<li>192.168.10.% 网段批量授权</li>
+</ul>
+<h2 id="权限列表"><a href="#权限列表" class="headerlink" title="权限列表"></a>权限列表</h2><table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>usage</td>
+<td>连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予<code>usage</code>权限. 该权限只能用于数据库登录, 不能执行任何操作, 且 usage 权限不能被回收♻️</td>
+</tr>
+<tr>
+<td>file</td>
+<td>拥有 file 权限才可以执行 <code>select ... into outfile</code> 和 <code>load data infile…</code> 操作, 但是不要把 <code>file</code>, <code>process</code>, <code>super</code> 权限授予管理员以外的账号, 否则存在严重的安全隐患</td>
+</tr>
+<tr>
+<td>super</td>
+<td>该权限允许用户终止任何查询; 修改全局变量的 SET 语句; 使用 <code>change master</code> <code>purge master logs</code></td>
+</tr>
+<tr>
+<td>select</td>
+<td>必须拥有 select 权限才可以使用 <code>select</code>查询数据</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>必须拥有 insert 权限才可以使用<code>insert</code>向表中插入数据</td>
+</tr>
+<tr>
+<td>update</td>
+<td>必须拥有 update 权限才可以使用<code>update</code>更新表中的记录📝</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>必须拥有 delete 权限才可以使用<code>delete</code>删除表中的数据</td>
+</tr>
+<tr>
+<td>alter</td>
+<td>必须拥有 alter 权限才可以使用<code>alter</code>命令更改表的属性</td>
+</tr>
+<tr>
+<td>alter routine</td>
+<td>必须拥有 alter routine 权限才可以执行 <code>alter/drop procedure/function</code>命令</td>
+</tr>
+<tr>
+<td>create</td>
+<td>必须拥有 create 权限才可以使用<code>create</code>命令建表</td>
+</tr>
+<tr>
+<td>create routine</td>
+<td>必须拥有 create routine 权限才可以执行 <code>create/alter/drop procedure/function</code></td>
+</tr>
+<tr>
+<td>create temporary tables</td>
+<td>必须有create  temporary tables的权限，才可以使用<code>create temporary tables</code></td>
+</tr>
+<tr>
+<td>create view</td>
+<td>执行<code>create view</code>创建视图的权限</td>
+</tr>
+<tr>
+<td>create user</td>
+<td>执行<code>create user</code>创建用户的权限(拥有 insert 权限也可以通过直接向 mysql.user 表中插入数据来创建用户)</td>
+</tr>
+<tr>
+<td>show database</td>
+<td>通过 <code>show database</code> 只能看到你拥有的某些权限的数据库, 除非你拥有全局<code>show database</code>权限</td>
+</tr>
+<tr>
+<td>show view</td>
+<td>必须拥有<code>show view</code>权限才可以执行<code>show create view</code>查询已经创建的视图</td>
+</tr>
+<tr>
+<td>index</td>
+<td>必须拥有 index 权限才能创建和删除索引 <code>create/drop index</code></td>
+</tr>
+<tr>
+<td>excute</td>
+<td>必须拥有 excute 权限才可以执行存在的函数(Function)和存储过程(Procedures)</td>
+</tr>
+<tr>
+<td>event</td>
+<td>如果event 的使用频率较低, 建议使用 root 用户进行管理和维护. (要使event 起作用, MySQL 的常量 <code>global event_scheduler</code>必须为<code>on</code>或者<code>1</code>)</td>
+</tr>
+<tr>
+<td>lock tables</td>
+<td>锁表🔐权限</td>
+</tr>
+<tr>
+<td>references</td>
+<td>创建外键约束权限</td>
+</tr>
+<tr>
+<td>reload</td>
+<td>flush talbes/logs/privileges 权限</td>
+</tr>
+<tr>
+<td>replication client</td>
+<td>拥有此权限可以查询<code>master</code> <code>slave</code>状态</td>
+</tr>
+<tr>
+<td>replication slave</td>
+<td>拥有此权限可以从主库读取二进制日志</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭 mysql 的权限</td>
+</tr>
+<tr>
+<td>grant option</td>
+<td>可以将自己拥有的权限授权给其他用户(仅限于自己拥有的权限)</td>
+</tr>
+<tr>
+<td>process</td>
+<td>拥有此权限可以执行<code>show processlist</code>和<code>kill</code>命令. 默认情况下, 每个用户都可以执行该命令, 但是只能查看本用户的进程</td>
+</tr>
+<tr>
+<td>all privileges</td>
+<td>所有权限. 使用<code>with grant option</code>可以连带授权 <code>grant all privileges on *.* to &#39;polarsnow&#39;@&#39;%&#39; with grant option;</code></td>
+</tr>
+<tr>
+<td>truncate</td>
+<td>truncate 权限其实就是 create+drop 权限的组合</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>删库删表删索引删视图等权限</td>
+</tr>
+</tbody></table>
+<p><strong>注意:</strong> 管理权限(如 super, process, file 等)  不能指定某个数据库授权, <code>on</code>关键字之后必须跟 <code>*.*</code></p>
+<h1 id="查看用户授权"><a href="#查看用户授权" class="headerlink" title="查看用户授权"></a>查看用户授权</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show grants for username;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke select,update,insert,delete on *.* from username;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/03/21/MySQL权限管理 5/" rel="bookmark">MySQL权限管理</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="极地瑞雪 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="极地瑞雪 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 权限管理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%205/" rel="prev" title="MySQL权限管理">
+      <i class="fa fa-chevron-left"></i> MySQL权限管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99%203/" rel="next" title="MySQL主从1061报错">
+      MySQL主从1061报错 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主机的表示方式"><span class="nav-number">1.1.</span> <span class="nav-text">主机的表示方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限列表"><span class="nav-number">1.2.</span> <span class="nav-text">权限列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看用户授权"><span class="nav-number">2.</span> <span class="nav-text">查看用户授权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回收权限"><span class="nav-number">3.</span> <span class="nav-text">回收权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#刷新权限"><span class="nav-number">4.</span> <span class="nav-text">刷新权限</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="极地瑞雪"
+      src="/images/avatar.JPG">
+  <p class="site-author-name" itemprop="name">极地瑞雪</p>
+  <div class="site-description" itemprop="description">极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">572</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">372</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Larry0315" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Larry0315" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:polarsnow@lvrui.io" title="E-Mail → mailto:polarsnow@lvrui.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lvrui.io/" title="https:&#x2F;&#x2F;www.lvrui.io" rel="noopener" target="_blank">www.lvrui.io</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://20150509.cn/" title="https:&#x2F;&#x2F;20150509.cn" rel="noopener" target="_blank">20150509.cn</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备15013857号-2 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">极地瑞雪</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://polarsnow.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/";
+    this.page.identifier = "2017/03/21/MySQL权限管理/";
+    this.page.title = "MySQL权限管理";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://polarsnow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,126 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/03/Python%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/03/Python%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">Python中的异常处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-03 20:31:22" itemprop="dateCreated datePublished" datetime="2016-07-03T20:31:22+08:00">2016-07-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/03/Python%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/03/Python中的异常处理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在程序中使用异常处理来提高程序的健壮性，隐藏程序的内部实现。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	n1 = input(<span class="string">"&gt; "</span>)</span><br><span class="line">	n2 = input(<span class="string">"&gt; "</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">	    n1 = int(n1)</span><br><span class="line">	    n2 = int(n2)</span><br><span class="line">	    result = n1 + n2</span><br><span class="line">	<span class="keyword">except</span> Exception <span class="keyword">as</span> ex:  <span class="comment"># ex是Exception类的一个对象</span></span><br><span class="line">	    print(ex)  <span class="comment"># 执行了ex对象的__str__方法</span></span><br><span class="line">	    <span class="comment"># ex中封装了所有的错误信息</span></span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">&gt; <span class="number">1</span></span><br><span class="line">&gt; str</span><br><span class="line">invalid literal <span class="keyword">for</span> int() <span class="keyword">with</span> base <span class="number">10</span>: <span class="string">'str'</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>异常的捕获属于程序正常运行的功能，和报错退出有本质的区别,上面的程序中，虽然有错误，但是程序并没有被终止</p>
+<h1 id="常见的异常种类"><a href="#常见的异常种类" class="headerlink" title="常见的异常种类"></a>常见的异常种类</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">AttributeError 试图访问一个对象没有的树形，比如foo.x，但是foo没有属性x</span><br><span class="line">IOError 输入&#x2F;输出异常；基本上是无法打开文件</span><br><span class="line">ImportError 无法引入模块或包；基本上是路径问题或名称错误</span><br><span class="line">IndentationError 语法错误（的子类） ；代码没有正确对齐</span><br><span class="line">IndexError 下标索引超出序列边界，比如当x只有三个元素，却试图访问x[5]</span><br><span class="line">KeyError 试图访问字典里不存在的键</span><br><span class="line">KeyboardInterrupt Ctrl+C被按下</span><br><span class="line">NameError 使用一个还未被赋予对象的变量</span><br><span class="line">SyntaxError Python代码非法，代码不能编译(个人认为这是语法错误，写错了）</span><br><span class="line">TypeError 传入对象类型与要求的不符合</span><br><span class="line">UnboundLocalError 试图访问一个还未被设置的局部变量，基本上是由于另有一个同名的全局变量，</span><br><span class="line">导致你以为正在访问它</span><br><span class="line">ValueError 传入一个调用者不期望的值，即使值的类型是正确的</span><br></pre></td></tr></table></figure>
+
+<h1 id="更多的异常种类"><a href="#更多的异常种类" class="headerlink" title="更多的异常种类"></a>更多的异常种类</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">ArithmeticError</span><br><span class="line">AssertionError</span><br><span class="line">AttributeError</span><br><span class="line">BaseException</span><br><span class="line">BufferError</span><br><span class="line">BytesWarning</span><br><span class="line">DeprecationWarning</span><br><span class="line">EnvironmentError</span><br><span class="line">EOFError</span><br><span class="line">Exception</span><br><span class="line">FloatingPointError</span><br><span class="line">FutureWarning</span><br><span class="line">GeneratorExit</span><br><span class="line">ImportError</span><br><span class="line">ImportWarning</span><br><span class="line">IndentationError</span><br><span class="line">IndexError</span><br><span class="line">IOError</span><br><span class="line">KeyboardInterrupt</span><br><span class="line">KeyError</span><br><span class="line">LookupError</span><br><span class="line">MemoryError</span><br><span class="line">NameError</span><br><span class="line">NotImplementedError</span><br><span class="line">OSError</span><br><span class="line">OverflowError</span><br><span class="line">PendingDeprecationWarning</span><br><span class="line">ReferenceError</span><br><span class="line">RuntimeError</span><br><span class="line">RuntimeWarning</span><br><span class="line">StandardError</span><br><span class="line">StopIteration</span><br><span class="line">SyntaxError</span><br><span class="line">SyntaxWarning</span><br><span class="line">SystemError</span><br><span class="line">SystemExit</span><br><span class="line">TabError</span><br><span class="line">TypeError</span><br><span class="line">UnboundLocalError</span><br><span class="line">UnicodeDecodeError</span><br><span class="line">UnicodeEncodeError</span><br><span class="line">UnicodeError</span><br><span class="line">UnicodeTranslateError</span><br><span class="line">UnicodeWarning</span><br><span class="line">UserWarning</span><br><span class="line">ValueError</span><br><span class="line">Warning</span><br><span class="line">ZeroDivisionError</span><br></pre></td></tr></table></figure>
+
+<h1 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h1><p>在捕获上面指定异常的时候，我们常常需要指定多个异常区捕获，但有时还是无法全部全部预料到会出现哪种类型的异常，这个时候，Python提供给我们一个万能的异常捕获<code>Exception</code></p>
+<p>那单独捕获异常存在意义是什么呢？在很多时候，我们需要捕获特定的异常来记录日志，或是对某些指定的异常做特殊的处理，这个时候指定捕获某类异常就非常有用啦，为了同时兼顾程序的健壮性，可以像<code>if elif else</code>一样来指定捕获的异常同时兼顾捕获所有的异常，类似于下面的写法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line"><span class="keyword">except</span> ValueError <span class="keyword">as</span> ex:</span><br><span class="line">	print(ex)</span><br><span class="line"><span class="keyword">except</span> IndexError <span class="keyword">as</span> ex:</span><br><span class="line">	print(ex)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> ex:</span><br><span class="line">	print(ex)</span><br></pre></td></tr></table></figure>
+
+<p>这样把指定的异常区分开来</p>
+<p><em>注意：Exception一定要放在最后！</em></p>
+<h1 id="异常处理的完整代码块"><a href="#异常处理的完整代码块" class="headerlink" title="异常处理的完整代码块"></a>异常处理的完整代码块</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 主代码块</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> KeyError,e:</span><br><span class="line">    <span class="comment"># 异常时，执行该块</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 主代码块执行完，执行该块</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="comment"># 无论异常与否，最终执行该块</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 try 中的主代码块执行正确时, 将执行 else 里面的代码, 最后执行 finally 里面的代码</li>
+<li>当 try 中的主代码块执行出现异常时, 将执行 except 里面的代码, 最后执行 finally 里面的代码</li>
+</ul>
+<h1 id="主动触发异常"><a href="#主动触发异常" class="headerlink" title="主动触发异常"></a>主动触发异常</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">raise</span> Exception(<span class="string">"主动抛出异常"</span>)  <span class="comment"># 创建了一个Exception对象，self.message = "主动抛出异常"</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> ex:</span><br><span class="line">	print(ex)  <span class="comment"># __str__ return self.message</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">raise</span> ValueError(<span class="string">"主动抛出值异常"</span>)  <span class="comment"># 创建了一个ValueError对象，self.message = "主动抛出异常"</span></span><br><span class="line"><span class="keyword">except</span> ValueError <span class="keyword">as</span> ex:</span><br><span class="line">	print(ex)  <span class="comment"># __str__ return self.message</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PsException</span><span class="params">(Exception)</span>:</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        self.message = msg</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.message</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> PsException(<span class="string">'Ps的异常'</span>)</span><br><span class="line"><span class="keyword">except</span> PsException <span class="keyword">as</span> ex:</span><br><span class="line">    print(ex)</span><br></pre></td></tr></table></figure>
+
+<h1 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h1><p>语法：<code>assert 条件表达式</code></p>
+<p>条件表达式为假则触发AssertionError异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> <span class="number">1</span> == <span class="number">1</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">assert</span> <span class="number">1</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>assert的应用场景：在执行某些操作之前，如果不符合我指定的某些规则，抛出异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># multiprocessing源码截取</span></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> pool</span><br><span class="line"></span><br><span class="line">p = pool.Pool()</span><br><span class="line"></span><br><span class="line">p.join()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">join</span><span class="params">(self)</span>:</span></span><br><span class="line">    util.debug(<span class="string">'joining pool'</span>)</span><br><span class="line">    <span class="keyword">assert</span> self._state <span class="keyword">in</span> (CLOSE, TERMINATE)</span><br><span class="line">    self._worker_handler.join()</span><br><span class="line">    self._task_handler.join()</span><br><span class="line">    self._result_handler.join()</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> self._pool:</span><br><span class="line">        p.join()</span><br></pre></td></tr></table></figure>
+
+<p>*<em>断言与 raise 的区别: 可以简单理解为 <code>断言=if...else... + raise</code> *</em></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1247,191 +1367,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E7%BB%A7%E6%89%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">Python面向对象基础篇之继承</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-28 02:27:18" itemprop="dateCreated datePublished" datetime="2016-06-28T02:27:18+08:00">2016-06-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/28/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E7%BB%A7%E6%89%BF/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/28/Python面向对象基础篇之继承/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在Java和C#这类面向对象的语言中，一个类只允许有一个父类。而在Python中，可以有多个父类。继承，顾名思义，就是子类默认获得父类中的所有成员。当子类中不包含与父类同名的成员时，Python会自动去父类中查找并使用父类的成员；当子类中的成员与父类中的成员名称相同时，优先使用子类的成员。这种覆盖父类成员属性的特性被称之为“重写”或“复写”</p>
-</blockquote>
-<h1 id="什么是继承"><a href="#什么是继承" class="headerlink" title="什么是继承"></a>什么是继承</h1><p>继承可以简单的理解为，将父类中的所有成员copy一份到子类中，子类和父类如果有相同的成员名，优先使用子类的代码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'show'</span>)</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'get'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码中，我让B类去继承了A类，也就是说A类是B类的父类。现在B类和A类中没有名字相同的成员，所以可以简单的看做是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'show'</span>)</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'get'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>接下来执行如下代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b = B()</span><br><span class="line">b.show()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">show</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的额代码可以验证，在B类中，并没有show方法，但是B类继承了A类，相当于继承了A类所有的代码，所以B类的对象可以使用A类的成员方法。</p>
-<h1 id="重写的特性"><a href="#重写的特性" class="headerlink" title="重写的特性"></a>重写的特性</h1><p>上面我们说到，只有在子类中与父类的成员方法名字不冲突的时候，才会<code>将父类中的成员方法copy到子类中使用</code>（继承到子类）那么，假如子类和父类的某些方法名字冲突了会怎样呢？</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'A show'</span>)</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'get'</span>)</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'B show'</span>)</span><br><span class="line">		</span><br><span class="line">b = B()</span><br><span class="line">b.show()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">B show</span><br></pre></td></tr></table></figure>
-
-<h1 id="在父类中调用子类的成员属性或方法"><a href="#在父类中调用子类的成员属性或方法" class="headerlink" title="在父类中调用子类的成员属性或方法"></a>在父类中调用子类的成员属性或方法</h1><ul>
-<li>实例一</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'A show'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.get()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'get'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'B show'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">b = B(<span class="string">'polarsnow'</span>)</span><br><span class="line">b.func()</span><br><span class="line">b.func2()</span><br></pre></td></tr></table></figure>
-
-<p>猜一猜会有什么样的结果？会打印出<code>polarsnow</code>和<code>get</code>吗？</p>
-<p>按照之前的说法，我们可以把上面的继承看成下面这样</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">		self.name = name</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(self.name)</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">func2</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.get()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'get'</span>)</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'B show'</span>)</span><br><span class="line">		</span><br><span class="line">b = B(<span class="string">'polarsnow'</span>)</span><br><span class="line">b.func()</span><br></pre></td></tr></table></figure>
-
-<p>这样看答案就清楚了吧，肯定是会打印<code>polarsnow</code>和<code>get</code>的</p>
-<p>这里只是举个例子，实际使用中，不推荐在父类中去调用子类的属性，因为有的时候，你不能确定所有继承这个父类的子类都拥有这个成员属性。</p>
-<ul>
-<li>实例二</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.f2()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'A f2'</span>)</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.f1()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'B f2'</span>)</span><br><span class="line">		</span><br><span class="line">b = B()</span><br><span class="line">b.f3()</span><br></pre></td></tr></table></figure>
-
-<p>创建了B类的对象b，然后执行了对象b的f3方法，在f3方法中又执行了f1方法，f1方法在B类中没有，但是B类继承了A类的代码，（注意这里是继承了A类的成员，可以理解为copy过来的成员，而不是去A类中找相应的成员）执行了f1方法后，又调用了f2方法，思考，这个f2是调用了A类中的f2还是B类中的f2？</p>
-<p>根据继承的原理，我们把上面的代码看做如下代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.f2()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'A f2'</span>)</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.f2()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.f1()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(<span class="string">'B f2'</span>)</span><br><span class="line">		</span><br><span class="line">b = B()</span><br><span class="line">b.f3()</span><br></pre></td></tr></table></figure>
-
-<p>将父类中有而子类中没有的成员copy到子类中，子类中有而父类中也有的优先使用子类的成员（重写父类成员）所以A类中只有f1这个成员方法被copy到了B类中。</p>
-<p>当B类的对象b调用f3方法时，调用本类中的f1方法（继承过来的成员方法），接着在f1方法中又调用了本类中已经存在的f2方法。所以最后调用的是B类中的f2方法。</p>
-<p>如果执行以下命令，执行的f2是哪里的f2？</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = A()</span><br><span class="line">a.f1()</span><br></pre></td></tr></table></figure>
-
-<p>当然会执行本类中的f2方法，也就是A类中的f2方法</p>
-<p><strong>总结：</strong>由于Python类中self隐式传递对象自己本身的特性，可以看出，如果调用了子类中不存在的成员，那么去父类中查找的时候，self变量仍然等于原对象自己本身，也就是说，继承的每次查找，都会返回到最底层的（调用对象的那一层）类中去找，如果找不到，才会去父类中查找。（记住每次寻找失败都回到原点）</p>
-<h1 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h1><ul>
-<li>一个类同时继承两个类的情况下，会优先去左边的父类中查找，如果没有则去右边的类中查找</li>
-</ul>
-<p><img src="http://oss.20150509.cn/QQ20160628-1@2x.png" alt=""></p>
-<ul>
-<li>一个类同时继承两个类，左边的类又继承了一个类的情况下，会优先从最左边的类开始找，如果没有，则继续向上查找，如果上面的类还有单继承，就继续向上查找，直到找到没有继承的类为止</li>
-</ul>
-<p><img src="http://oss.20150509.cn/QQ20160628-2@2x.png" alt=""></p>
-<ul>
-<li>如果多继承出现了如下的继承关系，那么左边的类将找到没有继承或公共继承的类为止，然后就切到了第二个类中继续向上查找，公共继承的类会在最右边的类中被找到</li>
-</ul>
-<p><img src="http://oss.20150509.cn/QQ20160628-3@2x.png" alt=""></p>
-<h1 id="查看Python源码的技巧"><a href="#查看Python源码的技巧" class="headerlink" title="查看Python源码的技巧"></a>查看Python源码的技巧</h1><p>在Python的源码中，我们看到好多的pass，却不知道真正的函数体或方法体写在了哪里，那么看完Python的多继承，将完全解决这个问题！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socketserver</span><br><span class="line"></span><br><span class="line">s = socketserver.ThreadingTCPServer()</span><br><span class="line">s.serve_forever()</span><br></pre></td></tr></table></figure>
-
-<p><code>socketserver.ThreadingTCPServer()</code>创建了一个对象，而创建对象时需要执行<code>__init__</code>方法，我们来看看源码中有没有提供这个init方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingTCPServer</span><span class="params">(ThreadingMixIn, TCPServer)</span>:</span> <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<p>从上面的源码中可以看出，这个类直接被pass掉了。根据上面的多继承的知识，本类中没有init方法，我们需要去他的父类中去查找，首先去左边第一个父类中去查找</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingMixIn</span>:</span></span><br><span class="line">    <span class="string">"""Mix-in class to handle each request in a new thread."""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Decides how threads will act upon termination of the</span></span><br><span class="line">    <span class="comment"># main process</span></span><br><span class="line">    daemon_threads = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request_thread</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Same as in BaseServer but as a thread.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        In addition, exception handling is done here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.finish_request(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handle_error(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Start a new thread to process the request."""</span></span><br><span class="line">        t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                             args = (request, client_address))</span><br><span class="line">        t.daemon = self.daemon_threads</span><br><span class="line">        t.start()</span><br></pre></td></tr></table></figure>
-
-<p>这边也没有init方法，这个时候由于这个类不再有继承关系，所以需要回到原点查找第二个父类中有没有init方法。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TCPServer</span><span class="params">(BaseServer)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, server_address, RequestHandlerClass, bind_and_activate=True)</span>:</span></span><br><span class="line">        <span class="string">"""Constructor.  May be extended, do not override."""</span></span><br><span class="line">        BaseServer.__init__(self, server_address, RequestHandlerClass)</span><br><span class="line">        self.socket = socket.socket(self.address_family,</span><br><span class="line">                                    self.socket_type)</span><br><span class="line">        <span class="keyword">if</span> bind_and_activate:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                self.server_bind()</span><br><span class="line">                self.server_activate()</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                self.server_close()</span><br><span class="line">                <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-
-<p>哎~ 在这里找到了init方法，那么最开始创建的对象的代码的init方法，就会使用这里的代码啦！</p>
-<p>至此，<code>s = socketserver.TreadingTCPServer()</code>这一行代码就执行完毕啦。</p>
-<p>接下来需要执行这个对象的<code>server.forver()</code>方法</p>
-<p>接着又回到这个类中查找</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingTCPServer</span><span class="params">(ThreadingMixIn, TCPServer)</span>:</span> <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-
-<p>没有，从左边的父类找</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingMixIn</span>:</span></span><br><span class="line">    <span class="string">"""Mix-in class to handle each request in a new thread."""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Decides how threads will act upon termination of the</span></span><br><span class="line">    <span class="comment"># main process</span></span><br><span class="line">    daemon_threads = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request_thread</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Same as in BaseServer but as a thread.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        In addition, exception handling is done here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.finish_request(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handle_error(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Start a new thread to process the request."""</span></span><br><span class="line">        t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                             args = (request, client_address))</span><br><span class="line">        t.daemon = self.daemon_threads</span><br><span class="line">        t.start()</span><br></pre></td></tr></table></figure>
-
-<p>左边没有，去右边查找</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TCPServer</span><span class="params">(BaseServer)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-
-<p>右边也没有找到，但是右边的父类中，还有一个继承，继续向上查找！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseServer</span>:</span></span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">serve_forever</span><span class="params">(self, poll_interval=<span class="number">0.5</span>)</span>:</span></span><br><span class="line">        <span class="string">"""Handle one request at a time until shutdown.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Polls for shutdown every poll_interval seconds. Ignores</span></span><br><span class="line"><span class="string">        self.timeout. If you need to do periodic tasks, do them in</span></span><br><span class="line"><span class="string">        another thread.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.__is_shut_down.clear()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># <span class="doctag">XXX:</span> Consider using another file descriptor or connecting to the</span></span><br><span class="line">            <span class="comment"># socket to wake this up instead of polling. Polling reduces our</span></span><br><span class="line">            <span class="comment"># responsiveness to a shutdown request and wastes cpu at all other</span></span><br><span class="line">            <span class="comment"># times.</span></span><br><span class="line">            <span class="keyword">with</span> _ServerSelector() <span class="keyword">as</span> selector:</span><br><span class="line">                selector.register(self, selectors.EVENT_READ)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span> <span class="keyword">not</span> self.__shutdown_request:</span><br><span class="line">                    ready = selector.select(poll_interval)</span><br><span class="line">                    <span class="keyword">if</span> ready:</span><br><span class="line">                        self._handle_request_noblock()</span><br><span class="line"></span><br><span class="line">                    self.service_actions()</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            self.__shutdown_request = <span class="literal">False</span></span><br><span class="line">            self.__is_shut_down.set()</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-
-<p>啊哈，原来在这里找到了它！！！但是这里面又调用了<code>self._handle_request_noblock()</code>这个方法，根据之前的继承原理，这里的self指的是调用对象的地址，所以需要重新回到<code>socketserver.ThreadingTCPServer()</code>开始查找</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 源码</span><br><span class="line">class ThreadingTCPServer(ThreadingMixIn, TCPServer): pass</span><br></pre></td></tr></table></figure>
-
-<p>没有，找左边</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingMixIn</span>:</span></span><br><span class="line">    <span class="string">"""Mix-in class to handle each request in a new thread."""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Decides how threads will act upon termination of the</span></span><br><span class="line">    <span class="comment"># main process</span></span><br><span class="line">    daemon_threads = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request_thread</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Same as in BaseServer but as a thread.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        In addition, exception handling is done here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.finish_request(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handle_error(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Start a new thread to process the request."""</span></span><br><span class="line">        t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                             args = (request, client_address))</span><br><span class="line">        t.daemon = self.daemon_threads</span><br><span class="line">        t.start()</span><br></pre></td></tr></table></figure>
-
-<p>左边没有找右边</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TCPServer</span><span class="params">(BaseServer)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-
-<p>右边也没有，继续向上找</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseServer</span>:</span></span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">_handle_request_noblock</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""Handle one request, without blocking.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        I assume that selector.select() has returned that the socket is</span></span><br><span class="line"><span class="string">        readable before this function was called, so there should be no risk of</span></span><br><span class="line"><span class="string">        blocking in get_request().</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            request, client_address = self.get_request()</span><br><span class="line">        <span class="keyword">except</span> OSError:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> self.verify_request(request, client_address):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                self.process_request(request, client_address)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                self.handle_error(request, client_address)</span><br><span class="line">                self.shutdown_request(request)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-
-<p>找到了！但是这里面又执行了<code>self.process_request()</code>,有self，仍需要回到最开始的地方查找</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 源码</span><br><span class="line">class ThreadingTCPServer(ThreadingMixIn, TCPServer): pass</span><br></pre></td></tr></table></figure>
-
-<p>没有，找左边</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadingMixIn</span>:</span></span><br><span class="line">    <span class="string">"""Mix-in class to handle each request in a new thread."""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Decides how threads will act upon termination of the</span></span><br><span class="line">    <span class="comment"># main process</span></span><br><span class="line">    daemon_threads = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request_thread</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Same as in BaseServer but as a thread.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        In addition, exception handling is done here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.finish_request(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handle_error(request, client_address)</span><br><span class="line">            self.shutdown_request(request)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, client_address)</span>:</span></span><br><span class="line">        <span class="string">"""Start a new thread to process the request."""</span></span><br><span class="line">        t = threading.Thread(target = self.process_request_thread,</span><br><span class="line">                             args = (request, client_address))</span><br><span class="line">        t.daemon = self.daemon_threads</span><br><span class="line">        t.start()</span><br></pre></td></tr></table></figure>
-
-<p>找到啦！！！</p>
-<hr>
-<p>这就是socketserver的源码阅读方法，也适用于所有源码的阅读方法，再次强调，遇到self一定要回到原点再次寻找</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1504,20 +1439,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

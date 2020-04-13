@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,135 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/07/27/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/27/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">Go基础之指针</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-27 01:06:27" itemprop="dateCreated datePublished" datetime="2018-07-27T01:06:27+08:00">2018-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/07/27/Go%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/27/Go基础之指针/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Go-语言的指针"><a href="#Go-语言的指针" class="headerlink" title="Go 语言的指针"></a>Go 语言的指针</h1><h2 id="Go-语言中获取内存地址"><a href="#Go-语言中获取内存地址" class="headerlink" title="Go 语言中获取内存地址"></a>Go 语言中获取内存地址</h2><p>Go语言使用<code>&amp;</code>符号来取地址</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> lv <span class="keyword">int</span> = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">   fmt.Println(&amp;lv)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0xc420080030</span><br></pre></td></tr></table></figure>
+
+<h2 id="Go语言中的指针"><a href="#Go语言中的指针" class="headerlink" title="Go语言中的指针"></a>Go语言中的指针</h2><p>一个指针变量指向了一个值的内存地址, 指针也是一种数据类型, 在使用之前, 你需要先声明指针</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age *<span class="keyword">int</span>  <span class="comment">// 指向整型的指针</span></span><br><span class="line"><span class="keyword">var</span> name *<span class="keyword">string</span>  <span class="comment">// 指向字符串的指针</span></span><br></pre></td></tr></table></figure>
+
+<p>*<em>变量: *</em> 变量是一种占位符, 用于引用计算机内存的地址, 可以理解为内存地址的标签</p>
+<p>*<em>指针: *</em> 指向其他变量内存地址的值</p>
+<p>*<em>&amp;: *</em> 取变量的内存地址</p>
+<p><em>*\</em>: ** 取指针指向的内存地址的值</p>
+<p>比喻: 现屋里有一个2*2的箱子, 左下角箱子的编号是<code>1-1</code>标签贴了苹果, 右下角箱子的编号是<code>1-2</code>标签贴了玉米, 左上角箱子的编号是<code>2-1</code>标签贴了桃子, 右上角箱子的编号是<code>2-2</code>标签贴了土豆, 房间里还立着一个大指示牌. 🔜 如下图所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-----------------</span><br><span class="line">|桃子🍑 | 土豆🥔 |</span><br><span class="line">|2-1   | 2-2    |</span><br><span class="line">----------------|</span><br><span class="line">|苹果🍎 | 玉米🌽 |</span><br><span class="line">|1-1   |1-2     |</span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line">🔜  指示牌</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>变量: 变量就是箱子上的标签, 桃子就是一个变量名, 而箱子里的桃子🍑则是值</li>
+<li>值: 实际保存内容的地方, 也就是实际放在盒子里的东西</li>
+<li>指针: 指针就理解为摆在房间里的指示牌, 指示牌可以指向任意一个箱子的地址, 也就是可以指向<code>1-1</code> <code>1-2</code> <code>2-1</code> 或 <code>2-2</code></li>
+<li>&amp;: 获取变量的地址, 用在变量名前面, 理解为获取标签的地址, 比如&amp;玉米, 意思就是获取玉米所在箱子的地址, 也就是<code>1-2</code></li>
+<li>*: 获取指针指向内存地址的值, 假如该指针指向了玉米的地址, 则使用<code>*</code>获取该指针的值即为箱子里所有的玉米🌽</li>
+</ul>
+<p>*<em>注意: *</em> 指针是有数据类型的, 比如你声明了一个水果类型的指针, 那么这个指针(这个指示牌)就只能指向<code>1-1</code> 或 <code>2-1</code> 这两个地址, 因为只有这两个地址的值类型为水果; 同理, 如果你声明了一个蔬菜类型的指针, 也只能指向 <code>1-2</code> 和 <code>2-2</code> 这两块内存地址, 下面介绍指针的使用时, 仍将使用到该比喻</p>
+<h2 id="指针的使用"><a href="#指针的使用" class="headerlink" title="指针的使用"></a>指针的使用</h2><ul>
+<li>定义指针变量</li>
+<li>为指针赋值</li>
+<li>访问指针变量中指向地址的值</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 声明一个水果变量, 假设int类型为水果类型</span></span><br><span class="line">	<span class="comment">// 假设59为苹果🍎, 59即为盒子实际存放的东西</span></span><br><span class="line">	<span class="keyword">var</span> fruit <span class="keyword">int</span> = <span class="number">59</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 声明一个int类型(水果类型)的指针变量</span></span><br><span class="line">	<span class="keyword">var</span> indicator *<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将fruit变量的地址赋值给指针</span></span><br><span class="line">	<span class="comment">// (将苹果盒子的地址1-1赋值给指示牌, 指示牌上写了/指向了1-1)</span></span><br><span class="line">	indicator = &amp;fruit</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 访问指针指向的值</span></span><br><span class="line">	<span class="comment">// 打开指示牌指向的盒子, 打开1-1盒子发现了真正存放的苹果🍎</span></span><br><span class="line">	fmt.Println(*indicator)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">59</span><br></pre></td></tr></table></figure>
+
+<h2 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h2><p>当一个指针被声明后, 却没有被赋予任何变量的内存地址, 此时, 该指针的值为<code>nil</code>, nil指针也被称作空指针</p>
+<p>nil在概念上和其它语言的null、None、nil、NULL一样，都指代零值或空值, 一个指针变量通常缩写为 ptr</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> ptr *<span class="keyword">int</span></span><br><span class="line">	fmt.Println(ptr)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ptr == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"ptr为空指针"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"ptr为非空指针"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;nil&gt;</span><br><span class="line">ptr为空指针</span><br></pre></td></tr></table></figure>
+
+<h2 id="Go指针引用之向函数传递指针参数"><a href="#Go指针引用之向函数传递指针参数" class="headerlink" title="Go指针引用之向函数传递指针参数"></a>Go指针引用之向函数传递指针参数</h2><p><strong>值传递? 引用传递?</strong></p>
+<p>在Python中, 除了像int, str这样基本数据类型是值传递外, 其余绝大部分都是引用传递.<br>而在Go语言中, 只有值传递一种方式, Go语言中是通过传递指针来实现引用传递的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//交换值的函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap1</span><span class="params">(a, b <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	b, a = a, b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// *int 指向整型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap2</span><span class="params">(a, b *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// b指向的值赋值给a, a指向的值赋值给b</span></span><br><span class="line">	<span class="comment">// *b, *a = *a, *b</span></span><br><span class="line">	<span class="comment">// *a 取出 a 指针指向的值赋值给 c 变量(中间变量)</span></span><br><span class="line">	c := *a</span><br><span class="line">	<span class="comment">// *b 取出 b 指针的指向的值赋值给 a指针的值</span></span><br><span class="line">	<span class="comment">// 注意, 不能把值直接赋值给指针</span></span><br><span class="line">	<span class="comment">// 指针只是保存值的地址</span></span><br><span class="line">	<span class="comment">// 所以这里将 b 指针指向的值赋值给 a 指针指向的值, 即用 b 值覆盖 a 值</span></span><br><span class="line">	*a = *b</span><br><span class="line">	<span class="comment">// 最后用 c 变量的值, 覆盖 b 值</span></span><br><span class="line">	*b = c</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap3</span><span class="params">(a, b *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	*a, *b = *b, *a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap4</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 使用值传递的方式, 利用返回值来实现值的交换</span></span><br><span class="line">	<span class="keyword">return</span> b, a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a, b := <span class="number">5</span>, <span class="number">9</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 值传递, 交换只在函数内生效, 不能改变外面的值</span></span><br><span class="line">	swap1(a, b)</span><br><span class="line">	fmt.Println(a, b)  <span class="comment">// 结果为: 5 9</span></span><br><span class="line">	<span class="comment">// 从结果中可以看出, a, b两个变量进入到函数是值拷贝, 在函数内的操作并没有改变函数外a, b实际的值</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 交换地址(引用传递)</span></span><br><span class="line">	swap2(&amp;a, &amp;b)</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 再次交换地址(引用传递)</span></span><br><span class="line">	swap3(&amp;a, &amp;b)</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 值传递, 利用返回值交换值</span></span><br><span class="line">	<span class="comment">// 注意返回值的顺序, 返回值里交换了, 接收返回值的顺序就不要变</span></span><br><span class="line">	<span class="comment">// 如果return是 a,b 那么接收的时候就要变成 b, a 去接收</span></span><br><span class="line">	a, b = swap4(a, b)</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>以上交换的场景中, swap4为最佳方案, 简单有效! 指针在实际使用中也要充分考虑使用场景, 是否非用指针不可</strong></p>
+<h2 id="Go指针引用之指向指针的指针"><a href="#Go指针引用之指向指针的指针" class="headerlink" title="Go指针引用之指向指针的指针"></a>Go指针引用之指向指针的指针</h2><p>待续…</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -972,96 +1101,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="post-title-link" itemprop="url">python中的mysql连接池</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-03-16 15:43:02" itemprop="dateCreated datePublished" datetime="2018-03-16T15:43:02+08:00">2018-03-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/03/16/python%E4%B8%AD%E7%9A%84mysql%E8%BF%9E%E6%8E%A5%E6%B1%A0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/16/python中的mysql连接池/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> DBUtils.PooledDB <span class="keyword">import</span> PooledDB</span><br><span class="line"></span><br><span class="line">MYSQL_HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">USER = <span class="string">'zabbix'</span></span><br><span class="line">PASSWORD = <span class="string">'p@55w0rd'</span></span><br><span class="line">DB = <span class="string">'zabbix'</span></span><br><span class="line">PORT = <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建数据库连接池</span></span><br><span class="line">mp = PooledDB(</span><br><span class="line">    pymysql, mincached=<span class="number">5</span>, maxconnections=<span class="number">10</span>, blocking=<span class="literal">True</span>,</span><br><span class="line">    host=MYSQL_HOST, user=USER, passwd=PASSWORD, db=DB, port=PORT, charset=<span class="string">"utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">conn = mp.connection()</span><br><span class="line">cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"select hostid from hosts where name='xxx';"</span></span><br><span class="line">mysql.cur.execute(sql)</span><br><span class="line"></span><br><span class="line">cur.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
-
-<h1 id="PooledDB的参数"><a href="#PooledDB的参数" class="headerlink" title="PooledDB的参数"></a>PooledDB的参数</h1><ul>
-<li>mincached: 最少的空闲连接数, 如果空闲连接数小于这个数, pool会创建一个新的连接</li>
-<li>maxcached: 最大的空闲连接数, 如果空闲连接数大于这个数, pool会关闭空闲连接</li>
-<li>maxconnections: 最大的连接数</li>
-<li>blocking: 当连接数达到最大的连接数时, 在请求连接的时候, 如果这个值是True, 请求连接的程序会一直等待, 直到当前连接数小于最大连接数, 如果这个值是False, 会报错</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1134,20 +1173,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

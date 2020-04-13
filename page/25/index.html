@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">376</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">378</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">14</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">286</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">287</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,151 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Python反射详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-16 02:03:20" itemprop="dateCreated datePublished" datetime="2016-06-16T02:03:20+08:00">2016-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/16/Python%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/16/Python反射详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>反射，可以理解为利用字符串的形式去对象中操作成员属性和方法</p>
+<p>反射的这点特性让我联想到了<code>exec</code>函数，也是把利用字符串的形式去让Python解释器去执行命令</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<p>解释Python的反射，先提一个简单的需求，现在我有一个简易的网站，由两个文件组成，一个是具体执行操作的<code>commons.py</code>文件，一个是入口文件<code>index.py</code>，现在我需要在入口文件中设置，让用户输入url，根据用户输入的url去后端执行相应的操作，内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># commons.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'登录页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'退出页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'主页面'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> inp == <span class="string">'login'</span>:</span><br><span class="line">    commons.login()</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">'logout'</span>:</span><br><span class="line">    commons.logout()</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">'index'</span>:</span><br><span class="line">    commons.index()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">url &gt; login</span><br><span class="line">登录页面!</span><br></pre></td></tr></table></figure>
+
+<p>上面我使用了if判断，根据每一个url请求去后端执行指定的函数。那现在我的网站内容变多了，在<code>commons.py</code>中有100个页面操作，那么相对应的我在<code>index.py</code>中也要使用if else 对这100个页面函数进行手动指定。</p>
+<p>有了Python🐍反射的特性，这个需求就变得异常简单了，先不多解释，先看代码(commons.py保持文件不变，还是拿三个页面的操作举例🌰)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> hasattr(commons, inp):</span><br><span class="line">        func = getattr(commons, inp)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line">url &gt; logout</span><br><span class="line">退出页面!</span><br></pre></td></tr></table></figure>
+
+<p>Look! Python的反射立了大功，使用这几行代码，可以应对<code>commons.py</code>文件中任意多个页面函数的调用！接下来我们来详细介绍Python反射中用到的内建函数</p>
+<h1 id="getattr"><a href="#getattr" class="headerlink" title="getattr()"></a>getattr()</h1><p>先看下源码中的解释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getattr</span><span class="params">(object, name, default=None)</span>:</span> <span class="comment"># known special case of getattr</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    getattr(object, name[, default]) -&gt; value</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.</span></span><br><span class="line"><span class="string">    When a default argument is given, it is returned when the attribute doesn't</span></span><br><span class="line"><span class="string">    exist; without it, an exception is raised in that case.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>getattr()</code>函数执行成功后会将参数中对象中的方法赋值给新的变量（会返回参数中指定的对象中的方法）相当于参数中的方法又多了一个栈区的变量去引用</p>
+<p><code>getattr()</code>函数的第一个参数需要是个对象，上面的例子中，我导入了自定义的commons模块，commons就是个对象；第二个参数是指定前面对象中的一个方法名称。<code>getattr(x, &#39;y&#39;)</code> 等价于执行了 <code>x.y</code>。假如第二个参数输入了前面对象中不存在的方法，该函数会抛出异常并退出。所以这个时候，为了程序的健壮性，我们需要先判断一下该对象中有没有这个方法，于是<code>hasattr()</code>函数登场了~~</p>
+<h1 id="hasattr"><a href="#hasattr" class="headerlink" title="hasattr()"></a>hasattr()</h1><p>还是先看下源码的解释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hasattr</span><span class="params">(*args, **kwargs)</span>:</span> <span class="comment"># real signature unknown</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Return whether the object has an attribute with the given name.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    This is done by calling getattr(obj, name) and catching AttributeError.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>hasattr()</code>函数返回对象是否拥有指定名称的属性，简单的说就是检查在第一个参数的对象中，能否找到与第二参数名相同的方法。源码的解释还说，该函数的实现其实就是调用了<code>getattr()</code>函数，只不过它捕获了异常而已。所以通过这个函数，我们可以先去判断对象中有没有这个方法，有则使用<code>getattr()</code>来获取该方法。</p>
+<h1 id="delattr"><a href="#delattr" class="headerlink" title="delattr()"></a>delattr()</h1><p>删除指定对象中的指定方法，特别提示：只是在本次运行程序的内存中将该方法删除，并没有影响到文件的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">print(dir(commons))</span><br><span class="line">delattr(commons, <span class="string">'index'</span>)</span><br><span class="line">print(dir(commons))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__cached__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__file__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>, <span class="string">'__package__'</span>, <span class="string">'__spec__'</span>, <span class="string">'index'</span>, <span class="string">'login'</span>, <span class="string">'logout'</span>]</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__cached__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__file__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>, <span class="string">'__package__'</span>, <span class="string">'__spec__'</span>, <span class="string">'login'</span>, <span class="string">'logout'</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="setattr"><a href="#setattr" class="headerlink" title="setattr()"></a>setattr()</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setattr</span><span class="params">(x, y, v)</span>:</span> <span class="comment"># real signature unknown; restored from __doc__</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Sets the named attribute on the given object to the specified value.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    setattr(x, 'y', v) is equivalent to ``x.y = v''</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>setattr()</code>函数用来给指定对象中的方法重新赋值（将新的函数体/方法体赋值给指定的对象名）仅在本次程序运行的内存中生效。<code>setattr(x, &#39;y&#39;, v)</code> 等价于 <code>x.y = v</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commons</span><br><span class="line"></span><br><span class="line">commons.index()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">newindex</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'new 主页面!'</span>)</span><br><span class="line"></span><br><span class="line">setattr(commons, <span class="string">'index'</span>, newindex)</span><br><span class="line"></span><br><span class="line">commons.index()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">主页面</span><br><span class="line">new 主页面!</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="import"><a href="#import" class="headerlink" title="__import__"></a>__import__</h1><p>好的，网站发展至今，功能有了很多的扩展，现在一个后台文件已经不能满足我的需求，这个时候需要根据职能划分后台文件，现在我又新增了一个<code>account.py</code>这个用户管理类的文件，也需要导入到首页以备调用。</p>
+<p>这个时候，我的首页通过反射，只能指定<code>commons</code>模块的方法任意调用，现在新增了<code>account</code>模块，是不是我又要加入if去判断啦？不用！Python已经帮我们想到这一点了！最后搬出<code>__import__</code>这个大救星。</p>
+<p>由于模块的导入也需要使用Python反射的特性，所以模块名也要加入到url中，所以现在url请求变成了类似于<code>commons/index</code>的形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># account.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_user</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'添加用户'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_user</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'删除用户'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># commons.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'登录页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'退出页面!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'主页面'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(m)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行</span></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; account/add_user</span><br><span class="line">添加用户</span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; commons/login</span><br><span class="line">登录页面!</span><br></pre></td></tr></table></figure>
+
+<p>能体会到<code>__import__</code>的作用了吗，就是把字符串当做模块去导入。<code>import &#39;sys&#39;</code> 和 <code>import sys</code> 是不一样的，不信你执行一下~~要想导入字符串<code>&#39;sys&#39;</code>只能通过<code>__import__(&#39;sys&#39;)</code>的方式导入</p>
+<p>等等，还没完，我的网站进一步细化分工，现在又多了一层目录结构，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|- index.py</span><br><span class="line">|- commons.py</span><br><span class="line">|- account.py</span><br><span class="line">|- lib</span><br><span class="line">	|- __init__.py</span><br><span class="line">	|- connectdb.py</span><br></pre></td></tr></table></figure>
+
+<p>现在我想在<code>index</code>页面中调用<code>lib</code>包下<code>connectdb</code>模块中的方法，还是用之前的方式调用可以吗？我们试一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(<span class="string">'lib.'</span> + m)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line">    </span><br><span class="line">------------</span><br><span class="line"><span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>哎呦，不行啊。上面我为了测试调用lib下的模块，抛弃了对所有同级目录模块的支持，可还是不行，居然找不到这个这个模块的这个方法。还是来看下源码是怎么说的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__import__</span><span class="params">(name, globals=None, locals=None, fromlist=<span class="params">()</span>, level=<span class="number">0</span>)</span>:</span> <span class="comment"># real signature unknown; restored from __doc__</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    __import__(name, globals=None, locals=None, fromlist=(), level=0) -&gt; module</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Import a module. Because this function is meant for use by the Python</span></span><br><span class="line"><span class="string">    interpreter and not for general use it is better to use</span></span><br><span class="line"><span class="string">    importlib.import_module() to programmatically import a module.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    The globals argument is only used to determine the context;</span></span><br><span class="line"><span class="string">    they are not modified.  The locals argument is unused.  The fromlist</span></span><br><span class="line"><span class="string">    should be a list of names to emulate ``from name import ...'', or an</span></span><br><span class="line"><span class="string">    empty list to emulate ``import name''.</span></span><br><span class="line"><span class="string">    When importing a module from a package, note that __import__('A.B', ...)</span></span><br><span class="line"><span class="string">    returns package A when fromlist is empty, but its submodule B when</span></span><br><span class="line"><span class="string">    fromlist is not empty.  Level is used to determine whether to perform </span></span><br><span class="line"><span class="string">    absolute or relative imports. 0 is absolute while a positive number</span></span><br><span class="line"><span class="string">    is the number of parent directories to search relative to the current module.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><code>__import__</code>函数中有一个<code>fromlist</code>参数，源码解释说，如果在一个包中导入一个模块，这个参数如果为空，则return这个包对象，如果这个参数不为空，则返回包下面指定的模块对象，于是做出如下修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">    obj_module = __import__(<span class="string">'lib.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">        func = getattr(obj_module, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">url &gt; connectdb/mysql</span><br><span class="line">已连接mysql</span><br></pre></td></tr></table></figure>
+
+<p>成功了~~ 但是为了这次成功，我写死了lib前缀，相当于抛弃了commons和account两个导入的功能，所以以上代码并不完善，需求复杂后，还是需要对请求的url做一下判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">2</span>:</span><br><span class="line">        m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(m)</span><br><span class="line">        <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">            func = getattr(obj_module, f)</span><br><span class="line">            func()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'404'</span>)</span><br><span class="line">    <span class="keyword">elif</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">3</span>:</span><br><span class="line">        p, m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(p + <span class="string">'.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> hasattr(obj_module, f):</span><br><span class="line">            func = getattr(obj_module, f)</span><br><span class="line">            func()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行</span></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; lib/connectdb/mysql</span><br><span class="line">已连接mysql</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 index.py</span></span><br><span class="line">url &gt; account/del_user</span><br><span class="line">删除用户</span><br></pre></td></tr></table></figure>
+
+<p>虽然重复代码量不高，但我们仍要有一颗消除重复代码的❤️</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">2</span>:</span><br><span class="line">        m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(m)</span><br><span class="line">        getf(obj_module, f)</span><br><span class="line">    <span class="keyword">elif</span> len(inp.split(<span class="string">'/'</span>)) == <span class="number">3</span>:</span><br><span class="line">        p, m, f = inp.split(<span class="string">'/'</span>)</span><br><span class="line">        obj_module = __import__(p + <span class="string">'.'</span> + m, fromlist=<span class="literal">True</span>)</span><br><span class="line">        getf(obj_module, f)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getf</span><span class="params">(m, f)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> hasattr(m, f):</span><br><span class="line">        func = getattr(m, f)</span><br><span class="line">        func()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'404'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    inp = input(<span class="string">'url &gt; '</span>)</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1509,123 +1654,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/07/Python-for-%E9%80%92%E5%BD%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/07/Python-for-%E9%80%92%E5%BD%92/" class="post-title-link" itemprop="url">Python for 递归</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-07 00:40:43" itemprop="dateCreated datePublished" datetime="2016-06-07T00:40:43+08:00">2016-06-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/06/07/Python-for-%E9%80%92%E5%BD%92/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/07/Python-for-递归/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>递归：程序执行过程中，调动自身的编程技巧称之为递归，如果你需要了解更多关于递归的说明，可以移步下面的链接查看百度百科。好吧，我们这里不谈递归的概念，只谈实现</p>
-</blockquote>
-<p><a href="http://baike.baidu.com/link?url=XwtAqR--kKYDNpBVGDColI-LJjrm8Pz1kL2-VO0oB5RYs0pIF_sgxmc8AT15IGHjJqC80vnHhuYaSs_eIRx6m_" target="_blank" rel="noopener">百度百科：递归</a></p>
-<p>在去实现递归之前，先来看一个小🌰例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Polar Snow'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">b</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">c</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> b()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">d</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> c()</span><br><span class="line"></span><br><span class="line">d()</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">Polar Snow</span><br></pre></td></tr></table></figure>
-
-<p>如代码所示，我执行了<code>d()</code>，但是在d的内部又执行了<code>c()</code>,在c的内部又执行了<code>b()</code>,在b的内部执行了<code>a()</code>，调用关系如下图所示：</p>
-<p><img src="http://oss.20150509.cn/20160607014959.png" alt=""></p>
-<p>执行<code>d()</code>的时候，先走红色线的调用，到<code>a()</code>后，走蓝色线的返回值，最后的<code>print(r)</code>实际上就是<code>a()</code>函数的返回值</p>
-<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>了解了上面的例子后，会更容易递归的实现，现有如下递归实例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(n)</span>:</span></span><br><span class="line">    n += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n &gt;= <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'end'</span></span><br><span class="line">    <span class="keyword">return</span> func(n)</span><br><span class="line"></span><br><span class="line">r = func(<span class="number">1</span>)</span><br><span class="line">print(r)</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://oss.20150509.cn/20160607021259.png" alt=""></p>
-<p>红色的线是调用线，蓝色的线是返回线。可以看到，递归是逐层调用，当条件满足时结束调用自己，并逐层将值返回。上面的案例中，每层的值都是按照原值进行返回，在实际应用中，可以对每下一层返回的值进行计算后再返回给上一层。</p>
-<p><strong>思考题</strong></p>
-<ul>
-<li>使用递归的方式计算：<code>7的阶乘</code></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> n * cal(n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">print(cal(<span class="number">7</span>))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">5040</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://oss.20150509.cn/20160607024859.png" alt=""></p>
-<ul>
-<li>使用递归的方式计算：<code>1*2*3*4*5*6*7</code></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">7</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> n * cal(n+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">print(cal(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">5040</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/20160607024959.png" alt=""></p>
-<p><strong>总结</strong>：从以上两种对递归的使用来看，可以总结出，递归计算的两个关键点</p>
-<ul>
-<li>return点：递归到第几层的时候开始返回，返回什么？</li>
-<li>计算点：当下一层的函数返回数据的时候，需要对数据做什么样的计算？</li>
-</ul>
-<p>第一种计算阶乘的思路是传递一个最大值，让函数帮我从大往小乘。有了这个信息就确定了<code>计算点</code>的方式！是从大往小乘，大的值就是原参数的值，小的值是通过下一层计算得来的，所以就确定了计算点的表达式<code>n * cal(n-1)</code>。最后还需要确定递归的第一个返回值，也就是<code>return点</code>，既然是从大往小乘，return点就是最小值1，阶乘算到1就不用往下算了，所以在递归中加入判断，当值=1时，返回1.</p>
-<p>第二种计算阶乘的思路是传递一个最小值，在递归内部，写死了计算到7的阶乘，递归到最深层的时候返回7到上一层，交给上一层的<code>n * 7</code>表达式来处理，由于函数中，每层的调用n都加了1，那么此时的n肯定是6，所以表达式会计算<code>6 * 7</code>,并将结果42返回给上一层。而再上一层的n肯定是5，所以又会去计算<code>5 * 42</code>并将结果返回至上层</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1698,20 +1726,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">286</span>
+          <span class="site-state-item-count">287</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">376</span>
+        <span class="site-state-item-count">378</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
