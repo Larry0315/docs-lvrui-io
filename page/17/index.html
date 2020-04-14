@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,114 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">MySQL5.6二进制包部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-12 13:43:08" itemprop="dateCreated datePublished" datetime="2016-12-12T13:43:08+08:00">2016-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/12/12/MySQL5-6%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8C%85%E9%83%A8%E7%BD%B2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/12/MySQL5-6二进制包部署/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="下载编译mysql"><a href="#下载编译mysql" class="headerlink" title="下载编译mysql"></a>下载编译mysql</h1><p>略 (请在 MySQL 官网下载 tar.gz 的 source 源码包)</p>
+<p>官网5.6 下载地址: <a href="http://dev.mysql.com/downloads/mysql/5.6.html#downloads" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mysql/5.6.html#downloads</a></p>
+<p><em>编译参数会在其他文章中详细讲解</em></p>
+<h1 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h1><p>使用下面的命令检查是否安装有MySQL Server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rpm -qa | grep mysql</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; rpm -e mysql <span class="comment">#普通删除模式 </span></span><br><span class="line">&gt; rpm -e --nodeps mysql <span class="comment"># 强力删除模式，如果使用上面命令删除时，提示有依赖的其它文件，则用该命令可以对其进行强力删除</span></span><br><span class="line">&gt; yum remove mysql <span class="comment">#删除依赖的文件</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="安装mysql并初始化"><a href="#安装mysql并初始化" class="headerlink" title="安装mysql并初始化"></a>安装mysql并初始化</h1><p>把下载好的mysql二进制包放在 <code>/usr/local/</code> 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; useradd mysql</span><br><span class="line">&gt; mv /etc/my.cnf /etc/my.conf.d /tmp</span><br><span class="line">&gt; mkdir -p /data/mysql</span><br><span class="line">&gt; chown mysql:mysql /data/mysql</span><br><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span><br><span class="line">&gt; tar -xvzf mysql.tar.gz</span><br><span class="line">&gt; chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">&gt; scripts/mysql_install_db --basedir=/usr/<span class="built_in">local</span>/mysql --datadir=/data/mysql --user=mysql</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h1><h2 id="创建mysql配置文件"><a href="#创建mysql配置文件" class="headerlink" title="创建mysql配置文件"></a>创建mysql配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim /etc/my.cnf</span><br><span class="line">略</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; chown mysql:mysql /etc/my.cnf</span><br></pre></td></tr></table></figure>
+
+<h2 id="拷贝mysql启动命令"><a href="#拷贝mysql启动命令" class="headerlink" title="拷贝mysql启动命令"></a>拷贝mysql启动命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; cp support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">&gt; vim /etc/init.d/mysqld</span><br><span class="line">basedir=/usr/<span class="built_in">local</span>/mysql</span><br><span class="line">datadir=/data/mysql</span><br><span class="line">&gt; chkconfig mysqld on </span><br><span class="line">&gt; service mysqld start</span><br></pre></td></tr></table></figure>
+
+<p>这里一定要注意，虽然是在CentOS7系列上安装，CentOS7默认使用systemctl管理程序的启动与关闭，但是mysql5.6提供的脚本是使用service控制程序启动与关闭的脚本，所以需要放在<code>/etc/init.d/</code>下，使用service的方式启动</p>
+<h1 id="进入mysql"><a href="#进入mysql" class="headerlink" title="进入mysql"></a>进入mysql</h1><p>进入mysql会碰到环境变量的问题，找不到mysql的执行文件</p>
+<p>MySQL启动成功后，root默认没有密码，我们需要设置root密码。<br>设置之前，我们需要先设置PATH，要不不能直接调用mysql<br>修改/etc/profile文件，在文件末尾添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; vim &#x2F;etc&#x2F;profile</span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+
+<p>关闭文件，运行下面的命令，让配置立即生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们可以在终端内直接输入mysql进入，mysql的环境了<br>执行下面的命令修改root密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot </span><br><span class="line">mysql&gt; SET PASSWORD &#x3D; PASSWORD(&#39;123456&#39;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1200,109 +1308,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/" class="post-title-link" itemprop="url">检测TCP/UDP端口是否可用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-10-12 11:50:18" itemprop="dateCreated datePublished" datetime="2016-10-12T11:50:18+08:00">2016-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/10/12/%E6%A3%80%E6%B5%8BTCP-UDP%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/12/检测TCP-UDP端口是否可用/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在日常运维中,我们常常需要检查远程服务器的某个端口是否可用,是否可以连通. 如果远程服务器是使用了 TCP 协议监听了端口, 我们可以使用 telnet 命令来测试端口的连通性; 如果远程服务器使用的了 UDP 协议监听了端口, 我们可以使用 nc 命令来测试端口的连通性. 下面就对这两个命令做简单的使用介绍</p>
-</blockquote>
-<h1 id="telnet-gt-TCP"><a href="#telnet-gt-TCP" class="headerlink" title="telnet ===&gt; TCP"></a>telnet ===&gt; TCP</h1><p>telnet 命令的常用语法: <code>telnet IP port</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ telnet 192.168.10.159 22</span><br><span class="line">Trying 192.168.10.159...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is <span class="string">'^]'</span>.</span><br><span class="line">SSH-2.0-OpenSSH_6.6.1</span><br></pre></td></tr></table></figure>
-
-<p>以上测试即为可以连通,而且显示出了应用的名称<code>SSH</code></p>
-<p>退出 telnet 可是按 <code>Ctrl+]</code> 组合键, 得到 <code>&gt;</code> 命令终端后,再输入 <code>quit</code> 退出终端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ telnet 192.168.10.159 22</span><br><span class="line">Trying 192.168.10.159...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is <span class="string">'^]'</span>.</span><br><span class="line">SSH-2.0-OpenSSH_6.6.1</span><br><span class="line">^]</span><br><span class="line">telnet&gt; quit</span><br><span class="line">Connection closed.</span><br></pre></td></tr></table></figure>
-
-<p><em>telnet 的其他用法请自行百度一下/谷歌一下</em>😆</p>
-<h1 id="nc-gt-UDP"><a href="#nc-gt-UDP" class="headerlink" title="nc ===&gt; UDP"></a>nc ===&gt; UDP</h1><p>udp 协议监听的端口是不能用 telnet 命令来测试的,这里用到了 nc 命令</p>
-<p>nc 命令的常用语法: <code>nc -zuv IP port</code></p>
-<ul>
-<li>z 将输入输出关闭</li>
-<li>u 开启 UDP 模式</li>
-<li>v 得到详细输出</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ nc -zuv 192.168.10.159 4500</span><br><span class="line">found 0 associations</span><br><span class="line">found 1 connections:</span><br><span class="line">     1:	flags=82&lt;CONNECTED,PREFERRED&gt;</span><br><span class="line">	outif (null)</span><br><span class="line">	src 10.1.100.12 port 53092</span><br><span class="line">	dst 192.168.10.159 port 4500</span><br><span class="line">	rank info not available</span><br><span class="line"></span><br><span class="line">Connection to 192.168.10.159 port 4500 [udp/ipsec-msft] succeeded!</span><br></pre></td></tr></table></figure>
-
-<p>nc 是一个强大的网络工具, 功能不仅限于此</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1375,7 +1380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">289</span>
+          <span class="site-state-item-count">290</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1388,7 +1393,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">379</span>
+        <span class="site-state-item-count">381</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

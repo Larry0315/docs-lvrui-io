@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,175 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/04/15/Docker%E5%88%9D%E4%BD%93%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/15/Docker%E5%88%9D%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">Docker初体验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-15 10:44:04" itemprop="dateCreated datePublished" datetime="2017-04-15T10:44:04+08:00">2017-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/04/15/Docker%E5%88%9D%E4%BD%93%E9%AA%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/15/Docker初体验/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li>bash 前台运行</li>
+<li>容器持久运行的条件</li>
+<li>nginx 后台运行</li>
+<li>后台运行的条件</li>
+<li>Docker数据存储的哲学</li>
+<li>Docker使用的哲学</li>
+</ul>
+</blockquote>
+<h1 id="前台运行容器"><a href="#前台运行容器" class="headerlink" title="前台运行容器"></a>前台运行容器</h1><h2 id="拉取-centos-镜像"><a href="#拉取-centos-镜像" class="headerlink" title="拉取 centos 镜像"></a>拉取 centos 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker pull centos</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/centos</span><br><span class="line">93857f76ae30: Pull complete </span><br><span class="line">Digest: sha256:4eda692c08e0a065ae91d74e82fff4af3da307b4341ad61fa61771cc4659af60</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos:latest</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看镜像列表"><a href="#查看镜像列表" class="headerlink" title="查看镜像列表"></a>查看镜像列表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">centos              latest              a8493f5f50ff        33 hours ago        192MB</span><br><span class="line">nginx               latest              5766334bdaa0        37 hours ago        183MB</span><br><span class="line">hello-world         latest              48b5124b2768        2 months ago        1.84kB</span><br></pre></td></tr></table></figure>
+
+<h2 id="以前台运行方式运行容器"><a href="#以前台运行方式运行容器" class="headerlink" title="以前台运行方式运行容器"></a>以前台运行方式运行容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run --name "mycentos" -it centos /bin/bash</span></span><br><span class="line">[root@e4b1ccd2600b /]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>run: 运行一个容器</li>
+<li>—name “mycentos”: 给容器命名</li>
+<li>-i: 打开容器的标准输入</li>
+<li>-t: 分配一个伪终端 tty</li>
+<li>centos: 镜像名</li>
+<li>运行容器后执行的命令</li>
+</ul>
+<p>语法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run --help</span></span><br><span class="line"></span><br><span class="line">Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"></span><br><span class="line">Run a <span class="built_in">command</span> <span class="keyword">in</span> a new container</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install dstat htop lsof curl wget lrzsz</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="退出终端-退出容器"><a href="#退出终端-退出容器" class="headerlink" title="退出终端/退出容器"></a>退出终端/退出容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@e4b1ccd2600b /]<span class="comment"># </span></span><br><span class="line">[root@e4b1ccd2600b /]<span class="comment"># exit</span></span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>随着终端的退出, 容器也随之退出</p>
+<hr>
+<h1 id="容器持久运行的条件"><a href="#容器持久运行的条件" class="headerlink" title="容器持久运行的条件"></a>容器持久运行的条件</h1><p><strong>阻塞!!!</strong></p>
+<p>Docker 容器持久运行的基本条件是-进程的阻塞!</p>
+<p>Docker 的哲学中, 主张一个容器只启动”一个进程”, 这里的一个进程可以理解为一个程序 或是一个主进程, 比如一个 Apache, 一个 Apache 可以启动一个主进程和若干个子进程.</p>
+<p>如果想让 Docker 持久化运行, 那么在容器启动时, 必须有一个进程阻塞住终端. Docker 判断容器内服务是否正常的方式很简单, 就是判断最后阻塞的进程是否挂掉, 如果最后阻塞的进程挂掉, 那么容器退出. </p>
+<p>Docker 认为, 容器即服务, 容器即程序, 一个容器就是一个程序, 如果一个容器内启动了多个服务, 比如 A, B 和 C服务, C 作为最后一个程序阻塞住容器使其运行起来, 此时, 如果容器内部的 A 或 B 服务挂掉, 容器仍然认为自己是正常的, 因为 Docker 只关心最后阻塞的进程是否退出. 反之, A 和 B 服务正常, 如果 C 服务挂掉, 那么则整个容器退出!</p>
+<hr>
+<h1 id="后台运行容器"><a href="#后台运行容器" class="headerlink" title="后台运行容器"></a>后台运行容器</h1><h2 id="获取-nginx-镜像"><a href="#获取-nginx-镜像" class="headerlink" title="获取 nginx 镜像"></a>获取 nginx 镜像</h2><p><a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a></p>
+<p>右边是拉取 nginx latest 版本镜像的命令</p>
+<p>左边 repo info 标签内是 nginx 简短说明/完整说明</p>
+<p>完整说明中包括:</p>
+<ul>
+<li>版本的介绍</li>
+<li>软件的介绍</li>
+<li>使用方式的介绍</li>
+</ul>
+<p>左边 tag 是所有版本的列表</p>
+<p><a href="https://store.docker.com" target="_blank" rel="noopener">https://store.docker.com</a></p>
+<h2 id="下载最新稳定发行版的-nginx-镜像"><a href="#下载最新稳定发行版的-nginx-镜像" class="headerlink" title="下载最新稳定发行版的 nginx 镜像"></a>下载最新稳定发行版的 nginx 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker pull nginx</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/nginx</span><br><span class="line">6d827a3ef358: Pull complete </span><br><span class="line">f8f2e0556751: Pull complete </span><br><span class="line">5c9972dca3fd: Pull complete </span><br><span class="line">451b9524cb06: Pull complete </span><br><span class="line">Digest: sha256:e6693c20186f837fc393390135d8a598a96a833917917789d63766cab6c59582</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> nginx:latest</span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="运行-nginx-镜像"><a href="#运行-nginx-镜像" class="headerlink" title="运行 nginx 镜像"></a>运行 nginx 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先创建一个 web 目录</span></span><br><span class="line">root@ubuntu:~<span class="comment"># mkdir web</span></span><br><span class="line">root@ubuntu:~<span class="comment"># echo "Hello Docker" &gt; web/index.html</span></span><br><span class="line"><span class="comment"># 运行 nginx 镜像</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker run --name "my-first-nginx" -v /root/web:/usr/share/nginx/html:ro -d nginx</span></span><br><span class="line">11610baab1ce0b684367a44313fc0401489b115399f0a4469bec15bd4b8f6769</span><br><span class="line">root@ubuntu:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">11610baab1ce        nginx               <span class="string">"nginx -g 'daemon ..."</span>   6 seconds ago       Up 6 seconds        80/tcp, 443/tcp     my-first-nginx</span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-v: 挂载卷  <code>宿主机目录:容器内目录:挂载方式</code>  其中挂载方式支持以只读<code>ro</code>或读写<code>rw</code>方式挂载, 默认为<code>rw</code></li>
+<li>-d: 以守护进程<code>daemon</code>方式放入到后台运行</li>
+</ul>
+<p>此方式没有对外映射端口, 所以只能在容器内部访问</p>
+<h3 id="在容器内部访问页面"><a href="#在容器内部访问页面" class="headerlink" title="在容器内部访问页面"></a>在容器内部访问页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器</span></span><br><span class="line">root@ubuntu:~<span class="comment"># docker exec -it 11610 /bin/bash</span></span><br><span class="line"><span class="comment"># 查看命令是否安装</span></span><br><span class="line">root@11610baab1ce:/<span class="comment"># curl</span></span><br><span class="line">bash: curl: <span class="built_in">command</span> not found</span><br><span class="line"><span class="comment"># 查看发行版</span></span><br><span class="line">root@11610baab1ce:/<span class="comment"># cat /etc/issue</span></span><br><span class="line">Debian GNU/Linux 8 \n \l</span><br><span class="line"><span class="comment"># 安装命令</span></span><br><span class="line">root@11610baab1ce:/<span class="comment"># apt install curl</span></span><br><span class="line"><span class="comment"># 测试页面</span></span><br><span class="line">root@11610baab1ce:/<span class="comment"># curl http://127.0.0.1</span></span><br><span class="line">Hello Docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行暴露端口的-nginx-镜像"><a href="#运行暴露端口的-nginx-镜像" class="headerlink" title="运行暴露端口的 nginx 镜像"></a>运行暴露端口的 nginx 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run --name "my-second-nginx" -v /root/web:/usr/share/nginx/html:ro -d -p 8800:80 nginx</span></span><br><span class="line">d0a4936e940e5d3b9e2d96be3b08133ddb7f5d9f9a28a81e3b99dff03fb1d747</span><br><span class="line">root@ubuntu:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES</span><br><span class="line">d0a4936e940e        nginx               <span class="string">"nginx -g 'daemon ..."</span>   3 seconds ago       Up 2 seconds        443/tcp, 0.0.0.0:8800-&gt;80/tcp   my-second-nginx</span><br><span class="line">11610baab1ce        nginx               <span class="string">"nginx -g 'daemon ..."</span>   12 minutes ago      Up 12 minutes       80/tcp, 443/tcp                 my-first-nginx</span><br><span class="line">root@ubuntu:~<span class="comment"># </span></span><br><span class="line">root@ubuntu:~<span class="comment"># curl http://127.0.0.1:8800</span></span><br><span class="line">Hello Docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-p: 对外映射端口 <code>宿主机端口:容器内端口</code> </li>
+</ul>
+<h2 id="运行暴露多个端口的-nginx-镜像"><a href="#运行暴露多个端口的-nginx-镜像" class="headerlink" title="运行暴露多个端口的 nginx 镜像"></a>运行暴露多个端口的 nginx 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~<span class="comment"># docker run --name "my-third-nginx" -v /root/web:/usr/share/nginx/html:ro -d -p 8080:80 -p 443:443 nginx</span></span><br><span class="line">b9704931408c6d054bc9c510878e10467a71d412bef065afa7414403982001b6</span><br><span class="line">root@ubuntu:~<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                        NAMES</span><br><span class="line">b9704931408c        nginx               <span class="string">"nginx -g 'daemon ..."</span>   6 seconds ago       Up 6 seconds        0.0.0.0:443-&gt;443/tcp, 0.0.0.0:8080-&gt;80/tcp   my-third-nginx</span><br><span class="line">d0a4936e940e        nginx               <span class="string">"nginx -g 'daemon ..."</span>   3 minutes ago       Up 3 minutes        443/tcp, 0.0.0.0:8800-&gt;80/tcp                my-second-nginx</span><br><span class="line">11610baab1ce        nginx               <span class="string">"nginx -g 'daemon ..."</span>   15 minutes ago      Up 15 minutes       80/tcp, 443/tcp                              my-first-nginx</span><br><span class="line">root@ubuntu:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Docker-数据存储的哲学"><a href="#Docker-数据存储的哲学" class="headerlink" title="Docker 数据存储的哲学"></a>Docker 数据存储的哲学</h1><p>Docker 主张运行无状态的容器, 什么样的容器是无状态的容器呢?</p>
+<p>打个比方: 以上面的 nginx 实例为例</p>
+<ul>
+<li>以如上方式<code>-v</code>挂载的方式即为有状态</li>
+<li>以 dockerfile 的形式将数据目录预先拷贝到镜像的方式即为无状态</li>
+</ul>
+<p>也可以简单的理解为: </p>
+<ul>
+<li>镜像内包含数据且数据可随时随着镜像销毁的容器为无状态容器</li>
+<li>镜像内只包含运行环境, 数据需要靠挂载目录的, 或是容器内数据不可随意销毁的容器为有状态容器</li>
+</ul>
+<p>这两种用法各有利弊, 直至现在也争论不休, 没有最好的使用方式, 只有最合适的使用方式(注意: 在集群中, 最好使用无状态的方式. 但是最新版本的 k8s 已经支持有状态容器集群)</p>
+<h1 id="Docker-使用的哲学"><a href="#Docker-使用的哲学" class="headerlink" title="Docker 使用的哲学"></a>Docker 使用的哲学</h1><p>由于 Docker 容器的生命周期完全取决于最后阻塞容器入口的进程的存活状态, 所以在使用容器的时候, 一定要多加注意阻塞入口的进程和主进程的关系. 比如 node.js 容器, 在里面使用pm2 管理的 node 项目, 最后阻塞入口的进程是 pm2, 那么里面 node 项目的管理就脱离了容器的控制, 而由 pm2 去接管, 在node 进程出问题时也是由pm2去控制重启的. 在实际使用情况中, 一定要注意这样的使用方式会不会对后续的维护造成不便. 我推荐使用原生的命令启动主进程, 不要在主进程外面再套一层程序管理层.</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1271,236 +1440,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">MySQL权限管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-21 10:08:30" itemprop="dateCreated datePublished" datetime="2017-03-21T10:08:30+08:00">2017-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL权限管理/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;;</code></p>
-<h2 id="主机的表示方式"><a href="#主机的表示方式" class="headerlink" title="主机的表示方式"></a>主机的表示方式</h2><ul>
-<li>192.168.10.85  单主机授权方式</li>
-<li>localhost 本地授权 方式</li>
-<li>% 不限制远程主机的 IP 地址</li>
-<li>192.168.10.% 网段批量授权</li>
-</ul>
-<h2 id="权限列表"><a href="#权限列表" class="headerlink" title="权限列表"></a>权限列表</h2><table>
-<thead>
-<tr>
-<th>权限</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>usage</td>
-<td>连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予<code>usage</code>权限. 该权限只能用于数据库登录, 不能执行任何操作, 且 usage 权限不能被回收♻️</td>
-</tr>
-<tr>
-<td>file</td>
-<td>拥有 file 权限才可以执行 <code>select ... into outfile</code> 和 <code>load data infile…</code> 操作, 但是不要把 <code>file</code>, <code>process</code>, <code>super</code> 权限授予管理员以外的账号, 否则存在严重的安全隐患</td>
-</tr>
-<tr>
-<td>super</td>
-<td>该权限允许用户终止任何查询; 修改全局变量的 SET 语句; 使用 <code>change master</code> <code>purge master logs</code></td>
-</tr>
-<tr>
-<td>select</td>
-<td>必须拥有 select 权限才可以使用 <code>select</code>查询数据</td>
-</tr>
-<tr>
-<td>insert</td>
-<td>必须拥有 insert 权限才可以使用<code>insert</code>向表中插入数据</td>
-</tr>
-<tr>
-<td>update</td>
-<td>必须拥有 update 权限才可以使用<code>update</code>更新表中的记录📝</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>必须拥有 delete 权限才可以使用<code>delete</code>删除表中的数据</td>
-</tr>
-<tr>
-<td>alter</td>
-<td>必须拥有 alter 权限才可以使用<code>alter</code>命令更改表的属性</td>
-</tr>
-<tr>
-<td>alter routine</td>
-<td>必须拥有 alter routine 权限才可以执行 <code>alter/drop procedure/function</code>命令</td>
-</tr>
-<tr>
-<td>create</td>
-<td>必须拥有 create 权限才可以使用<code>create</code>命令建表</td>
-</tr>
-<tr>
-<td>create routine</td>
-<td>必须拥有 create routine 权限才可以执行 <code>create/alter/drop procedure/function</code></td>
-</tr>
-<tr>
-<td>create temporary tables</td>
-<td>必须有create  temporary tables的权限，才可以使用<code>create temporary tables</code></td>
-</tr>
-<tr>
-<td>create view</td>
-<td>执行<code>create view</code>创建视图的权限</td>
-</tr>
-<tr>
-<td>create user</td>
-<td>执行<code>create user</code>创建用户的权限(拥有 insert 权限也可以通过直接向 mysql.user 表中插入数据来创建用户)</td>
-</tr>
-<tr>
-<td>show database</td>
-<td>通过 <code>show database</code> 只能看到你拥有的某些权限的数据库, 除非你拥有全局<code>show database</code>权限</td>
-</tr>
-<tr>
-<td>show view</td>
-<td>必须拥有<code>show view</code>权限才可以执行<code>show create view</code>查询已经创建的视图</td>
-</tr>
-<tr>
-<td>index</td>
-<td>必须拥有 index 权限才能创建和删除索引 <code>create/drop index</code></td>
-</tr>
-<tr>
-<td>excute</td>
-<td>必须拥有 excute 权限才可以执行存在的函数(Function)和存储过程(Procedures)</td>
-</tr>
-<tr>
-<td>event</td>
-<td>如果event 的使用频率较低, 建议使用 root 用户进行管理和维护. (要使event 起作用, MySQL 的常量 <code>global event_scheduler</code>必须为<code>on</code>或者<code>1</code>)</td>
-</tr>
-<tr>
-<td>lock tables</td>
-<td>锁表🔐权限</td>
-</tr>
-<tr>
-<td>references</td>
-<td>创建外键约束权限</td>
-</tr>
-<tr>
-<td>reload</td>
-<td>flush talbes/logs/privileges 权限</td>
-</tr>
-<tr>
-<td>replication client</td>
-<td>拥有此权限可以查询<code>master</code> <code>slave</code>状态</td>
-</tr>
-<tr>
-<td>replication slave</td>
-<td>拥有此权限可以从主库读取二进制日志</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td>关闭 mysql 的权限</td>
-</tr>
-<tr>
-<td>grant option</td>
-<td>可以将自己拥有的权限授权给其他用户(仅限于自己拥有的权限)</td>
-</tr>
-<tr>
-<td>process</td>
-<td>拥有此权限可以执行<code>show processlist</code>和<code>kill</code>命令. 默认情况下, 每个用户都可以执行该命令, 但是只能查看本用户的进程</td>
-</tr>
-<tr>
-<td>all privileges</td>
-<td>所有权限. 使用<code>with grant option</code>可以连带授权 <code>grant all privileges on *.* to &#39;polarsnow&#39;@&#39;%&#39; with grant option;</code></td>
-</tr>
-<tr>
-<td>truncate</td>
-<td>truncate 权限其实就是 create+drop 权限的组合</td>
-</tr>
-<tr>
-<td>drop</td>
-<td>删库删表删索引删视图等权限</td>
-</tr>
-</tbody></table>
-<p><strong>注意:</strong> 管理权限(如 super, process, file 等)  不能指定某个数据库授权, <code>on</code>关键字之后必须跟 <code>*.*</code></p>
-<h1 id="查看用户授权"><a href="#查看用户授权" class="headerlink" title="查看用户授权"></a>查看用户授权</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show grants for username;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke select,update,insert,delete on *.* from username;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1573,7 +1512,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">289</span>
+          <span class="site-state-item-count">290</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1586,7 +1525,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">379</span>
+        <span class="site-state-item-count">381</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

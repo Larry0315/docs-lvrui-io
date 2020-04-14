@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,236 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">MySQL权限管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-21 10:08:30" itemprop="dateCreated datePublished" datetime="2017-03-21T10:08:30+08:00">2017-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/21/MySQL%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL权限管理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>grant 权限 on 数据库.数据表 to &#39;用户&#39;@&#39;主机&#39;;</code></p>
+<h2 id="主机的表示方式"><a href="#主机的表示方式" class="headerlink" title="主机的表示方式"></a>主机的表示方式</h2><ul>
+<li>192.168.10.85  单主机授权方式</li>
+<li>localhost 本地授权 方式</li>
+<li>% 不限制远程主机的 IP 地址</li>
+<li>192.168.10.% 网段批量授权</li>
+</ul>
+<h2 id="权限列表"><a href="#权限列表" class="headerlink" title="权限列表"></a>权限列表</h2><table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>usage</td>
+<td>连接(登录)MySQL 的权限, 每建立一个用户, 就会自动授予<code>usage</code>权限. 该权限只能用于数据库登录, 不能执行任何操作, 且 usage 权限不能被回收♻️</td>
+</tr>
+<tr>
+<td>file</td>
+<td>拥有 file 权限才可以执行 <code>select ... into outfile</code> 和 <code>load data infile…</code> 操作, 但是不要把 <code>file</code>, <code>process</code>, <code>super</code> 权限授予管理员以外的账号, 否则存在严重的安全隐患</td>
+</tr>
+<tr>
+<td>super</td>
+<td>该权限允许用户终止任何查询; 修改全局变量的 SET 语句; 使用 <code>change master</code> <code>purge master logs</code></td>
+</tr>
+<tr>
+<td>select</td>
+<td>必须拥有 select 权限才可以使用 <code>select</code>查询数据</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>必须拥有 insert 权限才可以使用<code>insert</code>向表中插入数据</td>
+</tr>
+<tr>
+<td>update</td>
+<td>必须拥有 update 权限才可以使用<code>update</code>更新表中的记录📝</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>必须拥有 delete 权限才可以使用<code>delete</code>删除表中的数据</td>
+</tr>
+<tr>
+<td>alter</td>
+<td>必须拥有 alter 权限才可以使用<code>alter</code>命令更改表的属性</td>
+</tr>
+<tr>
+<td>alter routine</td>
+<td>必须拥有 alter routine 权限才可以执行 <code>alter/drop procedure/function</code>命令</td>
+</tr>
+<tr>
+<td>create</td>
+<td>必须拥有 create 权限才可以使用<code>create</code>命令建表</td>
+</tr>
+<tr>
+<td>create routine</td>
+<td>必须拥有 create routine 权限才可以执行 <code>create/alter/drop procedure/function</code></td>
+</tr>
+<tr>
+<td>create temporary tables</td>
+<td>必须有create  temporary tables的权限，才可以使用<code>create temporary tables</code></td>
+</tr>
+<tr>
+<td>create view</td>
+<td>执行<code>create view</code>创建视图的权限</td>
+</tr>
+<tr>
+<td>create user</td>
+<td>执行<code>create user</code>创建用户的权限(拥有 insert 权限也可以通过直接向 mysql.user 表中插入数据来创建用户)</td>
+</tr>
+<tr>
+<td>show database</td>
+<td>通过 <code>show database</code> 只能看到你拥有的某些权限的数据库, 除非你拥有全局<code>show database</code>权限</td>
+</tr>
+<tr>
+<td>show view</td>
+<td>必须拥有<code>show view</code>权限才可以执行<code>show create view</code>查询已经创建的视图</td>
+</tr>
+<tr>
+<td>index</td>
+<td>必须拥有 index 权限才能创建和删除索引 <code>create/drop index</code></td>
+</tr>
+<tr>
+<td>excute</td>
+<td>必须拥有 excute 权限才可以执行存在的函数(Function)和存储过程(Procedures)</td>
+</tr>
+<tr>
+<td>event</td>
+<td>如果event 的使用频率较低, 建议使用 root 用户进行管理和维护. (要使event 起作用, MySQL 的常量 <code>global event_scheduler</code>必须为<code>on</code>或者<code>1</code>)</td>
+</tr>
+<tr>
+<td>lock tables</td>
+<td>锁表🔐权限</td>
+</tr>
+<tr>
+<td>references</td>
+<td>创建外键约束权限</td>
+</tr>
+<tr>
+<td>reload</td>
+<td>flush talbes/logs/privileges 权限</td>
+</tr>
+<tr>
+<td>replication client</td>
+<td>拥有此权限可以查询<code>master</code> <code>slave</code>状态</td>
+</tr>
+<tr>
+<td>replication slave</td>
+<td>拥有此权限可以从主库读取二进制日志</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭 mysql 的权限</td>
+</tr>
+<tr>
+<td>grant option</td>
+<td>可以将自己拥有的权限授权给其他用户(仅限于自己拥有的权限)</td>
+</tr>
+<tr>
+<td>process</td>
+<td>拥有此权限可以执行<code>show processlist</code>和<code>kill</code>命令. 默认情况下, 每个用户都可以执行该命令, 但是只能查看本用户的进程</td>
+</tr>
+<tr>
+<td>all privileges</td>
+<td>所有权限. 使用<code>with grant option</code>可以连带授权 <code>grant all privileges on *.* to &#39;polarsnow&#39;@&#39;%&#39; with grant option;</code></td>
+</tr>
+<tr>
+<td>truncate</td>
+<td>truncate 权限其实就是 create+drop 权限的组合</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>删库删表删索引删视图等权限</td>
+</tr>
+</tbody></table>
+<p><strong>注意:</strong> 管理权限(如 super, process, file 等)  不能指定某个数据库授权, <code>on</code>关键字之后必须跟 <code>*.*</code></p>
+<h1 id="查看用户授权"><a href="#查看用户授权" class="headerlink" title="查看用户授权"></a>查看用户授权</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show grants for username;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke select,update,insert,delete on *.* from username;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1313,96 +1543,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/" class="post-title-link" itemprop="url">ubuntu下添加用户</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-02-24 16:56:07" itemprop="dateCreated datePublished" datetime="2017-02-24T16:56:07+08:00">2017-02-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/02/24/ubuntu%E4%B8%8B%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/24/ubuntu下添加用户/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>在 Ubuntu 下直接使用<code>useradd username</code>添加用户可能会导致用户没有家目录或 tab 无法自动补齐的问题, 需要单独制定这些进行配置</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -m -s /bin/bash username</span><br></pre></td></tr></table></figure>
-
-
-
-<p><code>-r</code>  创建一个系统用户<br><code>-m</code>  声明为该用户创建默认的家目录(可以单独指定)<br><code>-s</code>  指定该用户登录时使用的终端类型</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1475,7 +1615,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">289</span>
+          <span class="site-state-item-count">290</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1488,7 +1628,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">379</span>
+        <span class="site-state-item-count">381</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

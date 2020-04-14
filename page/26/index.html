@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">379</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">289</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,258 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/06/08/Python%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/06/08/Python%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Python时间模块详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-08 01:24:06" itemprop="dateCreated datePublished" datetime="2016-06-08T01:24:06+08:00">2016-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/08/Python%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/08/Python时间模块详解/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python常用的跟时间相关的模块有两个<code>time</code>和<code>datetime</code></p>
+<p>其中<code>datetime</code>是<code>time</code>模块更高层次的封装，在实际使用中，两个模块各有千秋</p>
+<p>Python Version: 3.5+</p>
+</blockquote>
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.time()  <span class="comment">#获取时间戳，从1970年1月1日0：00到现在的秒数</span></span><br><span class="line"><span class="number">1465321187.56645</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.time() - <span class="number">86400</span>  <span class="comment">#可以按需 + - 秒数</span></span><br><span class="line"><span class="number">1465234811.8091</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.ctime()  <span class="comment">#返回'Wed Jun  8 01:42:41 2016'格式的日期时间字符串</span></span><br><span class="line"><span class="string">'Wed Jun  8 01:42:41 2016'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.ctime() - <span class="number">86400</span>  <span class="comment">#报错！ctime返回的字符串，是不能 + - 的 </span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;input&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> -: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'int'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.ctime(time.time() - <span class="number">86400</span>)  <span class="comment">#ctime可以接收时间戳参数并转化为日期时间字符串，通过这个功能，可以把时间戳的时间进行 + - 后传递给ctime进行转换</span></span><br><span class="line"><span class="string">'Tue Jun  7 01:45:09 2016'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>time.gmtime() <span class="comment">#返回一个格式化的时间对象</span></span><br><span class="line">time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">7</span>, tm_hour=<span class="number">17</span>, tm_min=<span class="number">47</span>, tm_sec=<span class="number">1</span>, tm_wday=<span class="number">1</span>, tm_yday=<span class="number">159</span>, tm_isdst=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(time.gmtime())</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">time</span>.<span class="title">struct_time</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">gmtime</span><span class="params">(time.time<span class="params">()</span> - <span class="number">86400</span>)</span>  #也可以通过传递时间戳来更改时间</span></span><br><span class="line"><span class="class"><span class="title">time</span>.<span class="title">struct_time</span><span class="params">(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">6</span>, tm_hour=<span class="number">17</span>, tm_min=<span class="number">48</span>, tm_sec=<span class="number">27</span>, tm_wday=<span class="number">0</span>, tm_yday=<span class="number">158</span>, tm_isdst=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">gmtime</span><span class="params">()</span>[0]  #可以通过索引的方式去取值</span></span><br><span class="line"><span class="class">2016</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">gmtime</span><span class="params">()</span>[1]</span></span><br><span class="line"><span class="class">6</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">gmtime</span><span class="params">()</span>[2]  #问题来了，现在已经是8号了却还显示7，是因为这里显示的是格林威治时间，不是本地时间</span></span><br><span class="line"><span class="class">7</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">localtime</span><span class="params">()</span>  #本地时间来了！这个方法显示的是本地时区的时间！返回的格式与<span class="title">gmtime</span>是一样的，用法也一样</span></span><br><span class="line"><span class="class"><span class="title">time</span>.<span class="title">struct_time</span><span class="params">(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">8</span>, tm_hour=<span class="number">1</span>, tm_min=<span class="number">56</span>, tm_sec=<span class="number">5</span>, tm_wday=<span class="number">2</span>, tm_yday=<span class="number">160</span>, tm_isdst=<span class="number">0</span>)</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">mktime</span><span class="params">(time.localtime<span class="params">()</span>)</span>  #该方法接收一个<span class="title">tuple</span>类型的参数，可接收<span class="title">struct_time</span>对象并将其转化为时间戳</span></span><br><span class="line"><span class="class">1465322289.0</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">strftime</span><span class="params">(<span class="string">"%Y-%m-%d"</span>, time.localtime<span class="params">()</span>)</span>  #将<span class="title">struct_time</span>对象以指定的格式显示</span></span><br><span class="line"><span class="class">'2016-06-08'</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">strptime</span><span class="params">(<span class="string">'2016-06-08'</span>, <span class="string">"%Y-%m-%d"</span>)</span>  #将日期字符串以指定的格式转化为<span class="title">struct_time</span>对象</span></span><br><span class="line"><span class="class"><span class="title">time</span>.<span class="title">struct_time</span><span class="params">(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">8</span>, tm_hour=<span class="number">0</span>, tm_min=<span class="number">0</span>, tm_sec=<span class="number">0</span>, tm_wday=<span class="number">2</span>, tm_yday=<span class="number">160</span>, tm_isdst=<span class="number">-1</span>)</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">sleep</span><span class="params">(<span class="number">4</span>)</span> </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; </span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">time</span>.<span class="title">clock</span><span class="params">()</span>  #在<span class="title">Unix</span>系统上表示进程时间。在<span class="title">Windows</span>上第一次返回进程时间，第二次返回第一次到第二次之间的时间</span></span><br><span class="line"><span class="class">29.472588</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="datetime"><a href="#datetime" class="headerlink" title="datetime"></a>datetime</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.date.today()  <span class="comment">#2016-06-08</span></span><br><span class="line">datetime.date(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(datetime.date.today())</span><br><span class="line"><span class="number">2016</span><span class="number">-06</span><span class="number">-08</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.date.fromtimestamp(time.time())  <span class="comment">#将时间戳转为日期格式</span></span><br><span class="line">datetime.date(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now() <span class="comment">#返回当前时间</span></span><br><span class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">18</span>, <span class="number">57</span>, <span class="number">453874</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(datetime.datetime.now())</span><br><span class="line"><span class="number">2016</span><span class="number">-06</span><span class="number">-08</span> <span class="number">02</span>:<span class="number">19</span>:<span class="number">08.895585</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now().timetuple()  <span class="comment">#转化为struct_time对象</span></span><br><span class="line">time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">8</span>, tm_hour=<span class="number">2</span>, tm_min=<span class="number">20</span>, tm_sec=<span class="number">17</span>, tm_wday=<span class="number">2</span>, tm_yday=<span class="number">160</span>, tm_isdst=<span class="number">-1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now().replace(<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>)   <span class="comment">#替换指定的日期或时间</span></span><br><span class="line">datetime.datetime(<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">21</span>, <span class="number">39</span>, <span class="number">897457</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.strptime(<span class="string">"09/05/15 7:56"</span>, <span class="string">"%d/%m/%y %H:%M"</span>)  <span class="comment">#将日期时间字符串转为时间格式，并以指定的格式进行显示</span></span><br><span class="line">datetime.datetime(<span class="number">2015</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">56</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now() + datetime.timedelta(days=<span class="number">10</span>) <span class="comment">#比现在加10天</span></span><br><span class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">18</span>, <span class="number">2</span>, <span class="number">26</span>, <span class="number">46</span>, <span class="number">45019</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now() + datetime.timedelta(days=<span class="number">-10</span>) <span class="comment">#比现在减10天</span></span><br><span class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">5</span>, <span class="number">29</span>, <span class="number">2</span>, <span class="number">26</span>, <span class="number">53</span>, <span class="number">536217</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now() + datetime.timedelta(hours=<span class="number">-10</span>) <span class="comment">#比现在减10小时</span></span><br><span class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">16</span>, <span class="number">27</span>, <span class="number">0</span>, <span class="number">717995</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.datetime.now() + datetime.timedelta(seconds=<span class="number">120</span>) <span class="comment">#比现在+120s</span></span><br><span class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">29</span>, <span class="number">7</span>, <span class="number">456727</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>附录1：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>索引（Index）</th>
+<th>属性（Attribute）</th>
+<th>值（Values）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>tm_year（年）</td>
+<td>比如2011</td>
+</tr>
+<tr>
+<td>1</td>
+<td>tm_mon（月）</td>
+<td>1 - 12</td>
+</tr>
+<tr>
+<td>2</td>
+<td>tm_mday（日）</td>
+<td>1 - 31</td>
+</tr>
+<tr>
+<td>3</td>
+<td>tm_hour（时）</td>
+<td>0 - 23</td>
+</tr>
+<tr>
+<td>4</td>
+<td>tm_min（分）</td>
+<td>0 - 59</td>
+</tr>
+<tr>
+<td>5</td>
+<td>tm_sec（秒）</td>
+<td>0 - 61</td>
+</tr>
+<tr>
+<td>6</td>
+<td>tm_wday（weekday）</td>
+<td>0 - 6（0表示周日）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>tm_yday（一年中的第几天）</td>
+<td>1 - 366</td>
+</tr>
+<tr>
+<td>8</td>
+<td>tm_isdst（是否是夏令时）</td>
+<td>默认为-1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>附录2：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%a</td>
+<td>本地（locale）简化星期名称</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>本地完整星期名称</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>本地简化月份名称</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>本地完整月份名称</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>本地相应的日期和时间表示</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>一个月中的第几天（01 - 31）</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>一天中的第几个小时（24小时制，00 - 23）</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>第几个小时（12小时制，01 - 12）</td>
+</tr>
+<tr>
+<td>%j</td>
+<td>一年中的第几天（001 - 366）</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月份（01 - 12）</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>分钟数（00 - 59）</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>本地am或者pm的相应符</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>秒（01 - 61）</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>一年中的星期数。（00 - 53星期天是一个星期的开始。）第一个星期天之前的所有天数都放在第0周。</td>
+</tr>
+<tr>
+<td>%w</td>
+<td>一个星期中的第几天（0 - 6，0是星期天）</td>
+</tr>
+<tr>
+<td>%W</td>
+<td>和%U基本相同，不同的是%W以星期一为一个星期的开始</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>本地相应日期</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>本地相应时间</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>去掉世纪的年份（00 - 99）</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>完整的年份</td>
+</tr>
+<tr>
+<td>%Z</td>
+<td>时区的名字（如果不存在为空字符）</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>‘%’字符</td>
+</tr>
+</tbody></table>
+<ul>
+<li>附录3：time模块，时间之间的转换关系</li>
+</ul>
+<p><img src="http://20150509.oss-cn-qingdao.aliyuncs.com/20160608021359.jpg" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1931,108 +2183,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/03/28/suEXEC-mechanism-enabled-wrapper-usr-sbin-suexec/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/03/28/suEXEC-mechanism-enabled-wrapper-usr-sbin-suexec/" class="post-title-link" itemprop="url">suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-03-28 11:28:23" itemprop="dateCreated datePublished" datetime="2016-03-28T11:28:23+08:00">2016-03-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/03/28/suEXEC-mechanism-enabled-wrapper-usr-sbin-suexec/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/28/suEXEC-mechanism-enabled-wrapper-usr-sbin-suexec/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>前些日志在研究saltstack的api，使用了https的方式来访问api，创建一对儿密钥<code>/etc/pki/tls/certs/localhost.crt</code>和<code>/etc/pki/tls/certs/localhost.key</code> 过了几天后发现我实验的这台机器的Apache服务宕掉了，而且重启失败，故障信息如下</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; service httpd restart</span><br><span class="line">Stopping httpd:                                            [FAILED]</span><br><span class="line">Starting httpd:                                            [FAILED]</span><br><span class="line"></span><br><span class="line">shell&gt; tail /var/<span class="built_in">log</span>/httpd/error_log</span><br><span class="line">[Mon Mar 28 10:46:36 2016] [notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)</span><br><span class="line"></span><br><span class="line">shell&gt; tail /var/<span class="built_in">log</span>/httpd/ssl_error_log</span><br><span class="line">[Mon Mar 28 10:49:19 2016] [warn] RSA server certificate CommonName (CN) `localhost<span class="string">' does NOT match server name!?</span></span><br><span class="line"><span class="string">[Mon Mar 28 10:49:19 2016] [error] Unable to configure RSA server private key</span></span><br><span class="line"><span class="string">[Mon Mar 28 10:49:19 2016] [error] SSL Library Error: 185073780 error:0B080074:x509 certificate routines:X509_check_private_key:key values mismatch</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>当我发现重启失败且终端没有报错输出时，当时打开了<code>/var/log/message</code>和<code>/var/log/httpd/error_log</code>两个log，重新重启Apache服务，发现message没有输出，而httpd的error_log有一行<code>[notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)</code>输出</li>
-<li>发现suEXEC之后，我百度了该关键字，得知是负责处理CGI和SSI程序的请求，当我看到SSL的时候，就突然想起之前做过的salt-api的实验，当时创建了一对儿密钥，该密钥过期时间大概是24小时，猜测可能是Apache的默认配置文件加载了mod_ssl模块，而且引用了我创建密钥对儿的默认位置，而该密钥却处于失效状态，所以Apache服务无法启动（这是当时的猜测）</li>
-<li>知道是SSL相关的问题之后，马上打开<code>/var/log/httpd/ssl_error_log</code>查看情况，有如下报错<code>[warn] RSA server certificate CommonName (CN)</code>localhost’ does NOT match server name!?` 当看到这一行报错的时候，已经确认上面猜测的第一点，就是Apache的默认配置文件加载了mod_ssl模块，而且指定密钥对儿的位置，就是我测试salt-api时创建密钥对儿的位置。而且还有一个错误就是我密钥对儿指定的hostname和Apache指定的hostname并不相同，基于密钥对主机名不符与密钥过期两点，造成了Apache无法启动的故障。</li>
-<li>确定了问题之后，解决方案有很多种，核心思想就是让Apache的ssl配置失效<ul>
-<li>第一种办法，可以在Apache的配置中禁用mod_ssl模块<code>/etc/httpd/conf.d/ssl.conf</code></li>
-<li>第二种办法，在<code>/etc/httpd/conf.d/ssl.conf</code>配置文件中，指定其他密钥对儿的路径</li>
-<li>第三种办法，我的salt-api已经测试完毕，可以把创建的密钥对儿删除或更名</li>
-</ul>
-</li>
-<li>最终我是选择了第三种的方法，将原有的密钥对儿加了<code>.bak</code>后缀，之后重启Apache恢复正常，问题解决，回头再去查看<code>/etc/httpd/conf.d/ssl.conf</code>配置文件的时候，已经自动变成了<code>/etc/httpd/conf.d/ssl.conf.bak</code>相当于Apache找不到配置文件中指定的密钥对儿后，自动禁用了mod_ssl模块</li>
-</ul>
-<hr>
-<p>如果你想了解suexec方面的东西，可以参考以下文章：</p>
-<p><a href="http://blog.csdn.net/hulihong/article/details/5416056" target="_blank" rel="noopener">http://blog.csdn.net/hulihong/article/details/5416056</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2105,7 +2255,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">289</span>
+          <span class="site-state-item-count">290</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2118,7 +2268,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">379</span>
+        <span class="site-state-item-count">381</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
