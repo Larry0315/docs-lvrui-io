@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,117 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/12/11/overlayfs%E4%B8%8Eoverlayfs2%E4%B8%8B%E7%BC%96%E8%AF%91%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/11/overlayfs%E4%B8%8Eoverlayfs2%E4%B8%8B%E7%BC%96%E8%AF%91%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">overlayfs与overlayfs2下编译镜像的区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-11 17:34:24" itemprop="dateCreated datePublished" datetime="2018-12-11T17:34:24+08:00">2018-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/12/11/overlayfs%E4%B8%8Eoverlayfs2%E4%B8%8B%E7%BC%96%E8%AF%91%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%BA%E5%88%AB/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/11/overlayfs与overlayfs2下编译镜像的区别/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>近期编译镜像时, 出现了镜像体积骤增的情况, 排查后, 发现本质原因居然是由于升级了存储引擎导致的问题, overlayfs 与 overlayfs2 存储引擎实现多层联合文件系统的原理不同, 最终导致了我们遇到的这个问题</p>
+</blockquote>
+<h2 id="昨日重现"><a href="#昨日重现" class="headerlink" title="昨日重现"></a>昨日重现</h2><p>镜像引用关系图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">centos:7.5</span><br><span class="line">   ↑</span><br><span class="line">base-os (创建了一系列目录, 安装了部分命令工具)</span><br><span class="line">   ↑</span><br><span class="line">open-jdk (下载并部署 jdk 至 &#x2F;opt&#x2F;soft 下, 335MB)</span><br><span class="line">   ↑</span><br><span class="line">application (应用部署, 且执行了 chown user:user &#x2F;opt)</span><br></pre></td></tr></table></figure>
+
+<p>引发镜像体积增大的原因: 在 open-jdk dockerfile 中, 将 jdk 文件拷贝至 <code>/opt/soft</code> 下, 该文件夹体积为335MB; 在 application dockerfile 中, 执行了一行 shell 命令 <code>chown -R /opt</code></p>
+<p>从编译镜像最佳实践来说, <code>chown -R /opt</code> 这样的匹配命令是不应该出现的, 其实体积增大的道理也很简单, 由于更改了整个<code>/opt</code>目录的属性, 导致<code>/opt</code>目录下的所有文件被重新拷贝到 application 镜像层中, 也就造成了 335MB 空间的浪费, 体积至少也无端增大了 335MB. 但问题是, 之前在 overlayfs 存储引擎下编译镜像, 却一直相安无事, 所有镜像版本都迭代了很多次, 没有出现上面预期的335MB 的空间浪费. 造成这样的问题, 是由于 overlayfs 和 overlayfs2 在实现多层联合文件系统的原理不同.</p>
+<h2 id="overlayfs-vs-overlayfs2"><a href="#overlayfs-vs-overlayfs2" class="headerlink" title="overlayfs vs overlayfs2"></a>overlayfs vs overlayfs2</h2><blockquote>
+<p>overlayfs将单个Linux主机上的两个目录分层并将它们呈现为单个目录. 这些目录称为图层, 统一过程称为联合装载. overlayfs将下部目录称为lowerdir上部目录upperdir. 统一视图通过自己的目录公开merged.<br>虽然overlay驱动程序只能使用一个较低的overlayfs层, 因此需要硬链接来实现多层图像, 但该overlay2驱动程序本身最多支持128个较低的overlayfs层. 此功能为和层相关的Docker命令（如docker build）提供更好的性能docker commit，并且在后备文件系统上占用更少的inode    —-引用自<a href="https://cloud.tencent.com/developer/section/1091813" target="_blank" rel="noopener">https://cloud.tencent.com/developer/section/1091813</a></p>
+</blockquote>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>简单来说, 之前在 application 层执行 <code>chown</code> 一个335MB文件夹之所有没有引发空间浪费问题, 完全是由于使用 overlayfs 的硬链接特性造成的. </p>
+<p>之后改为 overlayfs2 存储引擎后, 层与层之间不再使用硬链接形式引用, 所以根据标准情况下镜像层之间的增删改原理推断, application 镜像层至少浪费了 335MB 的空间.(由于 chown 操作导致整个/opt目录文件被拷贝至 application 层)</p>
+<p><code>chown</code> 是个很神奇的命令, 它只修改文件的 metadata 属性, 这完美的切中了 overlayfs 与 overlayfs2 最本质的区别.</p>
+<h2 id="科普硬链接"><a href="#科普硬链接" class="headerlink" title="科普硬链接"></a>科普硬链接</h2><p>简单来说, 硬链接是有着相同 inode 号仅文件名不同的文件, 因此硬链接存在以下几点特性: </p>
+<ul>
+<li>文件有相同的 inode 及 data block</li>
+<li>只能对已存在的文件进行创建</li>
+<li>不能交叉文件系统进行硬链接的创建</li>
+<li>不能对目录进行创建，只可对文件创建</li>
+<li>删除一个硬链接文件并不影响其他有相同 inode 号的文件</li>
+</ul>
+<p>由于 overlayfs 的硬链接引用的原理, chown 只更改 metadata 数据, 而 metadata 是作用在 inode 节点上的, 一个硬链接文件的属性被修改, 同步的, 所有指向这个 inode 节点的文件的属性都会变化. 也就是说, overlayfs 通过硬链接将文件挂载到新的镜像层之后, 对里面已存在的文件做 chown 操作, 意味着底层(只读层)的文件属性也会被修改, docker 就会认为这个操作没有引发任何文件的变化, 所以就不会再拷贝那335MB 的文件. 而 overlayfs2 的每层都是独立的, 即使文件属性的变化, 也会导致整个文件被拷贝, 所以在 overlayfs2 下, 会产生335MB 的空间浪费</p>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/section/1091813" target="_blank" rel="noopener">https://cloud.tencent.com/developer/section/1091813</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1203,131 +1314,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Kubernetes中内存资源限制引发的报错</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-01 15:28:57" itemprop="dateCreated datePublished" datetime="2018-11-01T15:28:57+08:00">2018-11-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/11/01/Kubernetes%E4%B8%AD%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/01/Kubernetes中内存资源限制引发的报错/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一个 Pod 被创建后, 一直卡在<code>ContainerCreating</code>的状态, 执行<code>describe</code>命令查看该 Pod 详细信息后发现如下 Event</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Events:</span><br><span class="line">  Type     Reason                  Age               From                            Message</span><br><span class="line">  ----     ------                  ----              ----                            -------</span><br><span class="line">  Normal   Scheduled               2m                default-scheduler               Successfully assigned 61f983b5-19ca-4b33-8647-6b279ae93812 to k8node3</span><br><span class="line">  Normal   SuccessfulMountVolume   2m                kubelet, k8node3  MountVolume.SetUp succeeded for volume &quot;default-token-7r9jt&quot;</span><br><span class="line">  Warning  FailedCreatePodSandBox  2m (x12 over 2m)  kubelet, k8node3  Failed create pod sandbox: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">  Normal   SandboxChanged          2m (x12 over 2m)  kubelet, k8node3  Pod sandbox changed, it will be killed and re-created.</span><br></pre></td></tr></table></figure>
-
-<p>以上 Event 信息中, 能解读到的信息极其有限</p>
-<ul>
-<li>Failed create pod sandbox: Google 提供的 pause 容器启动失败</li>
-<li>oci runtime error: 运行时接口出的问题, 我的环境中运行时环境为 docker</li>
-<li>connection reset by peer: 连接被重置</li>
-<li>Pod sandbox changed, it will be killed and re-created: pause 容器引导的 Pod 环境被改变, 重新创建 Pod 中的 pause 引导</li>
-</ul>
-<p>看完上面的报错信息并不能准确定位到问题的根源, 只能大致了解到是因为创建SandBox失败导致的, 接下来查看 kubelet 的日志</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551282    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551415    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551459    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:57 k8node3 kubelet[1865]: E1031 16:33:57.551581    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718255    1865 remote_runtime.go:92] RunPodSandbox from runtime service failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718406    1865 kuberuntime_sandbox.go:54] CreatePodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718443    1865 kuberuntime_manager.go:646] createPodSandbox for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused &quot;process_linux.go:286: decoding sync type from init pipe caused \&quot;read parent: connection reset by peer\&quot;&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 kubelet[1865]: E1031 16:33:58.718597    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: failed to &quot;CreatePodSandbox&quot; for &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot; with CreatePodSandboxError: &quot;CreatePodSandbox for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)\&quot; failed: rpc error: code &#x3D; Unknown desc &#x3D; failed to start sandbox container for pod \&quot;61f983b5-19ca-4b33-8647-6b279ae93812\&quot;: Error response from daemon: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;&quot;</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114171    1865 kubelet.go:1644] Unable to mount volumes for pod &quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]; skipping pod</span><br><span class="line">Oct 31 16:36:02 k8node3 kubelet[1865]: E1031 16:36:02.114262    1865 pod_workers.go:186] Error syncing pod 77b2b948-dce4-11e8-afec-b82a72cf3061 (&quot;61f983b5-19ca-4b33-8647-6b279ae93812_default(77b2b948-dce4-11e8-afec-b82a72cf3061)&quot;), skipping: timeout expired waiting for volumes to attach or mount for pod &quot;default&quot;&#x2F;&quot;61f983b5-19ca-4b33-8647-6b279ae93812&quot;. list of unmounted volumes&#x3D;[default-token-7r9jt]. list of unattached volumes&#x3D;[default-token-7r9jt]</span><br></pre></td></tr></table></figure>
-
-<p>kubelet 的日志中, 与 describe 出来的信息差不多, tail 的时候更直观的感觉到频繁的Sandbox创建的过程, 既然是 OCI 运行时报错, 只能去 docker 的日志中找找看了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671146675+08:00&quot; level&#x3D;error msg&#x3D;&quot;containerd: start container&quot; error&#x3D;&quot;oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot; id&#x3D;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.671871096+08:00&quot; level&#x3D;error msg&#x3D;&quot;Create container failed with error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:33:58 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:33:58.717553371+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;029d9e843eedb822370c285b5abf1f37556461083d3bda2c7af38b3b00695b0f&#x2F;start returned error: oci runtime error: container_linux.go:247: starting container process caused \&quot;process_linux.go:286: decoding sync type from init pipe caused \\\&quot;read parent: connection reset by peer\\\&quot;\&quot;\n&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.759631102+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274&#x2F;stop returned error: Container 207f0ffb4b5ecc5f8261af40cd7a2c4c2800a2c30b027c4fb95648f8c1b00274 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.768603351+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573&#x2F;stop returned error: Container 03bf9bfcf4e3f66655b0124d6779ff649b2b00219b83645ca18b4bb08d1cc573 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.777073508+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728&#x2F;stop returned error: Container 7b37f5aee7afe01f209bcdc6b3568b522fb0bbda5cb4b322e10b05ec603f5728 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.785774443+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431&#x2F;stop returned error: Container 1a01419973e4701b231556d74c619c30e0966889948e810b46567f08475ec431 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.794198279+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176&#x2F;stop returned error: Container c3c4049e7b1942395b3cc3a45cf0cc69b34bab6271cb940a70c7d9aed3ba6176 is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.802698120+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d&#x2F;stop returned error: Container 8d2c8a4cd5b43b071a9976251932955937d5b1f0f34dca1482cde4195df4747d is already stopped&quot;</span><br><span class="line">Oct 31 16:34:22 k8node3 dockerd[1715]: time&#x3D;&quot;2018-10-31T16:34:22.811103238+08:00&quot; level&#x3D;error msg&#x3D;&quot;Handler for POST &#x2F;v1.27&#x2F;containers&#x2F;7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f&#x2F;stop returned error: Container 7fdb697e251cec249c0a17f1fdcc6d76fbec13a60929eb0217c744c181702c1f is already stopped&quot;</span><br></pre></td></tr></table></figure>
-
-<p>Docker 的日志中, 除了已经看了很多遍的<code>connection reset by peer</code>之外, 还有一些新的发现</p>
-<ul>
-<li>xxx is already stopped: 看日志, 感觉是向容器接口发送了 POST 请求以 stop 容器, 但是该容器已经被 stop 掉了</li>
-</ul>
-<p>Docker 的日志和 kubelet 的日志的共同点就是, kubelet 频繁 recreate Sandbox</p>
-<p>执行 <code>docker container ls -a</code> 命令发现存在大量 create 状态的 pause 容器</p>
-<p>查看 <code>demesg -T</code> 信息, 发现了大量 oom-killer 的字眼的日志, 初步判断是由于内存溢出, 导致系统主动 kill 进程.</p>
-<p>发生这样的情况的概率并不高, 一般情况下有两种类型的 oom kill</p>
-<ul>
-<li>由于 pod 内进程超出了 pod 指定 Limit 限制的值, 将导致 oom kill, 此时 pod 退出的 Reason 会显示 OOMKilled</li>
-<li>另一种情况是 pod 内的进程给自己设置了可用内存, 比如 jvm 内存限制设置为2G, pod Limit 设置为6G, 此时由于程序的原因导致内存使用超过2G 时, 也会引发 oom kill</li>
-</ul>
-<p>这两种内存溢出的 kill 区别是第一种原因直接显示在 pod 的 Event 里; 第二种你在 Event 里找不到, 在宿主机的 dmesg 里面可以找到 invoked oom-killer 的日志</p>
-<p>这次的情况看起来像属于第二种情况, 于是赶紧再次 describe pod, 查看 Limit 限制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Containers:</span><br><span class="line">  61f983b5-19ca-4b33-8647-6b279ae93812:</span><br><span class="line">    Container ID:</span><br><span class="line">    Image:          reg.lvrui.io&#x2F;public&#x2F;testpublish:latest</span><br><span class="line">    Image ID:</span><br><span class="line">    Port:           &lt;none&gt;</span><br><span class="line">    Host Port:      &lt;none&gt;</span><br><span class="line">    State:          Waiting</span><br><span class="line">      Reason:       ContainerCreating</span><br><span class="line">    Ready:          False</span><br><span class="line">    Restart Count:  0</span><br><span class="line">    Limits:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Requests:</span><br><span class="line">      cpu:     1</span><br><span class="line">      memory:  2k</span><br><span class="line">    Environment:</span><br><span class="line">      key:  value</span><br><span class="line">    Mounts:</span><br><span class="line">      &#x2F;var&#x2F;run&#x2F;secrets&#x2F;kubernetes.io&#x2F;serviceaccount from default-token-7r9jt (ro)</span><br></pre></td></tr></table></figure>
-
-<p>终于找到了原因, 就是因为对内存的 Limit 导致的. 这里显示内存 Limit 为2k, 实际上是因为在创建资源时, 写的是 2000(不加单位时, 默认单位为 bytes), k8s 自动转成了以小写 k 的单位表示方式,  所以就变成了2k</p>
-<p>理论上来说,  按照之前的经验, 此种情况(实际使用内存超过 Limit 内存的情况)应该属于第一种, 会在 Event 里显示的由于 OOMkilled 原因导致 Terminated 状态. 但实际情况却是在 Event 里找不到 oom kill 的日志, 且 pod 状态处于 ContainerCreating 状态.</p>
-<ul>
-<li>由于 OOMkilled 处于 Terminated 的状态是因为 pod 已经正常被引导创建后, 导致的内存溢出</li>
-<li>由于系统 invoked oom-killer 导致的处于 ContainerCreating 状态的 pod 是因为 pod 还没正常被创建, pod 中的 pause 容器都没有被正常引导就已经被 cgroup 的内存限制而招来杀身之祸</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1395,7 +1386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1408,7 +1399,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

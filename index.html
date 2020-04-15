@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -647,6 +647,152 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/06/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D/" class="post-title-link" itemprop="url">go语言中的类型和别名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-16 17:33:08" itemprop="dateCreated datePublished" datetime="2019-06-16T17:33:08+08:00">2019-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/06/16/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/16/go语言中的类型和别名/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在go语言中, 定义类型有两种方式, 一种是定义一个全新的类型, 一种是定义一个类型的别名.</p>
+</blockquote>
+<h2 id="语法区别"><a href="#语法区别" class="headerlink" title="语法区别"></a>语法区别</h2><p>定义全新的数据类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> A <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
+
+<p>定义类型的别名</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> B = <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
+
+<p>两者语法上的区别仅仅是有没有<code>=</code></p>
+<h2 id="赋值区别"><a href="#赋值区别" class="headerlink" title="赋值区别"></a>赋值区别</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> A <span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> B = <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> number <span class="keyword">int</span> = <span class="number">10</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> a A</span><br><span class="line">	<span class="keyword">var</span> b B</span><br><span class="line">	</span><br><span class="line">	a = number</span><br><span class="line">	</span><br><span class="line">	b = number</span><br><span class="line">	</span><br><span class="line">	fmt.Println(a, b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span></span><br><span class="line"></span><br><span class="line">Goland IDE 会有如下提示:</span><br><span class="line"></span><br><span class="line">![](https:<span class="comment">//20150509.oss-cn-qingdao.aliyuncs.com/2020/04/15/15869403820693.jpg)</span></span><br><span class="line"></span><br><span class="line">不用编译, IDE就告诉你这么搞不可以了. 所以定义新类型和别名, 在赋值上的区别是, 新的类型需要显式的类型转换. 而别名不需要</span><br><span class="line"></span><br><span class="line">以下是正确的代码:</span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">`go</span></span><br><span class="line"><span class="string">package main</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import "fmt"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">type A int</span></span><br><span class="line"><span class="string">type B = int</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">func main() &#123;</span></span><br><span class="line"><span class="string">	var number int = 10</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	var a A</span></span><br><span class="line"><span class="string">	var b B</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    // 需要类型转换才可以赋值</span></span><br><span class="line"><span class="string">	a = A(number)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	b = number</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	fmt.Println(a, b)</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用区别"><a href="#使用区别" class="headerlink" title="使用区别"></a>使用区别</h2><p>如果你给一个非本地的数据类型定义方法时, 编译时会报错, IDE也会提示你错误</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> A <span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> B = <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b B)</span> <span class="title">sayHi</span><span class="params">()</span></span> &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://20150509.oss-cn-qingdao.aliyuncs.com/2020/04/15/15869407818826.jpg" alt=""></p>
+<p>错误提示: Cannot define new methods on non-local type ‘builtin.int’ </p>
+<p>但是如果你用的是你自定义的数据类型的别名, 是完全可以的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> C <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// none</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MiniC = C</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(mc MiniC)</span> <span class="title">sayHi</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hi"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>别名不仅拥有原数据类型的全部方法, 而且在别名中定义的方法, 会自动出现在原数据类型的方法中, 原类型也可以正常调用别名定义的方法. 因为别名的本质, 就是同一数据类型, 只是名字不同罢了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> C <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// none</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c C)</span> <span class="title">sayHello</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MiniC = C</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(mc MiniC)</span> <span class="title">sayHi</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hi"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> c C</span><br><span class="line">	<span class="keyword">var</span> mc MiniC</span><br><span class="line"></span><br><span class="line">	c.sayHello()</span><br><span class="line">	c.sayHi()</span><br><span class="line"></span><br><span class="line">	mc.sayHello()</span><br><span class="line">	mc.sayHi()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line">Hi</span><br><span class="line">Hello</span><br><span class="line">Hi</span><br></pre></td></tr></table></figure>
+
+<p>而定义全新类型则跟别名的情况完全不同. 定义全新的类型, 不管你用的是不是本地类型, 都可以为新的类型添加方法. 以下操作是合法的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> A <span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> B = <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a A)</span> <span class="title">sayHi</span><span class="params">()</span></span> &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在全新类型下定义的方法, 不会出现在原类型上. 原类型的方法也不会出现在新类型中.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> C <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// none</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c C)</span> <span class="title">sayHello</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MicroC  C</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(mc MicroC)</span> <span class="title">sayHi</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Hi"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> c C</span><br><span class="line">	<span class="keyword">var</span> mc MicroC</span><br><span class="line"></span><br><span class="line">	c.sayHello()</span><br><span class="line">	c.sayHi()</span><br><span class="line"></span><br><span class="line">	mc.sayHello()</span><br><span class="line">	mc.sayHi()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;a2.go:25:3: c.sayHi undefined (type C has no field or method sayHi)</span><br><span class="line">.&#x2F;a2.go:27:4: mc.sayHello undefined (type MicroC has no field or method sayHello)</span><br></pre></td></tr></table></figure>
+
+<h2 id="新类型的应用场景"><a href="#新类型的应用场景" class="headerlink" title="新类型的应用场景"></a>新类型的应用场景</h2><p>在使用有限状态机的情况下, 我们可以为能预见的所有状态定义为一个单独的类型. 拿一台kvm的虚拟机来说. 描述虚拟机的运行状态, 就是一种有限状态机的场景. 虚拟机可以是如下任意一种状态:</p>
+<ul>
+<li>up</li>
+<li>down</li>
+<li>poweringup</li>
+<li>poweringdown</li>
+<li>rebooting</li>
+<li>shutingdown</li>
+</ul>
+<p>再比如给虚拟机创建的磁盘文件, 可以有以下格式可选:</p>
+<ul>
+<li>cow</li>
+<li>raw</li>
+</ul>
+<p>我们拿磁盘来举例:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> DiskFormat <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	DiskFormatCow DiskFormat = <span class="string">"cow"</span></span><br><span class="line">	DiskFormatRaw DiskFormat = <span class="string">"raw"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(df DiskFormat)</span> <span class="title">IsValid</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> df &#123;</span><br><span class="line">	<span class="keyword">case</span> DiskFormatCow:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	<span class="keyword">case</span> DiskFormatRaw:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createDisk</span><span class="params">(format DiskFormat)</span></span> &#123;</span><br><span class="line">	fmt.Println(format.IsValid())</span><br><span class="line">	fmt.Printf(<span class="string">"传递的磁盘格式为: %T\n"</span>, format)</span><br><span class="line">	fmt.Println(<span class="string">"创建磁盘文件"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"磁盘创建完成"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> diskType = <span class="string">"a"</span></span><br><span class="line">	createDisk(diskType)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;a1.go:33:12: cannot use diskType (type string) as type DiskFormat in argument to createDisk</span><br></pre></td></tr></table></figure>
+
+<p>创建磁盘传参的时候, 我传递了一个<code>string &quot;a&quot;</code>, 但是实际参数需要的数据类型为<code>DiskFormat</code>, 如果你非要使用自定义字符串传参, 那么你需要类型转换, 就像以下这样:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> diskType = <span class="string">"a"</span></span><br><span class="line">	createDisk(DiskFormat(diskType))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是更推荐的做法是使用预定义的常量来传参</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	createDisk(DiskFormatCow)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="别名应用场景"><a href="#别名应用场景" class="headerlink" title="别名应用场景"></a>别名应用场景</h2><p>别名的一个典型的应用场景是重构项目. 重构项目时, 可能会有代码使用老包中的方法, 也可能会使用扩展的新包中的方法. 使用别名可以灵活的”继承”原数据类型的所有方法, 并做扩展.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>别名的本质是一个数据类型的不同的名字. 比如我有一个中文名叫<code>极地瑞雪</code>, 我还有一个英文名叫<code>PolarSnow</code>, 英文名就是中文名的一个别名而已, 实际本尊只有一个. <code>极地瑞雪</code>新学了个<code>滑雪</code>的技能, <code>PolarSnow</code>新学了个<code>游泳</code>的技能. 本质上, 就是我学会了 <code>滑雪</code> 和 <code>游泳</code>,  <code>极地瑞雪</code>和<code>PolarSnow</code>都可以施展这两项技能</p>
+<p>定义全新类型真的就是全新类型, 不夹带任何原数据类型的方法. 就好比是我的克隆人, 从头培养, 从吃饭睡觉打豆豆开始培养, 我现在已有的任何技能, 都和克隆人没有任何关系. 克隆人学会了特殊技能也跟我本尊没有任何关系. 注意, 我的吃饭方法和克隆人的吃饭方法可以同时存在, 各自有各自的吃饭方法. 但是别名是不允许同名方法的情况存在的 </p>
+
       
     </div>
 
@@ -1198,103 +1344,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/" class="post-title-link" itemprop="url">go语言struct中的匿名字段与组合</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-20 21:18:47" itemprop="dateCreated datePublished" datetime="2019-04-20T21:18:47+08:00">2019-04-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/20/go语言struct中的匿名字段与组合/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>很多文档中都反复强调了, go语言中没有继承, 只有组合, 活用组合的特性可以让代码更加优雅. 在go语言中, struct中的匿名字段实现了组合的特性</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/20/go%E8%AF%AD%E8%A8%80struct%E4%B8%AD%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E4%B8%8E%E7%BB%84%E5%90%88/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1362,7 +1416,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1375,7 +1429,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

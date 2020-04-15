@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,100 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/" class="post-title-link" itemprop="url">解决ImportError: No module named zlib</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-21 13:36:47" itemprop="dateCreated datePublished" datetime="2016-01-21T13:36:47+08:00">2016-01-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/21/解决ImportError-No-module-named-zlib/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>常用的CentOS6.7中，默认自带的Python版本还是2.6.6，升级到2.7.11后，安装某些第三方的库提示<code>ImportError: No module named zlib</code> 百度了一下，按照前辈的方法果然解决了问题。特此记录下来！</p>
+</blockquote>
+<p><strong>bash部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zlib zlib-devel openssl</span><br></pre></td></tr></table></figure>
+
+<p><strong>python部分</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd Python2.7.11</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;python27</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p><strong>验证</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import zlib</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><em>没有结果就是最好的结果！</em></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1377,109 +1471,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Python中glob模块的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-20 17:58:48" itemprop="dateCreated datePublished" datetime="2015-11-20T17:58:48+08:00">2015-11-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2015/11/20/Python%E4%B8%ADglob%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/20/Python中glob模块的使用/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本篇文章介绍Python中的glob模块的基本使用。glob模块可以按指定路径得到所有符合条件的文件的完整路径。<br>glob的使用体验类似于windows系统中常用的搜索功能。使用通配符进行搜索</p>
-</blockquote>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>glob是Python中最简单的模块之一，功能很简单，类似于windows中的查找文件。使用如下通配符进行操作：</p>
-<ul>
-<li><code>*</code> 星号：表示匹配0个或多个字符</li>
-<li><code>?</code> 问号：表示匹配单个字符</li>
-<li><code>[]</code> 中括号： 匹配指定的范围。如[0-9]</li>
-</ul>
-<h1 id="glob-glob"><a href="#glob-glob" class="headerlink" title="glob.glob"></a>glob.glob</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> glob</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files_path = glob.glob(<span class="string">"/tmp/npm*"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(file_paths)</span><br><span class="line">&lt;type <span class="string">'list'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> files_path:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> f</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">/tmp/npm<span class="number">-7838</span><span class="number">-2</span>b67e940</span><br><span class="line">/tmp/npm<span class="number">-5331</span><span class="number">-1</span>d55c699</span><br><span class="line">/tmp/npm<span class="number">-6600</span><span class="number">-69</span>f3511a</span><br><span class="line">/tmp/npm<span class="number">-5116</span><span class="number">-69883</span>a41</span><br><span class="line">/tmp/npm<span class="number">-5009</span><span class="number">-8</span>ef54da7</span><br><span class="line">/tmp/npm<span class="number">-7792</span>-fec6155a</span><br><span class="line">/tmp/npm<span class="number">-3252</span><span class="number">-71</span>dc8e8e</span><br><span class="line">/tmp/npm<span class="number">-4344</span><span class="number">-50e90470</span></span><br><span class="line">/tmp/npm<span class="number">-6387</span><span class="number">-29</span>ec15b1</span><br><span class="line">/tmp/npm<span class="number">-4617</span>-fff22b70</span><br><span class="line">/tmp/npm<span class="number">-4456</span>-b90bb1d8</span><br><span class="line">/tmp/npm<span class="number">-6480</span>-cce3191b</span><br><span class="line">/tmp/npm<span class="number">-4062</span><span class="number">-60</span>f050ce</span><br><span class="line">/tmp/npm<span class="number">-4712</span><span class="number">-1</span>ca9017c</span><br><span class="line">/tmp/npm<span class="number">-3770</span>-aec98483</span><br><span class="line">/tmp/npm<span class="number">-3913</span><span class="number">-8678</span>ef60</span><br><span class="line">/tmp/npm<span class="number">-5235</span><span class="number">-03941</span>a1e</span><br></pre></td></tr></table></figure>
-
-<p>重点看类型！ <strong>list !!!</strong> 返回的是一个列表</p>
-<h1 id="glob-iglob"><a href="#glob-iglob" class="headerlink" title="glob.iglob"></a>glob.iglob</h1><p>iglob用来获取一个可迭代对象，再对其遍历。数据量非常大的时候比较适用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> glob</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files_path = glob.iglob(<span class="string">"/tmp/npm*"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(files_path)</span><br><span class="line">&lt;type <span class="string">'generator'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> files_path:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> f</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">/tmp/npm<span class="number">-7838</span><span class="number">-2</span>b67e940</span><br><span class="line">/tmp/npm<span class="number">-5331</span><span class="number">-1</span>d55c699</span><br><span class="line">/tmp/npm<span class="number">-6600</span><span class="number">-69</span>f3511a</span><br><span class="line">/tmp/npm<span class="number">-5116</span><span class="number">-69883</span>a41</span><br><span class="line">/tmp/npm<span class="number">-5009</span><span class="number">-8</span>ef54da7</span><br><span class="line">/tmp/npm<span class="number">-7792</span>-fec6155a</span><br><span class="line">/tmp/npm<span class="number">-3252</span><span class="number">-71</span>dc8e8e</span><br><span class="line">/tmp/npm<span class="number">-4344</span><span class="number">-50e90470</span></span><br><span class="line">/tmp/npm<span class="number">-6387</span><span class="number">-29</span>ec15b1</span><br><span class="line">/tmp/npm<span class="number">-4617</span>-fff22b70</span><br><span class="line">/tmp/npm<span class="number">-4456</span>-b90bb1d8</span><br><span class="line">/tmp/npm<span class="number">-6480</span>-cce3191b</span><br><span class="line">/tmp/npm<span class="number">-4062</span><span class="number">-60</span>f050ce</span><br><span class="line">/tmp/npm<span class="number">-4712</span><span class="number">-1</span>ca9017c</span><br><span class="line">/tmp/npm<span class="number">-3770</span>-aec98483</span><br><span class="line">/tmp/npm<span class="number">-3913</span><span class="number">-8678</span>ef60</span><br><span class="line">/tmp/npm<span class="number">-5235</span><span class="number">-03941</span>a1e</span><br></pre></td></tr></table></figure>
-
-<p>上面的实例可以看出使用glob.iglob返回的是一个可迭代对象，可以节省内存。</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1547,7 +1543,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1560,7 +1556,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

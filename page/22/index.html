@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,105 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Python线程的基本使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-17 13:11:26" itemprop="dateCreated datePublished" datetime="2016-07-17T13:11:26+08:00">2016-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/07/17/Python%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/17/Python线程的基本使用/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="实例1-start"><a href="#实例1-start" class="headerlink" title="实例1 start"></a>实例1 start</h1><p>创建子线程并执行线程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br><span class="line">PolarSnow</span><br><span class="line">func end</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码在主线程中创建了一个子线程去执行一个函数</p>
+<p>执行这个函数最少需要2秒钟，而主线程直接去执行了<code>print(&#39;end&#39;)</code>，说明在默认情况下，主线程不会等待子线程直接结束再向下执行，而是主线程先向下执行，即使主线程所有代码已经执行完毕，也不会退出程序，而是等待所有子线程执行结束后再退出程序</p>
+<h1 id="实例2-setDaemon"><a href="#实例2-setDaemon" class="headerlink" title="实例2 setDaemon"></a>实例2 setDaemon</h1><p>设置主线程不等待子线程执行完毕</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
+
+<p>在启动线程之前设置<code>t.setDaemon(True)</code>为True，意思是主线程不会等待所有的子线程执行完毕再退出程序，而是当主线程执行完毕后，强制退出程序，不管子线程有没有执行完毕</p>
+<h1 id="实例3-join"><a href="#实例3-join" class="headerlink" title="实例3 join"></a>实例3 join</h1><p>主线程等待子线程执行完毕后，再向下执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line">t.join() <span class="comment"># 主线程停在这里</span></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">PolarSnow</span><br><span class="line">func end</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
+
+<p>使用了join方法之后，主线程会一直停在join方法那一行，直到所有的子线程都执行完毕后，再继续向下执行</p>
+<h1 id="实例4-join-1"><a href="#实例4-join-1" class="headerlink" title="实例4 join(1)"></a>实例4 join(1)</h1><p>设置主线程再次等待子线程的最大时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">'func start'</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    print(arg)</span><br><span class="line">    print(<span class="string">'func end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个线程</span></span><br><span class="line"><span class="comment"># target 指定让线程执行的函数</span></span><br><span class="line">t = threading.Thread(target=func, args=(<span class="string">'PolarSnow'</span>,))</span><br><span class="line">t.setDaemon(<span class="literal">True</span>) <span class="comment"># 默认为False</span></span><br><span class="line">t.start()</span><br><span class="line">t.join(<span class="number">1</span>) <span class="comment"># 主线程停在这里</span></span><br><span class="line">print(<span class="string">'main end'</span>)</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">func start</span><br><span class="line">main end</span><br></pre></td></tr></table></figure>
+
+<p>设置为主线程在<code>t.join</code>这一行，<strong>最多</strong>等待1秒钟的时间，1秒钟之后，不管子线程有没有执行完毕都会继续向下执行</p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1399,120 +1498,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/07/07/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%AE%80%E5%8D%95%E4%BA%A4%E4%BA%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/07/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%AE%80%E5%8D%95%E4%BA%A4%E4%BA%92/" class="post-title-link" itemprop="url">Python网络编程之简单交互</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-07 23:09:39" itemprop="dateCreated datePublished" datetime="2016-07-07T23:09:39+08:00">2016-07-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/07/07/Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%AE%80%E5%8D%95%E4%BA%A4%E4%BA%92/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/07/Python网络编程之简单交互/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="为单用户服务"><a href="#为单用户服务" class="headerlink" title="为单用户服务"></a>为单用户服务</h1><ul>
-<li><font color="red">server.py</font> </li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待客户端的连接(阻塞函数)</span></span><br><span class="line"><span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">conn, addr = s.accept()</span><br><span class="line"><span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line"><span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 5: 接收消息(在conn通道没有被关闭的情况下是阻塞的函数,一旦conn被客户端关闭,该函数将不会阻塞)</span></span><br><span class="line">    recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果conn通道被客户端主动关闭,recv函数将不再阻塞,recv_data将接收到空字符串</span></span><br><span class="line">    <span class="comment"># 通过判断recv_data为空字符串来退出服务端的连接</span></span><br><span class="line">    <span class="keyword">if</span> len(recv_data) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 6: 发送消息</span></span><br><span class="line">    send_data = recv_data.upper()</span><br><span class="line">    conn.send(send_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 7: 断开连接</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
-
-<p>这个服务端在与客户端交互（收发消息）的部分使用了循环，没次接收消息，处理消息，发送消息之后就进入到下一次循环等待接收消息。</p>
-<p>这里需要注意的一点就是conn，服务端的conn对象对应了客户端的s对象，都代表了两端之间建立的连接通道，一旦客户端主动关闭连接对象s，在服务端对应的conn对象将立即失效，随即退出循关闭服务端持有的连接对象。</p>
-<p>此时conn.recv()函数不再是一个阻塞的状态，它将返回空值。我们需要对接收这个空值的对象（变量）做出相应的处理，关闭掉服务端持有的连接对象</p>
-<ul>
-<li><font color="blue">client.py</font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 连接服务端</span></span><br><span class="line">s.connect(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 3: 发送消息</span></span><br><span class="line">    send_data = input(<span class="string">"&gt; "</span>).strip()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果客户端输入了exit,退出循环,主动close掉与服务端的连接</span></span><br><span class="line">    <span class="keyword">if</span> send_data == <span class="string">"exit"</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果什么也没有输入,重新循环接收输入</span></span><br><span class="line">    <span class="keyword">if</span> len(send_data) == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这里注意,和服务端不同的是,服务端找到对端是通过conn对象,而客户端是s对象</span></span><br><span class="line">    <span class="comment"># 在Python3.x中,socket对象发送对象必须是字节类型(2.7中可以是字符串)</span></span><br><span class="line">    s.send(bytes(send_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 4: 收消息</span></span><br><span class="line">    recv_data = s.recv(<span class="number">1024</span>)</span><br><span class="line">    print(recv_data, <span class="string">"---&gt;"</span>, type(recv_data), str(recv_data, encoding=<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 5: 断开连接</span></span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
-
-<p>这个版本实现了服务端为单个用户提供服务的场景。</p>
-<p>从上面的说明中也可以看出，服务端在接收到客户端主动关闭的操作后（特征为：conn.recv返回值为空），相继关闭服务端持有的连接对象，接着代码就停止了。</p>
-<p><em>这里需要特别注意的就是处理客户端输入为空的情况，因为服务端判断客户端是否主动断开，主要依据的就是conn.recv方法的返回值是否为空，所以我们要屏蔽掉用户输入为空的情况</em></p>
-<h1 id="为多用户服务（排队）"><a href="#为多用户服务（排队）" class="headerlink" title="为多用户服务（排队）"></a>为多用户服务（排队）</h1><ul>
-<li><font color="red">server.py</font> </li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">ip_port = (<span class="string">'127.0.0.1'</span>, <span class="number">5555</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 1: 创建socket套接字, 里面封装了通信协议</span></span><br><span class="line">s = socket.socket()</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 2: 绑定IP及端口号</span></span><br><span class="line">s.bind(ip_port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3: 监听绑定的端口</span></span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把接收客户端连接请求的操作循环起来就可以接受多个用户的请求啦</span></span><br><span class="line"><span class="comment"># 注意:同一时间只能处理一个客户端的请求,其他连接上的用户会排队等待</span></span><br><span class="line"><span class="comment"># 最后支持多少个用户排队等待,是由listen中的参数决定的(连接池)</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 等待客户端的连接(阻塞函数)</span></span><br><span class="line">    <span class="comment"># step 4: 接受客户端的连接</span></span><br><span class="line">    conn, addr = s.accept()</span><br><span class="line">    <span class="comment"># conn对象里封装了连接过来的这个客户端的通信线路信息</span></span><br><span class="line">    <span class="comment"># 后期跟这个客户端的通信与交互都需要在conn这条通信线路上进行</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 5: 接收消息(在conn通道没有被关闭的情况下是阻塞的函数,一旦conn被客户端关闭,该函数将不会阻塞)</span></span><br><span class="line">        recv_data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果conn通道被客户端主动关闭,recv函数将不再阻塞,recv_data将接收到空字符串</span></span><br><span class="line">        <span class="comment"># 通过判断recv_data为空字符串来退出服务端的连接</span></span><br><span class="line">        <span class="keyword">if</span> len(recv_data) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># step 6: 发送消息</span></span><br><span class="line">        send_data = recv_data.upper()</span><br><span class="line">        conn.send(send_data)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step 7: 断开连接</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
-
-<p>服务端的代码只增加了一个while循环，上一个代码版本中，服务端唯一的循环放在了处理某一客户端的请求上。此次加上的循环，放在了接收用户连接请求上，可以在<code>关闭上一个连接之后</code>，循环的处理下一个连接请求</p>
-<ul>
-<li><font color="blue">client.py</font> 客户端的代码没有任何修改</li>
-</ul>
-<p>此时，连续的运行两个客户端，发现两个客户端都可以连接到服务端，但是一个可断端发出请求后，在第一个客户端不关闭连接的情况下，第二个客户端发出的请求一直卡在终端中。只有第一个客户端关闭连接，触发服务端关闭对第一个客户端的连接之后，才会去接收第二个客户端发来的信息</p>
-<p>这里特别提示一下，当两个客户端相继连接上服务端后，看似服务端对两个连接都接受了请求，但是，只有第一个连接过来的客户端才进入到了服务端代码中的内层while循环体，此时即使第一个客户端没有发送信息，第二个客户端先给服务端发送信息，终端也是会阻塞住的</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1580,7 +1570,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1593,7 +1583,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,294 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/05/22/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/22/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/" class="post-title-link" itemprop="url">Python学习笔记[2]</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-05-22 09:44:32" itemprop="dateCreated datePublished" datetime="2016-05-22T09:44:32+08:00">2016-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/05/22/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/22/Python学习笔记-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ol>
+<li>常见的数据类型</li>
+<li>字符串的常用操作</li>
+<li>列表的语法和使用</li>
+<li>元组的语法和使用</li>
+<li>字典的语法和使用</li>
+</ol>
+</blockquote>
+<h1 id="常见的数据类型"><a href="#常见的数据类型" class="headerlink" title="常见的数据类型"></a>常见的数据类型</h1><p>Python中的数据类型可以分为两类，一类是 <code>基本数据类型</code> 一类是 <code>引用数据类型</code> </p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><ul>
+<li>字符型： ‘a’, ‘message’</li>
+<li>数值型： 59, 1991.59</li>
+<li>布尔类型: True, False</li>
+</ul>
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><ul>
+<li>列表： [1, 2, 3], [‘abc’, ‘xyz’]</li>
+<li>元组： (1, 2, 3), (‘abc’, ‘xyz’)</li>
+<li>字典： {‘name’=’larry’, ‘age’: 25}</li>
+<li>类</li>
+</ul>
+<p><strong>基本数据类型与引用数据类型的区别：前者传值，后者传址</strong></p>
+<h1 id="字符串的常用操作"><a href="#字符串的常用操作" class="headerlink" title="字符串的常用操作"></a>字符串的常用操作</h1><ul>
+<li>移除字符串的两端空白字符</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: a = <span class="string">'   aa   '</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: a</span><br><span class="line">Out[<span class="number">13</span>]: <span class="string">'   aa   '</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: a.strip()</span><br><span class="line">Out[<span class="number">14</span>]: <span class="string">'aa'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: a.lstrip()</span><br><span class="line">Out[<span class="number">15</span>]: <span class="string">'aa   '</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: a.rstrip()</span><br><span class="line">Out[<span class="number">16</span>]: <span class="string">'   aa'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将字符串以指定的分割符分割成列表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: a = <span class="string">'a,b,c,d,e'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: a.split(<span class="string">','</span>)</span><br><span class="line">Out[<span class="number">18</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>统计字符串长度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: a = <span class="string">'I am Chinese!'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: len(a)</span><br><span class="line">Out[<span class="number">20</span>]: <span class="number">13</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在字符串中找到指定字符的位置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">21</span>]: a = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: a.index(<span class="string">'o'</span>)</span><br><span class="line">Out[<span class="number">22</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: a.index(<span class="string">'o'</span>, <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">23</span>]: <span class="number">7</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: a.index(<span class="string">'o'</span>, <span class="number">2</span>, <span class="number">6</span>)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">ValueError                                Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-24</span><span class="number">-2</span>bb3a06d2fe6&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 a.index('o', 2, 6)</span><br><span class="line"></span><br><span class="line">ValueError: substring <span class="keyword">not</span> found</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>切片</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">25</span>]: a = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]: a[<span class="number">0</span>:<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">26</span>]: <span class="string">'polar'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: a[:<span class="number">5</span>] </span><br><span class="line">Out[<span class="number">27</span>]: <span class="string">'polar'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: a[<span class="number">-1</span>]</span><br><span class="line">Out[<span class="number">28</span>]: <span class="string">'w'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: a[<span class="number">-4</span>:]</span><br><span class="line">Out[<span class="number">29</span>]: <span class="string">'snow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">30</span>]: a[<span class="number">5</span>:] </span><br><span class="line">Out[<span class="number">30</span>]: <span class="string">'snow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">31</span>]: a[<span class="number">-4</span>:<span class="number">-1</span>]  <span class="comment">#注意Python中的切片是左闭右开</span></span><br><span class="line">Out[<span class="number">31</span>]: <span class="string">'sno'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>统计字符串中指定字符的个数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [32]: a &#x3D; &#39;polarsnow&#39;   </span><br><span class="line"></span><br><span class="line">In [33]: a.count(&#39;o&#39;)</span><br><span class="line">Out[33]: 2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将指定字符串置于中央</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">34</span>]: a = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">35</span>]: a.center(<span class="number">50</span>, <span class="string">'-'</span>)</span><br><span class="line">Out[<span class="number">35</span>]: <span class="string">'--------------------polarsnow---------------------'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>判断是否以指定字符串开头或结尾</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">38</span>]: a = <span class="string">'polarsnow'</span>  </span><br><span class="line"></span><br><span class="line">In [<span class="number">39</span>]: a.endswith(<span class="string">'ow'</span>)</span><br><span class="line">Out[<span class="number">39</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">40</span>]: a.startswith(<span class="string">'po'</span>)</span><br><span class="line">Out[<span class="number">40</span>]: <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串大小写或首字母大写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">41</span>]: a = <span class="string">'polarsnow'</span>   </span><br><span class="line"></span><br><span class="line">In [<span class="number">42</span>]: a.upper()</span><br><span class="line">Out[<span class="number">42</span>]: <span class="string">'POLARSNOW'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">43</span>]: a.upper().lower()</span><br><span class="line">Out[<span class="number">43</span>]: <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">44</span>]: a.capitalize()</span><br><span class="line">Out[<span class="number">44</span>]: <span class="string">'Polarsnow'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串属性判断-isalnum-是否只含有字母和数字</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">46</span>]: a = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">47</span>]: a.isalnum()    </span><br><span class="line">Out[<span class="number">47</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">48</span>]: a = <span class="string">'polarsnow%'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">49</span>]: a.isalnum()     </span><br><span class="line">Out[<span class="number">49</span>]: <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">50</span>]: a = <span class="string">'polarsnow5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">51</span>]: a.isalnum()     </span><br><span class="line">Out[<span class="number">51</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: a = <span class="string">'polar snow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">53</span>]: a.isalnum()     </span><br><span class="line">Out[<span class="number">53</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串属性判断-isalpha-是否只含有字母</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">54</span>]: a = <span class="string">'polarsnow'</span> </span><br><span class="line"></span><br><span class="line">In [<span class="number">55</span>]: a.isalpha()</span><br><span class="line">Out[<span class="number">55</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">56</span>]: a = <span class="string">'polarsnow%'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">57</span>]: a.isalpha()     </span><br><span class="line">Out[<span class="number">57</span>]: <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">58</span>]: a = <span class="string">'polarsnow5'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">59</span>]: a.isalpha()     </span><br><span class="line">Out[<span class="number">59</span>]: <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">60</span>]: a = <span class="string">'polar snow'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">61</span>]: a.isalpha()     </span><br><span class="line">Out[<span class="number">61</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串属性判断-isdigit-是否只包含数字</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">62</span>]: a = <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">63</span>]: a.isdigit()</span><br><span class="line">Out[<span class="number">63</span>]: <span class="literal">True</span></span><br><span class="line">``</span><br><span class="line"></span><br><span class="line">- 字符串属性判断-isspace-是否只包含空格</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">In [<span class="number">71</span>]: a = <span class="string">' '</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">72</span>]: a.isspace()</span><br><span class="line">Out[<span class="number">72</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">73</span>]: a = <span class="string">''</span>     </span><br><span class="line"></span><br><span class="line">In [<span class="number">74</span>]: a.isspace()</span><br><span class="line">Out[<span class="number">74</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串其他属性判断</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str.isupper()  <span class="comment">#检查字符串所有的字母是否全部为大写</span></span><br><span class="line">str.islower()  <span class="comment">#检查字符串的所有字母是否全部为小写</span></span><br><span class="line">str.istitle()  <span class="comment">#检查字符串的所有单词拼写是否首字母大写，其余小写</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串拼接可迭代对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">l = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">print(<span class="string">""</span>.join(l))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"/Users/lvrui/PycharmProjects/untitled/4/test.py"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print(<span class="string">""</span>.join(l))</span><br><span class="line">TypeError: sequence item <span class="number">0</span>: expected str instance, int found</span><br></pre></td></tr></table></figure>
+
+<p>使用join的方式把一个可迭代对象进行拼接的基本要求是，可迭代对象中的每一个元素必须是字符串！！！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">l = [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>]</span><br><span class="line">print(<span class="string">"+"</span>.join(l))</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line"><span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="列表的常用操作"><a href="#列表的常用操作" class="headerlink" title="列表的常用操作"></a>列表的常用操作</h1><ul>
+<li>列表的定义</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list_a = []  <span class="comment">#定义了一个空列表</span></span><br><span class="line">list_b = [<span class="number">1</span>, <span class="string">'a'</span>, [<span class="number">2</span>, <span class="string">'z'</span>]]  <span class="comment">#嵌套列表</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表的索引/取值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">75</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">76</span>]: a[<span class="number">0</span>]</span><br><span class="line">Out[<span class="number">76</span>]: <span class="string">'a'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">77</span>]: a[<span class="number">1</span>]</span><br><span class="line">Out[<span class="number">77</span>]: <span class="string">'b'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表的切片</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">78</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">79</span>]: a[<span class="number">2</span>:]</span><br><span class="line">Out[<span class="number">79</span>]: [<span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">80</span>]: a[<span class="number">-1</span>]</span><br><span class="line">Out[<span class="number">80</span>]: <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">81</span>]: a[<span class="number">-2</span>:]  </span><br><span class="line">Out[<span class="number">81</span>]: [<span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">82</span>]: a[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">Out[<span class="number">82</span>]: [<span class="string">'b'</span>, <span class="string">'c'</span>]  <span class="comment">#与字符串的切片相同，也要注意左闭右开</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">128</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">129</span>]: a[::<span class="number">2</span>]  <span class="comment">#设置步长</span></span><br><span class="line">Out[<span class="number">129</span>]: [<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表的遍历</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">83</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">84</span>]: <span class="keyword">for</span> item <span class="keyword">in</span> a:</span><br><span class="line">   ....:     <span class="keyword">print</span> item</span><br><span class="line">   ....:     </span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">a</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>向列表中追加数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">85</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">86</span>]: a.append(<span class="string">'xxx'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">87</span>]: a</span><br><span class="line">Out[<span class="number">87</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'xxx'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>向列表中插入数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">107</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">108</span>]: a.insert(<span class="number">0</span>, <span class="string">'xxx'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">109</span>]: a</span><br><span class="line">Out[<span class="number">109</span>]: [<span class="string">'xxx'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除列表中的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">88</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">89</span>]: <span class="keyword">del</span> a[<span class="number">0</span>]  <span class="comment">#万能删除法 可以将整个变量删除</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">90</span>]: a</span><br><span class="line">Out[<span class="number">90</span>]: [<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">91</span>]: a.pop()  <span class="comment">#将列表最后一个元素删除</span></span><br><span class="line">Out[<span class="number">91</span>]: <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">92</span>]: a</span><br><span class="line">Out[<span class="number">92</span>]: [<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">93</span>]: a.remove(<span class="string">'c'</span>)  <span class="comment">#删除列表中，第一次出现的指定元素（即使有两个c，只会删除第一个）</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">94</span>]: a</span><br><span class="line">Out[<span class="number">94</span>]: [<span class="string">'b'</span>, <span class="string">'a'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">95</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]  <span class="comment">#重新赋值</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">96</span>]: a</span><br><span class="line">Out[<span class="number">96</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">97</span>]: <span class="keyword">del</span> a[<span class="number">1</span>:<span class="number">4</span>]  <span class="comment">#删除连续的元素 注意左闭右开</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">98</span>]: a</span><br><span class="line">Out[<span class="number">98</span>]: [<span class="string">'a'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改列表中的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">101</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">102</span>]: a[<span class="number">3</span>] = <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">103</span>]: a[<span class="number">4</span>] = <span class="string">'e'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">104</span>]: a</span><br><span class="line">Out[<span class="number">104</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表的长度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">105</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">106</span>]: len(a)</span><br><span class="line">Out[<span class="number">106</span>]: <span class="number">5</span>  <span class="comment">#长度为5 注意索引只到4</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>统计列表中指定元素的个数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">110</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">111</span>]: a.count(<span class="string">'a'</span>)</span><br><span class="line">Out[<span class="number">111</span>]: <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将列表中的元素顺序反转</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">112</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">113</span>]: a.reverse()</span><br><span class="line"></span><br><span class="line">In [<span class="number">114</span>]: a</span><br><span class="line">Out[<span class="number">114</span>]: [<span class="string">'d'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>排序（根据ascii码）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">115</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">116</span>]: a.sort()</span><br><span class="line"></span><br><span class="line">In [<span class="number">117</span>]: a</span><br><span class="line">Out[<span class="number">117</span>]: [<span class="string">'a'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>列表的扩展</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">120</span>]: a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">121</span>]: b = [<span class="string">'xxx'</span>, <span class="string">'yyy'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">122</span>]: a.extend(b)</span><br><span class="line"></span><br><span class="line">In [<span class="number">123</span>]: a</span><br><span class="line">Out[<span class="number">123</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'xxx'</span>, <span class="string">'yyy'</span>]</span><br></pre></td></tr></table></figure>
+
+<h1 id="元组的语法和使用（元组就是不可变的列表）"><a href="#元组的语法和使用（元组就是不可变的列表）" class="headerlink" title="元组的语法和使用（元组就是不可变的列表）"></a>元组的语法和使用（元组就是不可变的列表）</h1><p><strong>元组中不可增，删，改。在取值的时候与列表操作类似，有以下常用方法</strong></p>
+<ul>
+<li><p>tuple.count(): 统计指定元素的个数</p>
+</li>
+<li><p>tuple.index(): 找到指定元素的索引</p>
+</li>
+</ul>
+<h1 id="字典的语法和使用"><a href="#字典的语法和使用" class="headerlink" title="字典的语法和使用"></a>字典的语法和使用</h1><ul>
+<li>字典的定义</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">132</span>]: a = &#123;&#125;  <span class="comment">#定义了一个空字典</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">133</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字典中增加元素/修改元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#字典是不重复且无序的，增加元素的操作和修改类似，如果元素存在即修改，如果元素不存在即添加</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">133</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">134</span>]: a[<span class="string">'d'</span>] = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">135</span>]: a</span><br><span class="line">Out[<span class="number">135</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">3</span>, <span class="string">'d'</span>: <span class="number">4</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">136</span>]: a[<span class="string">'d'</span>] = <span class="number">59</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">137</span>]: a</span><br><span class="line">Out[<span class="number">137</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">3</span>, <span class="string">'d'</span>: <span class="number">59</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除字典中的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">140</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">141</span>]: a.pop(<span class="string">'b'</span>)  <span class="comment">#因为字典是无序的 与列表中的pop删除最后一个元素的概念区分开 这里需要指定“键”</span></span><br><span class="line">Out[<span class="number">141</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">142</span>]: a</span><br><span class="line">Out[<span class="number">142</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'c'</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">143</span>]: <span class="keyword">del</span> a[<span class="string">'a'</span>]  <span class="comment">#万能删除依然好用~~~</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">144</span>]: a</span><br><span class="line">Out[<span class="number">144</span>]: &#123;<span class="string">'c'</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定key取值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">145</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">146</span>]: a[<span class="string">'a'</span>]</span><br><span class="line">Out[<span class="number">146</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">147</span>]: a[<span class="string">'d'</span>]  <span class="comment">#这种取值的方法如果没有找到，则报错</span></span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">KeyError                                  Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-147</span><span class="number">-0</span>b64a016a51f&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 a['d']</span><br><span class="line"></span><br><span class="line">KeyError: <span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">148</span>]: a.get(<span class="string">'d'</span>)  <span class="comment">#使用get如果没有找到，则返回None</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">149</span>]: </span><br><span class="line"></span><br><span class="line">In [<span class="number">162</span>]: <span class="string">'a'</span> <span class="keyword">in</span> a  <span class="comment">#使用万能的in语法</span></span><br><span class="line">Out[<span class="number">162</span>]: <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查找所有的”键”和所有的“值”</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">150</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">151</span>]: a.keys()</span><br><span class="line">Out[<span class="number">151</span>]: [<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">152</span>]: a.values()</span><br><span class="line">Out[<span class="number">152</span>]: [<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">153</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">154</span>]: a.items()</span><br><span class="line">Out[<span class="number">154</span>]: [(<span class="string">'a'</span>, <span class="number">1</span>), (<span class="string">'c'</span>, <span class="number">3</span>), (<span class="string">'b'</span>, <span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line">In [<span class="number">155</span>]: <span class="keyword">for</span> k,v <span class="keyword">in</span> a.items():  <span class="comment">#执行效率低下（有dict2list的转换过程），数据量大不推荐使用</span></span><br><span class="line">   .....:     print(<span class="string">'key: '</span>, k, <span class="string">'value: '</span>, v)</span><br><span class="line">   .....:     </span><br><span class="line">(<span class="string">'key: '</span>, <span class="string">'a'</span>, <span class="string">'value: '</span>, <span class="number">1</span>)</span><br><span class="line">(<span class="string">'key: '</span>, <span class="string">'c'</span>, <span class="string">'value: '</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="string">'key: '</span>, <span class="string">'b'</span>, <span class="string">'value: '</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">170</span>]: <span class="keyword">for</span> key <span class="keyword">in</span> a:  <span class="comment">#高效的字典遍历方法</span></span><br><span class="line">   .....:     print(key, a[key])</span><br><span class="line">   .....:     </span><br><span class="line">(<span class="string">'a'</span>, <span class="number">1</span>)</span><br><span class="line">(<span class="string">'c'</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="string">'b'</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用子列表更新主列表中的元素（覆盖）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">157</span>]: a</span><br><span class="line">Out[<span class="number">157</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">158</span>]: b = &#123;<span class="string">'c'</span>: <span class="number">59</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">159</span>]: a.update(b)</span><br><span class="line"></span><br><span class="line">In [<span class="number">160</span>]: a</span><br><span class="line">Out[<span class="number">160</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">59</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dict.setdefault(k,v)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据k去取值，如果有则返回v，如果没有则添加这个元素</span></span><br><span class="line">In [<span class="number">164</span>]: a = &#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">165</span>]: a.setdefault(<span class="string">'a'</span>)</span><br><span class="line">Out[<span class="number">165</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">166</span>]: a.setdefault(<span class="string">'a'</span>, <span class="number">59</span>)</span><br><span class="line">Out[<span class="number">166</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">167</span>]: a.setdefault(<span class="string">'d'</span>, <span class="number">59</span>) </span><br><span class="line">Out[<span class="number">167</span>]: <span class="number">59</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">168</span>]: a</span><br><span class="line">Out[<span class="number">168</span>]: &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">3</span>, <span class="string">'d'</span>: <span class="number">59</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1256,105 +1544,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/" class="post-title-link" itemprop="url">解决ImportError: No module named zlib</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-21 13:36:47" itemprop="dateCreated datePublished" datetime="2016-01-21T13:36:47+08:00">2016-01-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/01/21/%E8%A7%A3%E5%86%B3ImportError-No-module-named-zlib/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/21/解决ImportError-No-module-named-zlib/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>常用的CentOS6.7中，默认自带的Python版本还是2.6.6，升级到2.7.11后，安装某些第三方的库提示<code>ImportError: No module named zlib</code> 百度了一下，按照前辈的方法果然解决了问题。特此记录下来！</p>
-</blockquote>
-<p><strong>bash部分</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zlib zlib-devel openssl</span><br></pre></td></tr></table></figure>
-
-<p><strong>python部分</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd Python2.7.11</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;python27</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<p><strong>验证</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import zlib</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p><em>没有结果就是最好的结果！</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1422,7 +1616,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1435,7 +1629,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

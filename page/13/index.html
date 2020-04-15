@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,93 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">MySQL主从1061报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-21 11:09:43" itemprop="dateCreated datePublished" datetime="2017-03-21T11:09:43+08:00">2017-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/03/21/MySQL%E4%B8%BB%E4%BB%8E1061%E6%8A%A5%E9%94%99/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/MySQL主从1061报错/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>MySQL主从 1061 报错, 键冲突, 产生的原因一般为用户在主库上建立索引导致, 可以通过在从库手动删除冲突的索引解决</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先暂停主从同步</span></span><br><span class="line">mysql&gt; stop slave for channel "dbtest";  # MySQL5.7多源复制语法</span><br><span class="line">mysql&gt; stop slave;  # 单主复制语法</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除冲突的索引</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`tableNmae`</span> <span class="keyword">DROP</span> <span class="keyword">INDEX</span> <span class="string">`indexName`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启主从同步</span></span><br><span class="line">mysql&gt; start slave for channel "dbtest"; # MySQL5.7多源复制语法</span><br><span class="line">mysql&gt; start slave;  # 单主复制语法</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1451,103 +1538,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/03/06/docker-%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/06/docker-%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">docker 简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-06 23:49:07" itemprop="dateCreated datePublished" datetime="2017-03-06T23:49:07+08:00">2017-03-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/03/06/docker-%E7%AE%80%E4%BB%8B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/06/docker-简介/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="docker-时间轴"><a href="#docker-时间轴" class="headerlink" title="docker 时间轴"></a>docker 时间轴</h2><p>docker 是容器技术中的一种. 最早是由 dotcloud 公司开源的一款产品. dotcloud 公司是2010年新成立的一家公司, 主要基于 PaaS 平台为开发者提供服务. 在 PaaS 平台下, 所有的服务环境已经预先配置好了, 开发者只需要选择服务类型, 上传代码后即可对外提供服务, 不需要花费大量的时间来搭建服务和配置环境.</p>
-<p>2013年,  dotcloud 的 CEO 决定把 dotcloud 内部使用的 container 容器技术单独拿出来开源. 2013年3月发布 docker 的 V0.1版本, 并且保持每月一个版本的迭代速度. 到同年8月, docker 技术已经足够火爆. 同年10月, dotcloud 公司更名为 Docker 股份有限公司.</p>
-<p>2014年6月9日, Docker 发布 V1.0版本, 并举办了首届 DockerCon 大会, 大会上来自 Google, IBM, RedHat,  Rackspace 等公司的核心人物均发表了主题演讲🗣并纷纷加入 Docker 的阵营.</p>
-<p>2014年12月, Docker 发布了集群管理工具 Machine 和 Swarm.</p>
-<p>2016年1月, Docker 官方计划全面支持自身的 Alpine Linux, 使用它构建的基础镜像最小只有5M</p>
-<h2 id="什么是-Docker"><a href="#什么是-Docker" class="headerlink" title="什么是 Docker"></a>什么是 Docker</h2><p>按照官方的说法, Docker 是一个开源的应用容器引擎.</p>
-<p>拿 Java 来说, 在 Java 之前的编程语言, 像 C/C++, 是严重依赖平台的, 在不同的平台下, 需要重新编译才能运行. Java 的一个非常重要的特性就是与平台无关性,  Java 虚拟机(JVM)是实现这一特性的关键. Java 虚拟机屏蔽了与具体平台的相关性, 使得 Java 语言编译程序只需生成可以在 Java 虚拟机上运行的目标代码, 就可以在多种平台上不加修改的运行. Java 虚拟机在执行字节码的时候, 把字节码解释成具体平台上的机器指令执行.</p>
-<p>Java 的理念是 “Write Once, Run Anywhere”, 而 Docker 则提出了”Build Once, Run Anywhere, Configure Once, Run Anything”</p>
-<p>在 Java 的 JVM 中, 屏蔽了系统平台的干扰; 在 Docker 使用的容器技术中, 则屏蔽了除内核外的所有干扰. 运行在Docker 内的容器, 只对内核敏感. (相对于宿主机而言)</p>
-<p>如果说 Java 是帮助我们把应用打包, 可以运行在任何装有 JVM 的服务器上; 那么使用 Docker 就是帮我们实现应用与环境的统一打包, 可以在任何装有 Docker 的服务器上运行. </p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1615,7 +1610,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1628,7 +1623,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

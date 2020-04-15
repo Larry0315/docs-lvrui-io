@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">381</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">383</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">290</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">291</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,166 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.JPG">
+      <meta itemprop="name" content="极地瑞雪">
+      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Polar Snow Documentation">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">Python类中资源的访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-20 14:13:16" itemprop="dateCreated datePublished" datetime="2017-07-20T14:13:16+08:00">2017-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/07/20/Python%E7%B1%BB%E4%B8%AD%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/20/Python类中资源的访问/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Python 的类中有三种资源类型, 分别为字段, 方法和属性. </p>
+<p>字段又分为静态字段和普通字段</p>
+<p>方法分为静态方法,  普通方法和类方法</p>
+<p>而字段和方法又能有私有字段和私有方法的形态</p>
+<p>本篇文章就来介绍 Python 类中各个资源的访问规则</p>
+</blockquote>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><h2 id="公有静态字段"><a href="#公有静态字段" class="headerlink" title="公有静态字段"></a>公有静态字段</h2><ul>
+<li>在类的外部使用对象名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是使用实例化后的对象去访问的静态字段, 一般情况下, 最好用对象去访问对象自己的普通字段, 不要用对象来访问静态字段</p>
+<ul>
+<li>在类的外部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">print(A.name)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>此种形态是一般情况下, 正确访问类中静态字段的方式, 即使用类名访问</p>
+<ul>
+<li>在类的内部使用对象访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>此种情况是在类的内部, 通过一个方法来获取类中静态字段的值, 在方法中, 使用了对象的名字去调用获取了类中静态字段的值, 一般情况下, 上面也说了, 对于类中对静态字段的访问, 需要使用类名去实现, 不推荐使用对象名去调用</p>
+<ul>
+<li>在类的内部使用类名访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此种情况下, 我通过两种方式, 用类名获取了静态字段的值. 如果使用普通方法的话, 默认方法内的形参只传递了对象的名字, 如果想显示地调用类中的静态字段的话, 需要明确地指定类名; 但是如果是用对象方法的话, 对象方法默认帮我们传递了对象的名字, 所以我们可以使用<code>cls</code>变量直接调用静态字段</p>
+<h2 id="私有静态字段"><a href="#私有静态字段" class="headerlink" title="私有静态字段"></a>私有静态字段</h2><ul>
+<li>在类的内部使用类方法访问</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    __name = <span class="string">'polarsnow'</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__name</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<p>私有的静态字段, 不能在外部使用对象或类名调用, 只能通过在类的内部访问. 上面的例子提供了两种方式来访问私有的静态字段. 一种是在普通方法内通过显示指定来访问, 一种是在类方法中, 通过形参, 隐式地通过<code>cls</code>类名来访问</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="公有方法"><a href="#公有方法" class="headerlink" title="公有方法"></a>公有方法</h2><ul>
+<li>静态方法</li>
+<li>普通方法</li>
+<li>类方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br><span class="line">print(a.f2())</span><br><span class="line">print(a.f3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>在普通方法中, python 隐式传递了对象名; 在类方法总, python 隐式传递了类名; 而静态方法的本质既没有用到对象也没有用到类, 如果静态方法拿到外面来, 就是 python 中普通的函数而已, 之所以把这种函数也放到类中,  是为了方便类中相关操作的聚合, 同一类的操作放到同一个类下</p>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'123'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ff3</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> A.__f3()</span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.ff())</span><br><span class="line">print(a.ff2())</span><br><span class="line">print(a.ff3())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvrui</span><br><span class="line">polarsnow</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>每种类型的方法访问均可以访问自己的私有方法. 在共有静态方法调用私有静态方法时需要注意, 只能使用类名去访问私有静态方法</p>
+<p>在实际使用中, 对于私有方法的访问, 也可以跨类型访问, 比如我可以用一个普通方法去调用一个私有的类方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    name = <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__f2()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f2</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A(<span class="string">'lvrui'</span>)</span><br><span class="line">print(a.f())</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'polarsnow'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">n</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">print(a.n)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polarsnow</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1165,115 +1325,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://docs.lvrui.io/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.JPG">
-      <meta itemprop="name" content="极地瑞雪">
-      <meta itemprop="description" content="极地瑞雪的个人技术博客. "取之开源 用之开源", 分享自己的经验之谈".">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Polar Snow Documentation">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">MySQL中的变量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-02 12:18:31" itemprop="dateCreated datePublished" datetime="2017-06-02T12:18:31+08:00">2017-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2017/06/02/MySQL%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/02/MySQL中的变量/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h1><p>用户变量与数据库连接有关, 这某个连接中声明变量, 在断开连接时这个变量就会消失, 且在这个连接中声明的变量无法在另一个连接中使用.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 用户变量语法</span><br><span class="line"></span><br><span class="line">set @varName&#x3D;value</span><br></pre></td></tr></table></figure>
-
-<p>声明一个变量 <code>varName</code>, 并将它赋值为 <code>value</code></p>
-<p><em>mysql 中的变量是动态数据类型, 它的数据类型会根据它的值的类型而变化</em></p>
-<h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>系统变量中, 又分为 <code>全局变量</code> 和 <code>会话变量</code></p>
-<p>全局变量与会话变量的区别在于, 对全局变量的修改会影响到整个MySQL服务 (所有会话) 而对局部变量的修改只会影响到当前会话的连接</p>
-<p>利用select语句我们可以查询单个会话变量或者全局变量的值：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.sort_buffer_size</span><br><span class="line"><span class="keyword">select</span> @@global.tmpdir</span><br></pre></td></tr></table></figure>
-
-<p>凡是上面提到的session，都可以用local这个关键字来代替。</p>
-<p>比如： <code>select @@local.sort_buffer_size</code></p>
-<p><em>local 是 session的近义词</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">无论是在设置系统变量还是查询系统变量值的时候，只要没有指定到底是全局变量还是会话变量, 都当做会话变量来处理。</span><br><span class="line"></span><br><span class="line">比如：</span><br><span class="line">set @@sort_buffer_size &#x3D; 50000;</span><br><span class="line">select @@sort_buffer_size;</span><br><span class="line"></span><br><span class="line">上面都没有指定是GLOBAL还是SESSION，所以全部当做SESSION处理。</span><br></pre></td></tr></table></figure>
-
-<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><p>全局变量在 MySQL 启动的时候由服务器自动初始化他们的值, 这些默认的值可以在 <code>/etc/my.cnf</code> 中修改</p>
-<h3 id="查看全局变量"><a href="#查看全局变量" class="headerlink" title="查看全局变量"></a>查看全局变量</h3><p><code>show global variables;</code></p>
-<h3 id="修改全局变量"><a href="#修改全局变量" class="headerlink" title="修改全局变量"></a>修改全局变量</h3><p><code>set global varname = value;</code> 或 <code>set @@global.varname = value;</code></p>
-<h2 id="会话变量"><a href="#会话变量" class="headerlink" title="会话变量"></a>会话变量</h2><p>会话变量在每一个数据库连接建立后, 由 MySQL 来初始化. MySQL 会将当前所有的全局变量都复制一份作为会话变量</p>
-<h3 id="查看会话变量"><a href="#查看会话变量" class="headerlink" title="查看会话变量"></a>查看会话变量</h3><p><code>show session variables;</code>  或 <code>show variables;</code></p>
-<h3 id="修改会话变量"><a href="#修改会话变量" class="headerlink" title="修改会话变量"></a>修改会话变量</h3><p><code>set session varname = value;</code> 或 <code>set @@session.varname = value;</code></p>
-<h1 id="只读变量"><a href="#只读变量" class="headerlink" title="只读变量"></a>只读变量</h1><p>有些系统变量的值是可以利用语句来动态进行更改的，但是有些系统变量的值却是只读的</p>
-
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1341,7 +1397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1354,7 +1410,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">381</span>
+        <span class="site-state-item-count">383</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
